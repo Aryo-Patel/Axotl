@@ -6,6 +6,10 @@ const RecipientSchema = new Schema({
         type: String,
         required: true,
     },
+    sponsor: {
+        type: Boolean,
+        default: false,
+    },
     email: {
         type: String,
         required: true,

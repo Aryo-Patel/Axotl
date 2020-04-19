@@ -6,6 +6,10 @@ const SponsorSchema = new Schema({
         type: String,
         required: true,
     },
+    sponsor: {
+        type: Boolean,
+        default: true,
+    },
     email: {
         type: String,
         required: true,
@@ -21,7 +25,6 @@ const SponsorSchema = new Schema({
         type: Date,
         default: Date.now,
     },
-
 });
 
 let Sponsor = new mongoose.model("Sponsors", SponsorSchema);

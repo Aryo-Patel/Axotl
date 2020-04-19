@@ -3,6 +3,9 @@ const socketio = require('socket.io')
 const http = require('http')
 const passport = require('passport')
 
+const recipients = require('./routes/api/recipients');
+const sponsors = require('./routes/api/sponsors');
+
 
 const PORT = process.env.PORT || 6969
 
@@ -13,7 +16,6 @@ const app = express()
 app.use(express.json({ extended: false }))
 
 //authentication middleware will be here, TBD but will likely include various passport and express addons
-
 
 //production static serving from client side
 if (process.env.NODE_ENV === 'production') {
@@ -27,8 +29,9 @@ if (process.env.NODE_ENV === 'production') {
 //Placeholder for socket initialization for chat
 
 
-//Define Routers
-app.use('/api/users', require('./routes/api/users'))
+//Use the routes
+app.use('/api/users', recipients);
+app.use('/api/sponsors', sponsors);
 
 //Server Initialization
 app.listen(PORT, () => {
