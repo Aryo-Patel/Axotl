@@ -1,0 +1,6 @@
+{
+    "mongoURI": "tobefilled",
+    "jwtSecret": "nadencristjuban",
+    "googleClientID": "tobefilled",
+    "googleClientSecret": "tobefilled"
+}
