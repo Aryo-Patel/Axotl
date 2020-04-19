@@ -8,6 +8,7 @@ import store from "./store"
 
 //Component Imports
 import NavBar from './components/layout/NavBar'
+import Landing from './components/layout/Landing'
 
 import logo from './logo.svg';
 import './App.css';
@@ -18,7 +19,7 @@ function App() {
       <Router>
         <Fragment>
           <NavBar />
-          <h1>Hello</h1>
+          <Landing />
           <Switch>
             
           </Switch>
