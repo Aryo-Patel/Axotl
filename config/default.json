@@ -1,5 +1,5 @@
 {
-    "mongoURI": "tobefilled",
+    "mongoURI": "mongodb+srv://nadharm:nadharm@cluster0-eseqy.mongodb.net/test?retryWrites=true&w=majority",
     "jwtSecret": "nadencristjuban",
     "googleClientID": "tobefilled",
     "googleClientSecret": "tobefilled"
