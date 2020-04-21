@@ -32,7 +32,7 @@ app.use(express.json({ extended: false }))
 //initializing store for sessions
 const store = new MongoDBStore({
     uri: config.get('MongoStoreURI'),
-    database: "SessionStorage"
+    database: "SessionStorage",
     collection: 'mySessions'
 }, (err) => {
     console.error(error);
