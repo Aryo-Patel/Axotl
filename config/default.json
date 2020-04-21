@@ -1,6 +1,7 @@
 {
     "mongoURI": "mongodb+srv://nadharm:nadharm@cluster0-eseqy.mongodb.net/test?retryWrites=true&w=majority",
-    "jwtSecret": "nadencristjuban",
+    "MongoStoreURI": "placeholder",
+    "sessionSecret": "nadencristjuban",
     "googleClientID": "tobefilled",
     "googleClientSecret": "tobefilled"
 }
