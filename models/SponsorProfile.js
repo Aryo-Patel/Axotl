@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 let SponsorProfileSchema = new Schema({
     sponsor: {
         type: Schema.Types.ObjectId,
-        ref: 'Sponsors',
+        ref: 'sponsors',
     },
     handle: {
         type: String,
@@ -27,7 +27,7 @@ let SponsorProfileSchema = new Schema({
     bio: {
         type: String
     },
-    social:{
+    social: {
         youtube: {
             type: String
         },

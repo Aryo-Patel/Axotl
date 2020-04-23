@@ -19,7 +19,7 @@ const Landing = (props) => {
           style={{
             backgroundColor: "rgba(10, 10, 10, 0.5)",
             position: "absolute",
-            height: "82.5%",
+            height: "112.5%",
             width: "100%",
 
             margin: "0",

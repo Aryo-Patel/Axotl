@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const gravatar = require('gravatar');
+const { validationResult, check } = require('express-validator')
 
 //Load the sponsor model
 const Sponsor = require('../../models/Sponsor');
@@ -12,47 +13,49 @@ const passport = require('passport')
 // Action   Register the sponsor
 // PUBLIC
 
-router.post('/register', (req, res) => {
+router.post('/register', [check('name', 'Name is required').not().isEmpty(), check('email', 'Not a valid email').isEmail(), check('password', 'Please enter a password with six or more characters').isLength({ min: 6 })], async(req, res) => {
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() })
+    }
+    try {
+        //Checks to see if the email is already in use
+        const sponsor = await Sponsor.findOne({ email: req.body.email })
 
-    //Checks to see if the email is already in use
-    Sponsor.findOne({ email: req.body.email })
-        .then(sponsor => {
-            //If email in use, return this error
-            if (sponsor) {
-                return res.status(400).send({
-                    Email: "Email already in use!"
-                })
-            }
-            //If the email is unique => create sponsor
-            else {
-                //Creating the avatar
-                let avatar = gravatar.url(req.body.email, {
-                    s: '200',
-                    r: 'pg',
-                    d: 'mm',
-                })
+        //If email in use, return this error
+        if (sponsor) {
+            return res.status(400).json({
+                errors: [{ msg: 'That email is already in use' }]
+            })
+        }
+        //If the email is unique => create sponsor
+        const { name, email, password } = req.body;
+        //Creating the avatar
+        let avatar = gravatar.url(email, {
+            s: '200',
+            r: 'pg',
+            d: 'mm',
+        })
 
-                //Creating the sponsor using req values
-                let newSponsor = new Sponsor({
-                    name: req.body.name,
-                    email: req.body.email,
-                    password: req.body.password,
-                    avatar: avatar,
-                });
 
-                /**
-                 * TODO: Authentication stuff
-                 * bcrypt gen salt maybe?
-                 * You'll have to import whatever stuff you need for implementation.
-                 * For now, I'm just going to add the password values as they are to the collection.
-                 */
 
-                //Saving the sponsor to the Sponsors collection
-                newSponsor.save()
-                    .then(sponsor => res.json(sponsor))
-                    .catch(err => console.log(error))
-            }
+        //Creating the sponsor using req values
+        const newSponsor = new Sponsor({
+            name,
+            email,
+            password,
+            avatar,
         });
+        const salt = await bcrypt.genSalt(10)
+        newSponsor.password = await bcrypt.hash(password, salt)
+            //Saving the recipient to the Recipients collection
+        await newSponsor.save()
+        res.json(newRecipient)
+    } catch (err) {
+        console.error(error);
+        res.status(500).send('Server error');
+    }
+
 });
 
 
@@ -87,3 +90,5 @@ router.post('/login', passport.authenticate('local', { failureRedirect: 'http://
         }); */
     res.json({ user: req.user })
 });
+
+module.exports = router;

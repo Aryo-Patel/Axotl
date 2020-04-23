@@ -1,5 +1,6 @@
 {
-    "mongoURI": "mongodb+srv://nadharm:nadharm@cluster0-eseqy.mongodb.net/test?retryWrites=true&w=majority",
+    "mongoURI": "mongodb+srv://axotlteam:hackstreetboys69420@cluster0-2ijey.mongodb.net/test?retryWrites=true&w=majority",
+    "nadharmsmongoURI": "mongodb+srv://nadharm:nadharm@cluster0-eseqy.mongodb.net/test?retryWrites=true&w=majority",
     "MongoStoreURI": "placeholder",
     "sessionSecret": "nadencristjuban",
     "googleClientID": "tobefilled",

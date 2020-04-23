@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const gravatar = require('gravatar');
 const passport = require('passport')
+const bcrypt = require('bcryptjs')
+const { validationResult, check } = require('express-validator')
 
 //Load the recipient model
 const Recipient = require('../../models/Recipient');
@@ -10,47 +12,49 @@ const Recipient = require('../../models/Recipient');
 // Action   Register the recipient
 // PUBLIC
 
-router.post('/register', (req, res) => {
+router.post('/register', [check('name', 'Name is required').not().isEmpty(), check('email', 'Not a valid email').isEmail(), check('password', 'Please enter a password with six or more characters').isLength({ min: 6 })], async(req, res) => {
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() })
+    }
+    try {
+        //Checks to see if the email is already in use
+        const recipient = await Recipient.findOne({ email: req.body.email })
 
-    //Checks to see if the email is already in use
-    Recipient.findOne({ email: req.body.email })
-        .then(recipient => {
-            //If email in use, return this error
-            if (recipient) {
-                return res.status(400).send({
-                    Email: "Email already in use!"
-                })
-            }
-            //If the email is unique => create recipient
-            else {
-                //Creating the avatar
-                let avatar = gravatar.url(req.body.email, {
-                    s: '200',
-                    r: 'pg',
-                    d: 'mm',
-                })
+        //If email in use, return this error
+        if (recipient) {
+            return res.status(400).json({
+                errors: [{ msg: 'That email is already in use' }]
+            })
+        }
+        //If the email is unique => create recipient
+        const { name, email, password } = req.body;
+        //Creating the avatar
+        let avatar = gravatar.url(email, {
+            s: '200',
+            r: 'pg',
+            d: 'mm',
+        })
 
-                //Creating the recipient using req values
-                let newRecipient = new Recipient({
-                    name: req.body.name,
-                    email: req.body.email,
-                    password: req.body.password,
-                    avatar: avatar,
-                });
 
-                /**
-                 * TODO: Authentication stuff
-                 * bcrypt gen salt maybe?
-                 * You'll have to import whatever stuff you need for implementation.
-                 * For now, I'm just going to add the password values as they are to the collection.
-                 */
 
-                //Saving the recipient to the Recipients collection
-                newRecipient.save()
-                    .then(recipient => res.json(recipient))
-                    .catch(err => console.log(error))
-            }
+        //Creating the recipient using req values
+        const newRecipient = new Recipient({
+            name,
+            email,
+            password,
+            avatar,
         });
+        const salt = await bcrypt.genSalt(10)
+        newRecipient.password = await bcrypt.hash(password, salt)
+            //Saving the recipient to the Recipients collection
+        await newRecipient.save()
+        res.json(newRecipient)
+    } catch (err) {
+        console.error(error);
+        res.status(500).send('Server error');
+    }
+
 });
 
 
@@ -85,3 +89,5 @@ router.post('/login', passport.authenticate('local', { failureRedirect: 'http://
         }); */
     res.json({ user: req.user })
 });
+
+module.exports = router;

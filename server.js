@@ -5,7 +5,7 @@ const http = require('http')
 const passport = require('passport')
 const session = require('express-session')
 const config = require('config')
-const MongoDBStore = require('connect-mongodb-session')(session);
+const MongoStore = require('connect-mongo')(session);
 
 //models
 const recipients = require('./routes/api/recipients');
@@ -30,30 +30,41 @@ connectDB();
 app.use(express.json({ extended: false }))
 
 //initializing store for sessions
-const store = new MongoDBStore({
-    uri: config.get('MongoStoreURI'),
-    database: "SessionStorage",
-    collection: 'mySessions'
-}, (err) => {
-    console.error(error);
-    process.exit(1);
-});
+// const store = new MongoStore({
+//     uri: config.get('mongoURI'),
+//     database: "SessionStorage",
+//     collection: 'mySessions'
+// }, (err) => {
+//     console.log("Database session connection error")
+//     console.error(error);
+//     process.exit(1);
+// });
 
 // Catch errors
-store.on('error', function(error) {
-    console.log(error);
-});
+// store.on('error', function(error) {
+//     console.log("database session storage error")
+//     console.log(error);
+// });
+
 
 //initializing session
+console.log("initializing session")
 app.use(session({
     secret: config.get('sessionSecret'),
     cookie: { maxAge: 10800000 },
-    store: store,
+    store: new MongoStore({ url: config.get('mongoURI') }),
     resave: true,
-    saveUnitialized: true
+    saveUninitialized: true
 }))
 
+//session test route
+app.get('/', function(req, res) {
+    res.json(req.session);
+});
+
+
 //initializing passport, passport strategies, and passport session
+console.log("initializing passport")
 app.use(passport.initialize())
 app.use(passport.session())
 local(passport)
@@ -88,9 +99,14 @@ if (process.env.NODE_ENV === 'production') {
 //Placeholder for socket initialization for chat
 
 
+
+
+
 //Use the routes
 app.use('/api/users', recipients);
 app.use('/api/sponsors', sponsors);
+app.use('/api/profiles/recipient', require('./routes/api/recipientProfile'))
+app.use('/api/profiles/sponsor', require('./routes/api/sponsorProfile'))
 
 //Server Initialization
 app.listen(PORT, () => {
