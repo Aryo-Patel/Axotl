@@ -90,4 +90,6 @@ router.post('/login', passport.authenticate('local', { failureRedirect: 'http://
     res.json({ user: req.user })
 });
 
+
+
 module.exports = router;

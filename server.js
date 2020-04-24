@@ -7,13 +7,18 @@ const session = require('express-session')
 const config = require('config')
 const MongoStore = require('connect-mongo')(session);
 
-//models
+//routers
 const recipients = require('./routes/api/recipients');
 const sponsors = require('./routes/api/sponsors');
+const recipientProfile = require('./routes/api/recipientProfile');
+const sponsorProfile = require('./routes/api/sponsorProfile')
 
 //database functions
 const connectDB = require('./config/db')
 
+//models
+const Recipient = require('./models/Recipient')
+const Sponsor = require('./models/Sponsor')
 
 //passport authentication strategies
 const { local } = require('./config/passport')
@@ -71,7 +76,7 @@ local(passport)
 
 //serializes user and attaches cookies
 passport.serializeUser((user, done) => {
-    done(null, user.id);
+    done(null, user._id);
 });
 
 // deserializes user and attaches user object to req.user from session
@@ -82,7 +87,8 @@ passport.deserializeUser(async(id, done) => {
         const user = recipient || sponsor;
         done(null, user);
     } catch (err) {
-        done(err);
+        console.log('deserialization error')
+        return done(err);
     }
 
 });
@@ -101,14 +107,13 @@ if (process.env.NODE_ENV === 'production') {
 
 
 
-
 //Use the routes
 app.use('/api/users', recipients);
 app.use('/api/sponsors', sponsors);
-app.use('/api/profiles/recipient', require('./routes/api/recipientProfile'))
-app.use('/api/profiles/sponsor', require('./routes/api/sponsorProfile'))
+app.use('/api/profiles/recipient', recipientProfile)
+app.use('/api/profiles/sponsor', sponsorProfile)
 
 //Server Initialization
 app.listen(PORT, () => {
-    console.log('Server Initialized')
+    console.log(`Server Initialized on port ${PORT}`)
 })

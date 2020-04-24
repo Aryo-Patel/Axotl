@@ -13,6 +13,7 @@ const Sponsor = require('../models/Sponsor')
 
 exports.local = (passport) => {
     passport.use(new localStrategy({ usernameField: 'email' }, async(email, password, done) => {
+        console.log('passport internals reached')
         const recipient = await Recipient.findOne({ email })
         const sponsor = await Sponsor.findOne({ email })
         if (!sponsor && !recipient) {
