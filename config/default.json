@@ -4,5 +4,9 @@
     "MongoStoreURI": "placeholder",
     "sessionSecret": "nadencristjuban",
     "googleClientID": "tobefilled",
-    "googleClientSecret": "tobefilled"
+    "googleClientSecret": "tobefilled",
+    "emailUser": "support@axotl.com",
+    "emailPass": "Hackstreet:Boys",
+    "productionLink": "http://axotl.com",
+    "JWTSecret": "simpsforlife"
 }

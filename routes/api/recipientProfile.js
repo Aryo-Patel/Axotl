@@ -7,8 +7,8 @@ const { validationResult, check } = require("express-validator");
 const RecipientProfile = require('../../models/RecipientProfile')
 
 // POST      api/profiles/recipient/
-// Action   Create a recipient profile
-// PUBLIC
+// Action   Create or Update a recipient profile
+// PRIVATE
 router.post(
     "/", [check("handle", "Handle is required").not().isEmpty()],
     async(req, res) => {
@@ -60,7 +60,7 @@ router.post(
 
 // GET      api/profiles/recipient/me
 // Action   Return user's profile
-// PUBLIC
+// PRIVATE
 router.get("/me", async(req, res) => {
     try {
         const profile = await RecipientProfile.findOne({ recipient: req.user._id }).populate("recipients", ["name", "avatar"])
@@ -69,6 +69,33 @@ router.get("/me", async(req, res) => {
         }
         res.json(profile)
 
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server Error")
+    }
+})
+
+// GET      api/profiles/recipient/
+// Action   Return all recipient profiles
+// PRIVATE
+router.get("/", async(req, res) => {
+    try {
+        const profiles = await RecipientProfile.find();
+        res.json(profiles)
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server Error")
+    }
+})
+
+
+// DELETE api/profiles/recipient/me
+// Action Delete the user's profile
+// PRIVATE
+router.delete('/me', async(req, res) => {
+    try {
+        await RecipientProfile.deleteOne({ recipient: req.user._id })
+        res.json({ msg: "Profile Successfully Deleted" })
     } catch (err) {
         console.error(err.message);
         res.status(500).send("Server Error")

@@ -5,6 +5,7 @@ const { validationResult, check } = require('express-validator')
 
 //Load the sponsor model
 const Sponsor = require('../../models/Sponsor');
+const SponsorProfile = require('../../models/SponsorProfile')
 
 //load passport
 const passport = require('passport')
@@ -90,5 +91,19 @@ router.post('/login', passport.authenticate('local', { failureRedirect: 'http://
         }); */
     res.json({ user: req.user })
 });
+
+//DELETE api/sponsors/
+// Action Delete profile and user
+// PRIVATE
+router.delete('/', async(req, res) => {
+    try {
+        await SponsorProfile.deleteOne({ recipient: req.user._id })
+        await Sponsor.deleteOne({ _id: req.user._id })
+        res.json({ msg: "Account Deleted" })
+    } catch (err) {
+        console.error(err.message);
+        res.status(400).send("Server Error")
+    }
+})
 
 module.exports = router;
