@@ -143,8 +143,20 @@ router.get('/forgotpassword/:email', async(req, res) => {
 //POST /api/recipients/resetpassword/:jwt
 //Action send reset password
 // PUBLIC (ish, no authentication)
-router.post('/resetpassword/:jwt', (req, res) => {
-
+router.post('/resetpassword/:jwt', async(req, res) => {
+    try {
+        const email = await jwt.verify(req.params.jwt, config.get('JWTSecret'))
+        const user = await Recipient.findOne({ email: email })
+        const { password } = req.body;
+        //ASSUMING PASSWORDS MATCH
+        const salt = await bcrypt.genSalt(10)
+        user.password = await bcrypt.hash(password, salt)
+        await user.save()
+        res.json({ msg: "Password Changed" })
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server Error")
+    }
 })
 
 
