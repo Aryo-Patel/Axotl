@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, ACCOUNT_DELETED, RES_PASSWORD } from './Types'
+import { LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, ACCOUNT_DELETED, RES_PASSWORD, REGISTER_SUCCESS, REGISTER_FAIL } from './Types'
 
 export const sendLogin = (formData) => async dispatch => {
     const config = {
@@ -54,7 +54,12 @@ export const registerUser = (userData, history) => async(dispatch) => {
     try {
 
         let res = await axios.post('/api/users/register', body, config)
-
+        dispatch({
+            type: REGISTER_SUCCESS,
+            payload: {
+                registered: true
+            }
+        })
 
     } catch (error) {
 

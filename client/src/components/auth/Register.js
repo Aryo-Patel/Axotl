@@ -1,6 +1,6 @@
 import React from "react";
 
-import { withRouter } from "react-router-dom";
+import { withRouter, Redirect } from "react-router-dom";
 
 import { connect } from "react-redux";
 
@@ -18,6 +18,8 @@ class Register extends React.Component {
       email: "",
 
       password: "",
+
+      password2 : '',
 
       sponsor : 'sponsor'
     };
@@ -48,6 +50,9 @@ class Register extends React.Component {
   }
 
   render() {
+      if(this.props.isRegistered) {
+        return <Redirect  to = '/login' />
+      }
     return (
       <div>
         <h5>Register for an Axotl account!</h5>
@@ -77,9 +82,9 @@ class Register extends React.Component {
             type="password"
           />
           <TextField
-            name="password"
-            placeholder="Enter a Password."
-            value={this.state.password}
+            name="password2"
+            placeholder="Confirm your Password."
+            value={this.state.password2}
             onChange={this.handleChange}
             type="password"
           />
@@ -91,4 +96,8 @@ class Register extends React.Component {
   }
 }
 
-export default connect(null, { registerUser })(withRouter(Register));
+const mapStateToProps = state => ({
+    isRegistered : state.auth.isRegistered
+})
+
+export default connect(mapStateToProps, { registerUser })(withRouter(Register));

@@ -1,8 +1,9 @@
-import { LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, ACCOUNT_DELETED } from "../actions/Types";
+import { LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, ACCOUNT_DELETED, REGISTER_SUCCESS, REGISTER_FAIL } from "../actions/Types";
 
 const initialState = {
     user: null,
     isAuthenticated: false,
+    isRegistered: false,
     loading: true,
 };
 
@@ -17,6 +18,13 @@ export default function(state = initialState, action) {
                 user: payload.user,
                 sponsor: payload.sponsor
             };
+        case REGISTER_SUCCESS:
+            return {
+                ...state,
+                isRegistered: true
+            }
+        case REGISTER_FAIL:
+            return state;
         case LOGIN_FAIL:
         case LOGOUT:
         case ACCOUNT_DELETED:
