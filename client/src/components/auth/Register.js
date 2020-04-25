@@ -18,6 +18,8 @@ class Register extends React.Component {
       email: "",
 
       password: "",
+
+      sponsor : 'sponsor'
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -61,18 +63,25 @@ class Register extends React.Component {
 
           <TextField
             name="email"
-            placeholder="Enter a valid eamil"
+            placeholder="Enter a Valid Email."
             value={this.state.email}
             onChange={this.handleChange}
-            type="text"
+            type="email"
           />
 
           <TextField
             name="password"
-            placeholder="Enter a good password!"
+            placeholder="Enter a Password."
             value={this.state.password}
             onChange={this.handleChange}
-            type="text"
+            type="password"
+          />
+          <TextField
+            name="password"
+            placeholder="Enter a Password."
+            value={this.state.password}
+            onChange={this.handleChange}
+            type="password"
           />
 
           <input type="submit" className="btn btn-info btn-block mt-4"></input>

@@ -20,6 +20,7 @@ const TextField = ({
   return (
     <div className="form-group">
       <input
+      className = 'form-control'
         type={type}
         placeholder={placeholder}
         name={name}
