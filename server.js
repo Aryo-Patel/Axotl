@@ -107,6 +107,11 @@ if (process.env.NODE_ENV === 'production') {
     });
 }
 
+//auth route
+app.get('/api/auth', (req, res) => {
+    res.json({ user: req.user })
+})
+
 //Placeholder for socket initialization for chat
 
 

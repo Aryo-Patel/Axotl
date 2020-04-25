@@ -7,6 +7,6 @@
     "googleClientSecret": "tobefilled",
     "emailUser": "support@axotl.com",
     "emailPass": "Hackstreet:Boys",
-    "productionLink": "http://axotl.com",
+    "productionLink": "http://localhost:3000",
     "JWTSecret": "simpsforlife"
 }

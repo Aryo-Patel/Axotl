@@ -120,7 +120,7 @@ router.get('/forgotpassword/:email', async(req, res) => {
             pass: config.get('emailPass')
         }
     });
-    const resetLink = `${config.get('productionLink')}/api/recipients/resetpassword`
+    const resetLink = `${config.get('productionLink')}/recipients/resetpassword`
     jwt.sign({ email: req.params.email }, config.get('JWTSecret'), { expiresIn: 10800000 }, (err, token) => {
         if (err) throw err;
         resetLink += token;
