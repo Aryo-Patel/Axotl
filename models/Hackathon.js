@@ -16,7 +16,7 @@ const HackathonSchema = new mongoose.Schema({
     website: {
         type: String
     },
-    donations: [{
+    donations: [{ 
         type: {
             type: String,
             required: true,
@@ -40,7 +40,7 @@ const HackathonSchema = new mongoose.Schema({
             },
         }]
     }], 
-    starDate : {
+    startDate : {
         type: Date,
         required: true
     },
@@ -51,9 +51,11 @@ const HackathonSchema = new mongoose.Schema({
     winners: [{
         teamName:{
             type: String,
+            required: true
         },
         awardTitle: {
-            type: String
+            type: String,
+            required: true
         },
         prizeWon: {
             type: String
