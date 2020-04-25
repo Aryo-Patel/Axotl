@@ -9,13 +9,9 @@ const HackathonSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    dateOccurring: {
-        type: Date,
-        required: true,
-    },
     description: {
         type: String,
-        required: TextTrackCue,
+        required: true,
     },
     website: {
         type: String
@@ -43,9 +39,13 @@ const HackathonSchema = new mongoose.Schema({
                 type: String,
             },
         }]
-    }],
-    completed: {
-        type: Boolean,
+    }], 
+    starDate : {
+        type: Date,
+        required: true
+    },
+    endDate: {
+        type: Date,
         required: true
     },
     winners: [{
@@ -63,4 +63,4 @@ const HackathonSchema = new mongoose.Schema({
 
 let Hackathon = new mongoose.model('Hackathons', HackathonSchema);
 
-export default Hackathon;
+module.exports = Hackathon;

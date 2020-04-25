@@ -12,6 +12,9 @@ const recipients = require('./routes/api/recipients');
 const sponsors = require('./routes/api/sponsors');
 const recipientProfile = require('./routes/api/recipientProfile');
 const sponsorProfile = require('./routes/api/sponsorProfile')
+const hackathons = require('./routes/api/hackathons');
+const hackathonProfile = require('./routes/api/hackathonProfile')
+
 
 //database functions
 const connectDB = require('./config/db')
@@ -74,10 +77,12 @@ app.use(passport.initialize())
 app.use(passport.session())
 local(passport)
 
+
 //serializes user and attaches cookies
 passport.serializeUser((user, done) => {
     done(null, user._id);
 });
+
 
 // deserializes user and attaches user object to req.user from session
 passport.deserializeUser(async(id, done) => {
@@ -106,12 +111,14 @@ if (process.env.NODE_ENV === 'production') {
 
 
 
-
+console.log('checkPoint');
 //Use the routes
 app.use('/api/users', recipients);
 app.use('/api/sponsors', sponsors);
 app.use('/api/profiles/recipient', recipientProfile)
 app.use('/api/profiles/sponsor', sponsorProfile)
+app.use('/api/hackathons', hackathons);
+app.use('/api/hackathons/hackathon', hackathonProfile);
 
 //Server Initialization
 app.listen(PORT, () => {
