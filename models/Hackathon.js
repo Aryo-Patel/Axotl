@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const Hackathon = new mongoose.Schema({
+const HackathonSchema = new mongoose.Schema({
     recipient: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'recipients'
@@ -44,4 +44,23 @@ const Hackathon = new mongoose.Schema({
             },
         }]
     }],
-})
+    completed: {
+        type: Boolean,
+        required: true
+    },
+    winners: [{
+        teamName:{
+            type: String,
+        },
+        awardTitle: {
+            type: String
+        },
+        prizeWon: {
+            type: String
+        }
+    }]
+});
+
+let Hackathon = new mongoose.model('Hackathons', HackathonSchema);
+
+export default Hackathon;
