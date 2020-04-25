@@ -3,6 +3,7 @@ const router = express.Router();
 const gravatar = require('gravatar');
 const passport = require('passport')
 const bcrypt = require('bcryptjs')
+const config = require('config')
 const { validationResult, check } = require('express-validator')
 const { createTransport, sendMail } = require('nodemailer')
 const jwt = require('jsonwebtoken')
@@ -11,7 +12,7 @@ const jwt = require('jsonwebtoken')
 const Recipient = require('../../models/Recipient');
 const RecipientProfile = require('../../models/RecipientProfile')
 
-// POST      api/recipient/register
+// POST      api/users/register
 // Action   Register the recipient
 // PUBLIC
 
@@ -112,7 +113,7 @@ router.delete('/', async(req, res) => {
 // PUBLIC
 router.get('/forgotpassword/:email', async(req, res) => {
     const transporter = createTransport({
-        host: 'smtp.axotl.com',
+        host: 'axotl.com',
         port: 587,
         secure: false,
         auth: {
@@ -120,20 +121,25 @@ router.get('/forgotpassword/:email', async(req, res) => {
             pass: config.get('emailPass')
         }
     });
-    const resetLink = `${config.get('productionLink')}/recipients/resetpassword`
-    jwt.sign({ email: req.params.email }, config.get('JWTSecret'), { expiresIn: 10800000 }, (err, token) => {
+    let resetLink = '';
+    let authToken = '';
+    await jwt.sign({ email: req.params.email }, config.get('JWTSecret'), { expiresIn: 10800000 }, (err, token) => {
         if (err) throw err;
-        resetLink += token;
+        authToken += token;
     })
+    resetLink = await `${config.get('productionLink')}/recipients/resetpassword/${authToken}`
+    console.log(`resetlink : ${resetLink}`)
     const mailOptions = {
-        from: "Axotl Support",
+        from: '"Axotl Support" <support@axotl.com>',
         to: req.params.email,
         subject: "Forgot Password",
         text: `Hello ${req.name},\n\nHere is the password reset link you requested (expires in 3 hours): ${resetLink}\nIf you did not request this, please notify us at http://axotl.com/support\n\nThanks!\n-Axotl Support`
     }
     try {
-        await transporter.verify()
+        const verified = await transporter.verify()
+        console.log(`verified : ${verified}`)
         await sendEmail(mailOptions)
+        res.json({ msg: "email sent" })
     } catch (err) {
         console.error(err.message);
         res.status(500).send("Server Error")

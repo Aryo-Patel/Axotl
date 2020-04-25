@@ -9,6 +9,7 @@ import store from "./store"
 //Component Imports
 import NavBar from './components/layout/NavBar'
 import Landing from './components/layout/Landing'
+import Login from './components/auth/Login'
 
 import logo from './logo.svg';
 import './App.css';
@@ -19,9 +20,9 @@ function App() {
       <Router>
         <Fragment>
           <NavBar />
-          <Landing />
           <Switch>
-            
+            <Route exact path = '/' component = {Landing} />
+            <Route exact path = '/login' component = {Login} />
           </Switch>
         </Fragment>
       </Router>
