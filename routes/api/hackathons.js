@@ -9,22 +9,22 @@ const hackathonProfile = require('../../models/Hackathon');
 
 //POST      /api/hackathons/create
 //Action    create a hackathon
-//PUBLIC
+//PRIVATE
 
-router.post('/create', async (req, res, next) => {
-    try{
+router.post('/create', async(req, res, next) => {
+    try {
         //Check to see if hackathon with the same name exists
-        const name = await hackathonProfile.findOne({title: req.body.title});
+        const name = await hackathonProfile.findOne({ title: req.body.title });
 
-        if(name){
+        if (name) {
             return res.status(400).json({
-                errors: [{msg: 'Hackathon with that name already exists'}]
+                errors: [{ msg: 'Hackathon with that name already exists' }]
             })
         }
-        
+
         //Take the info from the body to create new hackathon
         //start date, end date, title
-        const {startDate, endDate, title} = req.body;
+        const { startDate, endDate, title } = req.body;
 
         //create new hackathon
         const newHackathon = new Hackathon({
@@ -38,7 +38,7 @@ router.post('/create', async (req, res, next) => {
         res.json(newHackathon);
 
 
-    }catch(err){
+    } catch (err) {
         console.error(err);
         res.status(500).send('Server Error');
     }

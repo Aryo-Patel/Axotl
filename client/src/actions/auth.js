@@ -28,3 +28,38 @@ export const sendLogin = (formData) => async dispatch => {
         })
     }
 }
+
+export const registerUser = (userData, history) => async(dispatch) => {
+
+
+
+
+    let config = {
+
+        headers: {
+
+            'Content-Type': 'application/json'
+
+        }
+
+    }
+
+
+
+    let body = JSON.stringify(userData);
+
+
+
+
+    try {
+
+        let res = await axios.post('/api/users/register', body, config)
+
+
+    } catch (error) {
+
+        console.error(error.message);
+
+    }
+
+}
