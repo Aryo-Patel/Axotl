@@ -12,6 +12,7 @@ export const sendLogin = (formData) => async dispatch => {
     const body = JSON.stringify(formData)
     try {
         const res = await axios.post('/api/users/login', body, config)
+        console.log(res.data)
         const payload = {
             user: res.data,
             sponsor: res.data.sponsor
@@ -74,6 +75,7 @@ export const registerUser = (userData, history) => async(dispatch) => {
 export const loadUser = () => async dispatch => {
     try {
         const res = await axios.get('/api/auth')
+        console.log(res.data)
         const payload = {
             user: res.data,
             sponsor: res.data.sponsor

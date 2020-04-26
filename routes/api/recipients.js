@@ -91,9 +91,13 @@ router.post('/login', passport.authenticate('local', { failureRedirect: 'http://
                 }
             }
         }); */
-
-    const user = req.user.select('-password')
-    res.json({ user })
+    // const user = {}
+    // for (key in req.user) {
+    //     if (key !== 'password') {
+    //         user.key = req.user.key
+    //     }
+    // }
+    res.json({ user: req.user })
 });
 
 //DELETE api/users/

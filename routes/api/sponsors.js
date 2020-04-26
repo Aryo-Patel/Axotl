@@ -89,8 +89,8 @@ router.post('/login', passport.authenticate('local', { failureRedirect: 'http://
                 }
             }
         }); */
-    const user = req.user.select('-password')
-    res.json({ user })
+
+    res.json({ user: req.user })
 });
 
 //DELETE api/sponsors/
