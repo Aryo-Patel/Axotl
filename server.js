@@ -109,14 +109,14 @@ if (process.env.NODE_ENV === 'production') {
 
 //auth route
 app.get('/api/auth', (req, res) => {
-    res.json({ user: req.user })
+    const user = req.user.select('-password')
+    res.json({ user })
 })
 
 //Placeholder for socket initialization for chat
 
 
 
-console.log('checkPoint');
 //Use the routes
 app.use('/api/users', recipients);
 app.use('/api/sponsors', sponsors);

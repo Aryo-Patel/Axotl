@@ -91,10 +91,12 @@ router.post('/login', passport.authenticate('local', { failureRedirect: 'http://
                 }
             }
         }); */
-    res.json({ user: req.user })
+
+    const user = req.user.select('-password')
+    res.json({ user })
 });
 
-//DELETE api/recipients/
+//DELETE api/users/
 // Action Delete profile and user
 // PRIVATE
 router.delete('/', async(req, res) => {
@@ -136,9 +138,13 @@ router.get('/forgotpassword/:email', async(req, res) => {
         text: `Hello ${req.name},\n\nHere is the password reset link you requested (expires in 3 hours): ${resetLink}\nIf you did not request this, please notify us at http://axotl.com/support\n\nThanks!\n-Axotl Support`
     }
     try {
-        const verified = await transporter.verify()
-        console.log(`verified : ${verified}`)
-        await sendEmail(mailOptions)
+        console.log('trycatch entered')
+            // const verified = await transporter.verify()
+            // console.log(`verified : ${verified}`)
+        const res = await transporter.sendMail(mailOptions)
+        console.log('email completed')
+        console.log(res)
+
         res.json({ msg: "email sent" })
     } catch (err) {
         console.error(err.message);

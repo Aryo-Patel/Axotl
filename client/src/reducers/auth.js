@@ -1,4 +1,4 @@
-import { LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, ACCOUNT_DELETED, REGISTER_SUCCESS, REGISTER_FAIL } from "../actions/Types";
+import { LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, ACCOUNT_DELETED, REGISTER_SUCCESS, REGISTER_FAIL, USER_LOADED, USER_FAILED } from "../actions/Types";
 
 const initialState = {
     user: null,
@@ -10,6 +10,7 @@ const initialState = {
 export default function(state = initialState, action) {
     const { type, payload } = action;
     switch (type) {
+        case USER_LOADED:
         case LOGIN_SUCCESS:
             return {
                 ...state,
@@ -26,6 +27,7 @@ export default function(state = initialState, action) {
         case REGISTER_FAIL:
             return state;
         case LOGIN_FAIL:
+        case USER_FAILED:
         case LOGOUT:
         case ACCOUNT_DELETED:
             return {
