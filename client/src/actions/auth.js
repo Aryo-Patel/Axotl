@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, ACCOUNT_DELETED, RES_PASSWORD, REGISTER_SUCCESS, REGISTER_FAIL } from './Types'
+import { LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, ACCOUNT_DELETED, RES_PASSWORD, REGISTER_SUCCESS, REGISTER_FAIL, USER_FAILED, USER_LOADED } from './Types'
 
 export const sendLogin = (formData) => async dispatch => {
     const config = {
@@ -62,9 +62,42 @@ export const registerUser = (userData, history) => async(dispatch) => {
         })
 
     } catch (error) {
-
+        dispatch({
+            type: REGISTER_FAIL
+        })
         console.error(error.message);
 
     }
 
+}
+
+export const loadUser = () => async dispatch => {
+    try {
+        const res = await axios.get('/api/auth')
+        const payload = {
+            user: res.data,
+            sponsor: res.data.sponsor
+        }
+        dispatch({
+            type: LOGIN_SUCCESS,
+            payload
+        })
+    } catch (err) {
+        dispatch({
+            type: USER_FAILED
+        })
+        console.error(err.message);
+    }
+
+}
+
+export const deleteRecipient = () => async dispatch => {
+    try {
+        await axios.delete('/api/users/')
+        dispatch({
+            type: ACCOUNT_DELETED
+        })
+    } catch (err) {
+        console.error(err.message);
+    }
 }
