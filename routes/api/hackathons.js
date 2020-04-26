@@ -13,6 +13,9 @@ const Hackathon = require('../../models/Hackathon');
 
 router.post('/create', async(req, res, next) => {
     try {
+        if(!req.user){
+            return res.status(401);
+        }
         //Check to see if hackathon with the same name exists
         const name = await Hackathon.findOne({title: req.body.title});
 
@@ -25,7 +28,8 @@ router.post('/create', async(req, res, next) => {
         //Take the info from the body to create new hackathon
         //start date, end date, title
         
-        const {startDate,
+        const { recipient,
+                startDate,
                 endDate,
                 title,
                 description,
@@ -36,6 +40,7 @@ router.post('/create', async(req, res, next) => {
         
         //create new hackathon
         const newHackathon = new Hackathon({
+            recipient,
             title,
             startDate,
             endDate,
@@ -153,5 +158,13 @@ router.put('/edit-general/:id', async (req, res, next) => {
     }
 
 })
+
+
+//PUT       /api/hackathons/edit/donations/:id
+//Action    edit the donations that the group has recieved
+//PUBLIC    (will go private soon)
+router.put('/edit/donations/:id', async(req, res, next) => {
+    
+});
 
 module.exports = router;
