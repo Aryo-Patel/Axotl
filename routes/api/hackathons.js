@@ -9,7 +9,7 @@ const Hackathon = require('../../models/Hackathon');
 
 //POST      /api/hackathons/create
 //Action    create a hackathon
-//PRIVATE
+//PUBLIC
 
 router.post('/create', async(req, res, next) => {
     try {
@@ -124,6 +124,34 @@ router.post('/create', async(req, res, next) => {
         console.error(err);
         res.status(500).send('Server Error');
     }
+});
+
+
+
+//PUT       /api/hackathons/edit/:id
+//Action    edit existing data in a hacakthon that is not winner or donations
+//PUBLIC    (will go private soon)
+
+router.put('/edit-general/:id', async (req, res, next) => {
+    //gets the ID of the hackathon to be modified
+    const hackathonId = req.params.id;
+
+    try{
+        //grabs the Hackathon that is associated with the Id
+        let hackathon = await Hackathon.findOne({_id: hackathonId});
+        
+        //Grabs all the parameters that are modified
+        const editParams = req.body;
+
+        //updates the hackathon
+        hackathon = await Hackathon.findOneAndUpdate({_id: hackathonId}, {$set: editParams})
+
+        res.status(200).json(hackathon);
+    } catch(err){
+        console.error(err);
+        res.status(500).send('Server Error or hackathon not found');
+    }
+
 })
 
 module.exports = router;
