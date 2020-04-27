@@ -100,7 +100,11 @@ router.post('/education', [check("school", "School is required").not().isEmpty()
 //GET       api/profiles/recipient/experience
 //Action    Add experience to user's profile
 //Private 
-router.post('/experience', (req, res) => {
+router.post('/experience', [check("from", "From date is required").not().isEmpty(), check("current", "Current boolean is required").not().isEmpty(), check("description", "Description is required").not().isEmpty()] , (req, res) => {
+    const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            res.status(400).json({ errors: errors.array() });
+        }
     RecipientProfile.findOne({recipient: req.user._id})
     .then(profile => {
         let {
@@ -129,10 +133,14 @@ router.post('/experience', (req, res) => {
     .catch(err => res.json(err));
 })
 
-//GET       api/profiles/recipient/hackathon
+//GET       api/profiles/recipient/previous-hackathons
 //Action    Add hackathon to user's profile
 //Private 
-router.post('/previous-hackathon', (req, res) => {
+router.post('/previous-hackathons', [check("date", "Date is required").not().isEmpty(), check("description", "Description is required").not().isEmpty(), check("name", "Name of hackathon is required").not().isEmpty()], (req, res) => {
+    const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            res.status(400).json({ errors: errors.array() });
+        }
     RecipientProfile.findOne({recipient: req.user._id})
     .then(profile => {
         let {
@@ -143,7 +151,7 @@ router.post('/previous-hackathon', (req, res) => {
         } = req.body;
 
         let newHackathon = {};
-        if(name) newHackathon.name = name;
+        newHackathon.name = name;
         newHackathon.date = date;
         newHackathon.description = description;
         if(location) newHackathon.location = location;
@@ -153,6 +161,55 @@ router.post('/previous-hackathon', (req, res) => {
         .then(profile => res.json(profile))
         .catch(err => res.json({msg: "Error saving :("}))
         })
+    .catch(err => res.json(err));
+
+})
+
+//DELETE    api/profiles/recipient/previous-hackathons/:id
+//Action    Delete hackathon from user's profile
+//Private 
+router.delete('/previous-hackathons/:id', (req, res) => {
+    RecipientProfile.findOne({recipient: req.user._id})
+    .then(profile => {
+        const removeIndex = profile.previousHackathons.map(item => item.id).indexOf(req.params.id)
+
+        profile.previousHackathons.splice(removeIndex, 1);
+        profile.save()
+        .then(res => res.json(res))
+        .catch(err => res.json({msg: "Problem deleting from database"}))
+    })
+    .catch(err => res.json(err));
+
+})
+//DELETE    api/profiles/recipient/education/:id
+//Action    Delete education object from user's profile
+//Private 
+router.delete('/education/:id', (req, res) => {
+    RecipientProfile.findOne({recipient: req.user._id})
+    .then(profile => {
+        const removeIndex = profile.education.map(item => item.id).indexOf(req.params.id)
+
+        profile.education.splice(removeIndex, 1);
+        profile.save()
+        .then(res => res.json(res))
+        .catch(err => res.json({msg: "Problem deleting from database"}))
+    })
+    .catch(err => res.json(err));
+
+})
+//DELETE    api/profiles/recipient/experience/:id
+//Action    Delete experience object from the user's profile
+//Private 
+router.delete('/experience/:id', (req, res) => {
+    RecipientProfile.findOne({recipient: req.user._id})
+    .then(profile => {
+        const removeIndex = profile.experience.map(item => item.id).indexOf(req.params.id)
+
+        profile.experience.splice(removeIndex, 1);
+        profile.save()
+        .then(res => res.json(res))
+        .catch(err => res.json({msg: "Problem deleting from database"}))
+    })
     .catch(err => res.json(err));
 
 })
