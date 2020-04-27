@@ -58,6 +58,105 @@ router.post(
     }
 );
 
+//GET       api/profiles/recipient/education
+//Action    Add education to user's profile
+//Private 
+router.post('/education', [check("school", "School is required").not().isEmpty(), check("from", "From date is required").not().isEmpty(), check("current", "Current bool is required").not().isEmpty(), check("fieldOfStudy", "Field of study is required").not().isEmpty()], (req, res) => {
+    const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            res.status(400).json({ errors: errors.array() });
+        }
+    RecipientProfile.findOne({recipient: req.user._id})
+    .then(profile => {
+        let {
+            school,
+            degree,
+            from,
+            to,
+            current,
+            fieldOfStudy,
+            description,
+        } = req.body;
+
+        let educationData = {};
+        educationData.school = school;
+        if(degree) educationData.degree = degree;
+        educationData.from = from;
+        if(to) educationData.to = to;
+        educationData.current = current;
+        educationData.fieldOfStudy = fieldOfStudy;
+        if(description) educationData.description = description;
+
+        profile.education.unshift(educationData)
+        profile.save()
+        .then(res => res.json({msg: "Saved!"}))
+        .catch(err => res.json({msg: "Error saving :("}))
+        }
+    )
+    .catch(err => res.json(err));
+    
+})
+
+//GET       api/profiles/recipient/experience
+//Action    Add experience to user's profile
+//Private 
+router.post('/experience', (req, res) => {
+    RecipientProfile.findOne({recipient: req.user._id})
+    .then(profile => {
+        let {
+            company,
+            from,
+            to,
+            current,
+            description,
+            location,
+        } = req.body;
+
+        let newExperience = {};
+        if(company) newExperience.company = company;
+        newExperience.from = from;
+        if(to) newExperience.to = to;
+        newExperience.current = current;
+        newExperience.description = description;
+        if(location) newExperience.location = location;
+
+        profile.experience.unshift(newExperience)
+        profile.save()
+        .then(res => res.json({msg: "Saved!"}))
+        .catch(err => res.json({msg: "Error saving :("}))
+        }
+    )
+    .catch(err => res.json(err));
+})
+
+//GET       api/profiles/recipient/hackathon
+//Action    Add hackathon to user's profile
+//Private 
+router.post('/previous-hackathon', (req, res) => {
+    RecipientProfile.findOne({recipient: req.user._id})
+    .then(profile => {
+        let {
+            name,
+            date,
+            description,
+            location,
+        } = req.body;
+
+        let newHackathon = {};
+        if(name) newHackathon.name = name;
+        newHackathon.date = date;
+        newHackathon.description = description;
+        if(location) newHackathon.location = location;
+
+        profile.previousHackathons.unshift(newHackathon)
+        profile.save()
+        .then(profile => res.json(profile))
+        .catch(err => res.json({msg: "Error saving :("}))
+        })
+    .catch(err => res.json(err));
+
+})
+
 // GET      api/profiles/recipient/me
 // Action   Return user's profile
 // PRIVATE

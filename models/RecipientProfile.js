@@ -26,6 +26,81 @@ let RecipientProfileSchema = new Schema({
     bio: {
         type: String,
     },
+    education: [
+        {
+            school: {
+                type: String,
+                required: true,
+            },
+            degree: {
+                type: String,
+            },
+            from: {
+                type: Date,
+                required: true,
+            },
+            to: {
+                type: Date,
+            },
+            current: {
+                type: Boolean,
+                required: true,
+            },
+            fieldOfStudy: {
+                type: String,
+                required: true,
+            },
+            description: {
+                type: String,
+            },
+        }
+    ],
+    experience: [
+        {
+            company: {
+                type: String,
+            },
+            from: {
+                type: Date,
+                required: true,
+                default: Date.now
+            },
+            to: {
+                type: Date
+            },
+            current: {
+                type: Boolean,
+                required: true,
+            },
+            description: {
+                type: String,
+                required: true,
+            },
+            location: {
+                type: String,
+            }
+        }
+    ],
+    previousHackathons: [
+        {
+            name: {
+                type: String,
+                required: true,
+            },
+            date: {
+                type: Date,
+                required: true,
+            },
+            //This will be them describing what they did at the Hackathon
+            description: {
+                type: String,
+                required: true,
+            },
+            location: {
+                type: String,
+            },
+        }
+    ],
     social: {
         youtube: {
             type: String,
