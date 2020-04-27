@@ -112,6 +112,9 @@ if (process.env.NODE_ENV === 'production') {
 //auth route
 app.get('/api/auth', (req, res) => {
     try {
+        if (!req.user) {
+            return res.status(401)
+        }
         // const user = {}
         // for (key in req.user) {
         //     if (key !== 'password') {
