@@ -298,4 +298,97 @@ router.delete('/deleteDonation/:hackathonId/:donationId', async (req, res, next)
     }
 });
 
+//PUT       /api/hackathons/add-winner/:hackathonId
+//Action    allows the creator of the hackathon to add winnners 
+//PRIVATE   needs to be owner of the hackathon
+router.put('/add-winner/:hackathonId', async (req, res, next) => {
+    //grab the hackathon's id from the requeset's parameters
+    let hackathonId = req.params.hackathonId;
+
+    //stops further acction if the user is not signed in
+    if(!req.user){
+        return res.status(401).json({
+            errors: [{msg: "You are not authorized to add a winner"}]
+        })
+    };
+
+    try{
+        //finds the hackathon that the modifications are happening to
+        let hackathon = await Hackathon.findOne({_id : hackathonId});
+
+
+        //stops further action if the user is not the same as the hackathon recipient
+        if((req.user._id + '') != (hackathon.recipient + '')){
+            return res.status(401).json({
+                errors: [{msg: 'Cannot add winners to another person\'s hackathon'}]
+            });
+        };
+
+        //extracts the winner to be added from the req.body
+        let addWinner = req.body;
+        //checks that the required parameters are in the body
+        const {teamName, awardTitle} = addWinner;
+        if(!teamName || !awardTitle){
+            return res.status(400).json({
+                errors: [{msg: 'Incomplete response, make sure to include team name and award title'}]
+            })
+        };
+        
+        //adds the winner to the hackathon object
+        hackathon.winners.push(addWinner);
+
+        await Hackathon.replaceOne({_id: hackathonId}, hackathon);
+
+        return res.status(200).json(hackathon);
+
+    }catch(err){
+        console.error(err);
+        return res.status(500).send('Server error or objects not defined')
+    }
+});
+
+//DELETE    api/hackathons/delete-winner/:hackathonId/:winnerId
+//Action    allows the creator of the hackathon to delete a winner
+//PRIVATE   needs to be owner of the hackathon
+router.delete('/delete-winner/:hackathonId/:winnerId', async (req, res, next) => {
+    //pulls the parameters from the request
+    const hackathonId = req.params.hackathonId;
+    const winnerId = req.params.winnerId;
+
+    //stops further action if the user is not logged in
+    if(!req.user){
+        return res.status(401).json({
+            errors: [{msg : "Not authorized to delete winner"}]
+        });
+    };
+
+    try{
+        //finds the hackathon that needs to be modified
+        let hackathon = await Hackathon.findOne({_id: hackathonId});
+
+        //stops furhter action if the user is not the owner of the hackathon
+        if((req.user._id + '') != (hackathon.recipient + '')) {
+            return res.status(401).json({
+                errors: [{msg: "You cannot edit the winners of another person's hackathon"}]
+            });
+        };
+
+        //Loops through all of the winners and finds the one that has the same ID as winnerId
+        hackathon.winners.forEach((winner, index) =>{
+            if((winner.id + '') === (winnerId + '')){
+                hackathon.winners.splice(index, 1);
+            }
+        });
+
+        await Hackathon.replaceOne({_id: hackathonId}, hackathon);
+
+        return res.status(200).json(hackathon);
+    }catch(err){
+        console.error(err);
+        res.status(500).send('Server error or bad data');
+    }
+
+
+})
+
 module.exports = router;
