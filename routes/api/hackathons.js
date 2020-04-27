@@ -252,7 +252,6 @@ router.put('/edit/add-donations-received/:hackathonId/:donationId', async(req, r
 
 }); 
 
-
 //DELETE    /api/hackathons/deleteDonation/:hackathonId/:donationId
 //Action    allows creator of hackathon to delete a donation criteria if they are no longer looking for that to be
 //PRIVATE   needs to be owner of the hackathon
@@ -289,7 +288,6 @@ router.delete('/deleteDonation/:hackathonId/:donationId', async (req, res, next)
 
         //saves the updated hackathon back to the database
         await Hackathon.replaceOne({_id: hackathonId}, hackathon);
-
         return res.status(200).json(hackathon);
 
     }catch(err){
@@ -388,7 +386,35 @@ router.delete('/delete-winner/:hackathonId/:winnerId', async (req, res, next) =>
         res.status(500).send('Server error or bad data');
     }
 
+})
 
+//DELETE    api/hackathons/delete-hackathon/:hackathonId
+//Action    allows the hackathon user to delete a hackathon
+//PRIVATE   needs to be owner of the hackathon
+router.delete('/delete-hackathon/:hackathonId', async (req, res, next) => {
+    //save the variables from the request parameters
+    let hackathonId = req.params.hackathonId;
+
+    //stops further action if the user is not logged in
+    if(!req.user){
+        return res.status(401).json({
+            errors: [{msg: "Not authorized to delete hackathon"}]
+        });
+    };
+
+    //finds the hackathon that is about to be deleted
+    let hackathon = await Hackathon.findOne({_id : hackathonId});
+
+    //stops further action if the user is not the creator of the hackathon
+    if((req.user._id + '') != (hackathon.recipient + '')){
+        return res.status(401).json({
+            errors: [{msg: "You cannot delete someone else's hackathon"}]
+        });
+    }
+    //Deletes the hackathon
+    await Hackathon.findOneAndDelete({_id: hackathonId});
+
+    res.status(200).send("hackathon deleted");
 })
 
 module.exports = router;
