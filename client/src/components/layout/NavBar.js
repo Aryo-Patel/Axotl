@@ -58,7 +58,7 @@ const NavBar = ({isAuthenticated, isSponsor}) => {
         <button className="navbar-toggler" style = {{borderColor : "#87ffa7", padding : "0", width : "44" , height : "50"}} type='button' data-toggle='collapse' data-target = "#navbarContent" aria-controls="navbarContent" aria-expanded='false' aria-label='Toggle navigation'><svg class="bi bi-chevron-compact-down" style = {{width : '44', height : '50'}} width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   <path fill-rule="evenodd" d="M1.553 6.776a.5.5 0 01.67-.223L8 9.44l5.776-2.888a.5.5 0 11.448.894l-6 3a.5.5 0 01-.448 0l-6-3a.5.5 0 01-.223-.67z" clip-rule="evenodd"/>
 </svg></button>
-        <button className = "btn btn-danger">Logout</button>
+        <Link to="/logout" className = "btn btn-danger">Logout</Link>
         <div className="collapse navbar-collapse justify-content-center" id = 'navbarContent'>
 
             {!isAuthenticated ? (unauthLinks) : (isSponsor ? authSponsLinks : authRecLinks)}

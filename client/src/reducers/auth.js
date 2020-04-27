@@ -30,6 +30,10 @@ export default function(state = initialState, action) {
         case LOGIN_FAIL:
         case USER_FAILED:
         case LOGOUT:
+            return{
+                ...state,
+                isAuthenticated: false,
+            }
         case ACCOUNT_DELETED:
             return {
                 ...state,

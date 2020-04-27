@@ -83,3 +83,14 @@ export const deleteRecipient = () => async dispatch => {
         console.error(err.message);
     }
 }
+
+export const logout = () => async dispatch => {
+    try {
+        await axios.get('/api/users/logout')
+        dispatch({
+            type: LOGOUT
+        })
+    } catch (err) {
+        console.error(err.message);
+    }
+}

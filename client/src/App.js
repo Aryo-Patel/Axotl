@@ -15,6 +15,7 @@ import Register from './components/auth/Register'
 import Profile from './components/profile/Profile'
 import CreateProfile from './components/profile/CreateProfile'
 import Dashboard from './components/dashboard/Dashboard'
+import Logout from './components/auth/Logout'
 import NotFound from './components/routing/NotFound'
 
 import logo from './logo.svg';
@@ -36,6 +37,7 @@ function App() {
             <Route exact path = '/dashboard' component = {Dashboard} />
             <Route exact path = '/profile' component = {Profile} />
             <Route exact path = '/create-profile' component = {CreateProfile} />
+            <Route exact path = '/logout' component = {Logout} />
             <Route component = {NotFound} />
           </Switch>
         </Fragment>
