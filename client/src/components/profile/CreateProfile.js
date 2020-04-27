@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-const fs = require('fs');
-import TextField from '../layout/TestField';
+import TextField from '../layout/TextField';
 import { createProfile } from '../../actions/ProfileActions';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import locations from '../../utils/locations.json';
+let locationChoices;
 
-
-export default class CreateProfile extends Component {
+class CreateProfile extends Component {
     constructor(props){
         super(props)
 
@@ -14,26 +16,15 @@ export default class CreateProfile extends Component {
             bio: '',
             location: '',
         }
-    }
-    addLocation(){
-        let output;
-        fs.readFile('../../utils/locations.json', 'utf8', (err, jsonString) => {
-            if(err) {
-                console.log("Error reading file from disk: " + err);
-                return;
-            }
-            try{
-                const locations = JSON.parse(jsonString)
-                for(i = 0; i < locations.length; i++){
-                    output += (
-                        <option>{locations[i].name}</option>
-                    )
-                }
-                return output;
-            }
-            catch(err) {
-                console.log('Error parsing JSON string:', err)
-            }
+
+        this.handleChange = this.handleChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+        console.log(locations);
+
+        locationChoices = locations.map(location => {
+            return (
+                <option>{location.name}</option>
+            )
         })
     }
 
@@ -53,36 +44,36 @@ export default class CreateProfile extends Component {
             bio: this.state.bio
         }
 
-        createProfile(profileData, this.props.history);
+        this.props.createProfile(profileData, this.props.history);
     }
     render() {
         return (
         <div>
-            <form>
+            <form onSubmit={this.onSubmit}>
                 <TextField
                 placeholder="Enter a unique handle for your profile!"
                 name="handle"
                 type="text"
                 value={this.state.handle}
-                onChange={this.state.handleChange}
+                onChange={this.handleChange}
                 />
                 <TextField
                 placeholder="What organization are you currently a part of?"
                 name="organization"
                 type="text"
                 value={this.state.organization}
-                onChange={this.state.handleChange}
+                onChange={this.handleChange}
                 />
                 <div class="form-group">
                     <label for="location">Location</label>
                     <select class="form-control" name='location' id="location" value={this.state.location} onChange={this.handleChange}>
-                    {addLocation}
+                    {locationChoices}
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label for="Bio">Biography</label>s
-                    <textarea class="form-control" name='bio' value={this.state.bio} id="Bio" rows="4"></textarea>
+                    <label for="Bio">Biography</label>
+                    <textarea class="form-control" name='bio' value={this.state.bio} id="Bio" rows="4" onChange={this.handleChange}></textarea>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -91,3 +82,6 @@ export default class CreateProfile extends Component {
         )
     }
 }
+
+
+export default connect(null, { createProfile })(withRouter(CreateProfile));
