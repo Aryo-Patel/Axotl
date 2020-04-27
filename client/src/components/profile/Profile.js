@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { getCurrentProfile } from '../../actions/ProfileActions';
 import {Redirect} from 'react-router-dom'
 import Header from './Header';
+import Spinner from '../common/Spinner'
 
 class Profile extends Component {
     componentDidMount(){
@@ -17,11 +18,14 @@ class Profile extends Component {
 
         let { profile, loading } = this.props.profile;
 
-        let profileContent
+        let profileContent;
+
+        //This will be the profile picture
+        let pfp;
 
         if (profile === null || loading){
             //If there is no profile yet, put spinner in
-            profileContent = <p>Loading...</p>
+            profileContent = <Spinner />
         } else if(Object.keys(profile).length > 0){
             //If there is a profile put it in.
             profileContent = <Header 
@@ -29,6 +33,7 @@ class Profile extends Component {
             handle={profile.handle}
             bio={profile.bio}
             location={profile.location}
+            organization={profile.organization}
             />
         } else {
             //User is prompted to make profile

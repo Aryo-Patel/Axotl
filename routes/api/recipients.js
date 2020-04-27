@@ -175,7 +175,13 @@ router.post('/resetpassword/:jwt', async(req, res) => {
     }
 })
 
-
+//GET       api/users/logout
+//Action    log the users out
+//PUBLIC    (Sorta, we don't auth it but it'll be private)
+router.get('/logout', (req, res) => {
+    req.logout();
+    res.redirect('/');
+})
 
 
 module.exports = router;
