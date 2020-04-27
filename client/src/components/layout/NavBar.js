@@ -34,7 +34,9 @@ const NavBar = ({isAuthenticated, isSponsor}) => {
 
   const unauthLinks = (
     <ul className = 'navbar-nav justify-content-center float-right'>
-      
+      <li className = 'nav-item active'>
+        <Link to = '/hackathons' className = 'nav-link'>Find Hackathons</Link>
+      </li>
       <li className = 'nav-item active'>
         <Link to="/login" className = 'nav-link'>Login</Link>
       </li>
