@@ -30,7 +30,7 @@ router.post('/create', async(req, res, next) => {
         //Take the info from the body to create new hackathon
         //start date, end date, title
         
-        const { recipient,
+        const {
                 startDate,
                 endDate,
                 title,
@@ -42,12 +42,14 @@ router.post('/create', async(req, res, next) => {
         
         //create new hackathon
         const newHackathon = new Hackathon({
-            recipient,
             title,
             startDate,
             endDate,
             description,
         });
+
+        //adds the recipient to the new hackathon
+        newHackathon.recipient = req.user._id;
 
         //add in the optional fields if they exist
         if(website) newHackathon['websiste'] = website;
@@ -221,20 +223,30 @@ router.put('/edit/add-donations/:id', async(req, res, next) => {
 //PUT       /api/hackathons/edit/add-donations-received/:id
 //Action    add donations that the group has recieved (automatic process)
 //PRIVATE   happens behind the scenes when a sponsor agrees to sponsor a hackathon
-router.put('/edit/add-donations-received/:id', async(req, res, next) => {
-    let hackathonId = req.params.id;
+router.put('/edit/add-donations-received/:hackathonId/:donationId', async(req, res, next) => {
+    
+    //grab the prameters from the request
+    let hackathonId = req.params.hackathonId;
+    let donationId = req.params.donationId;
     try{
         //finds the hackathon that needs to be updated
         let hackathon = await Hackathon.findOne({_id: hackathonId});
 
-        //gets the object that contains the updates
-        let donationToAdd = req.body;
-        
-        //adds the donation to the list of donations the hackathon has received
-        hackathon.donations.received.push(donationToAdd);
+        //loop through the donations in the hackthon and find the one that has the same object id as donation id
+        Object.values(hackathon.donations).forEach(donation => {
+            //pushes the sponsor that donated to one of the hackathon's request to the received array
+            if((donation._id + '') === (donationId + '')){
+                donation.received.push(req.body);
+            }
+        })
 
-        await hackathon.save();
+        await Hackathon.replaceOne({_id: hackathonId}, hackathon);
+
+        return res.status(200).json(hackathon);
+
+
     }catch(err){
+        console.error(err);
         res.status(500).send('Server error or hackathon invalid')
     }
 
