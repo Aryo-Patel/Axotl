@@ -252,4 +252,50 @@ router.put('/edit/add-donations-received/:hackathonId/:donationId', async(req, r
 
 }); 
 
+
+//DELETE    /api/hackathons/deleteDonation/:hackathonId/:donationId
+//Action    allows creator of hackathon to delete a donation criteria if they are no longer looking for that to be
+//PRIVATE   needs to be owner of the hackathon
+router.delete('/deleteDonation/:hackathonId/:donationId', async (req, res, next) => {
+    //initializes variables to 
+    const hackathonId = req.params.hackathonId;
+    const donationId = req.params.donationId;
+
+    //stops any further action if the user is not logged in
+    if(!req.user){
+        return res.status(401).json({
+            errors: [{msg: "Not authorized to delete donations"}]
+        });
+    };
+
+    try{
+        //grabs the hackathon that needs to have an element deleted
+        let hackathon = await Hackathon.findOne({_id: hackathonId});
+        
+        //stops user if they are not the same one as the hackathon creator
+        if((req.user._id + '') != (hackathon.recipient + '')){
+            return res.status(401).json({
+                errors: [{msg: "You cannot edit someone else's hackathon!"}]
+            });
+        };
+
+        //Loops through the donations and finds the one that needs to be deleted by Id
+        hackathon.donations.forEach((donation, index) => {
+            if((donation._id + '') === (donationId + '')){
+                //deletes the donation by id
+                hackathon.donations.splice(index, 1);
+            }
+        });
+
+        //saves the updated hackathon back to the database
+        await Hackathon.replaceOne({_id: hackathonId}, hackathon);
+
+        return res.status(200).json(hackathon);
+
+    }catch(err){
+        console.error(err);
+        res.status(500).send('Server error or data not found');
+    }
+});
+
 module.exports = router;
