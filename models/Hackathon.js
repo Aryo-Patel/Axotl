@@ -33,6 +33,9 @@ const HackathonSchema = new mongoose.Schema({
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'Sponsors'
             },
+            type: {
+                type: String,
+            },
             quantity: {
                 type: String,
             },
