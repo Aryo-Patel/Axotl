@@ -27,9 +27,9 @@ export const createProfile = (profileData, history) => dispatch => {
     axios.post('/api/profiles/recipient/', profileData)
     .then(res => {
         console.log("Profile Created!")
-        //TODO: Just make this link to the dashboard after creation.
+        history.push('/dashboard')
     })
-};s
+};
 
 const setProfileLoading = () => {
     return {

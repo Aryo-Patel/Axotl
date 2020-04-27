@@ -12,6 +12,8 @@ import NavBar from './components/layout/NavBar'
 import Landing from './components/layout/Landing'
 import Login from './components/auth/Login'
 import Register from './components/auth/Register'
+import Profile from './components/profile/Profile'
+import CreateProfile from './components/profile/CreateProfile'
 import Dashboard from './components/dashboard/Dashboard'
 import NotFound from './components/routing/NotFound'
 
@@ -31,7 +33,9 @@ function App() {
             <Route exact path = '/' component = {Landing} />
             <Route exact path = '/login' component = {Login} />
             <Route exact path = '/register' component = {Register} />
-            <Route exact path= '/dashboard' component = {Dashboard} />
+            <Route exact path = '/dashboard' component = {Dashboard} />
+            <Route exact path = '/profile' component = {Profile} />
+            <Route exact path = '/create-profile' component = {CreateProfile} />
             <Route component = {NotFound} />
           </Switch>
         </Fragment>

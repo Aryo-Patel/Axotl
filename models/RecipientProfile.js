@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 let RecipientProfileSchema = new Schema({
     recipient: {
         type: Schema.Types.ObjectId,
-        ref: "recipients",
+        ref: "Recipients",
     },
     handle: {
         type: String,

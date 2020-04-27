@@ -1,16 +1,13 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { Component } from 'react';
+import {Link} from "react-router-dom";
 
-const Dashboard = props => {
-    return (
-        <div>
-         <h3>Dashboard Reached</h3>
-        </div>
-    )
+
+export default class Dashboard extends Component {
+    render() {
+        return (
+            <div>
+                <Link to='/profile' className="btn btn-lg btn-info">Your Profile</Link> 
+            </div>
+        )
+    }
 }
-
-Dashboard.propTypes = {
-
-}
-
-export default Dashboard
