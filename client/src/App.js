@@ -7,11 +7,12 @@ import {Provider} from 'react-redux'
 import store from "./store"
 
 //Component Imports
-import NavBar from './components/layout/NavBar';
-import Landing from './components/layout/Landing';
-import Login from './components/auth/Login';
-import Register from './components/auth/Register';
-import Dashboard from './components/profile/Dashboard';
+import NavBar from './components/layout/NavBar'
+import Landing from './components/layout/Landing'
+import Login from './components/auth/Login'
+import Register from './components/auth/Register'
+import Dashboard from './components/dashboard/Dashboard'
+import NotFound from './components/routing/NotFound'
 
 import logo from './logo.svg';
 import './App.css';
@@ -26,7 +27,8 @@ function App() {
             <Route exact path = '/' component = {Landing} />
             <Route exact path = '/login' component = {Login} />
             <Route exact path = '/register' component = {Register} />
-            <Route exact path = '/dashboard' component = {Dashboard} />
+            <Route exact path= '/dashboard' component = {Dashboard} />
+            <Route component = {NotFound} />
           </Switch>
         </Fragment>
       </Router>
