@@ -417,4 +417,18 @@ router.delete('/delete-hackathon/:hackathonId', async (req, res, next) => {
     res.status(200).send("hackathon deleted");
 })
 
+//GET       /api/hackathons
+//Action    returns all the hackathons
+//PUBLIC    no authorization required to view all the hackathons
+router.get('/', async (req, res, next) => {
+    try{
+        //grabs all the hackathons
+        let hackathons = await Hackathon.find().sort({date: -1});
+
+        return res.status(200).json(hackathons);
+    }catch(err){
+        console.error(err);
+        return res.status(500).send('server error bad syntax');
+    }
+});
 module.exports = router;
