@@ -5,6 +5,7 @@ const initialState = {
     isAuthenticated: false,
     isRegistered: false,
     loading: true,
+    sponsor: false
 };
 
 export default function(state = initialState, action) {

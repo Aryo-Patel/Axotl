@@ -87,6 +87,8 @@ passport.serializeUser((user, done) => {
 // deserializes user and attaches user object to req.user from session
 passport.deserializeUser(async(id, done) => {
     try {
+        console.log('hello')
+        console.log(`id : ${id}`)
         const recipient = await Recipient.findById(id);
         const sponsor = await Sponsor.findById(id);
         const user = recipient || sponsor;
@@ -109,8 +111,20 @@ if (process.env.NODE_ENV === 'production') {
 
 //auth route
 app.get('/api/auth', (req, res) => {
-    const user = req.user.select('-password')
-    res.json({ user })
+    try {
+        // const user = {}
+        // for (key in req.user) {
+        //     if (key !== 'password') {
+        //         user.key = req.user.key
+        //     }
+        // }
+        console.log(req.session)
+        res.json({ user: req.user })
+            // res.json({ user: req.user })
+    } catch (err) {
+        console.error(err.message)
+        res.status(500).send('Server Error')
+    }
 })
 
 //Placeholder for socket initialization for chat

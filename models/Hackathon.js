@@ -3,7 +3,8 @@ const mongoose = require('mongoose')
 const HackathonSchema = new mongoose.Schema({
     recipient: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'recipients'
+        ref: 'recipients',
+        required: true
     },
     title: {
         type: String,
@@ -31,6 +32,9 @@ const HackathonSchema = new mongoose.Schema({
             sponsor: {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'Sponsors'
+            },
+            type: {
+                type: String,
             },
             quantity: {
                 type: String,

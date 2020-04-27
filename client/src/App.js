@@ -5,6 +5,7 @@ import {BrowserRouter as Router, Route, Switch} from "react-router-dom"
 //Redux Imports
 import {Provider} from 'react-redux'
 import store from "./store"
+import {loadUser} from './actions/auth'
 
 //Component Imports
 import NavBar from './components/layout/NavBar'
@@ -18,6 +19,9 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  useEffect(() => {
+    store.dispatch(loadUser());
+  }, [])
   return (
     <Provider store={store} >
       <Router>

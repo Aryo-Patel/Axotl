@@ -1,8 +1,12 @@
 import React, { Fragment } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
+import {connect} from 'react-redux'
 
-const Landing = (props) => {
+const Landing = ({isAuthenticated}) => {
+  if(isAuthenticated) {
+    return <Redirect to = '/dashboard' />
+  }
   return (
     <Fragment>
       <div
@@ -135,7 +139,7 @@ const Landing = (props) => {
           style={{
             backgroundColor: "rgba(10, 10, 10, 0.5)",
             position: "absolute",
-            height: "82.5%",
+            height: "112.5%",
             width: "100%",
 
             margin: "0",
@@ -179,7 +183,7 @@ const Landing = (props) => {
           style={{
             backgroundColor: "rgba(10, 10, 10, 0.5)",
             position: "absolute",
-            height: "82.5%",
+            height: "112.5%",
             width: "100%",
 
             margin: "0",
@@ -223,7 +227,7 @@ const Landing = (props) => {
           style={{
             backgroundColor: "rgba(10, 10, 10, 0.5)",
             position: "absolute",
-            height: "82.5%",
+            height: "112.5%",
             width: "100%",
 
             margin: "0",
@@ -261,6 +265,12 @@ const Landing = (props) => {
   );
 };
 
-Landing.propTypes = {};
+Landing.propTypes = {
+  isAuthenticated : PropTypes.bool,
+};
 
-export default Landing;
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated
+})
+
+export default connect(mapStateToProps, {})(Landing);

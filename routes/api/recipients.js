@@ -13,7 +13,7 @@ const Recipient = require('../../models/Recipient');
 const RecipientProfile = require('../../models/RecipientProfile')
 
 // POST      api/users/register
-// Action   Register the recipient
+// Action    Register the recipient
 // PUBLIC
 
 router.post('/register', [check('name', 'Name is required').not().isEmpty(), check('email', 'Not a valid email').isEmail(), check('password', 'Please enter a password with six or more characters').isLength({ min: 6 })], async(req, res) => {
@@ -63,7 +63,7 @@ router.post('/register', [check('name', 'Name is required').not().isEmpty(), che
 
 
 // POST      api/recipients/login
-// Action   Login the user
+// Action    Login the user
 // PUBLIC
 
 router.post('/login', passport.authenticate('local', { failureRedirect: 'http://localhost:3000/recipient/login' }), (req, res) => {
@@ -91,9 +91,13 @@ router.post('/login', passport.authenticate('local', { failureRedirect: 'http://
                 }
             }
         }); */
-
-    const user = req.user.select('-password')
-    res.json({ user })
+    // const user = {}
+    // for (key in req.user) {
+    //     if (key !== 'password') {
+    //         user.key = req.user.key
+    //     }
+    // }
+    res.json({ user: req.user })
 });
 
 //DELETE api/users/
