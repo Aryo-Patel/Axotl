@@ -1,6 +1,8 @@
 import {
     GET_HACKATHONS,
-    GET_HACKATHONS_FAIL
+    GET_HACKATHONS_FAIL,
+    CREATE_HACKATHON,
+    CREATE_HACKATHON_FAIL
 } from './Types';
 
 import axios from 'axios';
@@ -27,5 +29,32 @@ export const getHackathons = () => async dispatch => {
             payload: {}
         })
         console.log(err);
+    }
+}
+
+//Create a hackathon
+export const createHackathon = hackathonData => async dispatch => {
+    try{
+        const body = hackathonData;
+        const config = {
+            headers: {
+                'Content-Type' : 'application/json'
+            }
+        }
+
+        let newHackathon = axios.post('/api/hackathons/create', body, config);
+        let hackathonData = newHackathon.data;
+
+        dispatch({
+            type: CREATE_HACKATHON,
+            payload: hackathonData
+        })
+
+    }catch(err){
+        console.error(err);
+        dispatch({
+            type: CREATE_HACKATHON_FAIL,
+            payload: {}
+        })
     }
 }
