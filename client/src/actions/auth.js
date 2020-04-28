@@ -31,29 +31,13 @@ export const sendLogin = (formData) => async dispatch => {
 }
 
 export const registerUser = (userData, history) => async(dispatch) => {
-
-
-
-
     let config = {
-
         headers: {
-
             'Content-Type': 'application/json'
-
         }
-
     }
-
-
-
     let body = JSON.stringify(userData);
-
-
-
-
     try {
-
         let res = await axios.post('/api/users/register', body, config)
         dispatch({
             type: REGISTER_SUCCESS,
@@ -61,15 +45,12 @@ export const registerUser = (userData, history) => async(dispatch) => {
                 registered: true
             }
         })
-
     } catch (error) {
         dispatch({
             type: REGISTER_FAIL
         })
         console.error(error.message);
-
     }
-
 }
 
 export const loadUser = () => async dispatch => {
@@ -90,7 +71,6 @@ export const loadUser = () => async dispatch => {
         })
         console.error(err.message);
     }
-
 }
 
 export const deleteRecipient = () => async dispatch => {
@@ -98,6 +78,17 @@ export const deleteRecipient = () => async dispatch => {
         await axios.delete('/api/users/')
         dispatch({
             type: ACCOUNT_DELETED
+        })
+    } catch (err) {
+        console.error(err.message);
+    }
+}
+
+export const logout = () => async dispatch => {
+    try {
+        await axios.get('/api/users/logout')
+        dispatch({
+            type: LOGOUT
         })
     } catch (err) {
         console.error(err.message);

@@ -8,12 +8,19 @@ import store from "./store"
 import {loadUser} from './actions/auth'
 
 //Component Imports
-import NavBar from './components/layout/NavBar'
-import Landing from './components/layout/Landing'
-import Login from './components/auth/Login'
-import Register from './components/auth/Register'
-import Dashboard from './components/dashboard/Dashboard'
-import NotFound from './components/routing/NotFound'
+import NavBar from './components/layout/NavBar';
+import Landing from './components/layout/Landing';
+import Login from './components/auth/Login';
+import Register from './components/auth/Register';
+import Profile from './components/profile/Profile';
+import CreateProfile from './components/profile/CreateProfile';
+import AddEducation from './components/profile/AddEducation';
+import AddExperience from './components/profile/AddExperience';
+import AddPreviousHackathon from './components/profile/AddPreviousHackathon';
+import Dashboard from './components/dashboard/Dashboard';
+import Logout from './components/auth/Logout';
+import NotFound from './components/routing/NotFound';
+import Hackathons from './components/hackathons/Hackathons';
 
 import logo from './logo.svg';
 import './App.css';
@@ -27,11 +34,18 @@ function App() {
       <Router>
         <Fragment>
           <NavBar />
+          <Route exact path = '/' component = {Landing} />
           <Switch>
-            <Route exact path = '/' component = {Landing} />
             <Route exact path = '/login' component = {Login} />
             <Route exact path = '/register' component = {Register} />
-            <Route exact path= '/dashboard' component = {Dashboard} />
+            <Route exact path = '/dashboard' component = {Dashboard} />
+            <Route exact path = '/profile' component = {Profile} />
+            <Route exact path = '/add-education' component = {AddEducation} />
+            <Route exact path = '/add-experience' component = {AddExperience} />
+            <Route exact path = '/add-previous-hackathon' component = {AddPreviousHackathon} />
+            <Route exact path = '/create-profile' component = {CreateProfile} />
+            <Route exact path = '/hackathons' component = {Hackathons} />
+            <Route exact path = '/logout' component = {Logout} />
             <Route component = {NotFound} />
           </Switch>
         </Fragment>

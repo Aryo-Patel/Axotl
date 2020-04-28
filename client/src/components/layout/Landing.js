@@ -4,9 +4,10 @@ import PropTypes from "prop-types";
 import {connect} from 'react-redux'
 
 const Landing = ({isAuthenticated}) => {
-  if(isAuthenticated) {
-    return <Redirect to = '/dashboard' />
-  }
+  // if(isAuthenticated) {
+  //   return <Redirect to = '/dashboard' />
+  // }
+
   return (
     <Fragment>
       <div
