@@ -8,15 +8,18 @@ import store from "./store"
 import {loadUser} from './actions/auth'
 
 //Component Imports
-import NavBar from './components/layout/NavBar'
-import Landing from './components/layout/Landing'
-import Login from './components/auth/Login'
-import Register from './components/auth/Register'
-import Profile from './components/profile/Profile'
-import CreateProfile from './components/profile/CreateProfile'
-import Dashboard from './components/dashboard/Dashboard'
-import Logout from './components/auth/Logout'
-import NotFound from './components/routing/NotFound'
+import NavBar from './components/layout/NavBar';
+import Landing from './components/layout/Landing';
+import Login from './components/auth/Login';
+import Register from './components/auth/Register';
+import Profile from './components/profile/Profile';
+import CreateProfile from './components/profile/CreateProfile';
+import CreateProfile from './components/profile/CreateProfile';
+import CreateProfile from './components/profile/CreateProfile';
+import CreateProfile from './components/profile/CreateProfile';
+import Dashboard from './components/dashboard/Dashboard';
+import Logout from './components/auth/Logout';
+import NotFound from './components/routing/NotFound';
 import Hackathons from './components/hackathons/Hackathons';
 
 import logo from './logo.svg';

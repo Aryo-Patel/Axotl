@@ -109,6 +109,7 @@ router.post('/experience', [check("from", "From date is required").not().isEmpty
     .then(profile => {
         let {
             company,
+            position,
             from,
             to,
             current,
@@ -118,6 +119,7 @@ router.post('/experience', [check("from", "From date is required").not().isEmpty
 
         let newExperience = {};
         if(company) newExperience.company = company;
+        if(position) newExperience.position = position;
         newExperience.from = from;
         if(to) newExperience.to = to;
         newExperience.current = current;

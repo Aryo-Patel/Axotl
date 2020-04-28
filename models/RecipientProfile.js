@@ -60,6 +60,9 @@ let RecipientProfileSchema = new Schema({
             company: {
                 type: String,
             },
+            position: {
+                type: String,
+            },
             from: {
                 type: Date,
                 required: true,

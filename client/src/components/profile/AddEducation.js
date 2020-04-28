@@ -1,0 +1,104 @@
+import React, { Component } from 'react';
+import {connect} from 'react-redux';
+import {addEducation} from '../../actions/ProfileActions';
+import {withRouter} from 'react-router-dom';
+import {TextField} from '../layout/TextField';
+
+class AddEducation extends Component {
+    constructor(props){
+        super(props)
+
+        this.state = {
+            school: '',
+            degree: '',
+            from: '',
+            to: '',
+            current: false,
+            fieldOfStudy: '',
+            description: '',
+            disabled: false,
+        }
+
+        this.handleChange = this.handleChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+        this.toggleCurrent = this.toggleCurrent.bind(this);
+    }
+
+    handleChange(e){
+        this.setState({
+            [e.target.name]: e.target.value
+        })
+    }
+
+    onSubmit(e){
+        e.preventDefault
+
+        let educationData = {
+            school: this.state.school,
+            degree: this.state.degree,
+            from: this.state.from,
+            to: this.state.to,
+            current: this.state.current,
+            fieldOfStudy: this.state.fieldOfStudy,
+            description: this.state.description,
+        }
+
+        this.props.addEducation(educationData, this.props.history);
+    }
+
+    toggleCurrent(e){
+        this.setState({
+            disabled: !this.state.disabled,
+            current: !this.state.current
+        })
+    }
+
+    render() {
+        return (
+            <div>
+                <form onSubmit={this.onSubmit}>
+                <TextField
+                name="school"
+                value={this.state.school}
+                onChange={this.state.handleChange}
+                placeholder="Enter the school/institution name"
+                />
+                <TextField
+                name="degree"
+                value={this.state.degree}
+                onChange={this.state.handleChange}
+                placeholder="What kind of degree did you receive?"
+                />
+                <TextField
+                name="description"
+                value={this.state.description}
+                onChange={this.state.handleChange}
+                placeholder="Describe what you studied and/or the institution."
+                />
+                <TextField
+                name="fieldOfStudy"
+                value={this.state.fieldOfStudy}
+                onChange={this.state.handleChange}
+                placeholder="What was your major/focus?"
+                />
+                <TextField
+                name="from"
+                value={this.state.from}
+                onChange={this.state.handleChange}
+                placeholder="MM/DD/YYYY"
+                />
+                <TextField
+                name="to"
+                value={this.state.to}
+                onChange={this.state.handleChange}
+                placeholder="MM/DD/YYYY"
+                disabled={this.state.disabled}
+                />
+                <button onClick={this.toggleCurrent}>Are you currently pursuing this education?</button>
+                </form>
+            </div>
+        )
+    }
+}
+
+export default connect(null, {addEducation})(withRouter(AddEducation))
