@@ -45,7 +45,7 @@ router.post(
         try {
             let profile = await RecipientProfile.findOne({ recipient: req.user._id })
             if (profile) {
-                profile = await RecipientProfile.findOneAndUpdate({ recipient: req.user._id }, { $set, profileParts }, { new: true })
+                profile = await RecipientProfile.findOneAndUpdate({ recipient: req.user._id }, { $set: profileParts }, { new: true })
                 return res.json(profile)
             }
             profile = new RecipientProfile(profileParts)

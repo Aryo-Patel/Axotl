@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
 import TextField from '../layout/TextField';
-import { createProfile, editProfile } from '../../actions/ProfileActions';
+import { editProfile } from '../../actions/ProfileActions';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import locations from '../../utils/locations.json';
 let locationChoices;
 
-class CreateProfile extends Component {
+class EditProfile extends Component {
     constructor(props){
         super(props)
 
         this.state = {
-            handle: '',
-            organization: '',
-            bio: '',
-            location: '',
+            handle: this.props.profile.profile.handle,
+            organization: this.props.profile.profile.organization,
+            bio: this.props.profile.profile.bio,
+            location: this.props.profile.profile.location,
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -44,12 +44,12 @@ class CreateProfile extends Component {
             bio: this.state.bio
         }
 
-        this.props.createProfile(profileData, this.props.history);
+        this.props.editProfile(profileData, this.props.history);
     }
     render() {
         return (
         <div>
-            <h5>Create your profile:</h5>
+            <h5>Edit your profile:</h5>
             <form onSubmit={this.onSubmit}>
                 <label>Handle</label>
                 <TextField
@@ -86,5 +86,8 @@ class CreateProfile extends Component {
     }
 }
 
+const mapStateToProps = state => ({
+    profile: state.profile
+})
 
-export default connect(null, { createProfile })(withRouter(CreateProfile));
+export default connect(mapStateToProps, { editProfile })(withRouter(EditProfile));

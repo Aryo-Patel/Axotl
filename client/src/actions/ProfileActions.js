@@ -31,6 +31,15 @@ export const createProfile = (profileData, history) => dispatch => {
     })
 };
 
+//Edit a profile for the current user
+export const editProfile = (profileData, history) => dispatch => {
+    axios.post('/api/profiles/recipient/', profileData)
+    .then(res => {
+        console.log("Profile updated!");
+        history.push('/profile');
+    })
+}
+
 //This will be used to add education to the user's profile.
 export const addEducation = (educationData, history) => {
     axios.post('/api/profiles/recipient/education', educationData)
