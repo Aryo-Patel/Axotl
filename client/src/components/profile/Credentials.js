@@ -67,9 +67,9 @@ export default class Education extends Component {
 
         return (
         <div>
-            <div><h5><strong><u>Education</u></strong>   <Link to='/add-experience' className="btn btn-lg btn-info btn-sm">+</Link></h5></div>
+            <div><h5><strong><u>Education</u></strong>   <Link to='/add-education' className="btn btn-lg btn-info btn-sm">+</Link></h5></div>
                 {educationContent}
-            <div><h5><strong><u>Experiences</u></strong>   <Link to='/add-education' className="btn btn-lg btn-info btn-sm">+</Link></h5></div>
+            <div><h5><strong><u>Experiences</u></strong>   <Link to='/add-experience' className="btn btn-lg btn-info btn-sm">+</Link></h5></div>
                 {experienceContent}             
             <div><h5><strong><u>Hackathons</u></strong>   <Link to='/add-previous-hackathon' className="btn btn-lg btn-info btn-sm">+</Link></h5></div>
                 {hackathonContent}
