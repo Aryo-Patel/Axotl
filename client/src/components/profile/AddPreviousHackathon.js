@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {addPreviousHackathon} from '../../actions/ProfileActions';
 import {withRouter} from 'react-router-dom';
-import {TextField} from '../layout/TextField';
+import TextField from '../layout/TextField';
 
 class AddPreviousHackathon extends Component {
     constructor(props){
@@ -17,7 +17,6 @@ class AddPreviousHackathon extends Component {
 
         this.handleChange = this.handleChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
-        this.toggleCurrent = this.toggleCurrent.bind(this);
     }
 
     handleChange(e){
@@ -27,7 +26,7 @@ class AddPreviousHackathon extends Component {
     }
 
     onSubmit(e){
-        e.preventDefault
+        e.preventDefault();
 
         let hackathonData = {
             name: this.state.name,
@@ -36,7 +35,7 @@ class AddPreviousHackathon extends Component {
             description: this.state.description,
         }
 
-        this.props.addPreviousHackathon(hackathonData, this.props.history);
+        addPreviousHackathon(hackathonData, this.props.history);
     }
 
 
@@ -47,31 +46,33 @@ class AddPreviousHackathon extends Component {
                 <TextField
                 name="name"
                 value={this.state.name}
-                onChange={this.state.handleChange}
+                onChange={this.handleChange}
                 placeholder="Name of the hackathon."
                 />
                 <TextField
                 name="description"
                 value={this.state.description}
-                onChange={this.state.handleChange}
+                onChange={this.handleChange}
                 placeholder="Describe what you did."
                 />
                 <TextField
                 name="location"
                 value={this.state.location}
-                onChange={this.state.handleChange}
+                onChange={this.handleChange}
                 placeholder="Where was this?"
                 />
                 <TextField
                 name="date"
                 value={this.state.date}
-                onChange={this.state.handleChange}
+                onChange={this.handleChange}
                 placeholder="MM/DD/YYYY"
                 />
+                <br></br>
+                <input type="submit" value="Submit" className="btn btn-success"></input>
                 </form>
             </div>
         )
     }
 }
 
-export default connect(null, {addPreviousHackathon})(withRouter(AddPreviousHackathon))
+export default connect(null, {})(withRouter(AddPreviousHackathon))

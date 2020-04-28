@@ -5,16 +5,14 @@ import PropTypes from 'prop-types';
 import { getCurrentProfile } from '../../actions/ProfileActions';
 import {Redirect} from 'react-router-dom'
 import Header from './Header';
-import Spinner from '../common/Spinner'
+import Spinner from '../common/Spinner';
+import Credentials from './Credentials';
 
 class Profile extends Component {
     componentDidMount(){
         this.props.getCurrentProfile();
     }
     render() {
-        if(this.props.isAuthenticated === false){
-            return <Redirect to='/login'/>
-        }
 
         let { profile, loading } = this.props.profile;
 
@@ -26,22 +24,29 @@ class Profile extends Component {
         if (profile === null || loading){
             //If there is no profile yet, put spinner in
             profileContent = <Spinner />
+        } else if(this.props.isAuthenticated === false){
+            return <Redirect to='/login'/>
         } else if(Object.keys(profile).length > 0){
             //If there is a profile put it in.
-            profileContent = <Header 
-            avatar={profile.avatar}
-            handle={profile.handle}
-            bio={profile.bio}
-            location={profile.location}
-            organization={profile.organization}
-            />
+            profileContent = (
+            <div>
+                <Header 
+                avatar={profile.avatar}
+                handle={profile.handle}
+                bio={profile.bio}
+                location={profile.location}
+                organization={profile.organization}
+                />
+                <Credentials profile={profile}/>
+            </div>
+            )
         } else {
             //User is prompted to make profile
             profileContent = (
                 <div>
                     <p className="lead text-muted">Welcome</p>
                     <p>You have not yet created a profile. Please use this link to create one.</p>
-                    <Link to='/create-profile' className="btn btn-lg btn-info">Create profile</Link> 
+                    <Link to='/create-profile' className="btn btn-lg btn-info">Create profile</Link>  
                 </div>
             );
         }

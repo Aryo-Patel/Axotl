@@ -14,9 +14,9 @@ import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Profile from './components/profile/Profile';
 import CreateProfile from './components/profile/CreateProfile';
-import CreateProfile from './components/profile/CreateProfile';
-import CreateProfile from './components/profile/CreateProfile';
-import CreateProfile from './components/profile/CreateProfile';
+import AddEducation from './components/profile/AddEducation';
+import AddExperience from './components/profile/AddExperience';
+import AddPreviousHackathon from './components/profile/AddPreviousHackathon';
 import Dashboard from './components/dashboard/Dashboard';
 import Logout from './components/auth/Logout';
 import NotFound from './components/routing/NotFound';
@@ -40,6 +40,9 @@ function App() {
             <Route exact path = '/register' component = {Register} />
             <Route exact path = '/dashboard' component = {Dashboard} />
             <Route exact path = '/profile' component = {Profile} />
+            <Route exact path = '/add-education' component = {AddEducation} />
+            <Route exact path = '/add-experience' component = {AddExperience} />
+            <Route exact path = '/add-previous-hackathon' component = {AddPreviousHackathon} />
             <Route exact path = '/create-profile' component = {CreateProfile} />
             <Route exact path = '/hackathons' component = {Hackathons} />
             <Route exact path = '/logout' component = {Logout} />

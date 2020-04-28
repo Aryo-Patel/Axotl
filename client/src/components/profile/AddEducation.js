@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {addEducation} from '../../actions/ProfileActions';
 import {withRouter} from 'react-router-dom';
-import {TextField} from '../layout/TextField';
+import TextField from '../layout/TextField';
 
 class AddEducation extends Component {
     constructor(props){
@@ -31,7 +31,7 @@ class AddEducation extends Component {
     }
 
     onSubmit(e){
-        e.preventDefault
+        e.preventDefault();
 
         let educationData = {
             school: this.state.school,
@@ -43,10 +43,11 @@ class AddEducation extends Component {
             description: this.state.description,
         }
 
-        this.props.addEducation(educationData, this.props.history);
+        addEducation(educationData, this.props.history);
     }
 
     toggleCurrent(e){
+        e.preventDefault();
         this.setState({
             disabled: !this.state.disabled,
             current: !this.state.current
@@ -60,45 +61,47 @@ class AddEducation extends Component {
                 <TextField
                 name="school"
                 value={this.state.school}
-                onChange={this.state.handleChange}
+                onChange={this.handleChange}
                 placeholder="Enter the school/institution name"
                 />
                 <TextField
                 name="degree"
                 value={this.state.degree}
-                onChange={this.state.handleChange}
+                onChange={this.handleChange}
                 placeholder="What kind of degree did you receive?"
                 />
                 <TextField
                 name="description"
                 value={this.state.description}
-                onChange={this.state.handleChange}
+                onChange={this.handleChange}
                 placeholder="Describe what you studied and/or the institution."
                 />
                 <TextField
                 name="fieldOfStudy"
                 value={this.state.fieldOfStudy}
-                onChange={this.state.handleChange}
+                onChange={this.handleChange}
                 placeholder="What was your major/focus?"
                 />
                 <TextField
                 name="from"
                 value={this.state.from}
-                onChange={this.state.handleChange}
+                onChange={this.handleChange}
                 placeholder="MM/DD/YYYY"
                 />
                 <TextField
                 name="to"
                 value={this.state.to}
-                onChange={this.state.handleChange}
+                onChange={this.handleChange}
                 placeholder="MM/DD/YYYY"
                 disabled={this.state.disabled}
                 />
                 <button onClick={this.toggleCurrent}>Are you currently pursuing this education?</button>
+                <br></br>
+                <input type="submit" value="Submit" className="btn btn-success"></input>
                 </form>
             </div>
         )
     }
 }
 
-export default connect(null, {addEducation})(withRouter(AddEducation))
+export default connect(null, {})(withRouter(AddEducation))

@@ -8,12 +8,12 @@ export default class Header extends Component {
     render() {
         return (
         <div class="media">
-            <img class="mr-3" src={DefaultPfp} style={{width: '200px'}} alt= ""/>
+            <img class="mr-3" src={DefaultPfp} style={{width: '200px', position: "relative", textalign: "center"}} alt= ""/>
             <div class="media-body">
-                <h5 class="mt-0">{this.props.handle}</h5>
-                {this.props.bio}
-                <h5>Location: {this.props.location}</h5>
-                <h5>Organization: {this.props.organization}</h5> 
+                <h5 class="mt-0"><strong>@{this.props.handle}</strong></h5>
+                <p>{this.props.bio}</p>
+                <p class="mt-0">Organization: {this.props.organization}</p> 
+                <p class="mt-0">Location: {this.props.location}</p>
             </div>
         </div>
         )

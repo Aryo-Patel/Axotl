@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {addExperience} from '../../actions/ProfileActions';
 import {withRouter} from 'react-router-dom';
-import {TextField} from '../layout/TextField';
+import TextField from '../layout/TextField';
 
 class AddExperience extends Component {
     constructor(props){
@@ -31,7 +31,7 @@ class AddExperience extends Component {
     }
 
     onSubmit(e){
-        e.preventDefault
+        e.preventDefault();
 
         let experienceData = {
             company: this.state.company,
@@ -43,10 +43,11 @@ class AddExperience extends Component {
             description: this.state.description,
         }
 
-        this.props.addExperience(experienceData, this.props.history);
+        addExperience(experienceData, this.props.history);
     }
 
     toggleCurrent(e){
+        e.preventDefault();
         this.setState({
             disabled: !this.state.disabled,
             current: !this.state.current
@@ -60,45 +61,47 @@ class AddExperience extends Component {
                 <TextField
                 name="company"
                 value={this.state.company}
-                onChange={this.state.handleChange}
+                onChange={this.handleChange}
                 placeholder="Enter the company/institution name"
                 />
                 <TextField
                 name="position"
                 value={this.state.position}
-                onChange={this.state.handleChange}
+                onChange={this.handleChange}
                 placeholder="What was your position?"
                 />
                 <TextField
                 name="description"
                 value={this.state.description}
-                onChange={this.state.handleChange}
+                onChange={this.handleChange}
                 placeholder="Describe what you did."
                 />
                 <TextField
                 name="location"
                 value={this.state.location}
-                onChange={this.state.handleChange}
+                onChange={this.handleChange}
                 placeholder="Where was this?"
                 />
                 <TextField
                 name="from"
                 value={this.state.from}
-                onChange={this.state.handleChange}
+                onChange={this.handleChange}
                 placeholder="MM/DD/YYYY"
                 />
                 <TextField
                 name="to"
                 value={this.state.to}
-                onChange={this.state.handleChange}
+                onChange={this.handleChange}
                 placeholder="MM/DD/YYYY"
                 disabled={this.state.disabled}
                 />
                 <button onClick={this.toggleCurrent}>Are you currently pursuing this experience?</button>
+                <br></br>
+                <input type="submit" value="Submit" className="btn btn-success"></input>
                 </form>
             </div>
         )
     }
 }
 
-export default connect(null, {addExperience})(withRouter(AddExperience))
+export default connect(null, {})(withRouter(AddExperience))

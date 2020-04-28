@@ -52,7 +52,7 @@ export const addExperience = (experienceData, history) => {
 
 //This will be used to add a previous hackathon
 export const addPreviousHackathon = (hackathonData, history) => {
-    axios.post('/api/profiles/recipient/previous-hackathon', hackathonData)
+    axios.post('/api/profiles/recipient/previous-hackathons', hackathonData)
     .then(res => {
         console.log("Hackathon added!")
         history.push('/profile')
@@ -71,7 +71,7 @@ export const deleteEducation = (id) => {
 
 //This will be used to delete an experience
 export const deleteExperience = (id) => {
-    axios.post(`/api/profiles/recipient/experience/${id}`)
+    axios.delete(`/api/profiles/recipient/experience/${id}`)
     .then(res => {
         console.log("Experience deleted!")
     })
@@ -80,7 +80,7 @@ export const deleteExperience = (id) => {
 
 //This will be used to delete a previous hackahton
 export const deletePreviousHackathon = (id) => {
-    axios.post(`/api/profiles/recipient/previous-hackathon/${id}`)
+    axios.delete(`/api/profiles/recipient/previous-hackathons/${id}`)
     .then(res => {
         console.log("Hackathon deleted!")
     })
