@@ -144,7 +144,7 @@ const CreateHackathonModal = ({handleClose, show, createHackathon}) => {
         <div className = {showHideClassName}>
             <section className = "modal-main">
                 <div className = "modal-text">
-                    <p className = "lead">Fill in the information about your hackathon!</p>
+                    <h2 className = "text-header">Fill in the information about your hackathon!</h2>
                     <small>* = required field</small>
 
                     <form className = "modal-form" onSubmit = {e => submitData(e)}>
@@ -153,7 +153,7 @@ const CreateHackathonModal = ({handleClose, show, createHackathon}) => {
                         </div>
 
                         <div className = "form-group">
-                            <input type = "text" placeholder = "* A short description about your hackathon" name = "description" value = {formData.description} onChange = {e => onInput(e)} />
+                            <textarea type = "text" placeholder = "* A short description about your hackathon" name = "description" value = {formData.description} onChange = {e => onInput(e)}></textarea>
                         </div>
 
                         <div className = "form-group">
@@ -169,7 +169,7 @@ const CreateHackathonModal = ({handleClose, show, createHackathon}) => {
                         </div>
                         
                         <div className = "form-group">
-                            <h2 className = "text-muted">What donations will your hackathon require?</h2>
+                            <p className = "lead text-header">What donations will your hackathon require?</p>
                             <table className = "donation-table">
                                 <thead>
                                     <tr>
@@ -191,7 +191,7 @@ const CreateHackathonModal = ({handleClose, show, createHackathon}) => {
                         </div>
 
                         <div className = "form-group">
-                            <h2 className = "text-muted">What are the categories people can win in?</h2>
+                            <p className = "lead text-header">What are the categories people can win in?</p>
                             <table className = "winners-table">
                                 <thead>
                                     <tr>

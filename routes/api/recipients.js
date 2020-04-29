@@ -53,6 +53,53 @@ router.post('/register', [check('name', 'Name is required').not().isEmpty(), che
         newRecipient.password = await bcrypt.hash(password, salt)
             //Saving the recipient to the Recipients collection
         await newRecipient.save()
+
+        //Sending confirmation email
+        const transporter = createTransport({
+            host: 'mail.privateemail.com',
+            port: 465,
+            secure: true,
+            auth: {
+                user: config.get('emailUser'),
+                pass: config.get('emailPass')
+            },
+            // tls: {
+            //     ciphers: 'SSLv3'
+            // }
+
+        });
+        let resetLink = '';
+        let authToken = '';
+        jwt.sign({ email: email }, config.get('JWTSecret'), { expiresIn: 10800000 }, (err, token) => {
+            if (err) throw err;
+            authToken += token;
+            console.log(token)
+            resetLink = `${config.get('productionLink')}/users/confirmemail/${authToken}`
+        })
+
+        const mailOptions = {
+            from: '"Axotl Support" <support@axotl.com>',
+            to: req.params.email,
+            subject: "Confirm Email",
+            text: `Hello ${user.name},\n\nThank you for registering for Axotl. With brilliant individuals like you, we hope to foster the next generation of tech innovators. In order to verify your account, please confirm your email (expires in 3 hours): ${resetLink}\n\n\nIf you did not request this, please notify us at http://axotl.com/support\n\nThanks!\n-Axotl Support`
+        }
+        try {
+            console.log('trycatch entered')
+            const verified = await transporter.verify((error, success) => {
+                if (error) {
+                    console.error(error.message)
+                } else { console.log("Server is good") };
+            })
+            const response = await transporter.sendMail(mailOptions)
+            console.log('email completed')
+            console.log(response)
+
+            res.json({ msg: 'Forgot Password Email Sent' })
+        } catch (err) {
+            console.error(err.message);
+            res.status(500).send("Server Error")
+        }
+
         res.json(newRecipient)
     } catch (err) {
         console.error(error);
@@ -60,6 +107,29 @@ router.post('/register', [check('name', 'Name is required').not().isEmpty(), che
     }
 
 });
+
+//POST api/users/confirmemail
+// Action confirm user's email
+//PUBLIC
+router.post('/confirmemail', async (req, res) => {
+    try {
+        console.log('backend confirm email reached')
+        const email = await jwt.verify(req.params.jwt, config.get('JWTSecret')).email
+        const user = await Recipient.findOne({ email: email })
+        console.log(email)
+        console.log(user)
+
+        //ASSUMING PASSWORDS MATCH
+        user.emailConfirmed = true;
+        await user.save()
+        console.log(`After User :`)
+        console.log(user)
+        res.json({ msg: "Email Confirmed" })
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server Error")
+    }
+})
 
 
 // POST      api/recipients/login
