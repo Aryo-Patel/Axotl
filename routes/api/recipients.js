@@ -114,66 +114,7 @@ router.delete('/', async(req, res) => {
     }
 })
 
-//GET /api/recipients/forgotpassword
-//Action request password change
-// PUBLIC
-router.get('/forgotpassword/:email', async(req, res) => {
-    const transporter = createTransport({
-        host: 'axotl.com',
-        port: 587,
-        secure: false,
-        auth: {
-            user: config.get('emailUser'),
-            pass: config.get('emailPass')
-        }
-    });
-    let resetLink = '';
-    let authToken = '';
-    await jwt.sign({ email: req.params.email }, config.get('JWTSecret'), { expiresIn: 10800000 }, (err, token) => {
-        if (err) throw err;
-        authToken += token;
-    })
-    resetLink = await `${config.get('productionLink')}/recipients/resetpassword/${authToken}`
-    console.log(`resetlink : ${resetLink}`)
-    const mailOptions = {
-        from: '"Axotl Support" <support@axotl.com>',
-        to: req.params.email,
-        subject: "Forgot Password",
-        text: `Hello ${req.name},\n\nHere is the password reset link you requested (expires in 3 hours): ${resetLink}\nIf you did not request this, please notify us at http://axotl.com/support\n\nThanks!\n-Axotl Support`
-    }
-    try {
-        console.log('trycatch entered')
-            // const verified = await transporter.verify()
-            // console.log(`verified : ${verified}`)
-        const res = await transporter.sendMail(mailOptions)
-        console.log('email completed')
-        console.log(res)
 
-        res.json({ msg: "email sent" })
-    } catch (err) {
-        console.error(err.message);
-        res.status(500).send("Server Error")
-    }
-})
-
-//POST /api/recipients/resetpassword/:jwt
-//Action send reset password
-// PUBLIC (ish, no authentication)
-router.post('/resetpassword/:jwt', async(req, res) => {
-    try {
-        const email = await jwt.verify(req.params.jwt, config.get('JWTSecret'))
-        const user = await Recipient.findOne({ email: email })
-        const { password } = req.body;
-        //ASSUMING PASSWORDS MATCH
-        const salt = await bcrypt.genSalt(10)
-        user.password = await bcrypt.hash(password, salt)
-        await user.save()
-        res.json({ msg: "Password Changed" })
-    } catch (err) {
-        console.error(err.message);
-        res.status(500).send("Server Error")
-    }
-})
 
 //GET       api/users/logout
 //Action    log the users out

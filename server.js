@@ -14,6 +14,7 @@ const recipientProfile = require('./routes/api/recipientProfile');
 const sponsorProfile = require('./routes/api/sponsorProfile')
 const hackathons = require('./routes/api/hackathons');
 const hackathonProfile = require('./routes/api/hackathonProfile')
+const auth = require('./routes/api/auth')
 
 
 //database functions
@@ -109,26 +110,7 @@ if (process.env.NODE_ENV === 'production') {
     });
 }
 
-//auth route
-app.get('/api/auth', (req, res) => {
-    try {
-        if (!req.user) {
-            return res.status(401)
-        }
-        // const user = {}
-        // for (key in req.user) {
-        //     if (key !== 'password') {
-        //         user.key = req.user.key
-        //     }
-        // }
-        console.log(req.session)
-        res.json({ user: req.user })
-            // res.json({ user: req.user })
-    } catch (err) {
-        console.error(err.message)
-        res.status(500).send('Server Error')
-    }
-})
+
 
 //Placeholder for socket initialization for chat
 
@@ -141,6 +123,7 @@ app.use('/api/profiles/recipient', recipientProfile)
 app.use('/api/profiles/sponsor', sponsorProfile)
 app.use('/api/hackathons', hackathons);
 app.use('/api/hackathons/hackathon', hackathonProfile);
+app.use('/api/auth', auth)
 
 //Server Initialization
 app.listen(PORT, () => {

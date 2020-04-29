@@ -2,7 +2,7 @@ import React, {Fragment, useState} from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {sendLogin} from '../../actions/auth'
-import {Redirect} from 'react-router-dom'
+import {Redirect, Link} from 'react-router-dom'
 
 const Login = ({sendLogin, isAuthenticated}) => {
     const [formData, setFormData] = useState({
@@ -34,6 +34,7 @@ const Login = ({sendLogin, isAuthenticated}) => {
                 </div>
                 <input type='submit' className="btn btn-large btn-primary" value="Login"></input>
             </form>
+            <Link to = '/forgotpassword' className = 'btn btn-large btn-primary'>Forgot Password</Link>
         </Fragment>
     )
 }

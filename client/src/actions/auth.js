@@ -1,6 +1,7 @@
 import axios from 'axios'
 
-import { LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, ACCOUNT_DELETED, RES_PASSWORD, REGISTER_SUCCESS, REGISTER_FAIL, USER_FAILED, USER_LOADED } from './Types'
+import { LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, ACCOUNT_DELETED, RES_PASSWORD, REGISTER_SUCCESS, REGISTER_FAIL, USER_FAILED, USER_LOADED, FORGOT_PASSWORD_FAIL, FORGOT_PASSWORD } from './Types'
+
 
 export const sendLogin = (formData) => async dispatch => {
     const config = {
@@ -62,7 +63,7 @@ export const loadUser = () => async dispatch => {
             sponsor: res.data.sponsor
         }
         dispatch({
-            type: LOGIN_SUCCESS,
+            type: USER_LOADED,
             payload
         })
     } catch (err) {
@@ -92,5 +93,41 @@ export const logout = () => async dispatch => {
         })
     } catch (err) {
         console.error(err.message);
+    }
+}
+
+export const forPass = (email) => async dispatch => {
+    console.log('forpass hit')
+    try {
+        const res = await axios.get(`/api/auth/forgotpassword/${email}`)
+        console.log(res)
+        dispatch({
+            type: FORGOT_PASSWORD
+        })
+    } catch (err) {
+        dispatch({
+            type: FORGOT_PASSWORD_FAIL
+        })
+    }
+}
+
+export const resPass = (formData, jwt) => async dispatch => {
+    console.log('respass hit')
+    const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        //CHECK PASSWORDS?
+    const password = formData.pass1
+    const body = JSON.stringify({ password })
+
+    try {
+        const res = await axios.post(`/api/auth/resetpassword/${jwt}`, body, config)
+        dispatch({
+            type: RES_PASSWORD
+        })
+    } catch (err) {
+        console.log('did not work lmao')
     }
 }

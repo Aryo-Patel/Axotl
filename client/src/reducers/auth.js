@@ -1,4 +1,4 @@
-import { LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, ACCOUNT_DELETED, REGISTER_SUCCESS, REGISTER_FAIL, USER_LOADED, USER_FAILED } from "../actions/Types";
+import { LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, ACCOUNT_DELETED, REGISTER_SUCCESS, REGISTER_FAIL, USER_LOADED, USER_FAILED, FORGOT_PASSWORD, FORGOT_PASSWORD_FAIL } from "../actions/Types";
 
 const initialState = {
     user: null,
@@ -8,6 +8,8 @@ const initialState = {
     sponsor: false
 };
 
+
+//reset forgot password reducer
 export default function(state = initialState, action) {
     const { type, payload } = action;
     switch (type) {
@@ -30,7 +32,7 @@ export default function(state = initialState, action) {
         case LOGIN_FAIL:
         case USER_FAILED:
         case LOGOUT:
-            return{
+            return {
                 ...state,
                 isAuthenticated: false,
             }
@@ -41,6 +43,9 @@ export default function(state = initialState, action) {
                 loading: false,
                 user: null,
             };
+        case FORGOT_PASSWORD:
+        case FORGOT_PASSWORD_FAIL:
+            return state;
         default:
             return state;
     }
