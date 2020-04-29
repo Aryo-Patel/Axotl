@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import DefaultPfp from '../common/defaultpfp.png';
+import { Link } from 'react-router-dom';
+
 
 export default class Header extends Component {
     constructor(props){
@@ -14,6 +16,7 @@ export default class Header extends Component {
                 <p>{this.props.bio}</p>
                 <p class="mt-0">Organization: {this.props.organization}</p> 
                 <p class="mt-0">Location: {this.props.location}</p>
+                <Link to="/edit-profile" className="btn btn-success">Edit Profile</Link>
             </div>
         </div>
         )
