@@ -20,7 +20,6 @@ const HackathonSchema = new mongoose.Schema({
     donations: [{ 
         type: {
             type: String,
-            required: true,
         },
         quantity: {
             type: String,
@@ -54,12 +53,10 @@ const HackathonSchema = new mongoose.Schema({
     },
     winners: [{
         teamName:{
-            type: String,
-            required: true
+            type: String
         },
         awardTitle: {
-            type: String,
-            required: true
+            type: String
         },
         prizeWon: {
             type: String

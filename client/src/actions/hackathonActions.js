@@ -33,7 +33,7 @@ export const getHackathons = () => async dispatch => {
 }
 
 //Create a hackathon
-export const createHackathon = hackathonData => async dispatch => {
+export const createHackathon = (hackathonData) => async dispatch => {
     try{
         const body = hackathonData;
         const config = {
@@ -43,11 +43,11 @@ export const createHackathon = hackathonData => async dispatch => {
         }
 
         let newHackathon = axios.post('/api/hackathons/create', body, config);
-        let hackathonData = newHackathon.data;
+        let submitData = newHackathon.data;
 
         dispatch({
             type: CREATE_HACKATHON,
-            payload: hackathonData
+            payload: submitData
         })
 
     }catch(err){
