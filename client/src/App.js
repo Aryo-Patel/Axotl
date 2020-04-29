@@ -42,7 +42,6 @@ function App() {
           <Switch>
             <Route exact path = '/login' component = {Login} />
             <Route exact path = '/register' component = {Register} />
-<<<<<<< HEAD
             <PrivateRoute exact path = '/dashboard' component = {Dashboard} />
             <PrivateRoute exact path = '/profile' component = {Profile} />
             <PrivateRoute exact path = '/add-education' component = {AddEducation} />
@@ -53,17 +52,6 @@ function App() {
             <PrivateRoute exact path = '/logout' component = {Logout} />
             <Route exact path = '/forgotpassword' component = {ForgotPassword} />
             <Route path = '/resetpassword' component = {ResetPassword} />
-=======
-            <Route exact path = '/dashboard' component = {Dashboard} />
-            <Route exact path = '/profile' component = {Profile} />
-            <Route exact path = '/add-education' component = {AddEducation} />
-            <Route exact path = '/add-experience' component = {AddExperience} />
-            <Route exact path = '/add-previous-hackathon' component = {AddPreviousHackathon} />
-            <Route exact path = '/create-profile' component = {CreateProfile} />
-            <Route exact path = '/edit-profile' component = {EditProfile} />
-            <Route exact path = '/hackathons' component = {Hackathons} />
-            <Route exact path = '/logout' component = {Logout} />
->>>>>>> b176b883c6f5b6fa3ca6dd74bfcfcdd9d1b047a0
             <Route component = {NotFound} />
           </Switch>
         </Fragment>
