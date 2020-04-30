@@ -49,11 +49,15 @@ const CreateHackathonModal = ({handleClose, show, createHackathon}) => {
         let newRow  = e.target.parentNode.children[1].insertRow();
         let newIndex = tableArray.length-1;
 
+
         //sets newIndex to zero if there's nothing in the array
-        if(typeof(newIndex) !== Number){
+        if(typeof(newIndex) !== 'number'){
             newIndex = 0;
         }
-        
+
+        if(newIndex < 0){
+            newIndex = 0;
+        }
         //component to add to the state
         let stateDonationUpdate = {
             type: '',
@@ -88,13 +92,26 @@ const CreateHackathonModal = ({handleClose, show, createHackathon}) => {
     }
 
     function addTableRowWinners(e){
+        if(!formData.winners[0]){
+
+        }
+        else{
+            
+        }
         let newRow = e.target.parentNode.children[1].insertRow();
-        let tableArray = e.target.parentNode.children[1].children[1].children;
-        let newIndex = tableArray.length-1;
-        
-        if(typeof(newIndex) !== Number){
+        let tableArray;
+        let newIndex;
+        try{
+            tableArray = e.target.parentNode.children[1].children[1].children;
+            newIndex = tableArray.length-1;
+        }catch(err){
             newIndex = 0;
         }
+
+        if(newIndex < 0){
+            newIndex= 0;
+        }
+
         //component to add to the state
         let stateWinnersUpdate = {
             awardTitle: '',
@@ -109,7 +126,9 @@ const CreateHackathonModal = ({handleClose, show, createHackathon}) => {
             ['winners']: array
         })
 
-
+        console.log(formData);
+        console.log(newIndex);
+        console.log(typeof(formData.winners[newIndex].awardTitle));
         //create the row items
         let awardTitle = newRow.insertCell(0);
         let prize = newRow.insertCell(1);
@@ -151,6 +170,7 @@ const CreateHackathonModal = ({handleClose, show, createHackathon}) => {
         let winnersName = e.target.name.split('-')[2] + '';
         let myInput = e.target.value;
 
+        console.log('this function is called');
         let array = formData.winners;
         array[winnersIndex][winnersName]  =  myInput;
 
@@ -164,6 +184,14 @@ const CreateHackathonModal = ({handleClose, show, createHackathon}) => {
 
         let rowName = e.target.parentNode.parentNode.children[0].children[0].name.split('-')[2];
  
+        //remove the point from the DOM
+        let parentNode = e.target.parentNode.parentNode;
+        let child = e.target.parentNode;
+        console.log(parentNode);
+        console.log(child)
+        parentNode.remove(child);
+        console.log('here');
+
         //remove the data from the specific part of the state
         if(rowName === 'type'){
             console.log('got this far')
@@ -184,13 +212,7 @@ const CreateHackathonModal = ({handleClose, show, createHackathon}) => {
                 ['winners'] : array
             })
         }
-        //remove the point from the DOM
-        let parentNode = e.target.parentNode.parentNode;
-        let child = e.target.parentNode;
-        console.log(parentNode);
-        console.log(child)
-        parentNode.remove(child);
-        console.log('here');
+
     }
     return(
         <div className = {showHideClassName}>
@@ -232,9 +254,9 @@ const CreateHackathonModal = ({handleClose, show, createHackathon}) => {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><input type = "text" placeholder = "Type" value = {formData.donations[0].type} name = "row-0-type" onChange = {e => donationAddText(e)}/></td>
-                                        <td><input type = "text" placeholder = "Quantity" value = {formData.donations[0].quantity} name = "row-0-quantity" onChange = {e => donationAddText(e)} /></td>
-                                        <td><input type = "text" placeholder = "Description" value = {formData.donations[0].description} name = "row-0-description" onChange = {e => donationAddText(e)}/></td>
+                                        <td><input type = "text" placeholder = "Type"  name = "row-0-type" value = {formData.donations[0] ? formData.donations[0].type : ''} onChange = {e => donationAddText(e)}/></td>
+                                        <td><input type = "text" placeholder = "Quantity" value = {formData.donations[0] ? formData.donations[0].quantity : ''} name = "row-0-quantity" onChange = {e => donationAddText(e)} /></td>
+                                        <td><input type = "text" placeholder = "Description" value = {formData.donations[0] ? formData.donations[0].description : ''} name = "row-0-description" onChange = {e => donationAddText(e)}/></td>
                                         <td><span className = "delete-request" onClick = {e => deleteTableRow(e)}>X</span></td>
                                     </tr>
                                 </tbody>
@@ -253,8 +275,8 @@ const CreateHackathonModal = ({handleClose, show, createHackathon}) => {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><input type = "text" placeholder = "Award Title" name = "row-0-awardTitle" /></td>
-                                        <td><input type = "text" placeholder = "Prize" name = "row-0-prize" /></td>
+                                        <td><input type = "text" placeholder = "Award Title" name = "row-0-awardTitle" value = {formData.winners[0] ? formData.winners[0].awardTitle : ''} onChange = {e => winnersAddText(e)} /></td>
+                                        <td><input type = "text" placeholder = "Prize" name = "row-0-prize" value = {formData.winners[0] ? formData.winners[0].prize : ''} onChange = {e => winnersAddText(e)}/></td>
                                         <td><span className = "delete-request" onClick = {e => deleteTableRow(e)}>X</span></td>
                                     </tr>
                                 </tbody>
