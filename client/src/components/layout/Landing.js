@@ -16,8 +16,8 @@ const Landing = ({isAuthenticated}) => {
           background:
             "url(https://images.unsplash.com/photo-1521737711867-e3b97375f902?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2734&q=80",
           height: "1000px",
-          "background-size": "cover",
-          "background-position": "center",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
         }}
       >
         <div
@@ -39,11 +39,11 @@ const Landing = ({isAuthenticated}) => {
               width: "80%",
               margin: "auto",
               display: "flex",
-              "flex-direction": "column",
-              "align-items": "center",
-              "justify-content": "center",
-              "text-align": "center",
-              "z-index" : "2"
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              textAlign: "center",
+              zIndex : "2"
             }}
           >
             <h1 className="x-large" style = {{opacity : "1"}}>Axotl</h1>
@@ -75,7 +75,7 @@ const Landing = ({isAuthenticated}) => {
               src="https://2a9h4ym6yis3rbxe73gyzw48-wpengine.netdna-ssl.com/wp-content/uploads/2020/03/iStock_Handshake_030620.jpg"
               alt=""
               className="card-img-top"
-              style={{ height: "20vw", "object-fit": "cover" }}
+              style={{ height: "20vw", objectFit: "cover" }}
             />
             <div className="card-body">
               <h5 className="card-title">Making Connections</h5>
@@ -94,7 +94,7 @@ const Landing = ({isAuthenticated}) => {
               src="https://images.unsplash.com/photo-1531545514256-b1400bc00f31?ixlib=rb-1.2.1&auto=format&fit=crop&w=2767&q=80"
               alt=""
               className="card-img-top"
-              style={{ height: "20vw", "object-fit": "cover" }}
+              style={{ height: "20vw", objectFit: "cover" }}
             />
             <div className="card-body">
               <h5 className="card-title">Supporting Young Developers</h5>
@@ -112,7 +112,7 @@ const Landing = ({isAuthenticated}) => {
               src="https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1567&q=80"
               alt=""
               className="card-img-top"
-              style={{ height: "20vw", "object-fit": "cover" }}
+              style={{ height: "20vw", objectFit: "cover" }}
             />
             <div className="card-body">
               <h5 className="card-title">
@@ -132,8 +132,8 @@ const Landing = ({isAuthenticated}) => {
           background:
             "url(https://images.unsplash.com/photo-1521737711867-e3b97375f902?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2734&q=80",
           height: "1000px",
-          "background-size": "cover",
-          "background-position": "center",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
         }}
       >
         <div
@@ -155,11 +155,11 @@ const Landing = ({isAuthenticated}) => {
               width: "80%",
               margin: "auto",
               display: "flex",
-              "flex-direction": "column",
-              "align-items": "center",
-              "justify-content": "center",
-              "text-align": "center",
-              "z-index" : "2"
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              textAlign: "center",
+              zIndex : "2"
             }}
           >
             <h1 className="x-large" style = {{opacity : "1"}}>Axotl</h1>
@@ -176,8 +176,8 @@ const Landing = ({isAuthenticated}) => {
           background:
             "url(https://images.unsplash.com/photo-1521737711867-e3b97375f902?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2734&q=80",
           height: "1000px",
-          "background-size": "cover",
-          "background-position": "center",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
         }}
       >
         <div
@@ -199,11 +199,11 @@ const Landing = ({isAuthenticated}) => {
               width: "80%",
               margin: "auto",
               display: "flex",
-              "flex-direction": "column",
-              "align-items": "center",
-              "justify-content": "center",
-              "text-align": "center",
-              "z-index" : "2"
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              textAlign: "center",
+              zIndex : "2"
             }}
           >
             <h1 className="x-large" style = {{opacity : "1"}}>Axotl</h1>
@@ -220,8 +220,8 @@ const Landing = ({isAuthenticated}) => {
           background:
             "url(https://images.unsplash.com/photo-1521737711867-e3b97375f902?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2734&q=80",
           height: "1000px",
-          "background-size": "cover",
-          "background-position": "center",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
         }}
       >
         <div
@@ -243,11 +243,11 @@ const Landing = ({isAuthenticated}) => {
               width: "80%",
               margin: "auto",
               display: "flex",
-              "flex-direction": "column",
-              "align-items": "center",
-              "justify-content": "center",
-              "text-align": "center",
-              "z-index" : "2"
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              textAlign: "center",
+              zIndex : "2"
             }}
           >
             <h1 className="x-large" style = {{opacity : "1"}}>Axotl</h1>
