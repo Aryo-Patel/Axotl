@@ -14,7 +14,7 @@ import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Profile from './components/profile/Profile';
 import CreateProfile from './components/profile/CreateProfile';
-import EditProfile from './components/profile/EditProfile';
+// import EditProfile from './components/profile/EditProfile';
 import AddEducation from './components/profile/AddEducation';
 import AddExperience from './components/profile/AddExperience';
 import AddPreviousHackathon from './components/profile/AddPreviousHackathon';
@@ -26,7 +26,7 @@ import ForgotPassword from './components/auth/ForgotPassword'
 import ResetPassword from './components/auth/ResetPassword'
 import PrivateRoute from './components/routing/PrivateRoute'
 
-import logo from './logo.svg';
+//import logo from './logo.svg';
 import './App.css';
 
 function App() {

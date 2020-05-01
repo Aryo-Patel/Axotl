@@ -5,7 +5,7 @@ export default class Spinner extends Component {
     render() {
         return (
             <div>
-                <img src={AxotlSpinner} style={{margin: 'auto', display: 'block'}} />
+                <img src={AxotlSpinner} alt = "Loading..." style={{margin: 'auto', display: 'block'}} />
             </div>
         )
     }

@@ -70,7 +70,7 @@ const CreateHackathonModal = ({handleClose, show, createHackathon}) => {
         array.push(stateDonationUpdate)
         setFormData({
             ...formData,
-            ['donations']: array
+            donations: array
         })
 
         let type = newRow.insertCell(0);
@@ -123,12 +123,10 @@ const CreateHackathonModal = ({handleClose, show, createHackathon}) => {
         array.push(stateWinnersUpdate);
         setFormData({
             ...formData,
-            ['winners']: array
+            winners: array
         })
 
-        console.log(formData);
-        console.log(newIndex);
-        console.log(typeof(formData.winners[newIndex].awardTitle));
+
         //create the row items
         let awardTitle = newRow.insertCell(0);
         let prize = newRow.insertCell(1);
@@ -159,7 +157,7 @@ const CreateHackathonModal = ({handleClose, show, createHackathon}) => {
         
         setFormData({
             ...formData,
-            ['donations'] : array
+            donations : array
         });
         
     }
@@ -170,7 +168,6 @@ const CreateHackathonModal = ({handleClose, show, createHackathon}) => {
         let winnersName = e.target.name.split('-')[2] + '';
         let myInput = e.target.value;
 
-        console.log('this function is called');
         let array = formData.winners;
         array[winnersIndex][winnersName]  =  myInput;
 
@@ -187,29 +184,27 @@ const CreateHackathonModal = ({handleClose, show, createHackathon}) => {
         //remove the point from the DOM
         let parentNode = e.target.parentNode.parentNode;
         let child = e.target.parentNode;
-        console.log(parentNode);
-        console.log(child)
+
         parentNode.remove(child);
-        console.log('here');
+
 
         //remove the data from the specific part of the state
         if(rowName === 'type'){
-            console.log('got this far')
+
             let array = formData.donations;
             array.splice(rowExtract, 1);
             setFormData({
                 ...formData,
-                ['donations'] : array
+                donations : array
             })
         }
         else if(rowName === 'awardTitle'){
-            console.log('this ran');
             let array = formData.winners;
 
             array.splice(rowExtract, 1);
             setFormData({
                 ...formData,
-                ['winners'] : array
+                winners : array
             })
         }
 

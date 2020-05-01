@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import TextField from '../layout/TextField';
-import { createProfile, editProfile } from '../../actions/ProfileActions';
+import { createProfile } from '../../actions/ProfileActions';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import locations from '../../utils/locations.json';

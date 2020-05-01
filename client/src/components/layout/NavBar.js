@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment} from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
@@ -49,14 +49,12 @@ const NavBar = ({isAuthenticated, isSponsor, auth}) => {
   //@TODO set navbar links based on authentication and sponsor status
   return (
     <Fragment>
-      {console.log('rerender')}
-      {console.log(auth.loading)}
       <nav
         className="navbar navbar-light navbar-expand-lg"
         style={{ backgroundColor: "#87ffa7", opacity: "75%" }}
       >
         <Link to = "/" className="navbar-brand">
-        <img className = 'mx-2 align-middle'src="https://i.imgur.com/LVIZD64.jpg?1" alt="Logo Image" style = {{"width" : "46px", "height" : "43px", "opacity" : "100%"}}/>
+        <img className = 'mx-2 align-middle'src="https://i.imgur.com/LVIZD64.jpg?1" alt="Logo" style = {{"width" : "46px", "height" : "43px", "opacity" : "100%"}}/>
           <h3 className = 'display-5 display-inline align-middle' style = {{"display" : "inline"}}>Axotl</h3>
         </Link>
         {!auth.loading && auth.user && <h3 className = "display-5 display-inline align-middle">Welcome, {auth.user.user.name}</h3> }

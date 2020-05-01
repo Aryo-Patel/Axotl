@@ -1,6 +1,6 @@
 import axios from 'axios';
-
-import { GET_PROFILE, GET_PROFILES, PROFILE_LOADING} from './Types';
+//GET_PROFILES
+import { GET_PROFILE,  PROFILE_LOADING} from './Types';
 
 //This will get the profile of the current user.
 export const getCurrentProfile = () => dispatch => {

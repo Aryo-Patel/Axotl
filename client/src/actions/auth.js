@@ -39,7 +39,7 @@ export const registerUser = (userData, history) => async(dispatch) => {
     }
     let body = JSON.stringify(userData);
     try {
-        let res = await axios.post('/api/users/register', body, config)
+        await axios.post('/api/users/register', body, config)
         dispatch({
             type: REGISTER_SUCCESS,
             payload: {
@@ -57,7 +57,6 @@ export const registerUser = (userData, history) => async(dispatch) => {
 export const loadUser = () => async dispatch => {
     try {
         const res = await axios.get('/api/auth')
-        console.log(res.data)
         const payload = {
             user: res.data,
             sponsor: res.data.sponsor
@@ -123,7 +122,7 @@ export const resPass = (formData, jwt) => async dispatch => {
     const body = JSON.stringify({ password })
 
     try {
-        const res = await axios.post(`/api/auth/resetpassword/${jwt}`, body, config)
+        await axios.post(`/api/auth/resetpassword/${jwt}`, body, config)
         dispatch({
             type: RES_PASSWORD
         })

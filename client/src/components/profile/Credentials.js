@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
-import Hackathon from '../hackathons/Hackathon';
+// import Hackathon from '../hackathons/Hackathon';
 import Moment from 'react-moment';
 import {deleteExperience, deleteEducation, deletePreviousHackathon} from '../../actions/ProfileActions';
 import {Link} from 'react-router-dom';
 
 export default class Education extends Component {
-    constructor(props){
-        super(props)
-    }
+    // constructor(props){
+    //     super(props)
+    // }
 
     deleteExp(id){
         deleteExperience(id);

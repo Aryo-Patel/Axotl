@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { getCurrentProfile } from '../../actions/ProfileActions';
 import {Redirect} from 'react-router-dom'
 import Header from './Header';
@@ -19,7 +19,7 @@ class Profile extends Component {
         let profileContent;
 
         //This will be the profile picture
-        let pfp;
+        // let pfp;
 
         if (profile === null || loading){
             //If there is no profile yet, put spinner in

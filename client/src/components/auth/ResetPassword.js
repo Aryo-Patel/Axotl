@@ -1,5 +1,5 @@
 import React, {useState, Fragment} from 'react'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {resPass} from '../../actions/auth'
 
@@ -18,7 +18,7 @@ const ResetPassword = ({resPass}) => {
     return (
         <Fragment>
                <form action="" className="form" onSubmit = {e=> {
-                   if(!(formData.pass1 == formData.pass2)) {
+                   if(!(formData.pass1 === formData.pass2)) {
                        //alert checking
                    } else {
                    e.preventDefault()
