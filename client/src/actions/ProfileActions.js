@@ -3,8 +3,9 @@ import axios from 'axios';
 import { GET_PROFILE,  PROFILE_LOADING} from './Types';
 
 //This will get the profile of the current user.
-export const getCurrentProfile = () => dispatch => {
+export const getCurrentProfile = (sponsor) => dispatch => {
     dispatch(setProfileLoading())
+    if (sponsor === false){
     axios.get('/api/profiles/recipient/me')
     .then(res => {
         dispatch({
@@ -19,16 +20,40 @@ export const getCurrentProfile = () => dispatch => {
             payload: {},
         })
     })
+    } else if (sponsor === true){
+        axios.get('/api/profiles/sponsor/me')
+        .then(res => {
+            dispatch({
+                type: GET_PROFILE,
+                payload: res.data
+            })
+        })
+        //If no profile is found then we'll just have a payload of an empty object
+        .catch(err => {
+            dispatch({
+                type: GET_PROFILE,
+                payload: {},
+            })
+        })
+    }  
 };
 
 //Creating a profile for the current user
 //Will take in two parameters as indicated in function
 export const createProfile = (profileData, history) => dispatch => {
-    axios.post('/api/profiles/recipient/', profileData)
-    .then(res => {
-        console.log("Profile Created!")
-        history.push('/profile')
-    })
+    if (profileData.sponsor === true){
+        axios.post('/api/profiles/sponsor', profileData)
+        .then(res => {
+            console.log("Sponsor Profile Created!")
+            history.push('/profile')
+        })
+    } else if (profileData.sponsor === false){
+        axios.post('/api/profiles/recipient/', profileData)
+        .then(res => {
+            console.log("Recipient Profile Created!")
+            history.push('/profile')
+        })
+    }
 };
 
 //Edit a profile for the current user

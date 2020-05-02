@@ -1,25 +1,50 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
-// import PropTypes from 'prop-types';
+//import PropTypes from 'prop-types';
 import { getCurrentProfile } from '../../actions/ProfileActions';
 import {Redirect} from 'react-router-dom'
 import Header from './Header';
+import Information from './Information';
 import Spinner from '../common/Spinner';
 import Credentials from './Credentials';
+import Axios from 'axios';
+import { setAuthFalse } from '../../actions/auth';
 
 class Profile extends Component {
-    componentDidMount(){
-        this.props.getCurrentProfile();
+    constructor(props){
+        super(props)
+
+        this.deleteRecipientAccount = this.deleteRecipientAccount.bind(this);
+        this.deleteSponsorAccount = this.deleteSponsorAccount.bind(this);
     }
+    componentDidMount(){
+        this.props.getCurrentProfile(this.props.sponsor);
+    }
+
+    deleteRecipientAccount = () => dispatch => {
+        Axios.delete('/api/users')
+        .then(res => {
+            this.props.setAuthFalse();
+        })
+    }
+
+    deleteSponsorAccount(){
+        Axios.delete('/api/sponsors')
+        .then(res => {
+            this.props.setAuthFalse();
+        })
+    }
+
+
     render() {
 
         let { profile, loading } = this.props.profile;
-
+        let sponsor = this.props.sponsor;
         let profileContent;
 
         //This will be the profile picture
-        // let pfp;
+        //let pfp;
 
         if (profile === null || loading){
             //If there is no profile yet, put spinner in
@@ -37,7 +62,8 @@ class Profile extends Component {
                 location={profile.location}
                 organization={profile.organization}
                 />
-                <Credentials profile={profile}/>
+                {sponsor ? <Information profile={profile}/> : <Credentials profile={profile}/>}
+                {sponsor ? <button className='btn btn-lg btn-primary' onClick={this.deleteSponsorAccount}>Delete Profile and Account</button> : <button className='btn btn-lg btn-primary' onClick={this.deleteRecipientAccount}>Delete Profile and Account</button>}
             </div>
             )
         } else {
@@ -46,7 +72,7 @@ class Profile extends Component {
                 <div>
                     <p className="lead text-muted">Welcome</p>
                     <p>You have not yet created a profile. Please use this link to create one.</p>
-                    <Link to='/create-profile' className="btn btn-lg btn-info">Create profile</Link>  
+                    {this.props.sponsor ? <Link to='/create-sponsor-profile' className="btn btn-lg btn-info">Create profile</Link> : <Link to='/create-profile' className="btn btn-lg btn-info">Create profile</Link>}  
                 </div>
             );
         }
@@ -62,6 +88,7 @@ class Profile extends Component {
 const mapStateToProps = (state) => ({
     profile: state.profile,
     isAuthenticated: state.auth.isAuthenticated,
+    sponsor: state.auth.user.user.sponsor
 })
 
-export default connect(mapStateToProps, { getCurrentProfile })(withRouter(Profile));
+export default connect(mapStateToProps, { getCurrentProfile, setAuthFalse})(withRouter(Profile));

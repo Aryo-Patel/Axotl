@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const gravatar = require('gravatar');
+const bcrypt = require("bcryptjs");
 const { validationResult, check } = require('express-validator')
 
 //Load the sponsor model
@@ -15,7 +16,7 @@ const passport = require('passport')
 // PUBLIC
 
 router.post('/register', [check('name', 'Name is required').not().isEmpty(), check('email', 'Not a valid email').isEmail(), check('password', 'Please enter a password with six or more characters').isLength({ min: 6 })], async(req, res) => {
-    const errors = validationResult(req)
+    const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() })
     }
@@ -47,13 +48,16 @@ router.post('/register', [check('name', 'Name is required').not().isEmpty(), che
             password,
             avatar,
         });
+        console.log(newSponsor)
         const salt = await bcrypt.genSalt(10)
         newSponsor.password = await bcrypt.hash(password, salt)
+        console.log("Password: " + newSponsor.password)
             //Saving the Sponsor to the Sponsors collection
         await newSponsor.save()
         res.json(newSponsor)
     } catch (err) {
-        console.error(error);
+        console.log("Entered catch")
+        console.error(errors);
         res.status(500).send('Server error');
     }
 
