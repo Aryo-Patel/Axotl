@@ -14,7 +14,7 @@ export default class Header extends Component {
             <div class="media-body">
                 <h5 class="mt-0"><strong>@{this.props.handle}</strong></h5>
                 <p>{this.props.bio}</p>
-                <p class="mt-0">Organization: {this.props.organization}</p> 
+                <p class="mt-0">Organization: {this.props.organization}</p>
                 <p class="mt-0">Location: {this.props.location}</p>
                 <Link to="/edit-profile" className="btn btn-success">Edit Profile</Link>
             </div>

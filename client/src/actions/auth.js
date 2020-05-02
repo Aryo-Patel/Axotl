@@ -54,6 +54,30 @@ export const registerUser = (userData, history) => async(dispatch) => {
     }
 }
 
+export const registerSponsor = (userData, history) => async(dispatch) => {
+    let config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+    let body = JSON.stringify(userData);
+    try {
+        console.log('reached action');
+        await axios.post('/api/sponsors/register', body, config)
+        dispatch({
+            type: REGISTER_SUCCESS,
+            payload: {
+                registered: true
+            }
+        })
+    } catch (error) {
+        dispatch({
+            type: REGISTER_FAIL
+        })
+        console.error(error.message);
+    }
+}
+
 export const loadUser = () => async dispatch => {
     try {
         const res = await axios.get('/api/auth')
@@ -87,6 +111,16 @@ export const deleteRecipient = () => async dispatch => {
 export const logout = () => async dispatch => {
     try {
         await axios.get('/api/users/logout')
+        dispatch({
+            type: LOGOUT
+        })
+    } catch (err) {
+        console.error(err.message);
+    }
+}
+
+export const setAuthFalse = () =>  dispatch => {
+    try {
         dispatch({
             type: LOGOUT
         })

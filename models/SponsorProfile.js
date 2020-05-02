@@ -10,16 +10,32 @@ let SponsorProfileSchema = new Schema({
         type: String,
         required: true,
     },
-    company: {
+    organization: {
         type: String,
     },
-    /**
-     * 
-     * TO DO:
-     * Figure out how we want to specify the types of donations that the companies or sponsors would like to make.
-     * E.g: Food, computers, money, etc.
-     * 
-     */
+    donationTypes: {
+        merch: {
+            type: Boolean
+        },
+        prizes: {
+            type: Boolean
+        },
+        food: {
+            type: Boolean
+        },
+        drinks: {
+            type: Boolean
+        },
+        workshops: {
+            type: Boolean
+        },
+        judging: {
+            type: Boolean
+        },
+        other: {
+            type: Boolean
+        },
+    },
     location: {
         type: String,
         required: true,

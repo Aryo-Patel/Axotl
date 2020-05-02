@@ -20,6 +20,7 @@ router.post(
 
             handle,
             organization,
+            donationTypes,
             location,
             bio,
             youtube,
@@ -33,6 +34,7 @@ router.post(
         profileParts.handle = handle;
         if (organization) profileParts.organization = organization;
         if (location) profileParts.location = location;
+        if (donationTypes) profileParts.donationTypes = donationTypes;
         if (bio) profileParts.bio = bio;
         const social = {};
         if (youtube) social.youtube = youtube;

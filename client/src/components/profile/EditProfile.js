@@ -12,6 +12,7 @@ class EditProfile extends Component {
 
         this.state = {
             handle: this.props.profile.profile.handle,
+            company: this.props.profile.profile.company,
             organization: this.props.profile.profile.organization,
             bio: this.props.profile.profile.bio,
             location: this.props.profile.profile.location,
@@ -39,6 +40,7 @@ class EditProfile extends Component {
 
         let profileData = {
             handle: this.state.handle,
+            company: this.state.company,
             organization: this.state.organization,
             location: this.state.location,
             bio: this.state.bio

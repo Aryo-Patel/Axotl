@@ -14,7 +14,8 @@ import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Profile from './components/profile/Profile';
 import CreateProfile from './components/profile/CreateProfile';
-// import EditProfile from './components/profile/EditProfile';
+import CreateSponsorProfile from './components/profile/CreateSponsorProfile';
+import EditProfile from './components/profile/EditProfile';
 import AddEducation from './components/profile/AddEducation';
 import AddExperience from './components/profile/AddExperience';
 import AddPreviousHackathon from './components/profile/AddPreviousHackathon';
@@ -50,6 +51,8 @@ function App() {
             <PrivateRoute exact path = '/add-experience' component = {AddExperience} />
             <PrivateRoute exact path = '/add-previous-hackathon' component = {AddPreviousHackathon} />
             <PrivateRoute exact path = '/create-profile' component = {CreateProfile} />
+            <PrivateRoute exact path = '/create-sponsor-profile' component = {CreateSponsorProfile} />
+            <PrivateRoute exact path = '/edit-profile' component = {EditProfile} />
             <PrivateRoute exact path = '/hackathons' component = {Hackathons} />
             <PrivateRoute exact path = '/logout' component = {Logout} />
             <Route exact path = '/forgotpassword' component = {ForgotPassword} />
