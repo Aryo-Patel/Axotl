@@ -25,6 +25,8 @@ import Hackathons from './components/hackathons/Hackathons';
 import ForgotPassword from './components/auth/ForgotPassword'
 import ResetPassword from './components/auth/ResetPassword'
 import PrivateRoute from './components/routing/PrivateRoute'
+import ConfirmEmailSponsor from './components/auth/ConfirmEmailSponsor'
+import ConfirmEmailRecipient from './components/auth/ConfirmEmailRecipient'
 
 //import logo from './logo.svg';
 import './App.css';
@@ -52,6 +54,8 @@ function App() {
             <PrivateRoute exact path = '/logout' component = {Logout} />
             <Route exact path = '/forgotpassword' component = {ForgotPassword} />
             <Route path = '/resetpassword' component = {ResetPassword} />
+            <Route path = '/users/confirmemail' component = {ConfirmEmailRecipient} />
+            <Route path = '/sponsors/confirmemail' component = {ConfirmEmailSponsor} />
             <Route component = {NotFound} />
           </Switch>
         </Fragment>

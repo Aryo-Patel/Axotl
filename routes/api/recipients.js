@@ -70,20 +70,24 @@ router.post('/register', [check('name', 'Name is required').not().isEmpty(), che
         });
         let resetLink = '';
         let authToken = '';
-        jwt.sign({ email: email }, config.get('JWTSecret'), { expiresIn: 10800000 }, (err, token) => {
+        let mailOptions = {}
+        jwt.sign({ email: email }, config.get('JWTSecret'), { expiresIn: 10800000 }, async(err, token) => {
             if (err) throw err;
             authToken += token;
-            console.log(token)
-            resetLink = `${config.get('productionLink')}/users/confirmemail/${authToken}`
-        })
+            console.log(authToken)
+            resetLink = `${config.get('productionLink')}/users/confirmemail/${token}`
+            console.log(`reset link here 1 : ${resetLink}`)
+            mailOptions = {
+                from: '"Axotl Support" <support@axotl.com>',
+                to: email,
+                subject: "Confirm Email",
+                text: `Hello ${newRecipient.name},\n\nThank you for registering for Axotl. With brilliant individuals like you, we hope to foster the next generation of tech innovators. In order to verify your account, please confirm your email (expires in 3 hours):\n\n${resetLink}\n\n\nIf you did not request this, please notify us at http://axotl.com/support\n\nThanks!\n-Axotl Support`
+            }
 
-        const mailOptions = {
-            from: '"Axotl Support" <support@axotl.com>',
-            to: req.params.email,
-            subject: "Confirm Email",
-            text: `Hello ${user.name},\n\nThank you for registering for Axotl. With brilliant individuals like you, we hope to foster the next generation of tech innovators. In order to verify your account, please confirm your email (expires in 3 hours): ${resetLink}\n\n\nIf you did not request this, please notify us at http://axotl.com/support\n\nThanks!\n-Axotl Support`
-        }
-        try {
+            console.log(`reset link here 2 : ${resetLink}`)
+
+
+
             console.log('trycatch entered')
             const verified = await transporter.verify((error, success) => {
                 if (error) {
@@ -93,16 +97,15 @@ router.post('/register', [check('name', 'Name is required').not().isEmpty(), che
             const response = await transporter.sendMail(mailOptions)
             console.log('email completed')
             console.log(response)
+        })
 
-            res.json({ msg: 'Forgot Password Email Sent' })
-        } catch (err) {
-            console.error(err.message);
-            res.status(500).send("Server Error")
-        }
+
+
+
 
         res.json(newRecipient)
     } catch (err) {
-        console.error(error);
+        console.error(err);
         res.status(500).send('Server error');
     }
 
@@ -111,7 +114,7 @@ router.post('/register', [check('name', 'Name is required').not().isEmpty(), che
 //POST api/users/confirmemail
 // Action confirm user's email
 //PUBLIC
-router.post('/confirmemail', async (req, res) => {
+router.put('/confirmemail/:jwt', async(req, res) => {
     try {
         console.log('backend confirm email reached')
         const email = await jwt.verify(req.params.jwt, config.get('JWTSecret')).email
@@ -119,7 +122,6 @@ router.post('/confirmemail', async (req, res) => {
         console.log(email)
         console.log(user)
 
-        //ASSUMING PASSWORDS MATCH
         user.emailConfirmed = true;
         await user.save()
         console.log(`After User :`)

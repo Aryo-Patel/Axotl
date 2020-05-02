@@ -2,6 +2,10 @@ const express = require('express');
 const router = express.Router();
 const gravatar = require('gravatar');
 const { validationResult, check } = require('express-validator')
+const bcrypt = require('bcryptjs')
+const { createTransport, sendMail } = require('nodemailer')
+const config = require('config')
+const jwt = require('jsonwebtoken')
 
 //Load the sponsor model
 const Sponsor = require('../../models/Sponsor');
@@ -51,13 +55,84 @@ router.post('/register', [check('name', 'Name is required').not().isEmpty(), che
         newSponsor.password = await bcrypt.hash(password, salt)
             //Saving the Sponsor to the Sponsors collection
         await newSponsor.save()
+
+
+        //Sending confirmation email
+        const transporter = createTransport({
+            host: 'mail.privateemail.com',
+            port: 465,
+            secure: true,
+            auth: {
+                user: config.get('emailUser'),
+                pass: config.get('emailPass')
+            },
+            // tls: {
+            //     ciphers: 'SSLv3'
+            // }
+
+        });
+        let resetLink = '';
+        let authToken = '';
+        let mailOptions = {}
+        jwt.sign({ email: email }, config.get('JWTSecret'), { expiresIn: 10800000 }, async(err, token) => {
+            if (err) throw err;
+            authToken += token;
+            console.log(authToken)
+            resetLink = `${config.get('productionLink')}/sponsors/confirmemail/${token}`
+            console.log(`reset link here 1 : ${resetLink}`)
+            mailOptions = {
+                from: '"Axotl Support" <support@axotl.com>',
+                to: email,
+                subject: "Confirm Email",
+                text: `Hello ${newSponsor.name},\n\nThank you for registering for Axotl. With brilliant individuals like you, we hope to foster the next generation of tech innovators. In order to verify your account, please confirm your email (expires in 3 hours):\n\n${resetLink}\n\n\nIf you did not request this, please notify us at http://axotl.com/support\n\nThanks!\n-Axotl Support`
+            }
+
+            console.log(`reset link here 2 : ${resetLink}`)
+
+
+
+            console.log('trycatch entered')
+            const verified = await transporter.verify((error, success) => {
+                if (error) {
+                    console.error(error.message)
+                } else { console.log("Server is good") };
+            })
+            const response = await transporter.sendMail(mailOptions)
+            console.log('email completed')
+            console.log(response)
+        })
+
+
         res.json(newSponsor)
     } catch (err) {
-        console.error(error);
+        console.error(err);
         res.status(500).send('Server error');
     }
 
 });
+
+
+//POST api/sponsors/confirmemail
+// Action confirm user's email
+//PUBLIC
+router.put('/confirmemail/:jwt', async(req, res) => {
+    try {
+        console.log('backend confirm email reached')
+        const email = await jwt.verify(req.params.jwt, config.get('JWTSecret')).email
+        const user = await Sponsor.findOne({ email: email })
+        console.log(email)
+        console.log(user)
+
+        user.emailConfirmed = true;
+        await user.save()
+        console.log(`After User :`)
+        console.log(user)
+        res.json({ msg: "Email Confirmed" })
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server Error")
+    }
+})
 
 
 // POST      api/sponsor/login
@@ -159,6 +234,9 @@ router.post('/resetpassword/:jwt', async(req, res) => {
     }
 })
 
+//GET /api/sponsors/resetpassword/:jwt
+//Action send reset password
+// PUBLIC (ish, no authentication)
 
 
 module.exports = router;

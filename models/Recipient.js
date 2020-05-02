@@ -21,6 +21,10 @@ const RecipientSchema = new Schema({
     avatar: {
         type: String,
     },
+    emailConfirmed: {
+        type: Boolean,
+        default: false
+    },
     Date: {
         type: Date,
         default: Date.now,
