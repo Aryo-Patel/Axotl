@@ -10,15 +10,32 @@ let SponsorProfileSchema = new Schema({
         type: String,
         required: true,
     },
-    company: {
+    organization: {
         type: String,
     },
-    donationTypes: [
-        {
-            type: String,
-            required: true,
-        }
-    ],
+    donationTypes: {
+        merch: {
+            type: Boolean
+        },
+        prizes: {
+            type: Boolean
+        },
+        food: {
+            type: Boolean
+        },
+        drinks: {
+            type: Boolean
+        },
+        workshops: {
+            type: Boolean
+        },
+        judging: {
+            type: Boolean
+        },
+        other: {
+            type: Boolean
+        },
+    },
     location: {
         type: String,
         required: true,

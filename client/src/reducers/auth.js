@@ -35,6 +35,8 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 isAuthenticated: false,
+                isRegistered: false,
+                user: null,
             }
         case ACCOUNT_DELETED:
             return {

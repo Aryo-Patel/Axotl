@@ -12,13 +12,13 @@ import locations from '../../utils/locations.json';
 import { Redirect } from 'react-router-dom';
 let locationChoices;
 
-class CreateProfile extends Component {
+class CreateSponsorProfile extends Component {
     constructor(props){
         super(props)
 
         this.state = {
             handle: '',
-            company: '',
+            organization: '',
             bio: '',
             location: '',
             donationTypes: {
@@ -58,7 +58,6 @@ class CreateProfile extends Component {
         this.setState({
             donationTypes: newDonation
         })
-        console.log(this.state.donationTypes);
     }
 
     handleChange(e){
@@ -73,7 +72,7 @@ class CreateProfile extends Component {
         let profileData = {
             sponsor: true,
             handle: this.state.handle,
-            company: this.state.company,
+            organization: this.state.organization,
             location: this.state.location,
             bio: this.state.bio,
             donationTypes: this.state.donationTypes,
@@ -94,12 +93,12 @@ class CreateProfile extends Component {
                 value={this.state.handle}
                 onChange={this.handleChange}
                 />
-                <label>Company</label>
+                <label>Organization/Company</label>
                 <TextField
                 placeholder="What is your company/organization name?"
-                name="company"
+                name="organization"
                 type="text"
-                value={this.state.company}
+                value={this.state.organization}
                 onChange={this.handleChange}
                 />
                 <div class="form-group">
@@ -147,4 +146,4 @@ const mapStateToProps = state => ({
     sponsor: state.auth.user.user.sponsor,
 })
 
-export default connect(mapStateToProps, { createProfile })(withRouter(CreateProfile));
+export default connect(mapStateToProps, { createProfile })(withRouter(CreateSponsorProfile));
