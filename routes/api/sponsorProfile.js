@@ -96,7 +96,7 @@ router.get("/", async(req, res) => {
 // PRIVATE
 router.get("/:id", async(req, res) => {
     try {
-        const profile = await SponsorProfile.findOne({ sponsor: req.params.id }).populate("sponsors", ["name", "avatar"])
+        const profile = await SponsorProfile.findOne({ _id: req.params.id }).populate("sponsors", ["name", "avatar"])
         if (!profile) {
             return res.status(400).json({ msg: "This profile doesn't exist!" })
         }

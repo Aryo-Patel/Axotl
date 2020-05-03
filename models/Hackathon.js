@@ -14,10 +14,34 @@ const HackathonSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    prizes: {
+        type: String,
+    },
+    requirements: {
+        type: String,
+    },
+    criteria: {
+        type: String
+    },
+    location: {
+        type: String
+    },
+    forms: [{
+        title: {
+            type: String
+        },
+        file: {
+            data: Buffer,
+            contentType: String,
+        }
+    }],
+    judges: {
+        type: String,
+    },
     website: {
         type: String
     },
-    donations: [{ 
+    donations: [{
         type: {
             type: String,
         },
@@ -42,8 +66,8 @@ const HackathonSchema = new mongoose.Schema({
                 type: String,
             },
         }]
-    }], 
-    startDate : {
+    }],
+    startDate: {
         type: Date,
         required: true
     },
@@ -52,7 +76,7 @@ const HackathonSchema = new mongoose.Schema({
         required: true
     },
     winners: [{
-        teamName:{
+        teamName: {
             type: String
         },
         awardTitle: {

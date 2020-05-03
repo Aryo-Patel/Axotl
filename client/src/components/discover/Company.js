@@ -15,7 +15,7 @@ const Company = ({company}) => {
                 {/* {company.website ? <p className = "website">{company.website}</p> : <p>Organizer didn't link their website!</p>} */}
 
                 <p>Location : {company.location}</p>
-                <Link to={`/profile/${company._id}`} className="btn btn-primary">
+                <Link to={`/company/${company._id}`} className="btn btn-primary">
           View Company
         </Link>
            </div>

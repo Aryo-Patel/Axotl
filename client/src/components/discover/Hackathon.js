@@ -15,11 +15,11 @@ const Hackathon = ({hackathon}) => {
 
                 <p className = "description"> {hackathon.description}</p>
                 {hackathon.website ? <p className = "website">{hackathon.website}</p> : <p>Organizer didn't link their website!</p>}
-
+                <p>Location : {hackathon.location}</p>
                 <p>Start Date: <Moment format = 'MM/DD/YYYY'>{hackathon.startDate}</Moment></p>
 
                 <p>End Date: <Moment format = 'MM/DD/YYYY'>{hackathon.endDate}</Moment></p>
-                <Link to={`/profile/${hackathon._id}`} className="btn btn-primary">
+                <Link to={`/hackathon/${hackathon._id}`} className="btn btn-primary">
           View Hackathon
         </Link>
            </div>
