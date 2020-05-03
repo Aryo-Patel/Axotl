@@ -7,6 +7,9 @@ const NavBar = ({isAuthenticated, isSponsor, auth}) => {
   //@TODO add useeffect to load username to navbar
   const authRecLinks = (
     <ul className = 'navbar-nav'>
+      <li className = 'nav-item active'>
+        <Link to="/dashboard" className = 'nav-link'>Dashboard</Link>
+      </li>
       <li className = 'nav-item active mx-4 text-center'>
         <Link to="/discover" className = 'nav-link'>Discover Sponsors</Link>
       </li>
@@ -20,6 +23,9 @@ const NavBar = ({isAuthenticated, isSponsor, auth}) => {
   );
   const authSponsLinks = (
     <ul className = 'navbar-nav justify-content-center float-right'>
+      <li className = 'nav-item active'>
+        <Link to="/dashboard" className = 'nav-link'>Dashboard</Link>
+      </li>
       <li className = 'nav-item active'>
         <Link to="/discover" className = 'nav-link'>Discover Hackathons</Link>
       </li>

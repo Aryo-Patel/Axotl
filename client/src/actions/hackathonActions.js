@@ -2,7 +2,8 @@ import {
     GET_HACKATHONS,
     GET_HACKATHONS_FAIL,
     CREATE_HACKATHON,
-    CREATE_HACKATHON_FAIL
+    CREATE_HACKATHON_FAIL,
+    GET_HACKATHON
 } from './Types';
 
 import axios from 'axios';
@@ -60,6 +61,16 @@ export const createHackathon = (hackathonData) => async dispatch => {
 }
 
 //get one hackathon's profile for display
-export const getHackathon = () => async dispatch => {
-
+export const getHackathon = (id) => async dispatch => {
+    try {
+        const res = await axios.get(`/api/hackathons/${id}`)
+        dispatch({
+            type: GET_HACKATHON,
+            payload: res.data
+        })
+    } catch (err) {
+        dispatch({
+            type: CREATE_HACKATHON_FAIL,
+        })
+    }
 }
