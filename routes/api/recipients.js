@@ -192,6 +192,9 @@ router.delete('/', async(req, res) => {
 //Action    log the users out
 //PUBLIC    (Sorta, we don't auth it but it'll be private)
 router.get('/logout', (req, res) => {
+    if (!req.user) {
+        return res.status(401).json({ msg: "Not Authorized" })
+    }
     req.logout();
     res.redirect('/');
 })

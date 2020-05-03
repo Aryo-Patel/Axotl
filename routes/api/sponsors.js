@@ -3,7 +3,6 @@ const router = express.Router();
 const gravatar = require('gravatar');
 const bcrypt = require("bcryptjs");
 const { validationResult, check } = require('express-validator')
-const bcrypt = require('bcryptjs')
 const { createTransport, sendMail } = require('nodemailer')
 const config = require('config')
 const jwt = require('jsonwebtoken')
@@ -108,12 +107,7 @@ router.post('/register', [check('name', 'Name is required').not().isEmpty(), che
 
         res.json(newSponsor)
     } catch (err) {
-<<<<<<< HEAD
         console.error(err);
-=======
-        console.log("Entered catch")
-        console.error(errors);
->>>>>>> 24e1faddaf32a307768be148c348735a77daaf0b
         res.status(500).send('Server error');
     }
 
@@ -242,9 +236,6 @@ router.post('/resetpassword/:jwt', async(req, res) => {
     }
 })
 
-//GET /api/sponsors/resetpassword/:jwt
-//Action send reset password
-// PUBLIC (ish, no authentication)
 
 
 module.exports = router;
