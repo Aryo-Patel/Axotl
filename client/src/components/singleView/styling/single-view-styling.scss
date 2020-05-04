@@ -71,10 +71,64 @@
     background-image: linear-gradient(to left, rgba(107, 255, 104, 0.66), rgba(14, 168, 11, 0.66));
 }
 
+.infoContainer {
+    position: relative;
+    margin: 10px 0px 10px 0px;
+}
+
 .donationDescrips {
     padding-left: 10%;
     padding-right: 10%;
     padding-bottom: 10px;
     margin: 0;
     text-align: center;
+}
+
+.hbioContainer {
+    border-left: 30px solid white;
+    border-right: 30px solid white;
+    background-image: linear-gradient(to left, rgba(107, 255, 104, 0.66), rgba(14, 168, 11, 0.66));
+}
+
+.donationContainer {
+    position: relative;
+    text-align: center
+}
+
+.where {
+    position: absolute;
+    font-size: 25px;
+    font-weight: 700;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 400px;
+}
+
+.when {
+    position: absolute;
+    font-size: 25px;
+    font-weight: 700;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 470px;
+}
+
+.hackloc {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 440px;
+}
+
+.hackathonWhen {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 510px;
+    font-size: 20px;
+}
+
+.hackathonHeaders {
+    font-size: 25px;
+    font-weight: 700;
 }

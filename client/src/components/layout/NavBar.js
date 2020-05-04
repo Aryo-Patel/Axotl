@@ -67,7 +67,7 @@ const NavBar = ({isAuthenticated, isSponsor, auth}) => {
         {!auth.loading && auth.user && <Link to="/logout" className = "btn btn-danger">Logout</Link>}
         <div className="collapse navbar-collapse justify-content-center" id = 'navbarContent'>
 
-            {!isAuthenticated ? (unauthLinks) : (isSponsor ? authSponsLinks : authRecLinks)}
+            {!isAuthenticated ? (unauthLinks) : (auth.user.user.sponsor ? authSponsLinks : authRecLinks)}
         </div>
       </nav>
     </Fragment>
@@ -81,7 +81,7 @@ NavBar.propTypes = {
 
 const mapStateToProps = state => ({
     isAuthenticated : state.auth.isAuthenticated,
-    isSponsor : state.auth.sponsor,
+    isSponsor : state.auth,
     auth: state.auth
 })
 
