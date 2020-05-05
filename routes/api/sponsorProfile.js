@@ -20,6 +20,7 @@ router.post(
 
             handle,
             organization,
+            donationTypes,
             location,
             bio,
             youtube,
@@ -33,6 +34,7 @@ router.post(
         profileParts.handle = handle;
         if (organization) profileParts.organization = organization;
         if (location) profileParts.location = location;
+        if (donationTypes) profileParts.donationTypes = donationTypes;
         if (bio) profileParts.bio = bio;
         const social = {};
         if (youtube) social.youtube = youtube;
@@ -79,9 +81,27 @@ router.get("/me", async(req, res) => {
 // Action   Return all sponsor profiles
 // PRIVATE
 router.get("/", async(req, res) => {
+    console.log('back end all profiles get')
     try {
-        const profiles = await SponsorProfile.find();
+        const profiles = await SponsorProfile.find().sort({ date: -1 });
         res.json(profiles)
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server Error")
+    }
+})
+
+// GET      api/profiles/sponsor/:id
+// Action   Return user's profile
+// PRIVATE
+router.get("/:id", async(req, res) => {
+    try {
+        const profile = await SponsorProfile.findOne({ _id: req.params.id }).populate("sponsors", ["name", "avatar"])
+        if (!profile) {
+            return res.status(400).json({ msg: "This profile doesn't exist!" })
+        }
+        res.json(profile)
+
     } catch (err) {
         console.error(err.message);
         res.status(500).send("Server Error")

@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 
 import TextField from "../layout/TextField";
 
-import { registerUser } from "../../actions/auth";
+import { registerUser, registerSponsor } from "../../actions/auth";
 
 class Register extends React.Component {
   constructor(props) {
@@ -21,12 +21,14 @@ class Register extends React.Component {
 
       password2 : '',
 
-      sponsor : 'sponsor'
+      sponsor : false,
     };
 
     this.handleChange = this.handleChange.bind(this);
 
     this.onSubmit = this.onSubmit.bind(this);
+
+    this.onToggle = this.onToggle.bind(this);
   }
 
   handleChange(e) {
@@ -35,9 +37,16 @@ class Register extends React.Component {
     });
   }
 
+  onToggle(){
+    //Weird ass bug with toggle
+    this.setState({
+      sponsor: !this.state.sponsor,
+    })
+    console.log(this.state.sponsor);
+  }
+
   onSubmit(e) {
     e.preventDefault();
-
     let userData = {
       name: this.state.name,
 
@@ -46,8 +55,15 @@ class Register extends React.Component {
       password: this.state.password,
     };
 
-    this.props.registerUser(userData, this.props.history);
+    if(this.state.sponsor === true){
+      console.log("Registering sponsor...")
+      this.props.registerSponsor(userData, this.props.history);
+    } else if (this.state.sponsor === false) {
+      console.log("Registering recipient...")
+      this.props.registerUser(userData, this.props.history);
+    }
   }
+
 
   render() {
       if(this.props.isRegistered) {
@@ -89,6 +105,9 @@ class Register extends React.Component {
             type="password"
           />
 
+          <input type="checkbox" id="sponsor" name="sponsorToggle" value="Sponsor Toggle" onClick={this.onToggle}/>
+          <label for="vehicle1">Check this box if you are signing up as a sponsor!</label><br></br>
+
           <input type="submit" className="btn btn-info btn-block mt-4"></input>
         </form>
       </div>
@@ -100,4 +119,4 @@ const mapStateToProps = state => ({
     isRegistered : state.auth.isRegistered
 })
 
-export default connect(mapStateToProps, { registerUser })(withRouter(Register));
+export default connect(mapStateToProps, { registerUser, registerSponsor })(withRouter(Register));

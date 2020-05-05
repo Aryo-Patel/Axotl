@@ -12,6 +12,10 @@ export const USER_FAILED = 'USER_FAILED'
 export const FORGOT_PASSWORD_FAIL = 'FORGOT_PASSWORD_FAIL'
 export const FORGOT_PASSWORD = 'FORGOT_PASSWORD'
 export const RES_PASSWORD = 'RES_PASSWORD'
+export const GET_COMPANIES = 'GET_COMPANIES'
+export const GET_COMPANY = 'GET_COMPANY'
+export const COMPANY_ERROR = 'COMPANY_ERROR'
+export const GET_HACKATHON = 'GET_HACKATHON'
 
 
 //Hackathon Actions

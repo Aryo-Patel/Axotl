@@ -14,17 +14,22 @@ import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Profile from './components/profile/Profile';
 import CreateProfile from './components/profile/CreateProfile';
-// import EditProfile from './components/profile/EditProfile';
+import CreateSponsorProfile from './components/profile/CreateSponsorProfile';
+import EditProfile from './components/profile/EditProfile';
 import AddEducation from './components/profile/AddEducation';
 import AddExperience from './components/profile/AddExperience';
 import AddPreviousHackathon from './components/profile/AddPreviousHackathon';
 import Dashboard from './components/dashboard/Dashboard';
 import Logout from './components/auth/Logout';
 import NotFound from './components/routing/NotFound';
-import Hackathons from './components/hackathons/Hackathons';
+import Discover from './components/discover/Discover';
 import ForgotPassword from './components/auth/ForgotPassword'
 import ResetPassword from './components/auth/ResetPassword'
 import PrivateRoute from './components/routing/PrivateRoute'
+import ConfirmEmailSponsor from './components/auth/ConfirmEmailSponsor'
+import ConfirmEmailRecipient from './components/auth/ConfirmEmailRecipient'
+import Hackathon from './components/singleView/Hackathon'
+import Company from './components/singleView/Company'
 
 //import logo from './logo.svg';
 import './App.css';
@@ -48,10 +53,16 @@ function App() {
             <PrivateRoute exact path = '/add-experience' component = {AddExperience} />
             <PrivateRoute exact path = '/add-previous-hackathon' component = {AddPreviousHackathon} />
             <PrivateRoute exact path = '/create-profile' component = {CreateProfile} />
-            <PrivateRoute exact path = '/hackathons' component = {Hackathons} />
+            <PrivateRoute exact path = '/create-sponsor-profile' component = {CreateSponsorProfile} />
+            <PrivateRoute exact path = '/edit-profile' component = {EditProfile} />
+            <PrivateRoute exact path = '/discover' component = {Discover} />
             <PrivateRoute exact path = '/logout' component = {Logout} />
             <Route exact path = '/forgotpassword' component = {ForgotPassword} />
             <Route path = '/resetpassword' component = {ResetPassword} />
+            <Route path = '/users/confirmemail' component = {ConfirmEmailRecipient} />
+            <Route path = '/sponsors/confirmemail' component = {ConfirmEmailSponsor} />
+            <PrivateRoute exact path = '/hackathon/:id' component = {Hackathon} />
+            <PrivateRoute exact path = '/company/:id' component = {Company} />
             <Route component = {NotFound} />
           </Switch>
         </Fragment>
