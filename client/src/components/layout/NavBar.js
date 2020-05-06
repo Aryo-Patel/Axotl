@@ -99,7 +99,7 @@ const NavBar = ({isAuthenticated, isSponsor, auth}) => {
           
 
           <div className="auth-links" id = 'navbarContent'>
-              {!isAuthenticated ? <Fragment><div>{authSponsLinks}</div></Fragment> : (auth.user.user.sponsor ?<Fragment><div>{authSponsLinks}</div></Fragment> : authRecLinks)}
+              {!isAuthenticated ? <Fragment><div>{unauthLinks}</div></Fragment> : (auth.user.user.sponsor ?<Fragment><div>{authSponsLinks}</div></Fragment> : authRecLinks)}
           </div>
 
           <Link to="/logout" className = "btn btn-danger logout-link" style = {{display: "inline-block"}}>Logout</Link>
