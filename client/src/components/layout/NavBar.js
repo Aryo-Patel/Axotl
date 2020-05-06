@@ -122,7 +122,7 @@ const NavBar = ({isAuthenticated, isSponsor, auth}) => {
         <div className = "dropdown-background">
           <div className = "dropdown">
             <div className="auth-links" id = 'dropdownContent'>
-                {!isAuthenticated ? <Fragment><div>{authSponsLinks}</div></Fragment> : (auth.user.user.sponsor ?<Fragment><div>{authSponsLinks}</div></Fragment> : authRecLinks)}
+                {!isAuthenticated ? <Fragment><div>{unauthLinks}</div></Fragment> : (auth.user.user.sponsor ?<Fragment><div>{authSponsLinks}</div></Fragment> : authRecLinks)}
             </div>
           </div>
         </div>
