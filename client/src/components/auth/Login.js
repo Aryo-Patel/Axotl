@@ -30,16 +30,18 @@ const Login = ({sendLogin, isAuthenticated}) => {
         <Fragment>
             <div className= "body">
                 <div className = "login-container">
-                    <form action="" className="form justify-content-center text-align-center align-center" onSubmit = {e => onSubmit(e)}>
+                    <form action="" className="" onSubmit = {e => onSubmit(e)}>
                         <div className="form-group">
-                            <input className = 'form-control' type="email" placeholder = 'Email Address' name = 'email' onChange = {e => onChange(e)} required value = {formData.email}/>
+                            <input className = 'form-input' type="text"  name = 'email' onChange = {e => onChange(e)} required value = {formData.email}/>
+                            <label>Email Address</label>
                         </div>
                         <div className="form-group">
-                            <input className = 'form-control' type="password" placeholder = 'Password' name = 'password' onChange = {e => onChange(e)} value = {formData.password} required/>
+                            <input className = 'form-input' type="password" name = 'password' onChange = {e => onChange(e)} value = {formData.password} required/>
+                            <label>Password</label>
                         </div>
-                        <input type='submit' className="btn btn-large btn-primary" value="Login"></input>
+                        <input type='submit' className="btn btn-large btn-primary login-button" value="Login"></input>
                     </form>
-                    <Link to = '/forgotpassword' className = 'btn btn-large btn-primary'>Forgot Password</Link>
+                    <Link to = '/forgotpassword' className = "forgot-password">Forgot Password?</Link>
                 </div>
             </div>
             
