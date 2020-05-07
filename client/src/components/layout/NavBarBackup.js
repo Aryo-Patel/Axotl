@@ -5,8 +5,6 @@ import PropTypes from "prop-types";
 
 //import styling
 import './styling/NavBar.css';
-//import styling
-import './styling/style.css';
 
 const NavBar = ({isAuthenticated, isSponsor, auth}) => {
 
