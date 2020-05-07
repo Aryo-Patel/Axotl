@@ -92,7 +92,7 @@
   position: absolute;
   width: 100%;
   top: 0;
-  left: 0;
+  left: 20px;
   pointer-events: none;
   color: #566068;
   -webkit-transition: 0.3s;
