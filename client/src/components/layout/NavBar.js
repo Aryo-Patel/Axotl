@@ -93,8 +93,7 @@ const NavBar = ({isAuthenticated, isSponsor, auth}) => {
             <h3 className = 'display-5 display-inline align-middle' style = {{"display" : "inline"}}>Axotl</h3>
           </Link>
 
-          {!auth.loading && auth.user && <h3 className = "display-5 display-inline align-middle">Welcome, {auth.user.user.name}</h3> }
-          {!auth.loading && auth.user && <Link to="/logout" className = "btn btn-danger">Logout</Link>}
+          {!auth.loading && auth.user && <h3 className = "display-5 display-inline align-middle">Welcome, {auth.user.user.name.split(' ')[0]}</h3> }
 
           
 
@@ -102,7 +101,7 @@ const NavBar = ({isAuthenticated, isSponsor, auth}) => {
               {!isAuthenticated ? <Fragment><div>{unauthLinks}</div></Fragment> : (auth.user.user.sponsor ?<Fragment><div>{authSponsLinks}</div></Fragment> : authRecLinks)}
           </div>
 
-          <Link to="/logout" className = "btn btn-danger logout-link" style = {{display: "inline-block"}}>Logout</Link>
+          {!auth.loading && auth.user && <Link to="/logout" className = "btn btn-danger">Logout</Link>}
         </Fragment> :
         <Fragment>
             <button onClick = {e => toggleDropDown()} className="navbar-toggler" style = {{ borderColor : "#87ffa7", padding : "0", width : "44" , height : "50"}} type='button' data-target = "#navbarContent" aria-controls="navbarContent" aria-expanded='false' aria-label='Toggle navigation'><svg className="bi bi-chevron-compact-down" style = {{width : '44', height : '50'}} width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -114,7 +113,7 @@ const NavBar = ({isAuthenticated, isSponsor, auth}) => {
             <h3 className = 'display-5 display-inline align-middle' style = {{"display" : "inline"}}>Axotl</h3>
             </Link>
   
-            <Link to="/logout" className = "btn btn-danger logout-link" style = {{display: "inline-block"}}>Logout</Link>
+            {!auth.loading && auth.user && <Link to="/logout" className = "btn btn-danger">Logout</Link>}
         </Fragment>}
       </div>
       {dropDown && 

@@ -1,0 +1,25 @@
+.body {
+  width: 100%;
+  height: 100vh;
+  background: url("../../images/hackathon-background.jpg");
+  background-repeat: no-repeat;
+  background-position: top;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.login-container {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 50%;
+}
+
+.login-container .form-control {
+  background: none;
+  border: none;
+  border-bottom: 2px solid "#6C757D";
+}
+/*# sourceMappingURL=authstyles.css.map */
