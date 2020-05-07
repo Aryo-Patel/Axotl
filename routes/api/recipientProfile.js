@@ -48,8 +48,8 @@ router.post(
             let sameHandleS = await SponsorProfile.findOne({handle: handle})
             let profile = await RecipientProfile.findOne({ recipient: req.user._id })
             if (profile) {
-                if (profile != sameHandleR && sameHandleR != null || sameHandleS != null){
-                    return res.status(400).send("Handle already in use")
+                if (((sameHandleR != null) && (profile._id.toString() != sameHandleR._id.toString())) || sameHandleS != null){
+                    return res.status(400).send("Handle already in use (first)")
                 }
                 profile = await RecipientProfile.findOneAndUpdate({ recipient: req.user._id }, { $set: profileParts }, { new: true })
                 return res.json(profile)
