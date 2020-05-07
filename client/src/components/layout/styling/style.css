@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@700&display=swap');
+
+body{
+    margin:0;
+    color:rgb(255,102,71);
+    
+}
+
+h1,h3{
+    font-family: 'Raleway', sans-serif;
+}
+
+/* nav bar*/
+
+header{
+    margin-bottom:5em;
+}
+
+.nav-c{
+    margin-bottom: 5em;
+}
+
+.nav-head-c {
+    margin-bottom:0px;
+}
+
+.nav-c .nav-link{
+    padding: .25rem;
+}
+
+.nav-c .nav-link:hover{
+    color:rgb(254,181,68);
+}
+
+@media (min-width: 40em){
+.nav-head-c{
+    float: left;
+}
+.nav-links{
+    float: right;
+}
+}
+
+/* home page content*/
+
+.button-c {
+    color:rgb(254,181,68);
+    background:transparent;
+    border-color: transparent;
+    margin:1em;
+}
+
+.button-c:hover{
+    color:rgb(47,114,255);
+    background:transparent;
+    border-color: transparent;
+}
+
+.home-head{
+    margin-top:1em;
+}
+
+/* blocks - content for the home page */
+
+.blockIcon{
+    display: inline-flex;
+    align-self: center;
+}
+
+.block1{
+    background:rgb(47,114,255);
+    color:white;
+}
+
+
+.block2{
+    justify-content: center;
+    text-align: center;
+    background:rgb(255,102,71);
+    color:white;
+}
+
+.block3{
+    background:rgb(254,181,68);
+    color:white;
+}
+
+.block4{
+    background:white;
+    color:rgb(255,102,71);
+}
+.block4 h1{
+    color:rgb(47,114,255);
+}
+
+@media (min-width: 40em){
+    .block1,.block2,.block3,.block4{
+        padding:2em;
+    }
+}

@@ -1,273 +1,114 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
+//import styling
+import './styling/style.css';
 
-const Landing = ({isAuthenticated}) => {
+
+
+const Landing = ({ isAuthenticated }) => {
   // if(isAuthenticated) {
   //   return <Redirect to = '/dashboard' />
   // }
 
   return (
     <Fragment>
-      <div
-        className="landingTop m-0 p-0 container-fluid"
-        style={{
-          background:
-            "url(https://images.unsplash.com/photo-1521737711867-e3b97375f902?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2734&q=80",
-          height: "1000px",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <div
-          style={{
-            backgroundColor: "rgba(10, 10, 10, 0.5)",
-            position: "absolute",
-            height: "112.5%",
-            width: "100%",
+      <body className="text-center">
 
-            margin: "0",
-            padding: "0",
-          }}
-        >
-          <div
-            className="innerLanding"
-            style={{
-              color: "#fff",
-              height: "100%",
-              width: "80%",
-              margin: "auto",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              textAlign: "center",
-              zIndex : "2"
-            }}
-          >
-            <h1 className="x-large" style = {{opacity : "1"}}>Axotl</h1>
-            <p className="lead">
-              Meet with hackathon organizations, corporate sponsors, and others
-              interested in making or sponsoring coding-related events.
-            </p>
-            <div className="logreg justify-content-center my-5 d-relative">
-              <Link to="/login" className="btn btn-light btn-lg mx-5 my-5">
-                Login
+        <div className="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+          <h1 className="cover-heading home-head">Axotl</h1>
+          <div className="row">
+            <div className="col col-sm-2 col-md-3"></div>
+            <div className="col col-12 col-sm-8 col-md-6">
+              <p className="lead">Meet with hackathon organizations, corporate sponsors, and others interested in making
+              or
+                    sponsoring coding-related events.</p>
+            </div>
+            <div className="col col-sm-2 col-md-3"></div>
+          </div>
+
+          <p className="lead" style={{ justifyContent: 'center' }}>
+
+            <Link to="/login" className="btn btn-lg btn-secondary button-c">
+              Login
               </Link>
-              <Link to="/register" className="btn btn-light btn-lg mx-5 my-5">
-                Register
+            <Link to="/register" className="btn btn-lg btn-secondary button-c">
+              Register
               </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        className="LandingBlock position-relative w-100 row"
-        style={{ height: "600px","justifyContent" : "center", "alignItems" : "center"}}
-      >
-        <div className="cards d-block h-100" style = {{"justifyContent" : "center", "alignItems" : "center"}} >
-          <div
-            className="card d-inline-block mx-5 my-5 align-bottom p-0 col-lg"
-            style = {{width: "30rem"}}
-          >
-            <img
-              src="https://2a9h4ym6yis3rbxe73gyzw48-wpengine.netdna-ssl.com/wp-content/uploads/2020/03/iStock_Handshake_030620.jpg"
-              alt=""
-              className="card-img-top"
-              style={{ height: "20vw", objectFit: "cover" }}
-            />
-            <div className="card-body">
-              <h5 className="card-title">Making Connections</h5>
-              <p className="card-text">
-                Bringing local companies and individuals together with hackathon
-                organizers to foster young talent and support tech initiatives.
-              </p>
-            </div>
-          </div>
 
-          <div
-            className="card d-inline-block mx-5 my-5 align-middle col-lg p-0"
-            style={{ width: "30rem" }}
-          >
-            <img
-              src="https://images.unsplash.com/photo-1531545514256-b1400bc00f31?ixlib=rb-1.2.1&auto=format&fit=crop&w=2767&q=80"
-              alt=""
-              className="card-img-top"
-              style={{ height: "20vw", objectFit: "cover" }}
-            />
-            <div className="card-body">
-              <h5 className="card-title">Supporting Young Developers</h5>
-              <p className="card-text">
-                Bringing local companies and individuals together with hackathon
-                organizers to foster young talent and support tech initiatives.
-              </p>
+          </p>
+        </div>
+
+        <div className="block2">
+          <div className="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+            <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="feather feather-rss blockIcon"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>
+
+            <h1 className="cover-heading home-head">Making Connections</h1>
+            <div className="row">
+              <div className="col col-sm-2 col-md-3"></div>
+              <div className="col col-12 col-sm-8 col-md-6">
+                <p className="lead">Bringing local companies and individuals together with hackathon organizers to foster young talent and support tech initiatives.</p>
+              </div>
+              <div className="col col-sm-2 col-md-3"></div>
             </div>
+
           </div>
-          <div
-            className="card d-inline-block mx-5 my-5 align-middle p-0 col-lg"
-            style={{ width: "30rem" }}
-          >
-            <img
-              src="https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1567&q=80"
-              alt=""
-              className="card-img-top"
-              style={{ height: "20vw", objectFit: "cover" }}
-            />
-            <div className="card-body">
-              <h5 className="card-title">
-                Fostering Creativity and Excellence
-              </h5>
-              <p className="card-text">
-                Bringing local companies and individuals together with hackathon
-                organizers to foster young talent and support tech initiatives.
-              </p>
+        </div>
+
+
+        <div className="block1">
+          <div className="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+            <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" className="feather feather-code blockIcon"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+            <h1 className="cover-heading home-head">Supporting Young Developers</h1>
+            <div className="row">
+              <div className="col col-sm-2 col-md-3"></div>
+              <div className="col col-12 col-sm-8 col-md-6">
+                <p className="lead">Bringing local companies and individuals together with hackathon organizers to foster young talent and support tech initiatives.</p>
+              </div>
+              <div className="col col-sm-2 col-md-3"></div>
             </div>
-          </div>
-        </div>
-      </div>
-      <div
-        className="landingMid m-0 p-0 container-fluid"
-        style={{
-          background:
-            "url(https://images.unsplash.com/photo-1521737711867-e3b97375f902?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2734&q=80",
-          height: "1000px",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <div
-          style={{
-            backgroundColor: "rgba(10, 10, 10, 0.5)",
-            position: "absolute",
-            height: "112.5%",
-            width: "100%",
 
-            margin: "0",
-            padding: "0",
-          }}
-        >
-          <div
-            className="innerLanding"
-            style={{
-              color: "#fff",
-              height: "100%",
-              width: "80%",
-              margin: "auto",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              textAlign: "center",
-              zIndex : "2"
-            }}
-          >
-            <h1 className="x-large" style = {{opacity : "1"}}>Axotl</h1>
-            <p className="lead">
-            Replace this with a website function and put in a picture
-            </p>
-            
           </div>
         </div>
-      </div>
-      <div
-        className="landingMid m-0 p-0 container-fluid"
-        style={{
-          background:
-            "url(https://images.unsplash.com/photo-1521737711867-e3b97375f902?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2734&q=80",
-          height: "1000px",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <div
-          style={{
-            backgroundColor: "rgba(10, 10, 10, 0.5)",
-            position: "absolute",
-            height: "112.5%",
-            width: "100%",
 
-            margin: "0",
-            padding: "0",
-          }}
-        >
-          <div
-            className="innerLanding"
-            style={{
-              color: "#fff",
-              height: "100%",
-              width: "80%",
-              margin: "auto",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              textAlign: "center",
-              zIndex : "2"
-            }}
-          >
-            <h1 className="x-large" style = {{opacity : "1"}}>Axotl</h1>
-            <p className="lead">
-            Replace this with a website function and put in a picture
-            </p>
-            
-          </div>
-        </div>
-      </div>
-      <div
-        className="landingMid m-0 p-0 container-fluid"
-        style={{
-          background:
-            "url(https://images.unsplash.com/photo-1521737711867-e3b97375f902?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2734&q=80",
-          height: "1000px",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <div
-          style={{
-            backgroundColor: "rgba(10, 10, 10, 0.5)",
-            position: "absolute",
-            height: "112.5%",
-            width: "100%",
+        <div className="block3">
+          <div className="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+            <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" className="feather feather-trending-up blockIcon"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+            <h1 className="cover-heading home-head">Fostering Creativity and Excellence</h1>
+            <div className="row">
+              <div className="col col-sm-2 col-md-3"></div>
+              <div className="col col-12 col-sm-8 col-md-6">
+                <p className="lead">Bringing local companies and individuals together with hackathon organizers to foster young talent and support tech initiatives.</p>
+              </div>
+              <div className="col col-sm-2 col-md-3"></div>
+            </div>
 
-            margin: "0",
-            padding: "0",
-          }}
-        >
-          <div
-            className="innerLanding"
-            style={{
-              color: "#fff",
-              height: "100%",
-              width: "80%",
-              margin: "auto",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              textAlign: "center",
-              zIndex : "2"
-            }}
-          >
-            <h1 className="x-large" style = {{opacity : "1"}}>Axotl</h1>
-            <p className="lead">
-              Replace this with a website function and put in a picture
-            </p>
-            
           </div>
         </div>
-      </div>
-      <div className="footer text-align-center justify-content-center align-middle" style = {{backgroundColor : "#e6e6e6", "height" : "200px", "borderTop" : "1", "justifyContent" : "center"}}>
-        <p className="contact btn d-block">Contact Us</p>
-        <p className="about btn d-block">About</p>
-      </div>
+
+        <div className="block4">
+          <div className="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+            <h1 className="cover-heading home-head">About Us</h1>
+            <div className="row">
+              <div className="col col-sm-2 col-md-3"></div>
+              <div className="col col-12 col-sm-8 col-md-6">
+                <p className="lead">coming soon!</p>
+              </div>
+              <div className="col col-sm-2 col-md-3"></div>
+            </div>
+
+          </div>
+        </div>
+
+
+      </body>
     </Fragment>
   );
 };
 
 Landing.propTypes = {
-  isAuthenticated : PropTypes.bool,
+  isAuthenticated: PropTypes.bool,
 };
 
 const mapStateToProps = state => ({
