@@ -9,6 +9,7 @@ const jwt = require('jsonwebtoken')
 
 //Load the sponsor model
 const Sponsor = require('../../models/Sponsor');
+const Recipient = require('../../models/Recipient');
 const SponsorProfile = require('../../models/SponsorProfile')
 
 //load passport
