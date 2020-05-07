@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import DefaultPfp from '../common/defaultpfp.png';
+import DefaultSponsorPfp from '../common/sponsorDefault.png';
 import { Link } from 'react-router-dom';
 
 
@@ -10,7 +11,7 @@ export default class Header extends Component {
     render() {
         return (
         <div class="media">
-            <img class="mr-3" src={DefaultPfp} style={{width: '200px', position: "relative", textalign: "center"}} alt= ""/>
+            <img class="mr-3" src={this.props.sponsor ? DefaultSponsorPfp : DefaultPfp} style={{width: '200px', position: "relative", textalign: "center"}} alt= ""/>
             <div class="media-body">
                 <h5 class="mt-0"><strong>@{this.props.handle}</strong></h5>
                 <p>{this.props.bio}</p>

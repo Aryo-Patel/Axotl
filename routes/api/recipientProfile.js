@@ -5,6 +5,7 @@ const { validationResult, check } = require("express-validator");
 
 //importing models
 const RecipientProfile = require('../../models/RecipientProfile')
+const SponsorProfile = require('../../models/SponsorProfile')
 
 // POST      api/profiles/recipient/
 // Action   Create or Update a recipient profile
@@ -43,8 +44,13 @@ router.post(
         if (social) profileParts.social = social;
 
         try {
+            let sameHandleR = await RecipientProfile.findOne({handle: handle})
+            let sameHandleS = await SponsorProfile.findOne({handle: handle})
             let profile = await RecipientProfile.findOne({ recipient: req.user._id })
             if (profile) {
+                if (profile != sameHandleR && sameHandleR != null || sameHandleS != null){
+                    return res.status(400).send("Handle already in use")
+                }
                 profile = await RecipientProfile.findOneAndUpdate({ recipient: req.user._id }, { $set: profileParts }, { new: true })
                 return res.json(profile)
             }

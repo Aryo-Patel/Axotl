@@ -63,30 +63,35 @@ class AddEducation extends Component {
                 value={this.state.school}
                 onChange={this.handleChange}
                 placeholder="Enter the school/institution name"
+                required
                 />
                 <TextField
                 name="degree"
                 value={this.state.degree}
                 onChange={this.handleChange}
                 placeholder="What kind of degree did you receive?"
+                required
                 />
                 <TextField
                 name="description"
                 value={this.state.description}
                 onChange={this.handleChange}
                 placeholder="Describe what you studied and/or the institution."
+                required
                 />
                 <TextField
                 name="fieldOfStudy"
                 value={this.state.fieldOfStudy}
                 onChange={this.handleChange}
                 placeholder="What was your major/focus?"
+                required
                 />
                 <TextField
                 name="from"
                 value={this.state.from}
                 onChange={this.handleChange}
                 placeholder="MM/DD/YYYY"
+                required
                 />
                 <TextField
                 name="to"
@@ -94,6 +99,7 @@ class AddEducation extends Component {
                 onChange={this.handleChange}
                 placeholder="MM/DD/YYYY"
                 disabled={this.state.disabled}
+                required
                 />
                 <button onClick={this.toggleCurrent}>Are you currently pursuing this education?</button>
                 <br></br>

@@ -11,6 +11,8 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import locations from '../../utils/locations.json';
 import { Redirect } from 'react-router-dom';
+import axios from 'axios';
+
 let locationChoices;
 
 class CreateProfile extends Component {
@@ -48,7 +50,7 @@ class CreateProfile extends Component {
 
     onSubmit(e){
         e.preventDefault();
-
+        
         let profileData = {
             sponsor: false,
             handle: this.state.handle,
@@ -71,6 +73,7 @@ class CreateProfile extends Component {
                 type="text"
                 value={this.state.handle}
                 onChange={this.handleChange}
+                required
                 />
                 <label>Current Affiliation</label>
                 <TextField
@@ -89,7 +92,7 @@ class CreateProfile extends Component {
 
                 <div class="form-group">
                     <label for="Bio">Biography</label>
-                    <textarea class="form-control" name='bio' value={this.state.bio} id="Bio" rows="4" onChange={this.handleChange}></textarea>
+                    <textarea class="form-control" name='bio' value={this.state.bio} id="Bio" rows="4" onChange={this.handleChange} required></textarea>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Submit</button>

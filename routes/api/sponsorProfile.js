@@ -4,7 +4,8 @@ const passport = require("passport");
 const { validationResult, check } = require("express-validator");
 
 //importing models 
-const SponsorProfile = require('../../models/SponsorProfile')
+const SponsorProfile = require('../../models/SponsorProfile');
+const RecipientProfile = require('../../models/RecipientProfile');
 
 // POST      api/profiles/sponsor/
 // Action   Create or Update a sponsor profile
@@ -12,6 +13,7 @@ const SponsorProfile = require('../../models/SponsorProfile')
 router.post(
     "/", [check("handle", "Handle is required").not().isEmpty()],
     async(req, res) => {
+
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             res.status(400).json({ errors: errors.array() });
@@ -45,10 +47,18 @@ router.post(
         if (social) profileParts.social = social;
 
         try {
-            let profile = await SponsorProfile.findOne({ sponsor: req.user._id })
+            let sameHandleR = await RecipientProfile.findOne({handle: handle})
+            let sameHandleS = await SponsorProfile.findOne({handle: handle})
+            let profile = await RecipientProfile.findOne({ recipient: req.user._id })
             if (profile) {
+                if (profile != sameHandleR && sameHandleR != null || sameHandleS != null){
+                    return res.status(400).send("Handle already in use")
+                }
                 profile = await SponsorProfile.findOneAndUpdate({ sponsor: req.user._id }, { $set, profileParts }, { new: true })
                 return res.json(profile)
+            }
+            if(sameHandleR != null || sameHandleS != null){
+                return res.status(400).send("Handle already in use")
             }
             profile = new SponsorProfile(profileParts)
             await profile.save()
