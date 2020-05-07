@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import DefaultPfp from './defaultpfp.png';
+import DefaultPfp from './sponsorDefault.png';
 
-export default class DefaultPfp extends Component {
+export default class DefaultSponsorPfp extends Component {
     render() {
         return (
             <div>

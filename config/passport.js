@@ -12,11 +12,20 @@ const Recipient = require('../models/Recipient')
 const Sponsor = require('../models/Sponsor')
 
 exports.local = (passport) => {
-    passport.use(new localStrategy({ usernameField: 'email' }, async(email, password, done) => {
+    passport.use(new localStrategy({ usernameField: 'email', passReqToCallback : true }, async(req, email, password, done) => {
+        if(!req.session.tries) {
+            req.session.tries = 0;
+        }
+        if(req.session.tries>5) {
+            console.log("ISSUE")
+            return done(null, false, {message : "You have used too many tries. Try again later"})
+        }
+        console.log(req.session.tries)
         console.log('passport internals reached')
         const recipient = await Recipient.findOne({ email })
         const sponsor = await Sponsor.findOne({ email })
         if (!sponsor && !recipient) {
+            req.session.tries += 1;
             return done(null, false, { message: 'Incorrect Credentials' })
         }
         const user = recipient || sponsor;
@@ -24,6 +33,7 @@ exports.local = (passport) => {
             if (await bcrypt.compare(password, user.password)) {
                 return done(null, user);
             } else {
+                req.session.tries += 1;
                 return done(null, false, { message: 'Incorrect Credentials' });
             }
         } catch (err) {

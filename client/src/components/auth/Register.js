@@ -50,7 +50,7 @@ class Register extends React.Component {
     let userData = {
       name: this.state.name,
 
-      email: this.state.email,
+      email: this.state.email.toLowerCase(),
 
       password: this.state.password,
     };
@@ -73,13 +73,14 @@ class Register extends React.Component {
       <div>
         <h5>Register for an Axotl account!</h5>
 
-        <form noValidate onSubmit={this.onSubmit}>
+        <form onSubmit={this.onSubmit}>
           <TextField
             name="name"
             placeholder="Enter your full name"
             value={this.state.name}
             onChange={this.handleChange}
             type="text"
+            required
           />
 
           <TextField
@@ -88,6 +89,7 @@ class Register extends React.Component {
             value={this.state.email}
             onChange={this.handleChange}
             type="email"
+            required
           />
 
           <TextField
@@ -96,6 +98,7 @@ class Register extends React.Component {
             value={this.state.password}
             onChange={this.handleChange}
             type="password"
+            required
           />
           <TextField
             name="password2"
@@ -103,6 +106,7 @@ class Register extends React.Component {
             value={this.state.password2}
             onChange={this.handleChange}
             type="password"
+            required
           />
 
           <input type="checkbox" id="sponsor" name="sponsorToggle" value="Sponsor Toggle" onClick={this.onToggle}/>

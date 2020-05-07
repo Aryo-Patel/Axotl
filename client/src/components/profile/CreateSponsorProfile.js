@@ -92,6 +92,7 @@ class CreateSponsorProfile extends Component {
                 type="text"
                 value={this.state.handle}
                 onChange={this.handleChange}
+                required
                 />
                 <label>Organization/Company</label>
                 <TextField
@@ -100,6 +101,7 @@ class CreateSponsorProfile extends Component {
                 type="text"
                 value={this.state.organization}
                 onChange={this.handleChange}
+                required
                 />
                 <div class="form-group">
                     <label for="location">Location</label>
@@ -132,7 +134,7 @@ class CreateSponsorProfile extends Component {
 
                 <div class="form-group">
                     <label for="Bio">Biography</label>
-                    <textarea class="form-control" name='bio' value={this.state.bio} id="Bio" rows="4" onChange={this.handleChange}></textarea>
+                    <textarea class="form-control" name='bio' value={this.state.bio} id="Bio" rows="4" onChange={this.handleChange} required></textarea>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Submit</button>

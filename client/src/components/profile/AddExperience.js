@@ -69,12 +69,14 @@ class AddExperience extends Component {
                 value={this.state.position}
                 onChange={this.handleChange}
                 placeholder="What was your position?"
+                required
                 />
                 <TextField
                 name="description"
                 value={this.state.description}
                 onChange={this.handleChange}
                 placeholder="Describe what you did."
+                required
                 />
                 <TextField
                 name="location"
@@ -87,6 +89,7 @@ class AddExperience extends Component {
                 value={this.state.from}
                 onChange={this.handleChange}
                 placeholder="MM/DD/YYYY"
+                required
                 />
                 <TextField
                 name="to"
@@ -94,6 +97,7 @@ class AddExperience extends Component {
                 onChange={this.handleChange}
                 placeholder="MM/DD/YYYY"
                 disabled={this.state.disabled}
+                required
                 />
                 <button onClick={this.toggleCurrent}>Are you currently pursuing this experience?</button>
                 <br></br>

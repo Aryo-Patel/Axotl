@@ -9,6 +9,7 @@ const jwt = require('jsonwebtoken')
 
 //Load the sponsor model
 const Sponsor = require('../../models/Sponsor');
+const Recipient = require('../../models/Recipient');
 const SponsorProfile = require('../../models/SponsorProfile')
 
 //load passport
@@ -19,6 +20,7 @@ const passport = require('passport')
 // PUBLIC
 
 router.post('/register', [check('name', 'Name is required').not().isEmpty(), check('email', 'Not a valid email').isEmail(), check('password', 'Please enter a password with six or more characters').isLength({ min: 6 })], async(req, res) => {
+    req.session.tries = 0;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() })
@@ -26,9 +28,10 @@ router.post('/register', [check('name', 'Name is required').not().isEmpty(), che
     try {
         //Checks to see if the email is already in use
         const sponsor = await Sponsor.findOne({ email: req.body.email })
+        const recipient = await Recipient.findOne({ email: req.body.email })
 
         //If email in use, return this error
-        if (sponsor) {
+        if (sponsor || recipient) {
             return res.status(400).json({
                 errors: [{ msg: 'That email is already in use' }]
             })
@@ -142,6 +145,7 @@ router.put('/confirmemail/:jwt', async(req, res) => {
 // PUBLIC
 
 router.post('/login', passport.authenticate('local', { failureRedirect: 'http://localhost:3000/sponsor/login' }), (req, res) => {
+    
     /**const email = req.body.email;
     const password = req.body.password;
 

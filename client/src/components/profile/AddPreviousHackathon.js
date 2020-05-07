@@ -48,12 +48,14 @@ class AddPreviousHackathon extends Component {
                 value={this.state.name}
                 onChange={this.handleChange}
                 placeholder="Name of the hackathon."
+                required
                 />
                 <TextField
                 name="description"
                 value={this.state.description}
                 onChange={this.handleChange}
-                placeholder="Describe what you did."
+                placeholder="Describe what you did/built."
+                required
                 />
                 <TextField
                 name="location"
