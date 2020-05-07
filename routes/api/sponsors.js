@@ -9,6 +9,7 @@ const jwt = require('jsonwebtoken')
 
 //Load the sponsor model
 const Sponsor = require('../../models/Sponsor');
+const Recipient = require('../../models/Recipient');
 const SponsorProfile = require('../../models/SponsorProfile')
 
 //load passport
@@ -27,9 +28,10 @@ router.post('/register', [check('name', 'Name is required').not().isEmpty(), che
     try {
         //Checks to see if the email is already in use
         const sponsor = await Sponsor.findOne({ email: req.body.email })
+        const recipient = await Recipient.findOne({ email: req.body.email })
 
         //If email in use, return this error
-        if (sponsor) {
+        if (sponsor || recipient) {
             return res.status(400).json({
                 errors: [{ msg: 'That email is already in use' }]
             })

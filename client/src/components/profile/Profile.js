@@ -61,6 +61,7 @@ class Profile extends Component {
                 bio={profile.bio}
                 location={profile.location}
                 organization={profile.organization}
+                sponsor={sponsor}
                 />
                 {sponsor ? <Information profile={profile}/> : <Credentials profile={profile}/>}
                 {sponsor ? <button className='btn btn-lg btn-primary' onClick={this.deleteSponsorAccount}>Delete Profile and Account</button> : <button className='btn btn-lg btn-primary' onClick={this.deleteRecipientAccount}>Delete Profile and Account</button>}

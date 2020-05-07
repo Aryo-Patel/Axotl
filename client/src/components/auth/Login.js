@@ -4,6 +4,9 @@ import PropTypes from 'prop-types'
 import {sendLogin} from '../../actions/auth'
 import {Redirect, Link} from 'react-router-dom'
 
+
+//importing the css
+import './authStyles/authstyles.css';
 const Login = ({sendLogin, isAuthenticated}) => {
     const [formData, setFormData] = useState({
         email : '',
@@ -25,16 +28,21 @@ const Login = ({sendLogin, isAuthenticated}) => {
 
     return (
         <Fragment>
-            <form action="" className="form justify-content-center text-align-center align-center" onSubmit = {e => onSubmit(e)}>
-                <div className="form-group">
-                    <input className = 'form-control' type="email" placeholder = 'Email Address' name = 'email' onChange = {e => onChange(e)} required value = {formData.email}/>
+            <div className= "body">
+                <div className = "login-container">
+                    <form action="" className="form justify-content-center text-align-center align-center" onSubmit = {e => onSubmit(e)}>
+                        <div className="form-group">
+                            <input className = 'form-control' type="email" placeholder = 'Email Address' name = 'email' onChange = {e => onChange(e)} required value = {formData.email}/>
+                        </div>
+                        <div className="form-group">
+                            <input className = 'form-control' type="password" placeholder = 'Password' name = 'password' onChange = {e => onChange(e)} value = {formData.password} required/>
+                        </div>
+                        <input type='submit' className="btn btn-large btn-primary" value="Login"></input>
+                    </form>
+                    <Link to = '/forgotpassword' className = 'btn btn-large btn-primary'>Forgot Password</Link>
                 </div>
-                <div className="form-group">
-                    <input className = 'form-control' type="password" placeholder = 'Password' name = 'password' onChange = {e => onChange(e)} value = {formData.password} required/>
-                </div>
-                <input type='submit' className="btn btn-large btn-primary" value="Login"></input>
-            </form>
-            <Link to = '/forgotpassword' className = 'btn btn-large btn-primary'>Forgot Password</Link>
+            </div>
+            
         </Fragment>
     )
 }
