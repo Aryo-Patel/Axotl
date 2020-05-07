@@ -10,6 +10,7 @@ const jwt = require('jsonwebtoken')
 
 //Load the recipient model
 const Recipient = require('../../models/Recipient');
+const Sponsor = require('../../models/Sponsor');
 const RecipientProfile = require('../../models/RecipientProfile')
 
 // POST      api/users/register
@@ -24,9 +25,10 @@ router.post('/register', [check('name', 'Name is required').not().isEmpty(), che
     try {
         //Checks to see if the email is already in use
         const recipient = await Recipient.findOne({ email: req.body.email })
+        const sponsor = await Sponsor.findOne({ email: req.body.email })
 
         //If email in use, return this error
-        if (recipient) {
+        if (recipient || sponsor) {
             return res.status(400).json({
                 errors: [{ msg: 'That email is already in use' }]
             })

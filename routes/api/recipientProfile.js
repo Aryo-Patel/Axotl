@@ -54,6 +54,9 @@ router.post(
                 profile = await RecipientProfile.findOneAndUpdate({ recipient: req.user._id }, { $set: profileParts }, { new: true })
                 return res.json(profile)
             }
+            if (sameHandleR != null || sameHandleS != null){
+                return res.status(400).send("Handle already in use")
+            }
             profile = new RecipientProfile(profileParts)
             await profile.save()
             res.json(profile)
