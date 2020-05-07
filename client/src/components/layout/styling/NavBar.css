@@ -1,0 +1,132 @@
+.navContainer {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #87ffa7;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.navContainer .auth-links div {
+  display: inline-block;
+}
+
+.navContainer .auth-links .link-list {
+  min-height: 100%;
+  list-style-type: none;
+  padding: 0;
+}
+
+.navContainer .auth-links .link-list li {
+  padding: 0;
+  float: left;
+  list-style-type: none;
+}
+
+.navContainer .logout-link {
+  max-height: 40px;
+}
+
+.dropdown-background {
+  background: #87ffa7;
+}
+
+.dropdown {
+  height: 30px;
+  width: 100%;
+  display: block;
+  background-color: #87ffa7;
+  margin: 0 auto;
+  -webkit-animation: dropdown;
+          animation: dropdown;
+  -webkit-animation-duration: 0.7s;
+          animation-duration: 0.7s;
+}
+
+.dropdown .auth-links div {
+  display: inline-block;
+}
+
+.dropdown .auth-links .link-list {
+  min-height: 100%;
+  list-style-type: none;
+  padding: 0;
+}
+
+.dropdown .auth-links .link-list li {
+  padding: 0;
+  float: left;
+  list-style-type: none;
+}
+
+.dropdown .auth-links .link-list li .nav-link {
+  -webkit-animation: dropdown-text;
+          animation: dropdown-text;
+  -webkit-animation-duration: 0.7s;
+          animation-duration: 0.7s;
+}
+
+@-webkit-keyframes dropdown {
+  from {
+    height: 0px;
+    -webkit-transform: translateY(-100%);
+            transform: translateY(-100%);
+  }
+  to {
+    height: 30px;
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+}
+
+@keyframes dropdown {
+  from {
+    height: 0px;
+    -webkit-transform: translateY(-100%);
+            transform: translateY(-100%);
+  }
+  to {
+    height: 30px;
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+}
+
+@-webkit-keyframes dropdown-text {
+  from {
+    opacity: 0%;
+    -webkit-transform: translateY(-100%);
+            transform: translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+}
+
+@keyframes dropdown-text {
+  from {
+    opacity: 0%;
+    -webkit-transform: translateY(-100%);
+            transform: translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+}
+
+.animation {
+  background-color: #444;
+}
+/*# sourceMappingURL=NavBar.css.map */

@@ -10,6 +10,7 @@ const TextField = ({
   type,
   onChange,
   disabled,
+  required
 }) => {
   return (
     <div className="form-group">
@@ -20,6 +21,7 @@ const TextField = ({
         value={value}
         onChange={onChange}
         disabled={disabled}
+        required={required}
       />
     </div>
   );

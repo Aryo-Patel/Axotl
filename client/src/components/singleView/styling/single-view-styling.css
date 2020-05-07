@@ -79,6 +79,7 @@
 
 .infoContainer {
   position: relative;
+  margin: 10px 0px 10px 0px;
 }
 
 .donationDescrips {
@@ -136,5 +137,10 @@
           transform: translateX(-50%);
   top: 510px;
   font-size: 20px;
+}
+
+.hackathonHeaders {
+  font-size: 25px;
+  font-weight: 700;
 }
 /*# sourceMappingURL=single-view-styling.css.map */
