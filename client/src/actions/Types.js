@@ -15,6 +15,7 @@ export const RES_PASSWORD = 'RES_PASSWORD'
 export const GET_COMPANIES = 'GET_COMPANIES'
 export const GET_COMPANY = 'GET_COMPANY'
 export const COMPANY_ERROR = 'COMPANY_ERROR'
+export const GET_HACKATHON = 'GET_HACKATHON'
 
 
 //Hackathon Actions

@@ -34,6 +34,12 @@ export default function(state = initialState, action) {
                 ...state,
                 loading: false
             }
+        case GET_HACKATHON:
+            return {
+                ...state,
+                loading: false,
+                hackathon: payload
+            }
         default:
             return {
                 ...state

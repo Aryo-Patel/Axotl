@@ -36,6 +36,9 @@ let SponsorProfileSchema = new Schema({
             type: Boolean
         },
     },
+    donationDescription: {
+        type: String,
+    },
     location: {
         type: String,
         required: true,
@@ -44,9 +47,6 @@ let SponsorProfileSchema = new Schema({
         type: String
     },
     social: {
-        youtube: {
-            type: String
-        },
         facebook: {
             type: String
         },

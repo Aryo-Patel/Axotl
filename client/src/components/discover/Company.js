@@ -15,6 +15,10 @@ const Company = ({company}) => {
                 {/* {company.website ? <p className = "website">{company.website}</p> : <p>Organizer didn't link their website!</p>} */}
 
                 <p>Location : {company.location}</p>
+    <p className = 'company-widget-donations'>Offers : {Object.keys(company.donationTypes).map(key => {
+        console.log(key)
+        console.log(company.donationTypes[key])
+         return company.donationTypes[key] ? (<span className = 'donButton'>{key}{" "}</span>) : <span>{""}</span>})}</p>
                 <Link to={`/company/${company._id}`} className="btn btn-primary">
           View Company
         </Link>

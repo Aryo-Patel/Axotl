@@ -168,4 +168,11 @@
   width: 85%;
   margin: 0 auto;
 }
+
+.company-widget-donations .donButton {
+  background-color: #41a0f2;
+  border: 1px solid #41a0f2;
+  border-radius: 5px;
+  margin: 0px 5px 0px 5px;
+}
 /*# sourceMappingURL=hackathons.css.map */

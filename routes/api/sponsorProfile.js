@@ -93,7 +93,7 @@ router.get("/me", async(req, res) => {
 router.get("/", async(req, res) => {
     console.log('back end all profiles get')
     try {
-        const profiles = await SponsorProfile.find();
+        const profiles = await SponsorProfile.find().sort({ date: -1 });
         res.json(profiles)
     } catch (err) {
         console.error(err.message);
