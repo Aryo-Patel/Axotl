@@ -10,14 +10,16 @@ import './styling/hackathons.css'
 
 const Companies = ({companies : {loading, companyList}, getCompanies, getDistances}) => {
     useEffect(() => {
-        getCompanies()
-    }, [getCompanies])
+        getDistances()
+    }, [getDistances])
     
     const [query, setQuery] = useState('')
 
     const [donTag, setDonTag] = useState([])
 
     const [distFilter, setDistFilter] = useState('')
+
+    const [distFilterToggle, setDistFilterToggle] = useState(false)
 
     const onSubmit = e => {
         e.preventDefault();
@@ -43,22 +45,24 @@ const Companies = ({companies : {loading, companyList}, getCompanies, getDistanc
 
     const prizeTypes = ['merch', 'prizes', 'food', 'drinks', 'workshop Hosting', 'judging', 'other']
 
-    const locationRouting = e => {
-        console.log(e.target.classList)
+    const locationRouting = async (e) => {
         const isCurr = e.target.innerHTML == distFilter;
-        console.log(isCurr)
         Array.from(e.target.parentNode.childNodes).forEach(tag => tag.classList.contains('pressedTag') ? tag.classList.remove('pressedTag') : null)
         if(isCurr) {
         e.target.classList.remove('pressedTag')
+        setDistFilterToggle(false)
         } else {
             e.target.classList.add('pressedTag')
+            setDistFilterToggle(true)
         }
         setDistFilter(e.target.innerHTML)
+        
         /**
          * TODO
          * dispatch action to get distances
          * set up back end distance matrix api
          */
+
     }
 
     return (
@@ -81,17 +85,25 @@ const Companies = ({companies : {loading, companyList}, getCompanies, getDistanc
                 <div className="locTag" onClick = {e => locationRouting(e)}>50 miles</div>
                 <div className="locTag" onClick = {e => locationRouting(e)}>100 miles</div>
                 <div className="locTag" onClick = {e => locationRouting(e)}>250 miles</div>
+                <div className="locTag" onClick = {e => locationRouting(e)}>1000 miles</div>
             </div>
             <div className = "company-holder">
                 {!loading ?
                 companyList.filter(company => {
+                    let distTrue = true;
                     let tagsTrue = true;
                     for(let i = 0; i < donTag.length; i++) {
                         if(!company.donationTypes[donTag[i]]) {
                             tagsTrue = false;
                         }
                     }
-                    return company.organization.substring(0, query.length).toUpperCase() == query.toUpperCase() && tagsTrue}).map((company, index) => (
+                    console.log(`distfiltertoggle : ${distFilterToggle}`)
+                    console.log(`distFilter: ${distFilter}`)
+                    console.log(company.distanceFromUser.split(" ")[0].split(",").join(""))
+                    if(distFilterToggle && Number(company.distanceFromUser.split(" ")[0].split(",").join("")) > Number(distFilter.split(" ")[0])) {
+                        distTrue = false;
+                    }
+                    return company.organization.substring(0, query.length).toUpperCase() == query.toUpperCase() && tagsTrue && distTrue}).map((company, index) => (
                     <Company key = {index} company = {company} />
                 ))
                 : <Spinner />}

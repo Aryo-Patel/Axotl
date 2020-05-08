@@ -52,12 +52,12 @@ router.post(
         try {
             let sameHandleR = await RecipientProfile.findOne({ handle: handle })
             let sameHandleS = await SponsorProfile.findOne({ handle: handle })
-            let profile = await RecipientProfile.findOne({ recipient: req.user._id })
+            let profile = await SponsorProfile.findOne({ sponsor: req.user._id })
             if (profile) {
-                if (profile != sameHandleR && sameHandleR != null || sameHandleS != null) {
+                if (((sameHandleS != null) && (profile._id.toString() != sameHandleS._id.toString())) || sameHandleR != null) {
                     return res.status(400).send("Handle already in use")
                 }
-                profile = await SponsorProfile.findOneAndUpdate({ sponsor: req.user._id }, { $set, profileParts }, { new: true })
+                profile = await SponsorProfile.findOneAndUpdate({ sponsor: req.user._id }, { $set: profileParts }, { new: true })
                 return res.json(profile)
             }
             if (sameHandleR != null || sameHandleS != null) {
@@ -144,8 +144,7 @@ router.get('/search/locations', async(req, res) => {
     }
     try {
         let myLocation = await RecipientProfile.findOne({ recipient: req.user._id })
-        myLocation = myLocation.location.split(" ").join('+');
-        const client = new Client({})
+        myLocation = myLocation.location
         let profiles = await SponsorProfile.find();
         let destinations = [];
         profiles.forEach(async(profile) => {
