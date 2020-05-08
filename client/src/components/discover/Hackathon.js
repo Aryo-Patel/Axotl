@@ -5,6 +5,7 @@ import {Redirect, Link} from 'react-router-dom'
 
 
 const Hackathon = ({hackathon}) => {
+    let i = 0;
     const onClick = (e) => {
         return <Redirect to= {`/hackathon/${hackathon._id}`} />
     }
@@ -15,6 +16,10 @@ const Hackathon = ({hackathon}) => {
 
                 <p className = "description"> {hackathon.description}</p>
                 {hackathon.website ? <p className = "website">{hackathon.website}</p> : <p>Organizer didn't link their website!</p>}
+                <p>Display pls</p>
+                hackathon.donations.forEach(donation =>(
+                   donation.received.length > 0 && console.log(donation.received.type) && <p key = {i++}>There was something received</p>
+                ))}
                 <p>Location : {hackathon.location}</p>
                 <p>Start Date: <Moment format = 'MM/DD/YYYY'>{hackathon.startDate}</Moment></p>
 

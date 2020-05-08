@@ -35,13 +35,19 @@ router.post('/create', async(req, res, next) => {
             endDate,
             title,
             description,
+            prizes, //array
+            requirements, //qualify to participate array
+            criteria, //array
+            location,
+            forms,  //array with title and file
+            judges, //array
             website,
             donations,
             winners
         } = req.body;
 
         //create new hackathon
-        const newHackathon = new Hackathon({
+        let newHackathon = new Hackathon({
             title,
             startDate,
             endDate,
@@ -52,8 +58,71 @@ router.post('/create', async(req, res, next) => {
         newHackathon.recipient = req.user._id;
 
         //add in the optional fields if they exist
-        if (website) newHackathon['websiste'] = website;
+        if (website) newHackathon['website'] = website;
 
+        //adds the prizes to the hackathon object
+        if(prizes){
+            //initializes an empty array that stores all the prizes
+            newHackathon.prizes = [];
+
+            
+            prizes.forEach(prize => {
+                newHackathon.prizes.push(prize);
+            })
+
+        }
+        
+        //adds the requirements to the hackathon object
+        if(requirements){
+            //initializes an empty array that stores all the requirements
+            newHackathon.requirements = [];
+
+            requirements.forEach(requirement => {
+                newHackathon.requirements.push(requirement);
+            });
+        }
+
+        //adds the criterias to win in into the hackathon object
+        if(criteria){
+            //initializes an empty array that stores all the criteria to win in
+            newHackathon.criteria = [];
+
+            criteria.forEach(criterion =>{
+                newHackathon.criteria.push(criterion);
+            })
+        }
+
+        //adds the location to the hackathon object
+        if(location) newHackathon.location = location;
+
+        //adds the forms to the hackathon
+        if(forms){
+            //initializes the array that the forms will save to
+            newHackathon.forms = [];
+
+            forms.forEach(form => {
+                //new object that will be pushed to the form
+                let hackathonForm = {};
+
+                //adding the parameters to the hackathon form
+                hackathonForm.title = form.title;
+                hackathonForm.file = form.file;
+
+                //appends the file to the hackathon
+                newHackathon.forms.push(hackathonForm);
+            })
+
+        }
+
+        //adds the judges to the hackathon
+        if(judges){
+            //initializes empty object that will contain all the judges
+            newHackathon.judges = [];
+
+            judges.forEach(judge => {
+                newHackathon.judges.push(judge);
+            });
+        }
         if (donations) {
             newHackathon.donations = [];
             donations.forEach(donation => {
@@ -422,7 +491,7 @@ router.delete('/delete-hackathon/:hackathonId', async(req, res, next) => {
 router.get('/', async(req, res, next) => {
     try {
         //grabs all the hackathons
-        let hackathons = await Hackathon.find().sort({ date: -1 });
+        let hackathons = await Hackathon.find().sort({ startDate: -1 });
 
         return res.status(200).json(hackathons);
     } catch (err) {

@@ -7,9 +7,6 @@
 import React, { Component } from 'react';
 
 class Information extends Component {
-    constructor(props){
-        super(props)
-    }
     render() {
         let donationTypes = this.props.profile.donationTypes;
         

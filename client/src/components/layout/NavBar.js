@@ -133,7 +133,7 @@ const NavBar = ({isAuthenticated, isSponsor, auth}) => {
 
 NavBar.propTypes = {
   isAuthenticated : PropTypes.bool,
-  isSponsor : PropTypes.bool,
+  isSponsor : PropTypes.object,
 };
 
 const mapStateToProps = state => ({

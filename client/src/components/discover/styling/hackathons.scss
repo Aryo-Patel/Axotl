@@ -21,15 +21,15 @@
     .hackathon-item {
         transition: 0.2s;
         border-radius: 4px;
-        background-image: url('../../images/hackathon-background.jpg');
-        background-size: 100% 100%;
-        background-repeat: no-repeat;
+        background-color: #2F72FF;
+        color: rgba(255,255,255,0.95);
+        box-shadow: 0px 10px 20px rgba(0,0,0, 0.8);
         h1 {
             font-size: 1.4em;
         }
         &:hover {
             transition: 0.2s;
-            transform: rotate3d(1, 1, 0, 20deg);
+            transform: rotate3d(1, 1, 0, 10deg);
             cursor: pointer;
         }
         .hackathon-content {
