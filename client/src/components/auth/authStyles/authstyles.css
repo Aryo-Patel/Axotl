@@ -1,0 +1,148 @@
+*:focus {
+  outline: none;
+}
+
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+    -webkit-transform: translateY(100px);
+            transform: translateY(100px);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    -webkit-transform: translateY(100px);
+            transform: translateY(100px);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+}
+
+@-webkit-keyframes popUp {
+  from {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+  }
+  to {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+
+@keyframes popUp {
+  from {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+  }
+  to {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+
+.body {
+  width: 100%;
+  height: 100vh;
+  background: url("../../images/hackathon-background.jpg");
+  background-repeat: no-repeat;
+  background-position: top;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.login-container {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 50%;
+}
+
+.login-container .form-group {
+  -webkit-transform: translateY(100px);
+          transform: translateY(100px);
+  opacity: 0;
+  position: relative;
+  -webkit-animation: fadeIn 1.5s forwards;
+          animation: fadeIn 1.5s forwards;
+}
+
+.login-container .form-group:nth-child(1) {
+  -webkit-animation-delay: 0.5s;
+          animation-delay: 0.5s;
+}
+
+.login-container .form-group:nth-child(2) {
+  -webkit-animation-delay: 1s;
+          animation-delay: 1s;
+}
+
+.login-container .form-group > label {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 20px;
+  pointer-events: none;
+  color: #566068;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.login-container .form-group:focus {
+  background-color: red;
+}
+
+.login-container .form-input {
+  margin-bottom: 15px;
+  background: none;
+  border: none;
+  border-bottom: 2px solid #566068;
+  border-radius: 0px;
+  width: 85%;
+  z-index: 2;
+  display: inline-block;
+}
+
+.login-container .form-input:focus {
+  border: none;
+  border-bottom: 2px solid #566068;
+}
+
+.login-container .form-input:focus + label {
+  top: -20px;
+  font-size: 0.8em;
+}
+
+.login-container .form-input:valid + label {
+  top: -20px;
+  font-size: 0.8em;
+}
+
+.login-container .login-button {
+  width: 85%;
+  -webkit-transform: scale(0);
+          transform: scale(0);
+  display: inline-block;
+  -webkit-animation: popUp 1s 1.5s forwards;
+          animation: popUp 1s 1.5s forwards;
+}
+
+.login-container .forgot-password {
+  display: inline-block;
+  -webkit-transform: scale(0);
+          transform: scale(0);
+  -webkit-animation: popUp 1s 1.5s forwards;
+          animation: popUp 1s 1.5s forwards;
+}
+/*# sourceMappingURL=authstyles.css.map */
