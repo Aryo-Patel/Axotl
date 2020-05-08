@@ -36,7 +36,7 @@ const Login = ({sendLogin, isAuthenticated}) => {
                             <label>Email Address</label>
                         </div>
                         <div className="form-group">
-                            <i class="fas fa-lock"></i>{"  "}<input className = 'form-input' type="password" name = 'password' onChange = {e => onChange(e)} value = {formData.password} required/>
+                            <i className="fas fa-lock"></i>{"  "}<input className = 'form-input' type="password" name = 'password' onChange = {e => onChange(e)} value = {formData.password} required/>
                             <label>Password</label>
                         </div>
                         <input type='submit' className="btn btn-large btn-primary login-button" value="Login"></input>

@@ -26,6 +26,12 @@ const HackathonSchema = new mongoose.Schema({
     location: {
         type: String
     },
+    currSponsors: [{
+        sponsor: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'sponsor'
+        },
+    }],
     forms: [{
         title: {
             type: String
