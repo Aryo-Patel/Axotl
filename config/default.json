@@ -9,5 +9,5 @@
     "emailPass": "Hackstreet:Boys",
     "productionLink": "http://localhost:3000",
     "JWTSecret": "simpsforlife",
-    "distanceMatrixKey": "AIzaSyB8eeP3SOn4LTQL-19spm4LQlPBqR3JonY"
+    "distanceMatrixKey": "temp"
 }
