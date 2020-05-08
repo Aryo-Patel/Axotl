@@ -1,14 +1,14 @@
 import React, {Fragment, useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {getCompanies} from '../../actions/companies'
+import {getCompanies, getDistances} from '../../actions/companies'
 import Spinner from '../common/Spinner'
 import Company from './Company'
 
 //import css
 import './styling/hackathons.css'
 
-const Companies = ({companies : {loading, companyList}, getCompanies}) => {
+const Companies = ({companies : {loading, companyList}, getCompanies, getDistances}) => {
     useEffect(() => {
         getCompanies()
     }, [getCompanies])
@@ -109,4 +109,4 @@ const mapStateToProps = state => ({
     companies : state.companies
 })
 
-export default connect(mapStateToProps, {getCompanies})(Companies);
+export default connect(mapStateToProps, {getCompanies, getDistances})(Companies);

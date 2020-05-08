@@ -8,5 +8,6 @@
     "emailUser": "support@axotl.com",
     "emailPass": "Hackstreet:Boys",
     "productionLink": "http://localhost:3000",
-    "JWTSecret": "simpsforlife"
+    "JWTSecret": "simpsforlife",
+    "distanceMatrixKey": "AIzaSyB8eeP3SOn4LTQL-19spm4LQlPBqR3JonY"
 }
