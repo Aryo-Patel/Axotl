@@ -17,6 +17,8 @@ const Companies = ({companies : {loading, companyList}, getCompanies}) => {
 
     const [donTag, setDonTag] = useState([])
 
+    const [distFilter, setDistFilter] = useState('')
+
     const onSubmit = e => {
         e.preventDefault();
         console.log('submission');
@@ -41,6 +43,18 @@ const Companies = ({companies : {loading, companyList}, getCompanies}) => {
 
     const prizeTypes = ['merch', 'prizes', 'food', 'drinks', 'workshop Hosting', 'judging', 'other']
 
+    const locationRouting = e => {
+        console.log(e.target.classList)
+        Array.from(e.target.parentNode.childNodes).forEach(tag => tag.classList.contains('pressedTag') ? tag.classList.remove('pressedTag') : null)
+        e.target.classList.add('pressedTag')
+        setDistFilter(e.target.innerHTML)
+        /**
+         * TODO
+         * dispatch action to get distances
+         * set up back end distance matrix api
+         */
+    }
+
     return (
         <Fragment>
             <div className = "header">
@@ -51,17 +65,22 @@ const Companies = ({companies : {loading, companyList}, getCompanies}) => {
                 <input type='submit' className = 'search' value='Search'/>
             </form>
             <div className="donTags">
-                <h3>Contribution Tags</h3>
+                <h3 style = {{display: 'inline-block'}}>Contribution Tags: </h3>
                 {prizeTypes.map((prizeType, index) => (<div id = {prizeType} key = {index} className = 'donTag' onClick = {e => addTag(e)}>{prizeType}</div>))}
+            </div>
+            <div className="locationTags">
+                <h3 style = {{display: 'inline-block'}}>Within: </h3>
+                <div className="locTag" onClick = {e => locationRouting(e)}>10 miles</div>
+                <div className="locTag" onClick = {e => locationRouting(e)}>25 miles</div>
+                <div className="locTag" onClick = {e => locationRouting(e)}>50 miles</div>
+                <div className="locTag" onClick = {e => locationRouting(e)}>100 miles</div>
+                <div className="locTag" onClick = {e => locationRouting(e)}>250 miles</div>
             </div>
             <div className = "company-holder">
                 {!loading ?
                 companyList.filter(company => {
                     let tagsTrue = true;
                     for(let i = 0; i < donTag.length; i++) {
-                        console.log(donTag.length)
-                        console.log(donTag)
-                        console.log(Object.keys(company.donationTypes))
                         if(!company.donationTypes[donTag[i]]) {
                             tagsTrue = false;
                         }
