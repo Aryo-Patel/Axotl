@@ -1,3 +1,6 @@
+$light-blue: #41a0f2;
+$grey-text: rgb(86, 96, 104);
+$tag-color: #41a0f2;
 @keyframes growModal {
     0% {
         transform: scaleY(0)
@@ -135,5 +138,93 @@
         border: 1px solid #41a0f2;
         border-radius: 5px;
         margin: 0px 5px 0px 5px;
+    }
+}
+
+.searchingContainer {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    margin: 50px 0px 0px 0px;
+    .searchBar {
+        vertical-align: middle;
+        padding: 0px 20px;
+        width: 800px;
+        height: 50px;
+        font-size: 30px;
+        border: 5px solid $grey-text;
+        border-radius: 100px;
+        &:hover {
+            border-color: $light-blue;
+        }
+        &:focus {
+            border-color: $light-blue;
+        }
+    }
+    .search {
+        margin: 0px 10px;
+        vertical-align: middle;
+        height: 50px;
+        background-color: $light-blue;
+        width: 150px;
+        border: 2px solid darken($light-blue, 10%);
+        border-radius: 100px;
+    }
+}
+
+.donTags {
+    margin: 10px 0px 10px 0px;
+    text-align: center;
+    width: 100%;
+    .donTag {
+        width: 150px;
+        height: 30px;
+        display: inline-block;
+        text-align: center;
+        margin: 20px 20px;
+        background-color: lighten($tag-color, 10%);
+        color: black;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        &:active {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+        }
+    }
+    .pressedTag {
+        background-color: lighten($tag-color, 30%);
+    }
+}
+
+.locationTags {
+    margin: 10px 0px 10px 0px;
+    text-align: center;
+    width: 100%;
+    .locTag {
+        width: 150px;
+        height: 30px;
+        display: inline-block;
+        text-align: center;
+        margin: 20px 20px;
+        background-color: lighten($tag-color, 10%);
+        color: black;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        &:active {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+        }
+    }
+    .pressedTag {
+        background-color: lighten($tag-color, 30%);
     }
 }
