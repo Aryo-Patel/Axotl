@@ -45,8 +45,14 @@ const Companies = ({companies : {loading, companyList}, getCompanies}) => {
 
     const locationRouting = e => {
         console.log(e.target.classList)
+        const isCurr = e.target.innerHTML == distFilter;
+        console.log(isCurr)
         Array.from(e.target.parentNode.childNodes).forEach(tag => tag.classList.contains('pressedTag') ? tag.classList.remove('pressedTag') : null)
-        e.target.classList.add('pressedTag')
+        if(isCurr) {
+        e.target.classList.remove('pressedTag')
+        } else {
+            e.target.classList.add('pressedTag')
+        }
         setDistFilter(e.target.innerHTML)
         /**
          * TODO
