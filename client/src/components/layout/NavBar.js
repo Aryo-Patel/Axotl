@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 //import styling
-import './styling/style.css';
+import './styling/NavBar.css';
 
 const NavBar = ({isAuthenticated, isSponsor, auth}) => {
 
