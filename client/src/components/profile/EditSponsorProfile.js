@@ -82,7 +82,7 @@ class EditSponsorProfile extends Component {
     }
     render() {
         return (
-        <div>
+        <div className="container" style={{padding: '2% 0% 2%'}}>
             <h5>Edit your profile:</h5>
             <form onSubmit={this.onSubmit}>
                 <label>Handle</label>
@@ -112,32 +112,32 @@ class EditSponsorProfile extends Component {
                 required
                 disabled={true}
                 />
-                <div class="checkbox">
+                <div className="checkbox">
                     <label><input type="checkbox" value="" onClick={this.changeDonationTypes} name="merch" checked={this.state.donationTypes['merch']}/>Merch/Swag</label>
                 </div>
-                <div class="checkbox">
+                <div className="checkbox">
                     <label><input type="checkbox" value="" onClick={this.changeDonationTypes} name="prizes" checked={this.state.donationTypes['prizes']}/>Prizes</label>
                 </div>
-                <div class="checkbox disabled">
+                <div className="checkbox disabled">
                     <label><input type="checkbox" value="" onClick={this.changeDonationTypes} name="food" checked={this.state.donationTypes['food']}/>Food</label>
                 </div> 
-                <div class="checkbox disabled">
+                <div className="checkbox disabled">
                     <label><input type="checkbox" value="" onClick={this.changeDonationTypes} name="drinks" checked={this.state.donationTypes['drinks']}/>Drinks</label>
                 </div> 
-                <div class="checkbox disabled">
+                <div className="checkbox disabled">
                     <label><input type="checkbox" value="" onClick={this.changeDonationTypes} name="workshops" checked={this.state.donationTypes['workshops']}/>Workshop Hosting</label>
                 </div> 
-                <div class="checkbox disabled">
+                <div className="checkbox disabled">
                     <label><input type="checkbox" value="" onClick={this.changeDonationTypes} name="judging" checked={this.state.donationTypes['hosting']}/>Judging</label>
                 </div> 
-                <div class="checkbox disabled">
+                <div className="checkbox disabled">
                     <label><input type="checkbox" value="" onClick={this.changeDonationTypes} name="other" checked={this.state.donationTypes['other']}/>Other</label>
                 </div> 
 
 
-                <div class="form-group">
-                    <label for="Bio">Biography</label>
-                    <textarea class="form-control" name='bio' value={this.state.bio} id="Bio" rows="4" onChange={this.handleChange}></textarea>
+                <div className="form-group">
+                    <label>Biography</label>
+                    <textarea className="form-control" name='bio' value={this.state.bio} id="Bio" rows="4" onChange={this.handleChange}></textarea>
                 </div>
 
                 <TextField
@@ -181,7 +181,7 @@ class EditSponsorProfile extends Component {
                 
                 />
 
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" className="btn btn-primary">Submit</button>
             </form>
         </div>
         )

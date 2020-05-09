@@ -62,7 +62,7 @@ class EditProfile extends Component {
     }
     render() {
         return (
-        <div>
+        <div className="container" style={{padding: '2% 0% 2%'}}>
             <h5>Edit your profile:</h5>
             <form onSubmit={this.onSubmit}>
                 <label>Handle</label>
@@ -93,9 +93,9 @@ class EditProfile extends Component {
                 disabled={true}
                 />
 
-                <div class="form-group">
-                    <label for="Bio">Biography</label>
-                    <textarea class="form-control" name='bio' value={this.state.bio} id="Bio" rows="4" onChange={this.handleChange}></textarea>
+                <div className="form-group">
+                    <label>Biography</label>
+                    <textarea className="form-control" name='bio' value={this.state.bio} id="Bio" rows="4" onChange={this.handleChange}></textarea>
                 </div>
 
                 <TextField
@@ -139,7 +139,7 @@ class EditProfile extends Component {
                 
                 />
 
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" className="btn btn-primary">Submit</button>
             </form>
         </div>
         )

@@ -10,10 +10,9 @@ import { createProfile } from '../../actions/ProfileActions';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
-import axios from 'axios';
+//import axios from 'axios';
 import LocationInput from './LocationInput';
 
-let locationChoices;
 
 class CreateProfile extends Component {
     constructor(props){
@@ -74,7 +73,7 @@ class CreateProfile extends Component {
     }
     render() {
         return (
-        <div class="container">
+        <div className="container" style={{padding: '2% 0% 2%'}}>
             <h5>Create your profile:</h5>
             <form onSubmit={this.onSubmit}>
                 <label>Handle</label>
@@ -105,9 +104,9 @@ class CreateProfile extends Component {
                 required
                 disabled
                 />
-                <div class="form-group">
-                    <label for="Bio">Biography</label>
-                    <textarea class="form-control" name='bio' value={this.state.bio} id="Bio" rows="4" onChange={this.handleChange} required></textarea>
+                <div className="form-group">
+                    <label>Biography</label>
+                    <textarea className="form-control" name='bio' value={this.state.bio} id="Bio" rows="4" onChange={this.handleChange} required></textarea>
                 </div>
                 <TextField
                 placeholder="Link your Twitter!"
@@ -150,7 +149,7 @@ class CreateProfile extends Component {
                 
                 />
 
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" className="btn btn-primary">Submit</button>
             </form>
         </div>
         )

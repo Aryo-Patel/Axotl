@@ -24,7 +24,7 @@ class LocationInput extends React.Component {
  
   render() {
     return (
-    <div class="container">
+    <div>
         <PlacesAutocomplete
             value={this.state.address}
             onChange={this.handleChange}

@@ -6,8 +6,8 @@ function Social({props}) {
     if (social){
     socialDisplay = Object.keys(social).map((key, index) => {
         return(
-            <div>
-                <i class={`fab fa-${key}`}></i>
+            <div key={index}>
+                <i  className={`fab fa-${key}`}></i>
                 <a href={social[key]}>{social[key]}</a>
             </div>
             

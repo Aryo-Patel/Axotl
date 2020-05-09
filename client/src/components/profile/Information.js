@@ -7,15 +7,17 @@
 import React, { Component } from 'react';
 
 class Information extends Component {
-    constructor(props){
-        super(props)
-    }
+    // constructor(props){
+    //     super(props)
+    // }
     render() {
         let donationTypes = this.props.profile.donationTypes;
         
         let donationList = Object.keys(donationTypes).map(function(key, index) {
             if(donationTypes[key] === true){
                 return <li>{key}</li>
+            } else {
+                return <div></div>
             }
           });
 

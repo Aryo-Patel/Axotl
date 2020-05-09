@@ -21,7 +21,7 @@ export default class Dashboard extends Component {
     }
     render() {
         return (
-            <div class="container" style={{textAlign:"center"}}>
+            <div className="container" style={{textAlign:"center"}}>
                 <button className = "btn btn-md btn-info" onClick = {e => this.showModal()}>Create a hackathon</button>
                 <CreateHackathonModal show = {this.state.modalDisplay} handleClose = {this.hideModal} />
                 <br></br>
