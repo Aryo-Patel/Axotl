@@ -8,6 +8,7 @@ import Header from './Header';
 import Information from './Information';
 import Spinner from '../common/Spinner';
 import Credentials from './Credentials';
+import Social from './Social';
 import Axios from 'axios';
 import { setAuthFalse } from '../../actions/auth';
 
@@ -64,6 +65,7 @@ class Profile extends Component {
                 sponsor={sponsor}
                 />
                 {sponsor ? <Information profile={profile}/> : <Credentials profile={profile}/>}
+                <Social props={profile}/>
                 {sponsor ? <button className='btn btn-lg btn-primary' onClick={this.deleteSponsorAccount}>Delete Profile and Account</button> : <button className='btn btn-lg btn-primary' onClick={this.deleteRecipientAccount}>Delete Profile and Account</button>}
             </div>
             )
@@ -81,6 +83,7 @@ class Profile extends Component {
         return (
             <div>
                 {profileContent} 
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChLzU35-UEy2scOcEffcDgG4ubtBxDA0s&libraries=places"></script>
             </div>
         )
     }

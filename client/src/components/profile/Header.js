@@ -17,7 +17,7 @@ export default class Header extends Component {
                 <p>{this.props.bio}</p>
                 <p class="mt-0">Organization: {this.props.organization}</p>
                 <p class="mt-0">Location: {this.props.location}</p>
-                <Link to="/edit-profile" className="btn btn-success">Edit Profile</Link>
+                {this.props.sponsor ? <Link to="/edit-sponsor-profile" className="btn btn-success">Edit Profile</Link>: <Link to="/edit-profile" className="btn btn-success">Edit Profile</Link>}
             </div>
         </div>
         )

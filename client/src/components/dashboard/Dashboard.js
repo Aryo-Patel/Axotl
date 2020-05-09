@@ -21,10 +21,11 @@ export default class Dashboard extends Component {
     }
     render() {
         return (
-            <div>
+            <div class="container" style={{textAlign:"center"}}>
                 <button className = "btn btn-md btn-info" onClick = {e => this.showModal()}>Create a hackathon</button>
                 <CreateHackathonModal show = {this.state.modalDisplay} handleClose = {this.hideModal} />
-
+                <br></br>
+                <br></br>
                 <Link to='/profile' className="btn btn-lg btn-info">Your Profile</Link> 
             </div>
         )

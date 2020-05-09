@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import locations from '../../utils/locations.json';
 import { Redirect } from 'react-router-dom';
-let locationChoices;
+import LocationInput from './LocationInput';
 
 class CreateSponsorProfile extends Component {
     constructor(props){
@@ -21,6 +21,11 @@ class CreateSponsorProfile extends Component {
             organization: '',
             bio: '',
             location: '',
+            youtube: '',
+            facebook: '',
+            twitter: '',
+            instagram: '',
+            linkedin: '',
             donationTypes: {
                 merch: false,
                 prizes: false,
@@ -34,15 +39,9 @@ class CreateSponsorProfile extends Component {
         }
 
         this.handleChange = this.handleChange.bind(this);
+        this.handleLocationChange = this.handleLocationChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.changeDonationTypes = this.changeDonationTypes.bind(this);
-        console.log(locations);
-
-        locationChoices = locations.map(location => {
-            return (
-                <option>{location.name}</option>
-            )
-        })
 
     }
     
@@ -65,7 +64,11 @@ class CreateSponsorProfile extends Component {
             [e.target.name]: e.target.value
         })
     }
-
+    handleLocationChange(data){
+        this.setState({
+            location: data,
+        })
+    }
     onSubmit(e){
         e.preventDefault();
 
@@ -75,6 +78,11 @@ class CreateSponsorProfile extends Component {
             organization: this.state.organization,
             location: this.state.location,
             bio: this.state.bio,
+            twitter: this.state.twitter,
+            youtube: this.state.youtube,
+            instagram: this.state.instagram,
+            facebook: this.state.facebook,
+            linkedin: this.state.linkedin,
             donationTypes: this.state.donationTypes,
         }
 
@@ -103,12 +111,17 @@ class CreateSponsorProfile extends Component {
                 onChange={this.handleChange}
                 required
                 />
-                <div class="form-group">
-                    <label for="location">Location</label>
-                    <select class="form-control" name='location' id="location" value={this.state.location} onChange={this.handleChange}>
-                    {locationChoices}
-                    </select>
-                </div>
+                <label>Location</label>
+                <LocationInput onChange={this.handleLocationChange}/>
+                <br></br>
+                <TextField
+                placeholder="Your location..."
+                name="location"
+                type="text"
+                value={this.state.location}
+                required
+                disabled
+                />
 
                 <div class="checkbox">
                     <label><input type="checkbox" value="" onClick={this.changeDonationTypes} name="merch" />Merch/Swag</label>
@@ -136,6 +149,46 @@ class CreateSponsorProfile extends Component {
                     <label for="Bio">Biography</label>
                     <textarea class="form-control" name='bio' value={this.state.bio} id="Bio" rows="4" onChange={this.handleChange} required></textarea>
                 </div>
+                <TextField
+                placeholder="Link your Twitter!"
+                name="twitter"
+                type="text"
+                value={this.state.twitter}
+                onChange={this.handleChange}
+                
+                />
+                <TextField
+                placeholder="Link your Youtube Channel!"
+                name="youtube"
+                type="text"
+                value={this.state.youtube}
+                onChange={this.handleChange}
+                
+                />
+                <TextField
+                placeholder="Link your Facebook!"
+                name="facebook"
+                type="text"
+                value={this.state.facebook}
+                onChange={this.handleChange}
+                
+                />
+                <TextField
+                placeholder="Link your LinkedIn!"
+                name="linkedin"
+                type="text"
+                value={this.state.linkedin}
+                onChange={this.handleChange}
+                
+                />
+                <TextField
+                placeholder="Link your Instagram!"
+                name="instagram"
+                type="text"
+                value={this.state.instagram}
+                onChange={this.handleChange}
+                
+                />
 
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>

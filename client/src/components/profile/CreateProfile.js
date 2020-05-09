@@ -9,9 +9,9 @@ import TextField from '../layout/TextField';
 import { createProfile } from '../../actions/ProfileActions';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import locations from '../../utils/locations.json';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
+import LocationInput from './LocationInput';
 
 let locationChoices;
 
@@ -24,17 +24,17 @@ class CreateProfile extends Component {
             organization: '',
             bio: '',
             location: '',
+            youtube: '',
+            facebook: '',
+            twitter: '',
+            instagram: '',
+            linkedin: '',
         }
 
         this.handleChange = this.handleChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
-        console.log(locations);
+        this.handleLocationChange = this.handleLocationChange.bind(this);
 
-        locationChoices = locations.map(location => {
-            return (
-                <option>{location.name}</option>
-            )
-        })
     }
 
     componentDidMount(){
@@ -48,6 +48,12 @@ class CreateProfile extends Component {
         })
     }
 
+    handleLocationChange(data){
+        this.setState({
+            location: data,
+        })
+    }
+
     onSubmit(e){
         e.preventDefault();
         
@@ -56,14 +62,19 @@ class CreateProfile extends Component {
             handle: this.state.handle,
             organization: this.state.organization,
             location: this.state.location,
-            bio: this.state.bio
+            bio: this.state.bio,
+            twitter: this.state.twitter,
+            youtube: this.state.youtube,
+            instagram: this.state.instagram,
+            facebook: this.state.facebook,
+            linkedin: this.state.linkedin,
         }
 
         this.props.createProfile(profileData, this.props.history);
     }
     render() {
         return (
-        <div>
+        <div class="container">
             <h5>Create your profile:</h5>
             <form onSubmit={this.onSubmit}>
                 <label>Handle</label>
@@ -83,17 +94,61 @@ class CreateProfile extends Component {
                 value={this.state.organization}
                 onChange={this.handleChange}
                 />
-                <div class="form-group">
-                    <label for="location">Location</label>
-                    <select class="form-control" name='location' id="location" value={this.state.location} onChange={this.handleChange}>
-                    {locationChoices}
-                    </select>
-                </div>
-
+                <label>Location</label>
+                <LocationInput onChange={this.handleLocationChange}/>
+                <br></br>
+                <TextField
+                placeholder="Your location..."
+                name="location"
+                type="text"
+                value={this.state.location}
+                required
+                disabled
+                />
                 <div class="form-group">
                     <label for="Bio">Biography</label>
                     <textarea class="form-control" name='bio' value={this.state.bio} id="Bio" rows="4" onChange={this.handleChange} required></textarea>
                 </div>
+                <TextField
+                placeholder="Link your Twitter!"
+                name="twitter"
+                type="text"
+                value={this.state.twitter}
+                onChange={this.handleChange}
+                
+                />
+                <TextField
+                placeholder="Link your Youtube Channel!"
+                name="youtube"
+                type="text"
+                value={this.state.youtube}
+                onChange={this.handleChange}
+                
+                />
+                <TextField
+                placeholder="Link your Facebook!"
+                name="facebook"
+                type="text"
+                value={this.state.facebook}
+                onChange={this.handleChange}
+                
+                />
+                <TextField
+                placeholder="Link your LinkedIn!"
+                name="linkedin"
+                type="text"
+                value={this.state.linkedin}
+                onChange={this.handleChange}
+                
+                />
+                <TextField
+                placeholder="Link your Instagram!"
+                name="instagram"
+                type="text"
+                value={this.state.instagram}
+                onChange={this.handleChange}
+                
+                />
 
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
