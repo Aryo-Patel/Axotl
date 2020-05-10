@@ -14,9 +14,9 @@ const Landing = ({ isAuthenticated }) => {
 
   return (
     <Fragment>
-      <body className="text-center">
+      <body className="text-center landingLogin">
 
-        <div className="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <div className="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column landingLogin__contents">
           <h1 className="cover-heading home-head">Axotl</h1>
           <div className="row">
             <div className="col col-sm-2 col-md-3"></div>
