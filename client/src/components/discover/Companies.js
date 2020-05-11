@@ -56,12 +56,6 @@ const Companies = ({companies : {loading, companyList}, getCompanies, getDistanc
             setDistFilterToggle(true)
         }
         setDistFilter(e.target.innerHTML)
-        
-        /**
-         * TODO
-         * dispatch action to get distances
-         * set up back end distance matrix api
-         */
 
     }
 

@@ -1,0 +1,9 @@
+.notFound {
+  position: absolute;
+  top: 35%;
+  left: 24%;
+  -webkit-transform: translateX(-50%, -50%);
+          transform: translateX(-50%, -50%);
+  width: 50%;
+}
+/*# sourceMappingURL=routing.css.map */

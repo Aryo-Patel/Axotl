@@ -37,7 +37,8 @@ router.post('/create', async(req, res, next) => {
             description,
             website,
             donations,
-            winners
+            winners,
+            location
         } = req.body;
 
         //create new hackathon
@@ -46,6 +47,7 @@ router.post('/create', async(req, res, next) => {
             startDate,
             endDate,
             description,
+            location
         });
 
         //adds the recipient to the new hackathon
@@ -445,6 +447,40 @@ router.get('/:id', async(req, res, next) => {
         return res.status(500).send('server error bad syntax');
     }
 });
+
+router.get('/search/locations', async(req, res) => {
+    if (!req.user) {
+        return res.status(404).json({ msg: 'User not authorized' })
+    }
+    try {
+        let myLocation = await sponsorProfile.findOne({ sponsor: req.user._id })
+        myLocation = myLocation.location
+        let profiles = await Hackathon.find();
+        let destinations = [];
+        profiles.forEach(async(profile) => {
+            if (profile.location) {
+                destinations.push(profile.location)
+            }
+        })
+        destinations = destinations.join('|')
+        console.log(myLocation)
+        console.log(destinations)
+        const url = `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${myLocation}&destinations=${destinations}&key=${config.get('distanceMatrixKey')}`
+        console.log(url)
+        const response = await axios.get(url)
+        for (let i = 0; i < profiles.length; i++) {
+            console.log(`Profile : ${profiles[i]}`)
+            const locs = response.data.rows[0].elements
+            profiles[i].distanceFromUser = locs[i].distance.text;
+            console.log(`Profile after : ${profiles[i]}`)
+        }
+        console.log(`profiles : ${profiles}`)
+        res.json(profiles)
+    } catch (err) {
+        console.log(err);
+        res.status(500).send('Server Error')
+    }
+})
 
 
 
