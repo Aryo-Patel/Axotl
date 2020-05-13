@@ -1,5 +1,7 @@
 $background-color: #87ffa7;
-.navContainer{
+$light-grey: #a5a5a5;
+$light-blue: rgb(47, 114, 255);
+.navContainer {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -8,32 +10,31 @@ $background-color: #87ffa7;
     align-items: center;
     background-color: $background-color;
     justify-content: space-around;
-
-    .auth-links{
-        div{
+    .auth-links {
+        div {
             display: inline-block;
         }
-        .link-list{
+        .link-list {
             min-height: 100%;
             list-style-type: none;
             padding: 0;
         }
-        .link-list li{
+        .link-list li {
             padding: 0;
             float: left;
             list-style-type: none;
         }
     }
-
-    .logout-link{
+    .logout-link {
         max-height: 40px;
     }
 }
-.dropdown-background{
+
+.dropdown-background {
     background: $background-color;
 }
-.dropdown{
-    
+
+.dropdown {
     height: 30px;
     width: 100%;
     display: block;
@@ -41,22 +42,20 @@ $background-color: #87ffa7;
     margin: 0 auto;
     animation: dropdown;
     animation-duration: 0.7s;
-    .auth-links{
-
-        div{
+    .auth-links {
+        div {
             display: inline-block;
         }
-        .link-list{
+        .link-list {
             min-height: 100%;
             list-style-type: none;
             padding: 0;
         }
-        .link-list li{
+        .link-list li {
             padding: 0;
             float: left;
             list-style-type: none;
-
-            .nav-link{
+            .nav-link {
                 animation: dropdown-text;
                 animation-duration: 0.7s;
             }
@@ -64,28 +63,130 @@ $background-color: #87ffa7;
     }
 }
 
+.navCheckbox {
+    display: none;
+}
+
+.navCheckbox:checked~.hack-modal .modal-main {
+    animation: scaleTranslateModal 1s;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes scaleTranslateModal {
+    0% {
+        top: 50%;
+        left: 50%;
+        transform: scale(.125) translate(-50%, -50%);
+    }
+    // 30% {
+    //     transform: scale(.250) translate(-150%, -150%);
+    // }
+    // 60% {
+    //     transform: scale(.5) translate(-75%, -75%);
+    // }
+    100% {
+        top: 50%;
+        left: 50%;
+        transform: scale(1) translate(-50%, -50%);
+    }
+}
+
+.modal-main {
+    z-index: 1000;
+}
+
 @keyframes dropdown {
     from {
         height: 0px;
         transform: translateY(-100%);
     }
-
-    to{
+    to {
         height: 30px;
         transform: translateY(0);
     }
 }
 
-@keyframes dropdown-text{
-    from{
+@keyframes dropdown-text {
+    from {
         opacity: 0%;
         transform: translateY(-100%)
     }
-    to{
+    to {
         opacity: 1;
         transform: translateY(0);
     }
 }
-.animation{
+
+.animation {
     background-color: #444;
+}
+
+.dropdown {
+    opacity: 0;
+    visibility: none;
+    // display: none;
+    top: 100.7%;
+    right: 0%;
+    width: 22.875rem;
+    position: absolute;
+    border-bottom: 1px solid transparent;
+    border-radius: 20px;
+    transition: all .2s ease;
+    &__item {
+        display: block;
+        background-color: darken($background-color, 5%);
+        text-align: right;
+        font-size: 1.6rem;
+        padding: 1rem 0rem;
+        box-shadow: 0 .5rem .5rem rgba(0, 0, 0, 0.1);
+        z-index: 99;
+        &:not(:last-child) {
+            border-bottom: 2px solid lighten($light-blue, 10%);
+        }
+        &:last-child {
+            border-bottom-right-radius: 20px;
+            border-bottom-left-radius: 20px;
+        }
+    }
+    &__toggle {
+        display: table;
+        padding: .5rem 2rem;
+        transition: all .3s;
+        position: relative;
+        z-index: 100;
+        &:hover {
+            // transform: translateY(-1px);
+            // box-shadow: 1px 3px 5px rgba(0, 0, 0, .1);
+            box-shadow: 0 .5rem .5rem rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            border-bottom-left-radius: 0px;
+            border-bottom-right-radius: 0px;
+            background-color: darken($background-color, 5%);
+            .dropdown {
+                visibility: visible;
+                opacity: 1;
+            }
+        }
+        // &:hover~.dropdown {
+        //     background-color: red;
+        // }
+    }
+    &__img {
+        display: table-cell;
+        width: 3.5rem;
+        height: 3.5rem;
+        border-radius: 50%;
+        float: left;
+        margin-right: 1rem;
+    }
+    &__name {
+        display: table-cell;
+        margin-left: 1rem;
+    }
+    &__arrow {
+        margin-left: 1rem;
+        width: 6rem;
+        height: 3.5rem;
+        color: rgb(47, 114, 255);
+    }
 }

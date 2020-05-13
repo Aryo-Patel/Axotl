@@ -1,100 +1,150 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@700&display=swap');
-
-body{
-    margin:0;
-    color:rgb(255,102,71);
-    
+body {
+    margin: 0;
+    color: rgb(255, 102, 71);
 }
 
-h1,h3{
+h1,
+h3 {
     font-family: 'Raleway', sans-serif;
 }
 
+
 /* nav bar*/
 
-header{
-    margin-bottom:5em;
+header {
+    margin-bottom: 5em;
 }
 
-.nav-c{
+.nav-c {
     margin-bottom: 5em;
 }
 
 .nav-head-c {
-    margin-bottom:0px;
+    margin-bottom: 0px;
 }
 
-.nav-c .nav-link{
+.nav-c .nav-link {
     padding: .25rem;
 }
 
-.nav-c .nav-link:hover{
-    color:rgb(254,181,68);
+.nav-c .nav-link:hover {
+    color: rgb(254, 181, 68);
 }
 
-@media (min-width: 40em){
-.nav-head-c{
-    float: left;
+@media (min-width: 40em) {
+    .nav-head-c {
+        float: left;
+    }
+    .nav-links {
+        float: right;
+    }
 }
-.nav-links{
-    float: right;
-}
-}
+
 
 /* home page content*/
 
 .button-c {
-    color:rgb(254,181,68);
-    background:transparent;
+    color: rgb(254, 181, 68);
+    background: transparent;
     border-color: transparent;
-    margin:1em;
+    margin: 1em;
+    transition: all .3s ease;
 }
 
-.button-c:hover{
-    color:rgb(47,114,255);
-    background:transparent;
+.button-c:hover {
+    color: rgb(47, 114, 255);
+    background: transparent;
     border-color: transparent;
+    transform: translateY(-3px);
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
 }
 
-.home-head{
-    margin-top:1em;
+.home-head {
+    margin-top: 1em;
 }
+
 
 /* blocks - content for the home page */
 
-.blockIcon{
+.blockIcon {
     display: inline-flex;
     align-self: center;
+    transition: all .5s ease;
 }
 
-.block1{
-    background:rgb(47,114,255);
-    color:white;
+.blockIcon:hover {
+    transform: translateY(-3px);
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
 }
 
+.block1 {
+    background: rgb(47, 114, 255);
+    color: white;
+    height: 60vh;
+}
 
-.block2{
+.block2 {
     justify-content: center;
     text-align: center;
-    background:rgb(255,102,71);
-    color:white;
+    background: rgb(255, 102, 71);
+    color: white;
+    height: 60vh;
 }
 
-.block3{
-    background:rgb(254,181,68);
-    color:white;
+.block3 {
+    background: rgb(254, 181, 68);
+    color: white;
+    height: 60vh;
 }
 
-.block4{
-    background:white;
-    color:rgb(255,102,71);
-}
-.block4 h1{
-    color:rgb(47,114,255);
+.block4 {
+    background: white;
+    color: rgb(255, 102, 71);
+    height: 60vh;
 }
 
-@media (min-width: 40em){
-    .block1,.block2,.block3,.block4{
-        padding:2em;
+.block4 h1 {
+    color: rgb(47, 114, 255);
+}
+
+.landingLogin {
+    height: 50vh;
+}
+
+@keyframes moveInUp {
+    0% {
+        transform: translateX(-5em);
+        opacity: 0;
+    }
+    80% {
+        transform: translateX(1em);
+    }
+    100% {
+        transform: translateX(0px);
+        opacity: 1;
+    }
+}
+
+.cover-container {
+    animation: moveInUp 1s ease-out;
+}
+
+.landingLogin__contents {
+    animation: moveInUp 1s ease-out;
+}
+
+@media (min-width: 40em) {
+    .block1,
+    .block2,
+    .block3,
+    .block4 {
+        padding: 2em;
+    }
+    .cover-container {
+        margin-top: 175px;
+    }
+    .landingLogin__contents {
+        margin-top: 225px;
     }
 }

@@ -209,8 +209,17 @@ const CreateHackathonModal = ({handleClose, show, createHackathon}) => {
         }
 
     }
+
+    const close = e => {
+        if(e.target.classList.contains('hack-modal')) { 
+            e.target.parentNode.childNodes[0].checked = false;
+            
+            handleClose(e)
+        } 
+        
+    }
     return(
-        <div className = {showHideClassName}>
+        <div onClick = {e => close(e)} className = {showHideClassName}>
             <section className = "modal-main">
                 <div className = "modal-text">
                     <h2 className = "text-header">Fill in the information about your hackathon!</h2>

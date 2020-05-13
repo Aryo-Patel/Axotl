@@ -16,6 +16,7 @@ import Profile from './components/profile/Profile';
 import CreateProfile from './components/profile/CreateProfile';
 import CreateSponsorProfile from './components/profile/CreateSponsorProfile';
 import EditProfile from './components/profile/EditProfile';
+import EditSponsorProfile from './components/profile/EditSponsorProfile';
 import AddEducation from './components/profile/AddEducation';
 import AddExperience from './components/profile/AddExperience';
 import AddPreviousHackathon from './components/profile/AddPreviousHackathon';
@@ -43,8 +44,9 @@ function App() {
       <Router>
         <Fragment>
           <NavBar />
-          <Route exact path = '/' component = {Landing} />
+          
           <Switch>
+          <Route exact path = '/' component = {Landing} />
             <Route exact path = '/login' component = {Login} />
             <Route exact path = '/register' component = {Register} />
             <PrivateRoute exact path = '/dashboard' component = {Dashboard} />
@@ -55,6 +57,7 @@ function App() {
             <PrivateRoute exact path = '/create-profile' component = {CreateProfile} />
             <PrivateRoute exact path = '/create-sponsor-profile' component = {CreateSponsorProfile} />
             <PrivateRoute exact path = '/edit-profile' component = {EditProfile} />
+            <PrivateRoute exact path = '/edit-sponsor-profile' component = {EditSponsorProfile} />
             <PrivateRoute exact path = '/discover' component = {Discover} />
             <PrivateRoute exact path = '/logout' component = {Logout} />
             <Route exact path = '/forgotpassword' component = {ForgotPassword} />
