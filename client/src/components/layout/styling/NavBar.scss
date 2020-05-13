@@ -36,9 +36,22 @@ $primary-white: #eee;
             display: flex;
             align-items: stretch;
             color: $primary-white;
+            a {
+                color: $primary-white;
+                &:active,
+                &:link {
+                    text-decoration: none;
+                }
+                 :hover {
+                    background-color: darken($primary-white, 10%);
+                }
+            }
+            label {
+                color: $primary-white;
+            }
         }
         .link-list li {
-            fill: $primary-white;
+            color: $primary-white;
             margin: 0!important;
             text-align: center;
             padding: 0;
@@ -182,6 +195,7 @@ $primary-white: #eee;
         }
     }
     &__toggle {
+        color: $primary-white;
         display: table;
         margin-right: 3rem;
         padding: .5rem 2rem;
@@ -209,6 +223,10 @@ $primary-white: #eee;
         display: flex;
         justify-content: center;
         align-items: center;
+        color: $primary-white;
+        h3 {
+            color: $primary-white;
+        }
     }
     &__img {
         display: table-cell;
