@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 //import styling
 import './styling/NavBar.css';
 
-const NavBar = ({isAuthenticated, isSponsor, auth}) => {
+const NavBar = ({isAuthenticated, auth}) => {
 
   useEffect(() =>{
     isSmallScreen();
@@ -133,12 +133,10 @@ const NavBar = ({isAuthenticated, isSponsor, auth}) => {
 
 NavBar.propTypes = {
   isAuthenticated : PropTypes.bool,
-  isSponsor : PropTypes.object,
 };
 
 const mapStateToProps = state => ({
     isAuthenticated : state.auth.isAuthenticated,
-    isSponsor : state.auth,
     auth: state.auth
 })
 

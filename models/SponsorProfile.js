@@ -60,6 +60,9 @@ let SponsorProfileSchema = new Schema({
             type: String
         },
     },
+    distanceFromUser: {
+        type: String
+    },
     date: {
         type: Date,
         default: Date.now

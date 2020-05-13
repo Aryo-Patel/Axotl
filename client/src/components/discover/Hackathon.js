@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 import Moment from 'react-moment';
 import {Redirect, Link} from 'react-router-dom'
@@ -17,8 +17,13 @@ const Hackathon = ({hackathon}) => {
                 <p className = "description"> {hackathon.description}</p>
                 {hackathon.website ? <p className = "website">{hackathon.website}</p> : <p>Organizer didn't link their website!</p>}
                 <p>Display pls</p>
-                hackathon.donations.forEach(donation =>(
-                   donation.received.length > 0 && console.log(donation.received.type) && <p key = {i++}>There was something received</p>
+                {hackathon.donations.map(donation =>(
+                   donation.received.length > 0 ?
+                            donation.received.map(received_singular => (
+                                <p key = {i++}>Received {received_singular.type} : {received_singular.description}</p>
+                            ))
+                            :
+                            <Fragment></Fragment>
                 ))}
                 <p>Location : {hackathon.location}</p>
                 <p>Start Date: <Moment format = 'MM/DD/YYYY'>{hackathon.startDate}</Moment></p>
@@ -27,7 +32,7 @@ const Hackathon = ({hackathon}) => {
                 <Link to={`/hackathon/${hackathon._id}`} className="btn btn-primary">
           View Hackathon
         </Link>
-           </div>
+           </div> 
 
        </div> 
     )

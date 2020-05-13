@@ -58,12 +58,20 @@ export const createProfile = (profileData, history) => dispatch => {
 
 //Edit a profile for the current user
 export const editProfile = (profileData, history) => dispatch => {
-    axios.post('/api/profiles/recipient/', profileData)
-    .then(res => {
-        console.log("Profile updated!");
-        history.push('/profile');
-    })
-}
+    if (profileData.sponsor === true){
+        axios.post('/api/profiles/sponsor', profileData)
+        .then(res => {
+            console.log("Sponsor Profile Updated!")
+            history.push('/profile')
+        })
+    } else if (profileData.sponsor === false){
+        axios.post('/api/profiles/recipient/', profileData)
+        .then(res => {
+            console.log("Recipient Profile Updated!")
+            history.push('/profile')
+        })
+    }
+};
 
 //This will be used to add education to the user's profile.
 export const addEducation = (educationData, history) => {

@@ -11,6 +11,7 @@ class EditProfile extends Component {
         super(props)
 
         this.state = {
+            sponsor: this.props.sponsor,
             handle: this.props.profile.profile.handle,
             company: this.props.profile.profile.company,
             organization: this.props.profile.profile.organization,
@@ -39,6 +40,7 @@ class EditProfile extends Component {
         e.preventDefault();
 
         let profileData = {
+            sponsor: this.state.sponsor,
             handle: this.state.handle,
             company: this.state.company,
             organization: this.state.organization,
@@ -89,7 +91,8 @@ class EditProfile extends Component {
 }
 
 const mapStateToProps = state => ({
-    profile: state.profile
+    profile: state.profile,
+    sponsor: state.auth.user.user.sponsor,
 })
 
 export default connect(mapStateToProps, { editProfile })(withRouter(EditProfile));

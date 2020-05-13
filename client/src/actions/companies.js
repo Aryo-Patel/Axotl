@@ -33,3 +33,17 @@ export const getCompany = (id) => async dispatch => {
         })
     }
 }
+
+export const getDistances = () => async(dispatch) => {
+    try {
+        const response = await axios.get('/api/profiles/sponsor/search/locations')
+        dispatch({
+            type: GET_COMPANIES,
+            payload: response.data
+        })
+
+    } catch (err) {
+        console.error(err.message)
+
+    }
+}

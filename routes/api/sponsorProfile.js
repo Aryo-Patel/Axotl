@@ -2,6 +2,9 @@ const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 const { validationResult, check } = require("express-validator");
+const { Client, Status } = require('@googlemaps/google-maps-services-js')
+const config = require('config')
+const axios = require('axios')
 
 //importing models 
 const SponsorProfile = require('../../models/SponsorProfile');
@@ -47,17 +50,17 @@ router.post(
         if (social) profileParts.social = social;
 
         try {
-            let sameHandleR = await RecipientProfile.findOne({handle: handle})
-            let sameHandleS = await SponsorProfile.findOne({handle: handle})
-            let profile = await RecipientProfile.findOne({ recipient: req.user._id })
+            let sameHandleR = await RecipientProfile.findOne({ handle: handle })
+            let sameHandleS = await SponsorProfile.findOne({ handle: handle })
+            let profile = await SponsorProfile.findOne({ sponsor: req.user._id })
             if (profile) {
-                if (profile != sameHandleR && sameHandleR != null || sameHandleS != null){
+                if (((sameHandleS != null) && (profile._id.toString() != sameHandleS._id.toString())) || sameHandleR != null) {
                     return res.status(400).send("Handle already in use")
                 }
-                profile = await SponsorProfile.findOneAndUpdate({ sponsor: req.user._id }, { $set, profileParts }, { new: true })
+                profile = await SponsorProfile.findOneAndUpdate({ sponsor: req.user._id }, { $set: profileParts }, { new: true })
                 return res.json(profile)
             }
-            if(sameHandleR != null || sameHandleS != null){
+            if (sameHandleR != null || sameHandleS != null) {
                 return res.status(400).send("Handle already in use")
             }
             profile = new SponsorProfile(profileParts)
@@ -129,6 +132,43 @@ router.delete('/me', async(req, res) => {
     } catch (err) {
         console.error(err.message);
         res.status(500).send("Server Error")
+    }
+})
+
+//GET /api/profiles/sponsor/locations
+//Action get the distances from the user to all the sponsors
+//PRIVATE
+router.get('/search/locations', async(req, res) => {
+    if (!req.user) {
+        return res.status(404).json({ msg: 'User not authorized' })
+    }
+    try {
+        let myLocation = await RecipientProfile.findOne({ recipient: req.user._id })
+        myLocation = myLocation.location
+        let profiles = await SponsorProfile.find();
+        let destinations = [];
+        profiles.forEach(async(profile) => {
+            if (profile.location) {
+                destinations.push(profile.location)
+            }
+        })
+        destinations = destinations.join('|')
+        console.log(myLocation)
+        console.log(destinations)
+        const url = `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${myLocation}&destinations=${destinations}&key=${config.get('distanceMatrixKey')}`
+        console.log(url)
+        const response = await axios.get(url)
+        for (let i = 0; i < profiles.length; i++) {
+            console.log(`Profile : ${profiles[i]}`)
+            const locs = response.data.rows[0].elements
+            profiles[i].distanceFromUser = locs[i].distance.text;
+            console.log(`Profile after : ${profiles[i]}`)
+        }
+        console.log(`profiles : ${profiles}`)
+        res.json(profiles)
+    } catch (err) {
+        console.log(err);
+        res.status(500).send('Server Error')
     }
 })
 
