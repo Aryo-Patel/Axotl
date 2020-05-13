@@ -42,6 +42,7 @@ class AddEducation extends Component {
             fieldOfStudy: this.state.fieldOfStudy,
             description: this.state.description,
         }
+        console.log('onsubmit fired')
 
         addEducation(educationData, this.props.history);
     }

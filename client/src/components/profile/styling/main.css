@@ -1,22 +1,195 @@
-.media {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -ms-flex-line-pack: center;
-      align-content: center;
+.header-3 {
+  font-size: 2rem;
+  color: #eee;
+  border-bottom: 1px solid #eee;
 }
 
-.media-body {
+.myProfileWrapper {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  -ms-flex-line-pack: center;
-      align-content: center;
+}
+
+.myProfileWrapper .profileWrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+  width: 90%;
+}
+
+.myProfileWrapper .compHeader {
+  padding: 2rem 2rem;
+  margin-top: 8rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #2d3142;
+  margin-bottom: .5rem;
+}
+
+.myProfileWrapper .descrWrapper {
+  color: #eee;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  z-index: 3;
+}
+
+.myProfileWrapper .title {
+  display: block;
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 8rem;
+  text-align: center;
+}
+
+.myProfileWrapper .imgWrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.myProfileWrapper .imgWrapper .avatar {
+  display: block;
+  border: 2px solid red;
+  border-radius: 50%;
+  width: 20rem;
+  height: 20rem;
+}
+
+.myProfileWrapper .handle {
+  display: block;
+  font-size: 2rem;
+}
+
+.myProfileWrapper .location {
+  display: block;
+  font-size: 2rem;
+}
+
+.myProfileWrapper .bio {
+  display: block;
+  font-size: 2rem;
+}
+
+.myProfileWrapper .mainContent {
+  margin: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+}
+
+.myProfileWrapper .mainContent__donationTypes {
+  padding-top: 2rem;
+  -ms-flex-preferred-size: 20%;
+      flex-basis: 20%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #2d3142;
+  margin-right: .5rem;
+}
+
+.myProfileWrapper .mainContent__donoType {
+  color: #eee;
+}
+
+.myProfileWrapper .mainContent__post {
+  background-color: #2d3142;
+  width: 100%;
+  padding: 2rem 3rem;
+  border-radius: 5px;
+}
+
+.myProfileWrapper .mainContent__post:not(:last-child) {
+  margin-bottom: 1.5rem;
+}
+
+.myProfileWrapper .mainContent__posts {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background-color: white;
+  min-height: 40vh;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.myProfileWrapper .mainContent__posts .posts__header {
+  width: 100%;
+  border-radius: 5px;
+  background-color: #2d3142;
+  text-align: center;
+  margin-bottom: .5rem;
+  border: none;
+}
+
+.myProfileWrapper .mainContent__posts .posts__header-1 {
+  text-decoration: none;
+  font-size: 2rem;
+  color: #eee;
 }
 /*# sourceMappingURL=main.css.map */
