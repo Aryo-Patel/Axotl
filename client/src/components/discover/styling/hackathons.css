@@ -20,6 +20,10 @@
   }
 }
 
+.discoverContainer {
+  font-size: 1.6rem;
+}
+
 .header {
   text-align: center;
   color: #4A535C;
@@ -46,7 +50,7 @@
 }
 
 .hackathon-holder .hackathon-item h1 {
-  font-size: 1.4em;
+  font-size: 1.6rem;
 }
 
 .hackathon-holder .hackathon-item:hover {
@@ -256,17 +260,26 @@
   margin: 10px 0px 10px 0px;
   text-align: center;
   width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .locationTags .locTag {
-  width: 150px;
-  height: 30px;
+  width: 15rem;
+  height: 3rem;
   display: inline-block;
   text-align: center;
-  margin: 20px 20px;
+  margin: 2rem 2rem;
   background-color: #71b8f5;
   color: black;
-  border-radius: 10px;
+  border-radius: 1rem;
   -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }

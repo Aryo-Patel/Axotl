@@ -1,16 +1,30 @@
-$background-color: #87ffa7;
+$primary-green: #87ffa7;
 $light-grey: #a5a5a5;
-$light-blue: rgb(47, 114, 255);
+$background-color: lighten(rgb(47, 114, 255), 5%);
+$primary-orange: lighten(rgb(255, 102, 71), 5%);
+$primary-white: #eee;
 .navContainer {
+    color: $primary-white;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-size: 1.6rem;
     display: flex;
     width: 100%;
+    height: 6rem;
     align-items: center;
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
     background-color: $background-color;
-    justify-content: space-around;
+    justify-content: space-between;
+    .navbar-brand {
+        margin-left: 3rem;
+        color: $primary-white;
+    }
     .auth-links {
+        color: $primary-white;
+        display: flex;
+        align-self: stretch;
+        align-items: center;
         div {
             display: inline-block;
         }
@@ -18,15 +32,30 @@ $light-blue: rgb(47, 114, 255);
             min-height: 100%;
             list-style-type: none;
             padding: 0;
+            margin: 0;
+            display: flex;
+            align-items: stretch;
+            color: $primary-white;
         }
         .link-list li {
+            fill: $primary-white;
+            margin: 0!important;
+            text-align: center;
             padding: 0;
             float: left;
             list-style-type: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all .2s;
+            flex: 0 0 20%;
+            &:hover {
+                background-color: darken($background-color, 10%);
+            }
         }
     }
     .logout-link {
-        max-height: 40px;
+        max-height: 4rem;
     }
 }
 
@@ -35,23 +64,26 @@ $light-blue: rgb(47, 114, 255);
 }
 
 .dropdown {
-    height: 30px;
+    height: 3rem;
     width: 100%;
     display: block;
     background-color: $background-color;
     margin: 0 auto;
     animation: dropdown;
     animation-duration: 0.7s;
+    color: $primary-white;
     .auth-links {
         div {
             display: inline-block;
         }
         .link-list {
+            color: $primary-white;
             min-height: 100%;
             list-style-type: none;
             padding: 0;
         }
         .link-list li {
+            color: $primary-white;
             padding: 0;
             float: left;
             list-style-type: none;
@@ -101,7 +133,7 @@ $light-blue: rgb(47, 114, 255);
         transform: translateY(-100%);
     }
     to {
-        height: 30px;
+        height: 3rem;
         transform: translateY(0);
     }
 }
@@ -125,7 +157,7 @@ $light-blue: rgb(47, 114, 255);
     opacity: 0;
     visibility: none;
     // display: none;
-    top: 100.7%;
+    top: 100.0%;
     right: 0%;
     width: 22.875rem;
     position: absolute;
@@ -133,6 +165,7 @@ $light-blue: rgb(47, 114, 255);
     border-radius: 20px;
     transition: all .2s ease;
     &__item {
+        color: $primary-white;
         display: block;
         background-color: darken($background-color, 5%);
         text-align: right;
@@ -141,7 +174,7 @@ $light-blue: rgb(47, 114, 255);
         box-shadow: 0 .5rem .5rem rgba(0, 0, 0, 0.1);
         z-index: 99;
         &:not(:last-child) {
-            border-bottom: 2px solid lighten($light-blue, 10%);
+            border-bottom: 2px solid lighten($background-color, 80%);
         }
         &:last-child {
             border-bottom-right-radius: 20px;
@@ -150,6 +183,7 @@ $light-blue: rgb(47, 114, 255);
     }
     &__toggle {
         display: table;
+        margin-right: 3rem;
         padding: .5rem 2rem;
         transition: all .3s;
         position: relative;
@@ -171,6 +205,11 @@ $light-blue: rgb(47, 114, 255);
         //     background-color: red;
         // }
     }
+    &__top {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
     &__img {
         display: table-cell;
         width: 3.5rem;
@@ -181,12 +220,16 @@ $light-blue: rgb(47, 114, 255);
     }
     &__name {
         display: table-cell;
-        margin-left: 1rem;
+        text-align: center;
     }
-    &__arrow {
-        margin-left: 1rem;
-        width: 6rem;
-        height: 3.5rem;
+    &__icon {
+        width: 4rem;
+        height: 2rem;
         color: rgb(47, 114, 255);
     }
+}
+
+.hackModalToggler {
+    margin-top: .5rem;
+    color: rgb(47, 114, 255);
 }

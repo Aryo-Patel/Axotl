@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom'
 const Dashboard = props => {
     return (
         <Fragment>
-            <Link to='/profile' className="btn btn-lg btn-info">Your Profile</Link> 
+            
         </Fragment>
     )
 }

@@ -1,6 +1,7 @@
 $light-blue: #41a0f2;
 $grey-text: rgb(86, 96, 104);
 $tag-color: #41a0f2;
+$font-size: 1.6rem;
 @keyframes growModal {
     0% {
         transform: scaleY(0)
@@ -8,6 +9,10 @@ $tag-color: #41a0f2;
     100% {
         transform: scaleY(1)
     }
+}
+
+.discoverContainer {
+    font-size: 1.6rem;
 }
 
 .header {
@@ -28,7 +33,7 @@ $tag-color: #41a0f2;
         background-size: 100% 100%;
         background-repeat: no-repeat;
         h1 {
-            font-size: 1.4em;
+            font-size: $font-size;
         }
         &:hover {
             transition: 0.2s;
@@ -207,15 +212,18 @@ $tag-color: #41a0f2;
     margin: 10px 0px 10px 0px;
     text-align: center;
     width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     .locTag {
-        width: 150px;
-        height: 30px;
+        width: 15rem;
+        height: 3rem;
         display: inline-block;
         text-align: center;
-        margin: 20px 20px;
+        margin: 2rem 2rem;
         background-color: lighten($tag-color, 10%);
         color: black;
-        border-radius: 10px;
+        border-radius: 1rem;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         &:hover {
             transform: translateY(-2px);
