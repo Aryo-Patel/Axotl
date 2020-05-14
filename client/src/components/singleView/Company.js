@@ -32,6 +32,7 @@ const Company = ({
   }
   return (
     <div className="discoverWrapper">
+      <div className="profileWrapper">
       <div className="compHeader">
         <div className="imgWrapper">
           {" "}
@@ -86,12 +87,13 @@ const Company = ({
         </div>
         </div>
       </div>
-
-      <div className="donationTypes">
+            <div className="mainContent">
+      <div className="mainContent__donationTypes">
+        <h4 className = 'header-3'>This Sponsor Offers</h4>
         {donationTypes &&
           Object.keys(donationTypes).map((key) =>
             donationTypes[key] ? (
-              <p className="donoType">
+              <p className="mainContent__donoType">
                 {key}
                 {"  "}
                 <svg
@@ -110,7 +112,7 @@ const Company = ({
                 </svg>
               </p>
             ) : (
-              <p className="donoType">
+              <p className="mainContent__donoType">
                 {key}
                 {"  "}
                 <svg
@@ -135,7 +137,27 @@ const Company = ({
               </p>
             )
           )}
-        <p className="donationDescrips">{donationDescription}</p>
+        <p className="mainContent__donationDescrips">{donationDescription}</p>
+      </div>
+      <div className="mainContent__posts">
+              <div className="posts__header">
+                <h2 className="posts__header-1">Posts</h2>
+              </div>
+              <div className="mainContent__post">
+                <h3>AM VERY COOL</h3>
+                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ratione sequi ab dolores, earum nostrum harum dolorum expedita explicabo exercitationem id distinctio beatae nobis, quo aperiam veniam eos. Consectetur, quaerat nulla.</p>
+              </div>
+              <div className="mainContent__post">
+                <h3>AM VERY COOL</h3>
+                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ratione sequi ab dolores, earum nostrum harum dolorum expedita explicabo exercitationem id distinctio beatae nobis, quo aperiam veniam eos. Consectetur, quaerat nulla.</p>
+              </div>
+              <div className="mainContent__post">
+                <h3>AM VERY COOL</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate facilis non dolore illo impedit quas. Ipsam, commodi tempore odit blanditiis nisi, ipsum voluptatem sunt animi excepturi, facere illum molestias voluptates? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ratione sequi ab dolores, earum nostrum harum dolorum expedita explicabo exercitationem id distinctio beatae nobis, quo aperiam veniam eos. Consectetur, quaerat nulla.</p>
+              </div>
+              
+      </div>
+      </div>
       </div>
     </div>
   );

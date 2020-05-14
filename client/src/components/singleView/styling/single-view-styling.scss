@@ -1,22 +1,42 @@
-$primary-orange: rgb(255, 102, 71);
+$primary-green: #87ffa7;
+$light-grey: #a5a5a5;
+$background-color: lighten(rgb(47, 114, 255), 5%);
+$primary-orange: lighten(rgb(255, 102, 71), 5%);
+$background-color-light: #2d3142;
+$primary-white: #eee;
+.header-3 {
+    font-size: 2rem;
+    color: $primary-white;
+    border-bottom: 1px solid $primary-white;
+}
+
 .discoverWrapper {
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    align-items: center;
+    .profileWrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: stretch;
+        width: 90%;
+    }
     .compHeader {
+        padding: 2rem 2rem;
         margin-top: 8rem;
         display: flex;
         flex-direction: row;
-        justify-content: center;
+        justify-content: space-around;
         align-items: center;
-        background-color: $primary-orange;
+        background-color: $background-color-light;
+        margin-bottom: .5rem;
     }
     .descrWrapper {
+        color: $primary-white;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        z-index: 3;
     }
     .title {
         display: block;
@@ -41,5 +61,55 @@ $primary-orange: rgb(255, 102, 71);
     }
     .location {
         display: block;
+    }
+    .mainContent {
+        margin: 0;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: stretch;
+        &__donationTypes {
+            padding-top: 2rem;
+            flex-basis: 20%;
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            align-items: center;
+            background-color: $background-color-light;
+            margin-right: .5rem;
+        }
+        &__donoType {
+            color: $primary-white;
+        }
+        &__post {
+            background-color: $background-color-light;
+            width: 100%;
+            padding: 2rem 3rem;
+            border-radius: 5px;
+            &:not(:last-child) {
+                margin-bottom: 1.5rem;
+            }
+        }
+        &__posts {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: white;
+            min-height: 40vh;
+            align-items: center;
+            .posts__header {
+                width: 100%;
+                border-radius: 5px;
+                background-color: $background-color-light;
+                text-align: center;
+                margin-bottom: .5rem;
+                border: none;
+                &-1 {
+                    text-decoration: none;
+                    font-size: 2rem;
+                    color: $primary-white;
+                }
+            }
+        }
     }
 }

@@ -8,7 +8,7 @@ import LocationInput from './LocationInput';
 class EditProfile extends Component {
     constructor(props){
         super(props)
-
+        
         this.state = {
             sponsor: this.props.sponsor,
             handle: this.props.profile.profile.handle,
@@ -16,11 +16,18 @@ class EditProfile extends Component {
             organization: this.props.profile.profile.organization,
             bio: this.props.profile.profile.bio,
             location: this.props.profile.profile.location,
-            twitter: this.props.profile.profile.social.twitter,
-            instagram: this.props.profile.profile.social.instagram,
-            youtube: this.props.profile.profile.social.youtube,
-            linkedin: this.props.profile.profile.social.linkedin,
-            facebook: this.props.profile.profile.social.facebook,
+            // twitter: this.props.profile.profile.social.twitter,
+            // instagram: this.props.profile.profile.social.instagram,
+            // youtube: this.props.profile.profile.social.youtube,
+            // linkedin: this.props.profile.profile.social.linkedin,
+            // facebook: this.props.profile.profile.social.facebook,
+        }
+        if(this.props.profile.profile.social) {
+            this.state.twitter= this.props.profile.profile.social.twitter;
+            this.state.instagram= this.props.profile.profile.social.instagram;
+            this.state.youtube= this.props.profile.profile.social.youtube;
+            this.state.linkedin= this.props.profile.profile.social.linkedin;
+            this.state.facebook= this.props.profile.profile.social.facebook;
         }
 
         this.handleChange = this.handleChange.bind(this);

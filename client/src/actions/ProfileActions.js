@@ -66,12 +66,23 @@ export const editProfile = (profileData, history) => dispatch => {
 }
 
 //This will be used to add education to the user's profile.
-export const addEducation = (educationData, history) => {
-    axios.post('/api/profiles/recipient/education', educationData)
-        .then(res => {
-            console.log("Education added!")
-            history.push('/profile')
-        })
+export const addEducation = async(educationData, history) => {
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+    try {
+        console.log('trycatch hit')
+        const res = await axios.post('/api/profiles/recipient/education', educationData, config)
+
+        console.log("Education added!")
+        history.push('/profile')
+    } catch (err) {
+        console.log('ERROR')
+        console.error(err.message)
+    }
+
 }
 
 //This will be used to add experience

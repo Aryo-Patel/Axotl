@@ -36,9 +36,19 @@ $primary-white: #eee;
             display: flex;
             align-items: stretch;
             color: $primary-white;
+            a {
+                color: $primary-white;
+                &:active,
+                &:link {
+                    text-decoration: none;
+                }
+            }
+            label {
+                color: $primary-white;
+            }
         }
         .link-list li {
-            fill: $primary-white;
+            color: $primary-white;
             margin: 0!important;
             text-align: center;
             padding: 0;
@@ -63,12 +73,12 @@ $primary-white: #eee;
     background: $background-color;
 }
 
-.dropdown {
+.dropdownReplacement {
     height: 3rem;
     width: 100%;
     display: block;
     background-color: $background-color;
-    margin: 0 auto;
+    // border-top: 2px solid $primary-white;
     animation: dropdown;
     animation-duration: 0.7s;
     color: $primary-white;
@@ -81,6 +91,9 @@ $primary-white: #eee;
             min-height: 100%;
             list-style-type: none;
             padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         .link-list li {
             color: $primary-white;
@@ -88,6 +101,7 @@ $primary-white: #eee;
             float: left;
             list-style-type: none;
             .nav-link {
+                color: $primary-white;
                 animation: dropdown-text;
                 animation-duration: 0.7s;
             }
@@ -172,7 +186,12 @@ $primary-white: #eee;
         font-size: 1.6rem;
         padding: 1rem 0rem;
         box-shadow: 0 .5rem .5rem rgba(0, 0, 0, 0.1);
-        z-index: 99;
+        z-index: 2;
+        &:hover {
+            text-decoration: none;
+            color: $primary-white;
+            background-color: darken($background-color, 10%);
+        }
         &:not(:last-child) {
             border-bottom: 2px solid lighten($background-color, 80%);
         }
@@ -182,6 +201,7 @@ $primary-white: #eee;
         }
     }
     &__toggle {
+        color: $primary-white;
         display: table;
         margin-right: 3rem;
         padding: .5rem 2rem;
@@ -209,9 +229,13 @@ $primary-white: #eee;
         display: flex;
         justify-content: center;
         align-items: center;
+        color: $primary-white;
+        h3 {
+            color: $primary-white;
+        }
     }
     &__img {
-        display: table-cell;
+        display: block;
         width: 3.5rem;
         height: 3.5rem;
         border-radius: 50%;
@@ -219,7 +243,8 @@ $primary-white: #eee;
         margin-right: 1rem;
     }
     &__name {
-        display: table-cell;
+        line-height: 0;
+        display: block;
         text-align: center;
     }
     &__icon {
