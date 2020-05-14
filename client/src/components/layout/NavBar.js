@@ -3,6 +3,7 @@ import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import CreateHackathonModal from "../hackathons/CreateHackathonModal";
+import $ from 'jquery'
 
 //import styling
 import "./styling/NavBar.css";
@@ -12,7 +13,7 @@ const NavBar = ({ isAuthenticated, auth }) => {
     isSmallScreen();
   }, [isSmallScreen]);
   const [modalDisplay, setModalDisplay] = useState(false);
-
+  //checking to make sure the correct thing was clicked on, and if so closing the modal
   const closeModal = (e) => {
     if (
       e.target.classList.contains("hackModalToggler") ||
@@ -21,6 +22,25 @@ const NavBar = ({ isAuthenticated, auth }) => {
       setModalDisplay(!modalDisplay);
     }
   };
+
+  //adding the scrolled class to the navcontainer if the document scroll is larger than the navbar
+  $(() => {
+    $(document).scroll(() => {
+      console.log('HELLO MC')
+      let $nav = $('.navContainer');
+      if($(document).scrollTop() > $nav.innerHeight()) {
+        $nav.addClass('scrolled')
+      } else {
+        try {
+        $nav.removeClass('scrolled')
+        } catch(err) {
+          console.log(err)
+        }
+      }
+     
+    })
+  })
+  
 
   const authRecLinks = (
     <ul className="link-list">
@@ -119,7 +139,7 @@ const NavBar = ({ isAuthenticated, auth }) => {
   //@TODO set navbar links based on authentication and sponsor status
   return (
     <Fragment>
-      <input type="checkbox" class="navCheckbox" id="navToggle" />
+      <input type="checkbox" className="navCheckbox" id="navToggle" />
       <CreateHackathonModal
         show={modalDisplay}
         handleClose={(e) => closeModal(e)}
