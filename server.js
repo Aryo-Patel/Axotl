@@ -1,7 +1,5 @@
 //packages
 const express = require('express')
-const socketio = require('socket.io')
-const http = require('http')
 const passport = require('passport')
 const session = require('express-session')
 const config = require('config')
@@ -113,7 +111,20 @@ if (process.env.NODE_ENV === 'production') {
 
 
 //Placeholder for socket initialization for chat
+// const server = require('http').Server(app);
+// const io = require('socket.io')(server);
+// server.listen(PORT);
 
+// io.on('connection', function(socket){
+//     console.log("A user connected...");
+//     socket.on('disconnect', function(){
+//         console.log("A user disconnected...");
+//     });
+
+//     socket.on('message', function(msg){
+//         console.log('Message: ' + msg);
+//     })
+// })
 
 
 //Use the routes

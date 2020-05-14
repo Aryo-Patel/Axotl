@@ -44,17 +44,17 @@ router.post(
         if (social) profileParts.social = social;
 
         try {
-            let sameHandleR = await RecipientProfile.findOne({ handle: handle })
-            let sameHandleS = await SponsorProfile.findOne({ handle: handle })
+            let sameHandleR = await RecipientProfile.findOne({handle: handle})
+            let sameHandleS = await SponsorProfile.findOne({handle: handle})
             let profile = await RecipientProfile.findOne({ recipient: req.user._id })
             if (profile) {
-                if (((sameHandleR != null) && (profile._id.toString() != sameHandleR._id.toString())) || sameHandleS != null) {
+                if (((sameHandleR != null) && (profile._id.toString() != sameHandleR._id.toString())) || sameHandleS != null){
                     return res.status(400).send("Handle already in use (first)")
                 }
                 profile = await RecipientProfile.findOneAndUpdate({ recipient: req.user._id }, { $set: profileParts }, { new: true })
                 return res.json(profile)
             }
-            if (sameHandleR != null || sameHandleS != null) {
+            if (sameHandleR != null || sameHandleS != null){
                 return res.status(400).send("Handle already in use")
             }
             profile = new RecipientProfile(profileParts)
@@ -67,50 +67,46 @@ router.post(
     }
 );
 
+
 //GET       api/profiles/recipient/education
 //Action    Add education to user's profile
 //Private 
-router.post('/education', [check("school", "School is required").not().isEmpty(), check("from", "From date is required").not().isEmpty(), check("current", "Current bool is required").not().isEmpty(), check("fieldOfStudy", "Field of study is required").not().isEmpty()], async(req, res) => {
+router.post('/education', [check("school", "School is required").not().isEmpty(), check("from", "From date is required").not().isEmpty(), check("current", "Current bool is required").not().isEmpty(), check("fieldOfStudy", "Field of study is required").not().isEmpty()], (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         res.status(400).json({ errors: errors.array() });
     }
-    console.log('back end education route hit')
-    try {
-        const profile = await RecipientProfile.findOne({ recipient: req.user._id })
-        const {
-            school,
-            degree,
-            from,
-            to,
-            current,
-            fieldOfStudy,
-            description,
-        } = req.body;
+    RecipientProfile.findOne({ recipient: req.user._id })
+        .then(profile => {
+            let {
+                school,
+                degree,
+                from,
+                to,
+                current,
+                fieldOfStudy,
+                description,
+            } = req.body;
 
-        let educationData = {};
-        educationData.school = school;
-        if (degree) educationData.degree = degree;
-        educationData.from = from;
-        if (to) educationData.to = to;
-        educationData.current = current;
-        educationData.fieldOfStudy = fieldOfStudy;
-        if (description) educationData.description = description;
+            let educationData = {};
+            educationData.school = school;
+            if (degree) educationData.degree = degree;
+            educationData.from = from;
+            if (to) educationData.to = to;
+            educationData.current = current;
+            educationData.fieldOfStudy = fieldOfStudy;
+            if (description) educationData.description = description;
 
-        profile.education.unshift(educationData)
-
-        await profile.save()
-        res.json({ msg: "Saved!" })
-
-    } catch (err) {
-        console.error(err.message)
-        res.status(500).send('Server Error')
-    }
-
+            profile.education.unshift(educationData)
+            profile.save()
+                .then(res => res.json({ msg: "Saved!" }))
+                .catch(err => res.json({ msg: "Error saving :(" }))
+        })
+        .catch(err => res.json(err));
 
 })
 
-//POST       api/profiles/recipient/experience
+//GET       api/profiles/recipient/experience
 //Action    Add experience to user's profile
 //Private 
 router.post('/experience', [check("from", "From date is required").not().isEmpty(), check("current", "Current boolean is required").not().isEmpty(), check("description", "Description is required").not().isEmpty()], (req, res) => {
@@ -274,6 +270,7 @@ router.get("/:id", async(req, res) => {
         res.status(500).send("Server Error")
     }
 })
+
 
 
 // DELETE api/profiles/recipient/me
