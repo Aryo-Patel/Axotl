@@ -84,6 +84,11 @@ $primary-white: #eee;
         max-height: 4rem;
         transition: color .2s, background-color .2s;
     }
+    .dropdown__toggle .dropdown__top {
+        h3 {
+            color: $background-color;
+        }
+    }
 }
 
 .scrolled {
@@ -111,6 +116,11 @@ $primary-white: #eee;
         background-color: none!important;
         h3 {
             color: $primary-white!important;
+        }
+    }
+    .dropdown__toggle .dropdown__top {
+        h3 {
+            color: $primary-white;
         }
     }
 }
