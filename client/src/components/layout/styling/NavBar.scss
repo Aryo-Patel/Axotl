@@ -4,6 +4,7 @@ $background-color: lighten(rgb(47, 114, 255), 5%);
 $primary-orange: lighten(rgb(255, 102, 71), 5%);
 $primary-white: #eee;
 .navContainer {
+    position: fixed;
     color: $primary-white;
     margin: 0;
     padding: 0;
@@ -13,42 +14,51 @@ $primary-white: #eee;
     width: 100%;
     height: 6rem;
     align-items: center;
-    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
-    background-color: $background-color;
+    background-color: white;
+    z-index: 1000000;
     justify-content: space-between;
+    transition: color .2s, background-color .2s;
     .navbar-brand {
         margin-left: 3rem;
-        color: $primary-white;
+        color: $background-color;
+        transition: color .2s, background-color .2s;
     }
     .auth-links {
         color: $primary-white;
         display: flex;
         align-self: stretch;
         align-items: center;
+        transition: color .2s, background-color .2s;
         div {
             display: inline-block;
         }
         .link-list {
             min-height: 100%;
             list-style-type: none;
+            background-color: transparent!important;
             padding: 0;
             margin: 0;
             display: flex;
             align-items: stretch;
-            color: $primary-white;
-            a {
-                color: $primary-white;
-                &:active,
-                &:link {
-                    text-decoration: none;
-                }
+            color: white;
+            transition: color .2s, background-color .2s;
+            .active {
+                background: none!important;
+            }
+            a:active,
+            a:link {
+                color: $background-color;
+                background-color: none!important;
+                transition: color .2s, background-color .2s;
+                text-decoration: none;
             }
             label {
-                color: $primary-white;
+                color: $background-color;
+                transition: color .2s, background-color .2s;
             }
         }
         .link-list li {
-            color: $primary-white;
+            color: $background-color;
             margin: 0!important;
             text-align: center;
             padding: 0;
@@ -60,12 +70,63 @@ $primary-white: #eee;
             transition: all .2s;
             flex: 0 0 20%;
             &:hover {
-                background-color: darken($background-color, 10%);
+                a {
+                    color: $primary-white;
+                }
+                label {
+                    color: $primary-white;
+                }
+                background-color: $background-color!important;
             }
         }
     }
     .logout-link {
         max-height: 4rem;
+        transition: color .2s, background-color .2s;
+    }
+    .dropdown__toggle .dropdown__top {
+        &:hover {
+            h3 {
+                color: $primary-white;
+            }
+        }
+        h3 {
+            color: $background-color;
+        }
+    }
+}
+
+.scrolled {
+    background-color: $background-color;
+    transition: background-color 200ms linear;
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+    .link-list li {
+        color: $primary-white;
+        &:hover {
+            background-color: darken($background-color, 10%);
+        }
+    }
+    .link-list a:active,
+    .link-list a:link,
+    .link-list .active,
+    .link-list a {
+        background-color: none!important;
+        color: $primary-white!important;
+    }
+    .link-list label {
+        background-color: none!important;
+        color: $primary-white!important;
+    }
+    .navbar-brand {
+        background-color: none!important;
+        h3 {
+            color: $primary-white!important;
+        }
+    }
+    .dropdown__toggle .dropdown__top {
+        h3 {
+            color: $primary-white;
+        }
     }
 }
 

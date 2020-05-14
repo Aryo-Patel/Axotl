@@ -60,6 +60,65 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
         handleClose();
     }
 
+    //add table row
+    function addTableRow(e) {
+        //adds table row below the current one that has the inputs that are necessary
+        let category = e.target.id;
+
+        //finds the table corresponding to the button
+        let table = document.getElementById(`${category}-table`);
+        //inserts a new row to the table
+        let newRow = table.insertRow();
+
+        //this is the number that should be assigned to each class element
+        let newIndex = table.children[1].children.length - 1;
+
+        //fixes cases where newIndex may be out of bounds
+        if (typeof (newIndex) !== 'number' || newIndex < 0) {
+            newIndex = 0;
+        }
+
+        //depending on what the selected table is, create the respective elements and adds the data to the formData object
+        switch (category) {
+            case 'donations':
+                //sets the donation form data
+                let formDataDonationUpdate = {
+                    type: '',
+                    quantity: '',
+                    description: ''
+                };
+                let array = formData.donations;
+                array.push(formDataDonationUpdate);
+                setFormData({
+                    donations: array
+                });
+
+                //creates the elements that will be in the table
+                let type = newRow.insertCell(0);
+                let quantity = newRow.insertCell(1);
+                let description = newRow.insertCell(2);
+                let deleteButton = newRow.insertCell(3);
+                type.innerHTML = `<input type = "text" placeholder = "Type" value = "${formData.donations[newIndex].type}" name = row-${newIndex}-type onChange = "${e => donationAddText(e)}"/> `;
+                quantity.innerHTML = `<input type = "text" placeholder = "Quantity" value = "${formData.donations[newIndex].quantity}" name = row-${newIndex}-quantity onChange = "${e => donationAddText(e)}"/> `;
+                description.innerHTML = `<input type = "text" placeholder = "Description" value = "${formData.donations[newIndex].description}" name = row-${newIndex}-description onChange = "${e => donationAddText(e)}"/>`;
+                let deleteSpan = document.createElement('span');
+                deleteSpan.classList.add('delete-request');
+                deleteSpan.textContent = 'X';
+                deleteSpan.addEventListener('click', e => deleteTableRow(e));
+                deleteButton.appendChild(deleteSpan);
+                return;
+            default:
+                alert('unrecognized tables because a specific developer is a potato (Aryo)');
+                return
+        }
+
+        //adds a new table row to form data in the respective category
+    }
+
+    function deleteTableRow(e) {
+        //deletes table row
+        //renames the classes to re-align with the array indeces
+    }
     //adds a table row to either 
     function addTableRowDonation(e) {
 
@@ -163,7 +222,17 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
         deleteSpan.addEventListener('click', e => deleteTableRow(e));
         deleteRow.appendChild(deleteSpan);
     }
+    function addText(e) {
+        let donationIndex = e.target.name.split('-')[1];
+        let donationName = e.target.name.split('-')[2] + '';
+        let myInput = e.target.value;
 
+
+        //grabs the category that it is from
+        let category = e.target.parentNode.parentNode.parentNode.parentNode.id.split('-')[0]
+
+
+    }
     function donationAddText(e) {
         //grabs basic information from the input
         let donationIndex = e.target.name.split('-')[1];
@@ -324,7 +393,7 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
                             <Fragment>
                                 <div className="form-group">
                                     <p className="lead text-header">What donations will your hackathon require?</p>
-                                    <table className="donations-table">
+                                    <table id="donations-table" className="input-table">
                                         <thead>
                                             <tr>
                                                 <th>Type</th>
@@ -334,14 +403,14 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td><input type="text" placeholder="Type" name="row-0-type" value={formData.donations[0] ? formData.donations[0].type : ''} onChange={e => donationAddText(e)} /></td>
-                                                <td><input type="text" placeholder="Quantity" value={formData.donations[0] ? formData.donations[0].quantity : ''} name="row-0-quantity" onChange={e => donationAddText(e)} /></td>
-                                                <td><input type="text" placeholder="Description" value={formData.donations[0] ? formData.donations[0].description : ''} name="row-0-description" onChange={e => donationAddText(e)} /></td>
+                                                <td><input type="text" placeholder="Type" name="row-0-type" value={formData.donations[0] ? formData.donations[0].type : ''} onChange={e => addText(e)} /></td>
+                                                <td><input type="text" placeholder="Quantity" value={formData.donations[0] ? formData.donations[0].quantity : ''} name="row-0-quantity" onChange={e => addText(e)} /></td>
+                                                <td><input type="text" placeholder="Description" value={formData.donations[0] ? formData.donations[0].description : ''} name="row-0-description" onChange={e => addText(e)} /></td>
                                                 <td><span className="delete-request" onClick={e => deleteTableRow(e)}>X</span></td>
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <button type="button" onClick={e => addTableRowDonation(e)} className="add-donation-request btn btn-secondary btn-success">Add</button>
+                                    <button type="button" onClick={e => addTableRow(e)} id="donations" className="donations-request btn btn-secondary btn-success">Add</button>
                                 </div>
                             </Fragment>
                         )}
