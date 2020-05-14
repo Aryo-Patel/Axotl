@@ -84,7 +84,8 @@ $primary-white: #eee;
         max-height: 4rem;
         transition: color .2s, background-color .2s;
     }
-    .dropdown__toggle .dropdown__top {
+    .dropdown {}
+    .dropdown__toggle {
         &:hover {
             h3 {
                 color: $primary-white;
