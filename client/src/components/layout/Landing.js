@@ -15,29 +15,29 @@ const Landing = ({ isAuthenticated }) => {
   return (
     <Fragment>
       <div className="text-center landingLogin">
-
-        <div className="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column landingLogin__contents">
-          <h1 className="cover-heading home-head">Axotl</h1>
-          <div className="row">
-            <div className="col col-sm-2 col-md-3"></div>
-            <div className="col col-12 col-sm-8 col-md-6">
-              <p className="lead">Meet with hackathon organizations, corporate sponsors, and others interested in making
-              or
-                    sponsoring coding-related events.</p>
+        <div class="block4">
+          <div className="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column landingLogin__contents">
+            <h1 className="cover-heading home-head">Axotl</h1>
+            <div className="row">
+              <div className="col col-sm-2 col-md-3"></div>
+              <div className="col col-12 col-sm-8 col-md-6">
+                <p className="lead">Meet with hackathon organizations, corporate sponsors, and others interested in making
+              or sponsoring coding-related events.</p>
+              </div>
+              <div className="col col-sm-2 col-md-3"></div>
             </div>
-            <div className="col col-sm-2 col-md-3"></div>
+
+            <p className="lead" style={{ justifyContent: 'center' }}>
+
+              <Link to="/login" className="btn btn-lg button-c">
+                Login
+              </Link>
+              <Link to="/register" className="btn btn-lg button-c">
+                Register
+              </Link>
+
+            </p>
           </div>
-
-          <p className="lead" style={{ justifyContent: 'center' }}>
-
-            <Link to="/login" className="btn btn-lg btn-secondary button-c">
-              Login
-              </Link>
-            <Link to="/register" className="btn btn-lg btn-secondary button-c">
-              Register
-              </Link>
-
-          </p>
         </div>
 
         <div className="block2">
