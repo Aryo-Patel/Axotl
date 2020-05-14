@@ -125,6 +125,10 @@
   transition: color .2s, background-color .2s;
 }
 
+.navContainer .dropdown__toggle .dropdown__top:hover h3 {
+  color: #eee;
+}
+
 .navContainer .dropdown__toggle .dropdown__top h3 {
   color: #4983ff;
 }

@@ -85,6 +85,11 @@ $primary-white: #eee;
         transition: color .2s, background-color .2s;
     }
     .dropdown__toggle .dropdown__top {
+        &:hover {
+            h3 {
+                color: $primary-white;
+            }
+        }
         h3 {
             color: $background-color;
         }
