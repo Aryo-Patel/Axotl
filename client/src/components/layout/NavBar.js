@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import CreateHackathonModal from "../hackathons/CreateHackathonModal";
@@ -31,7 +31,7 @@ const NavBar = ({ isAuthenticated, auth }) => {
       </li>
       <li className="nav-item active mx-4 text-center">
         <Link to="/discover" className="nav-link nav__btn">
-          Discover Sponsors
+          Discover
         </Link>
       </li>
       <li className="nav-item active mx-4 text-center">
@@ -40,7 +40,7 @@ const NavBar = ({ isAuthenticated, auth }) => {
           className="nav-link nav__btn hackModalToggler"
           for="navToggle"
         >
-          Create A Hackathon
+          Create
         </label>
       </li>
       <li className="nav-item active mx-4 text-center">
@@ -64,7 +64,7 @@ const NavBar = ({ isAuthenticated, auth }) => {
       </li>
       <li className="nav-item active">
         <Link to="/discover" className="nav-link">
-          Discover Hackathons
+          Discover
         </Link>
       </li>
       <li className="nav-item active">
@@ -113,6 +113,9 @@ const NavBar = ({ isAuthenticated, auth }) => {
   function toggleDropDown() {
     updateDropdown(!dropDown);
   }
+  function onClick(e) {
+    return (<Redirect to='/profile'></Redirect>)
+  }
   //@TODO set navbar links based on authentication and sponsor status
   return (
     <Fragment>
@@ -158,9 +161,11 @@ const NavBar = ({ isAuthenticated, auth }) => {
               )}
             </div>
             {!auth.loading && auth.user && (
-              <Link to="/profile" className="dropdown__toggle">
+              <div onClick={e=>onClick(e)} className="dropdown__toggle">
                 <div className="dropdown">
-                <Link to='/profile' className="dropdown__item">Your Profile</Link> 
+                  <Link to="/profile" className="dropdown__item">
+                    Your Profile
+                  </Link>
                   <Link to="/settings" className="dropdown__item">
                     Settings
                   </Link>
@@ -170,16 +175,20 @@ const NavBar = ({ isAuthenticated, auth }) => {
                     </Link>
                   )}
                 </div>
+                <div className="dropdown__top">
                 <img
                   src={auth.user.user.avatar}
                   alt=""
                   className="dropdown__img"
                 />
                 <h3 className="display-5 display-inline align-middle dropdown__name">
-                  Welcome, {auth.user.user.name.split(" ")[0]}
-                  <span className="dropdown__arrow">&or;</span>
+                  {auth.user.user.name.split(" ")[0]}
                 </h3>
-              </Link>
+                <svg className="dropdown__icon" viewBox="0 0 20 20">
+                  <path d="M17.418 6.109c0.272-0.268 0.709-0.268 0.979 0s0.271 0.701 0 0.969l-7.908 7.83c-0.27 0.268-0.707 0.268-0.979 0l-7.908-7.83c-0.27-0.268-0.27-0.701 0-0.969s0.709-0.268 0.979 0l7.419 7.141 7.418-7.141z"></path>
+                </svg>
+                </div>
+              </div>
             )}
           </Fragment>
         ) : (
@@ -242,7 +251,7 @@ const NavBar = ({ isAuthenticated, auth }) => {
       {dropDown && (
         <Fragment>
           <div className="dropdown-background">
-            <div className="dropdown">
+            <div className="dropdownReplacement">
               <div className="auth-links" id="dropdownContent">
                 {!isAuthenticated ? (
                   <Fragment>

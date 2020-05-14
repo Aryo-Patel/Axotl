@@ -63,6 +63,10 @@ let SponsorProfileSchema = new Schema({
             type: String
         },
     },
+    sponsoredProjects: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'hackathon'
+    }],
     distanceFromUser: {
         type: String
     },

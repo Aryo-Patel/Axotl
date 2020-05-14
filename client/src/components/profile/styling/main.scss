@@ -10,7 +10,7 @@ $primary-white: #eee;
     border-bottom: 1px solid $primary-white;
 }
 
-.discoverWrapper {
+.myProfileWrapper {
     display: flex;
     justify-content: center;
     .profileWrapper {
@@ -58,9 +58,15 @@ $primary-white: #eee;
     }
     .handle {
         display: block;
+        font-size: 2rem;
     }
     .location {
         display: block;
+        font-size: 2rem;
+    }
+    .bio {
+        display: block;
+        font-size: 2rem;
     }
     .mainContent {
         margin: 0;

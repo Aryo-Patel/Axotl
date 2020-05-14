@@ -137,12 +137,12 @@ router.put('/confirmemail/:jwt', async(req, res) => {
 })
 
 
-// POST      api/recipients/login
+// POST      api/users/login
 // Action    Login the user
 // PUBLIC
 
 router.post('/login', passport.authenticate('local', { failureRedirect: 'http://localhost:3000/recipient/login' }), (req, res) => {
-    
+
     /**const email = req.body.email;
     const password = req.body.password;
 

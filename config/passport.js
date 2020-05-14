@@ -12,13 +12,14 @@ const Recipient = require('../models/Recipient')
 const Sponsor = require('../models/Sponsor')
 
 exports.local = (passport) => {
-    passport.use(new localStrategy({ usernameField: 'email', passReqToCallback : true }, async(req, email, password, done) => {
-        if(!req.session.tries) {
+    console.log('breakpoint 1');
+    passport.use(new localStrategy({ usernameField: 'email', passReqToCallback: true }, async (req, email, password, done) => {
+        if (!req.session.tries) {
             req.session.tries = 0;
         }
-        if(req.session.tries>5) {
+        if (req.session.tries > 5) {
             console.log("ISSUE")
-            return done(null, false, {message : "You have used too many tries. Try again later"})
+            return done(null, false, { message: "You have used too many tries. Try again later" })
         }
         console.log(req.session.tries)
         console.log('passport internals reached')

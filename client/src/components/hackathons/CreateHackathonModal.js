@@ -1,17 +1,39 @@
-import React, {useState} from 'react';
+import React, { useState, Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 //importing create hackathon action
-import {createHackathon} from '../../actions/hackathonActions';
+import { createHackathon } from '../../actions/hackathonActions';
 
-const CreateHackathonModal = ({handleClose, show, createHackathon}) => {
+const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
+    //in charge of changing what page is displayed
+    const [pageNumber, changePageNumber] = useState(1);
+
+    //every time pageNumber updates, fire find current page
+    useEffect(() => {
+        findCurrentPage();
+    }, [pageNumber]);
+
+
     //display is set to none if the modal is not toggled
     let showHideClassName = show ? "hack-modal display-block" : "hack-modal display-none";
+
 
     const [formData, setFormData] = useState({
         title: '',
         description: '',
+        prizes: [{
+            awardTitle: '',
+            prize: ''
+        }],
+        requirements: [],
+        criteria: [],
+        location: '',
+        forms: [{
+            title: '',
+            file: ''
+        }],
+        judges: [''],
         website: '',
         donations: [{
             type: '',
@@ -20,13 +42,10 @@ const CreateHackathonModal = ({handleClose, show, createHackathon}) => {
         }],
         startDate: '',
         endDate: '',
-        winners: [{
-            awardTitle : '',
-            prize: ''
-        }]
+
     })
 
-    function onInput(e){
+    function onInput(e) {
         setFormData({
             ...formData,
             [e.target.name]: e.target.value
@@ -37,25 +56,25 @@ const CreateHackathonModal = ({handleClose, show, createHackathon}) => {
         e.preventDefault();
 
         createHackathon(formData);
-        
+
         handleClose();
     }
 
     //adds a table row to either 
-    function addTableRowDonation(e){
+    function addTableRowDonation(e) {
 
         //done to calculate the digit that will be added to the new table row values
         let tableArray = e.target.parentNode.children[1].children[1].children;
-        let newRow  = e.target.parentNode.children[1].insertRow();
-        let newIndex = tableArray.length-1;
+        let newRow = e.target.parentNode.children[1].insertRow();
+        let newIndex = tableArray.length - 1;
 
 
         //sets newIndex to zero if there's nothing in the array
-        if(typeof(newIndex) !== 'number'){
+        if (typeof (newIndex) !== 'number') {
             newIndex = 0;
         }
 
-        if(newIndex < 0){
+        if (newIndex < 0) {
             newIndex = 0;
         }
         //component to add to the state
@@ -91,25 +110,25 @@ const CreateHackathonModal = ({handleClose, show, createHackathon}) => {
 
     }
 
-    function addTableRowWinners(e){
-        if(!formData.winners[0]){
+    function addTableRowWinners(e) {
+        if (!formData.prizes[0]) {
 
         }
-        else{
-            
+        else {
+
         }
         let newRow = e.target.parentNode.children[1].insertRow();
         let tableArray;
         let newIndex;
-        try{
+        try {
             tableArray = e.target.parentNode.children[1].children[1].children;
-            newIndex = tableArray.length-1;
-        }catch(err){
+            newIndex = tableArray.length - 1;
+        } catch (err) {
             newIndex = 0;
         }
 
-        if(newIndex < 0){
-            newIndex= 0;
+        if (newIndex < 0) {
+            newIndex = 0;
         }
 
         //component to add to the state
@@ -119,7 +138,7 @@ const CreateHackathonModal = ({handleClose, show, createHackathon}) => {
         }
 
         //appending blank donation object to the state component
-        let array = formData.winners;
+        let array = formData.prizes;
         array.push(stateWinnersUpdate);
         setFormData({
             ...formData,
@@ -134,8 +153,8 @@ const CreateHackathonModal = ({handleClose, show, createHackathon}) => {
 
         //add the items to the table
 
-        awardTitle.innerHTML = `<input type = "text" placeholder = "Award Title" value = "${formData.winners[newIndex].awardTitle}" name = "row-${newIndex}-awardTitle" onChange = "${e => winnersAddText(e)}"/>`;
-        prize.innerHTML = `<input type = "text" placeholder = "Prize" value = "${formData.winners[newIndex].prize}" name = row-${newIndex}-prize onChange = "${e => winnersAddText(e)}"//>`;
+        awardTitle.innerHTML = `<input type = "text" placeholder = "Award Title" value = "${formData.prizes[newIndex].awardTitle}" name = "row-${newIndex}-awardTitle" onChange = "${e => winnersAddText(e)}"/>`;
+        prize.innerHTML = `<input type = "text" placeholder = "Prize" value = "${formData.prizes[newIndex].prize}" name = row-${newIndex}-prize onChange = "${e => winnersAddText(e)}"//>`;
         // deleteRow.innerHTML = `<span className = "delete-request" onClick = "${e => deleteTableRow(e)}" >X</span>`;
 
         let deleteSpan = document.createElement('span');
@@ -145,7 +164,7 @@ const CreateHackathonModal = ({handleClose, show, createHackathon}) => {
         deleteRow.appendChild(deleteSpan);
     }
 
-    function donationAddText(e){
+    function donationAddText(e) {
         //grabs basic information from the input
         let donationIndex = e.target.name.split('-')[1];
         let donationName = e.target.name.split('-')[2] + '';
@@ -153,34 +172,34 @@ const CreateHackathonModal = ({handleClose, show, createHackathon}) => {
 
         //changes the array value so set form data can be done
         let array = formData.donations;
-        array[donationIndex][donationName]  = myInput;
-        
+        array[donationIndex][donationName] = myInput;
+
         setFormData({
             ...formData,
-            donations : array
+            donations: array
         });
-        
+
     }
-    function winnersAddText(e){
+    function winnersAddText(e) {
         //grabs basic information from input
         //grabs basic information from the input
         let winnersIndex = e.target.name.split('-')[1];
         let winnersName = e.target.name.split('-')[2] + '';
         let myInput = e.target.value;
 
-        let array = formData.winners;
-        array[winnersIndex][winnersName]  =  myInput;
+        let array = formData.prizes;
+        array[winnersIndex][winnersName] = myInput;
 
         setFormData({
             ...formData,
-            'winners' : array
+            'prizes': array
         });
     };
-    function deleteTableRow(e){
+    function deleteTableRow(e) {
         let rowExtract = e.target.parentNode.parentNode.children[0].children[0].name.split('-')[1];
 
         let rowName = e.target.parentNode.parentNode.children[0].children[0].name.split('-')[2];
- 
+
         //remove the point from the DOM
         let parentNode = e.target.parentNode.parentNode;
         let child = e.target.parentNode;
@@ -189,110 +208,182 @@ const CreateHackathonModal = ({handleClose, show, createHackathon}) => {
 
 
         //remove the data from the specific part of the state
-        if(rowName === 'type'){
+        if (rowName === 'type') {
 
             let array = formData.donations;
             array.splice(rowExtract, 1);
             setFormData({
                 ...formData,
-                donations : array
+                donations: array
             })
         }
-        else if(rowName === 'awardTitle'){
-            let array = formData.winners;
+        else if (rowName === 'awardTitle') {
+            let array = formData.prizes;
 
             array.splice(rowExtract, 1);
             setFormData({
                 ...formData,
-                winners : array
+                prizes: array
             })
         }
 
     }
 
     const close = e => {
-        if(e.target.classList.contains('hack-modal')) { 
+        if (e.target.classList.contains('hack-modal')) {
             e.target.parentNode.childNodes[0].checked = false;
-            
+
             handleClose(e)
-        } 
-        
+        }
+
     }
-    return(
-        <div onClick = {e => close(e)} className = {showHideClassName}>
-            <section className = "modal-main">
-                <div className = "modal-text">
-                    <h2 className = "text-header">Fill in the information about your hackathon!</h2>
+
+
+    function incrementPage() {
+
+        if (pageNumber < 5) {
+            let newPageNumber = pageNumber + 1;
+            changePageNumber(newPageNumber);
+
+        }
+
+    }
+    function decrementPage() {
+
+        if (pageNumber > 1) {
+            let newPageNumber = pageNumber - 1;
+            changePageNumber(newPageNumber);
+        }
+    }
+    function findCurrentPage() {
+
+        let dots = document.getElementsByClassName("dot");
+
+        for (let i = 0; i < dots.length; i++) {
+            dots[i].classList.remove('active');
+        }
+
+        dots[pageNumber - 1].classList.add('active');
+    }
+
+    function changeJudges(e) {
+
+    }
+    return (
+        <div onClick={e => close(e)} className={showHideClassName}>
+            <section className="modal-main">
+                <div className="left-arrow arrow" onClick={e => decrementPage()}>
+                    <h1>&#10094;</h1>
+                </div>
+                <div className="modal-text">
+                    <h2 className="text-header">Fill in the information about your hackathon!</h2>
                     <small>* = required field</small>
 
-                    <form className = "modal-form" onSubmit = {e => submitData(e)}>
-                        <div className = 'form-group'>
-                            <input type = "text" placeholder = "* Hackathon name" name = "title" value = {formData.title} onChange = {e => onInput(e)} required />
+                    <form className="modal-form" onSubmit={e => submitData(e)}>
+                        {pageNumber === 1 && (
+                            <Fragment>
+                                <div className='form-group'>
+                                    <input type="text" placeholder="* Hackathon name" name="title" value={formData.title} onChange={e => onInput(e)} required />
+                                </div>
+
+                                <div className="form-group">
+                                    <input type="text" placeholder="Where will your hackathon be held?" name="location" value={formData.location} onChange={e => onInput(e)} required />
+                                </div>
+
+                                <div className="form-group">
+                                    <input type="text" placeholder="Give us a link to your hackathon's website" name="website" value={formData.website} onChange={e => onInput(e)} />
+                                </div>
+
+                                <div className="form-group"><h2>What days will your hackathon be run?</h2></div>
+                                <div className="form-group">
+                                    <span>*Start Date: </span><input type="date" name="startDate" value={formData.startDate} onChange={e => onInput(e)} />
+                                </div>
+
+                                <div className="form-group">
+                                    <span>*End Date: </span><input type="date" name="endDate" value={formData.endDate} onChange={e => onInput(e)} />
+                                </div>
+                            </Fragment>
+                        )}
+                        {pageNumber === 2 && (
+                            <Fragment>
+                                <div className="form-group">
+                                    <textarea type="text" placeholder="* A short description about your hackathon" name="description" value={formData.description} onChange={e => onInput(e)}></textarea>
+                                </div>
+
+                                <div className="form-group">
+                                    <input type="text" placeholder="Judge's Name" value={formData.judges[0]} onChange={e => changeJudges(e)}></input>
+                                </div>
+                            </Fragment>
+                        )}
+                        {pageNumber === 3 && (
+                            <Fragment>
+
+                            </Fragment>
+                        )}
+                        {pageNumber === 4 && (
+                            <Fragment>
+                                <div className="form-group">
+                                    <p className="lead text-header">What donations will your hackathon require?</p>
+                                    <table className="donations-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Type</th>
+                                                <th>Quantity</th>
+                                                <th>Description</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><input type="text" placeholder="Type" name="row-0-type" value={formData.donations[0] ? formData.donations[0].type : ''} onChange={e => donationAddText(e)} /></td>
+                                                <td><input type="text" placeholder="Quantity" value={formData.donations[0] ? formData.donations[0].quantity : ''} name="row-0-quantity" onChange={e => donationAddText(e)} /></td>
+                                                <td><input type="text" placeholder="Description" value={formData.donations[0] ? formData.donations[0].description : ''} name="row-0-description" onChange={e => donationAddText(e)} /></td>
+                                                <td><span className="delete-request" onClick={e => deleteTableRow(e)}>X</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <button type="button" onClick={e => addTableRowDonation(e)} className="add-donation-request btn btn-secondary btn-success">Add</button>
+                                </div>
+                            </Fragment>
+                        )}
+                        {pageNumber === 5 && (
+                            <Fragment>
+                                <div className="form-group">
+                                    <p className="lead text-header">What are the categories people can win in?</p>
+                                    <table className="winners-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Award Title</th>
+                                                <th>Prize</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><input type="text" placeholder="Award Title" name="row-0-awardTitle" value={formData.prizes[0] ? formData.prizes[0].awardTitle : ''} onChange={e => winnersAddText(e)} /></td>
+                                                <td><input type="text" placeholder="Prize" name="row-0-prize" value={formData.prizes[0] ? formData.prizes[0].prize : ''} onChange={e => winnersAddText(e)} /></td>
+                                                <td><span className="delete-request" onClick={e => deleteTableRow(e)}>X</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <button type="button" onClick={e => addTableRowWinners(e)} className="add-donation-request btn btn-secondary btn-success">Add</button>
+                                </div>
+
+                                <input type="submit" className="btn btn-primary my-1" />
+                            </Fragment>
+                        )}
+                        <div className="dots-holder">
+                            <span className="dot active"></span>
+                            <span className="dot"></span>
+                            <span className="dot"></span>
+                            <span className="dot"></span>
+                            <span className="dot"></span>
                         </div>
 
-                        <div className = "form-group">
-                            <textarea type = "text" placeholder = "* A short description about your hackathon" name = "description" value = {formData.description} onChange = {e => onInput(e)}></textarea>
-                        </div>
-
-                        <div className = "form-group">
-                            <input type = "text" placeholder = "A link to your hackathon's website" name = "website" value = {formData.website} onChange = {e => onInput(e)} />
-                        </div>
-
-                        <div className = "form-group">
-                            <span>*Start Date: </span><input type = "date" name = "startDate" value = {formData.startDate} onChange = {e => onInput(e)}/>
-                        </div>
-
-                        <div className = "form-group">
-                            <span>*End Date: </span><input type = "date" name = "endDate" value = {formData.endDate} onChange = {e => onInput(e)}/>
-                        </div>
-                        
-                        <div className = "form-group">
-                            <p className = "lead text-header">What donations will your hackathon require?</p>
-                            <table className = "donations-table">
-                                <thead>
-                                    <tr>
-                                        <th>Type</th>
-                                        <th>Quantity</th>
-                                        <th>Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><input type = "text" placeholder = "Type"  name = "row-0-type" value = {formData.donations[0] ? formData.donations[0].type : ''} onChange = {e => donationAddText(e)}/></td>
-                                        <td><input type = "text" placeholder = "Quantity" value = {formData.donations[0] ? formData.donations[0].quantity : ''} name = "row-0-quantity" onChange = {e => donationAddText(e)} /></td>
-                                        <td><input type = "text" placeholder = "Description" value = {formData.donations[0] ? formData.donations[0].description : ''} name = "row-0-description" onChange = {e => donationAddText(e)}/></td>
-                                        <td><span className = "delete-request" onClick = {e => deleteTableRow(e)}>X</span></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <button type = "button" onClick = {e => addTableRowDonation(e)} className = "add-donation-request btn btn-secondary btn-success">Add</button>
-                        </div>
-
-                        <div className = "form-group">
-                            <p className = "lead text-header">What are the categories people can win in?</p>
-                            <table className = "winners-table">
-                                <thead>
-                                    <tr>
-                                        <th>Award Title</th>
-                                        <th>Prize</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><input type = "text" placeholder = "Award Title" name = "row-0-awardTitle" value = {formData.winners[0] ? formData.winners[0].awardTitle : ''} onChange = {e => winnersAddText(e)} /></td>
-                                        <td><input type = "text" placeholder = "Prize" name = "row-0-prize" value = {formData.winners[0] ? formData.winners[0].prize : ''} onChange = {e => winnersAddText(e)}/></td>
-                                        <td><span className = "delete-request" onClick = {e => deleteTableRow(e)}>X</span></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <button type = "button" onClick = {e => addTableRowWinners(e)} className = "add-donation-request btn btn-secondary btn-success">Add</button>
-                        </div>
-                        
-                        <input type = "submit" className = "btn btn-primary my-1" />
                     </form>
                 </div>
 
-
+                <div className="right-arrow arrow" onClick={e => incrementPage()}>
+                    <h1>&#10095;</h1>
+                </div>
             </section>
         </div>
     )
@@ -304,4 +395,4 @@ CreateHackathonModal.propTypes = {
     handleClose: PropTypes.func.isRequired
 }
 
-export default connect(null, {createHackathon})(CreateHackathonModal);
+export default connect(null, { createHackathon })(CreateHackathonModal);

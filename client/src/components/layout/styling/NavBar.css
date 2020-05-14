@@ -1,18 +1,41 @@
 .navContainer {
+  color: #eee;
   margin: 0;
   padding: 0;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  font-size: 1.6rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   width: 100%;
+  height: 6rem;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background-color: #87ffa7;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+  -webkit-box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+          box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+  background-color: #4983ff;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.navContainer .navbar-brand {
+  margin-left: 3rem;
+  color: #eee;
+}
+
+.navContainer .auth-links {
+  color: #eee;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-item-align: stretch;
+      align-self: stretch;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .navContainer .auth-links div {
@@ -23,51 +46,104 @@
   min-height: 100%;
   list-style-type: none;
   padding: 0;
+  margin: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+  color: #eee;
+}
+
+.navContainer .auth-links .link-list a {
+  color: #eee;
+}
+
+.navContainer .auth-links .link-list a:active, .navContainer .auth-links .link-list a:link {
+  text-decoration: none;
+}
+
+.navContainer .auth-links .link-list label {
+  color: #eee;
 }
 
 .navContainer .auth-links .link-list li {
+  color: #eee;
+  margin: 0 !important;
+  text-align: center;
   padding: 0;
   float: left;
   list-style-type: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 20%;
+          flex: 0 0 20%;
+}
+
+.navContainer .auth-links .link-list li:hover {
+  background-color: #1661ff;
 }
 
 .navContainer .logout-link {
-  max-height: 40px;
+  max-height: 4rem;
 }
 
 .dropdown-background {
-  background: #87ffa7;
+  background: #4983ff;
 }
 
-.dropdown {
-  height: 30px;
+.dropdownReplacement {
+  height: 3rem;
   width: 100%;
   display: block;
-  background-color: #87ffa7;
-  margin: 0 auto;
+  background-color: #4983ff;
   -webkit-animation: dropdown;
           animation: dropdown;
   -webkit-animation-duration: 0.7s;
           animation-duration: 0.7s;
+  color: #eee;
 }
 
-.dropdown .auth-links div {
+.dropdownReplacement .auth-links div {
   display: inline-block;
 }
 
-.dropdown .auth-links .link-list {
+.dropdownReplacement .auth-links .link-list {
+  color: #eee;
   min-height: 100%;
   list-style-type: none;
   padding: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
-.dropdown .auth-links .link-list li {
+.dropdownReplacement .auth-links .link-list li {
+  color: #eee;
   padding: 0;
   float: left;
   list-style-type: none;
 }
 
-.dropdown .auth-links .link-list li .nav-link {
+.dropdownReplacement .auth-links .link-list li .nav-link {
+  color: #eee;
   -webkit-animation: dropdown-text;
           animation: dropdown-text;
   -webkit-animation-duration: 0.7s;
@@ -126,7 +202,7 @@
             transform: translateY(-100%);
   }
   to {
-    height: 30px;
+    height: 3rem;
     -webkit-transform: translateY(0);
             transform: translateY(0);
   }
@@ -139,7 +215,7 @@
             transform: translateY(-100%);
   }
   to {
-    height: 30px;
+    height: 3rem;
     -webkit-transform: translateY(0);
             transform: translateY(0);
   }
@@ -178,7 +254,7 @@
 .dropdown {
   opacity: 0;
   visibility: none;
-  top: 100.7%;
+  top: 100.0%;
   right: 0%;
   width: 22.875rem;
   position: absolute;
@@ -189,18 +265,25 @@
 }
 
 .dropdown__item {
+  color: #eee;
   display: block;
-  background-color: #6eff94;
+  background-color: #2f72ff;
   text-align: right;
   font-size: 1.6rem;
   padding: 1rem 0rem;
   -webkit-box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.1);
           box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.1);
-  z-index: 99;
+  z-index: 2;
+}
+
+.dropdown__item:hover {
+  text-decoration: none;
+  color: #eee;
+  background-color: #1661ff;
 }
 
 .dropdown__item:not(:last-child) {
-  border-bottom: 2px solid #6295ff;
+  border-bottom: 2px solid white;
 }
 
 .dropdown__item:last-child {
@@ -209,7 +292,9 @@
 }
 
 .dropdown__toggle {
+  color: #eee;
   display: table;
+  margin-right: 3rem;
   padding: .5rem 2rem;
   -webkit-transition: all .3s;
   transition: all .3s;
@@ -223,7 +308,7 @@
   border-radius: 20px;
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
-  background-color: #6eff94;
+  background-color: #2f72ff;
 }
 
 .dropdown__toggle:hover .dropdown {
@@ -231,8 +316,25 @@
   opacity: 1;
 }
 
+.dropdown__top {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: #eee;
+}
+
+.dropdown__top h3 {
+  color: #eee;
+}
+
 .dropdown__img {
-  display: table-cell;
+  display: block;
   width: 3.5rem;
   height: 3.5rem;
   border-radius: 50%;
@@ -241,14 +343,19 @@
 }
 
 .dropdown__name {
-  display: table-cell;
-  margin-left: 1rem;
+  line-height: 0;
+  display: block;
+  text-align: center;
 }
 
-.dropdown__arrow {
-  margin-left: 1rem;
-  width: 6rem;
-  height: 3.5rem;
+.dropdown__icon {
+  width: 4rem;
+  height: 2rem;
+  color: #2f72ff;
+}
+
+.hackModalToggler {
+  margin-top: .5rem;
   color: #2f72ff;
 }
 /*# sourceMappingURL=NavBar.css.map */
