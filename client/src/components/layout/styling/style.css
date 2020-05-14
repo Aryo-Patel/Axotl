@@ -119,7 +119,29 @@ header {
 }
 
 .landingLogin {
-    height: 50vh;
+    height: 70vh;
+}
+
+.block {
+    position: relative;
+    height: 70vh;
+    font-size: 3rem;
+}
+
+.innerBlock {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+}
+
+.innerBlock h1 {
+    font-size: 6rem;
+}
+
+.innerBlock p {
+    font-size: 2.5rem;
 }
 
 @keyframes moveInUp {
@@ -151,10 +173,10 @@ header {
     .block4 {
         padding: 2em;
     }
-    .cover-container {
+    /* .cover-container {
         margin-top: 10rem;
     }
     .landingLogin__contents {
         margin-top: 19rem;
-    }
+    } */
 }
