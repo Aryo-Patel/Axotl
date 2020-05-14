@@ -12,20 +12,13 @@ const Landing = ({ isAuthenticated }) => {
 
   return (
     <Fragment>
-<<<<<<< HEAD
       <div className="text-center landingLogin">
         <div class="block4">
           <div className="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column landingLogin__contents">
-=======
-      <div className="text-center landingLogin ">
-        <div className="block">
-          <div className="innerBlock cover-container d-flex w-100 p-3 mx-auto flex-column landingLogin__contents">
->>>>>>> 90c8cf66f1f7a5e90bb306eaee454cd6fd994f32
             <h1 className="cover-heading home-head">Axotl</h1>
             <div className="row">
               <div className="col col-sm-2 col-md-3"></div>
               <div className="col col-12 col-sm-8 col-md-6">
-<<<<<<< HEAD
                 <p className="lead">Meet with hackathon organizations, corporate sponsors, and others interested in making
               or sponsoring coding-related events.</p>
               </div>
@@ -41,27 +34,6 @@ const Landing = ({ isAuthenticated }) => {
                 Register
               </Link>
 
-=======
-                <p className="lead">
-                  Meet with hackathon organizations, corporate sponsors, and
-                  others interested in making or sponsoring coding-related
-                  events.
-                </p>
-              </div>
-              <div className="col col-sm-2 col-md-3"></div>
-            </div>
-
-            <p className="lead" style={{ justifyContent: "center" }}>
-              <Link to="/login" className="btn btn-lg btn-secondary button-c">
-                Login
-              </Link>
-              <Link
-                to="/register"
-                className="btn btn-lg btn-secondary button-c"
-              >
-                Register
-              </Link>
->>>>>>> 90c8cf66f1f7a5e90bb306eaee454cd6fd994f32
             </p>
           </div>
         </div>
