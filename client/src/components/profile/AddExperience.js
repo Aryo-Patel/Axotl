@@ -56,7 +56,7 @@ class AddExperience extends Component {
 
     render() {
         return (
-            <div>
+            <div className = 'experienceWrapper'>
                 <form onSubmit={this.onSubmit}>
                 <TextField
                 name="company"

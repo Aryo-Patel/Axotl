@@ -109,38 +109,42 @@ router.post('/education', [check("school", "School is required").not().isEmpty()
 //GET       api/profiles/recipient/experience
 //Action    Add experience to user's profile
 //Private 
-router.post('/experience', [check("from", "From date is required").not().isEmpty(), check("current", "Current boolean is required").not().isEmpty(), check("description", "Description is required").not().isEmpty()], (req, res) => {
+router.post('/experience', [check("from", "From date is required").not().isEmpty(), check("current", "Current boolean is required").not().isEmpty(), check("description", "Description is required").not().isEmpty()], async(req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         res.status(400).json({ errors: errors.array() });
     }
-    RecipientProfile.findOne({ recipient: req.user._id })
-        .then(profile => {
-            let {
-                company,
-                position,
-                from,
-                to,
-                current,
-                description,
-                location,
-            } = req.body;
+    try {
+        const profile = await RecipientProfile.findOne({ recipient: req.user._id })
 
-            let newExperience = {};
-            if (company) newExperience.company = company;
-            if (position) newExperience.position = position;
-            newExperience.from = from;
-            if (to) newExperience.to = to;
-            newExperience.current = current;
-            newExperience.description = description;
-            if (location) newExperience.location = location;
+        let {
+            company,
+            position,
+            from,
+            to,
+            current,
+            description,
+            location,
+        } = req.body;
 
-            profile.experience.unshift(newExperience)
-            profile.save()
-                .then(res => res.json({ msg: "Saved!" }))
-                .catch(err => res.json({ msg: "Error saving :(" }))
-        })
-        .catch(err => res.json(err));
+        let newExperience = {};
+        if (company) newExperience.company = company;
+        if (position) newExperience.position = position;
+        newExperience.from = from;
+        if (to) newExperience.to = to;
+        newExperience.current = current;
+        newExperience.description = description;
+        if (location) newExperience.location = location;
+
+        profile.experience.unshift(newExperience)
+        await profile.save()
+        res.json({ msg: "Saved!" })
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error')
+    }
+
 })
 
 //GET       api/profiles/recipient/previous-hackathons
