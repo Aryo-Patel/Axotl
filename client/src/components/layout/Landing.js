@@ -14,7 +14,7 @@ const Landing = ({ isAuthenticated }) => {
     <Fragment>
       <div className="text-center landingLogin ">
         <div className="block">
-          <div className="innerBlock cover-container d-flex w-100 h-100 p-3 mx-auto flex-column landingLogin__contents">
+          <div className="innerBlock cover-container d-flex w-100 p-3 mx-auto flex-column landingLogin__contents">
             <h1 className="cover-heading home-head">Axotl</h1>
             <div className="row">
               <div className="col col-sm-2 col-md-3"></div>
@@ -50,9 +50,9 @@ const Landing = ({ isAuthenticated }) => {
               viewBox="0 0 24 24"
               fill="none"
               stroke="white"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               className="feather feather-rss blockIcon"
             >
               <path d="M4 11a9 9 0 0 1 9 9"></path>
@@ -84,9 +84,9 @@ const Landing = ({ isAuthenticated }) => {
               viewBox="0 0 24 24"
               fill="none"
               stroke="white"
-              stroke-width="1"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="1"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               className="feather feather-code blockIcon"
             >
               <polyline points="16 18 22 12 16 6"></polyline>
@@ -118,9 +118,9 @@ const Landing = ({ isAuthenticated }) => {
               viewBox="0 0 24 24"
               fill="none"
               stroke="white"
-              stroke-width="1"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="1"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               className="feather feather-trending-up blockIcon"
             >
               <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
