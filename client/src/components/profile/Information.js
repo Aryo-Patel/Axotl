@@ -12,18 +12,18 @@ class Information extends Component {
     // }
     render() {
         let donationTypes = this.props.profile.donationTypes;
-        
-        let donationList = Object.keys(donationTypes).map(function(key, index) {
-            if(donationTypes[key] === true){
+
+        let donationList = Object.keys(donationTypes).map(function (key, index) {
+            if (donationTypes[key] === true) {
                 return <li>{key}</li>
             } else {
                 return <div></div>
             }
-          });
+        });
 
         return (
             <div>
-                <h5>Donation Types:</h5> 
+                <h5>Donation Types:</h5>
                 <ul>
                     {donationList}
                 </ul>

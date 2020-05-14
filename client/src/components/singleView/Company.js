@@ -22,7 +22,7 @@ const Company = ({
   useEffect(() => {
     console.log(match.params.id);
     getCompany(match.params.id);
-  }, [getCompany]);
+  }, [getCompany, match.params.id]);
   let facebook = null;
   let twitter = null;
   let instagram = null;
