@@ -11,7 +11,7 @@ const Hackathon = require('../../models/Hackathon');
 //Action    create a hackathon
 //PRIVATE   need to be signed in (recipient or sponsor to access route)
 
-router.post('/create', async(req, res, next) => {
+router.post('/create', async (req, res, next) => {
     try {
         if (!req.user) {
             return res.status(401).json({
@@ -43,8 +43,7 @@ router.post('/create', async(req, res, next) => {
             judges, //array
             website,
             donations,
-            winners,
-            location
+            winners
         } = req.body;
 
         //create new hackathon
@@ -63,19 +62,19 @@ router.post('/create', async(req, res, next) => {
         if (website) newHackathon['website'] = website;
 
         //adds the prizes to the hackathon object
-        if(prizes){
+        if (prizes) {
             //initializes an empty array that stores all the prizes
             newHackathon.prizes = [];
 
-            
+
             prizes.forEach(prize => {
                 newHackathon.prizes.push(prize);
             })
 
         }
-        
+
         //adds the requirements to the hackathon object
-        if(requirements){
+        if (requirements) {
             //initializes an empty array that stores all the requirements
             newHackathon.requirements = [];
 
@@ -85,20 +84,20 @@ router.post('/create', async(req, res, next) => {
         }
 
         //adds the criterias to win in into the hackathon object
-        if(criteria){
+        if (criteria) {
             //initializes an empty array that stores all the criteria to win in
             newHackathon.criteria = [];
 
-            criteria.forEach(criterion =>{
+            criteria.forEach(criterion => {
                 newHackathon.criteria.push(criterion);
             })
         }
 
         //adds the location to the hackathon object
-        if(location) newHackathon.location = location;
+        if (location) newHackathon.location = location;
 
         //adds the forms to the hackathon
-        if(forms){
+        if (forms) {
             //initializes the array that the forms will save to
             newHackathon.forms = [];
 
@@ -117,7 +116,7 @@ router.post('/create', async(req, res, next) => {
         }
 
         //adds the judges to the hackathon
-        if(judges){
+        if (judges) {
             //initializes empty object that will contain all the judges
             newHackathon.judges = [];
 
@@ -212,46 +211,46 @@ router.post('/create', async(req, res, next) => {
 //Action    edit existing data in a hacakthon that is not winner or donations
 //PRIVATE   need to have same userId as the hackathon's recipient value
 
-router.put('/edit-general/:id', async(req, res, next) => {
-        //gets the ID of the hackathon to be modified
-        const hackathonId = req.params.id;
+router.put('/edit-general/:id', async (req, res, next) => {
+    //gets the ID of the hackathon to be modified
+    const hackathonId = req.params.id;
 
-        //does not allow a user to progress if they are not signed in
-        if (!req.user) {
+    //does not allow a user to progress if they are not signed in
+    if (!req.user) {
+        return res.status(401).json({
+            errors: [{ msg: "Not authorized to edit a hackathon" }]
+        });
+    }
+
+    try {
+
+        //grabs the Hackathon that is associated with the Id
+        let hackathon = await Hackathon.findOne({ _id: hackathonId });
+
+
+        if ((req.user._id + '') != (hackathon.recipient + '')) {
             return res.status(401).json({
-                errors: [{ msg: "Not authorized to edit a hackathon" }]
+                errors: [{ msg: "Not authorized to edit someone else's hackathon!" }]
             });
         }
 
-        try {
+        //Grabs all the parameters that are modified
+        const editParams = req.body;
 
-            //grabs the Hackathon that is associated with the Id
-            let hackathon = await Hackathon.findOne({ _id: hackathonId });
+        //updates the hackathon
+        let updateHackathon = await Hackathon.findOneAndUpdate({ _id: hackathonId }, { $set: editParams }, { new: true })
 
+        res.status(200).json(updateHackathon);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error or hackathon not found');
+    }
 
-            if ((req.user._id + '') != (hackathon.recipient + '')) {
-                return res.status(401).json({
-                    errors: [{ msg: "Not authorized to edit someone else's hackathon!" }]
-                });
-            }
-
-            //Grabs all the parameters that are modified
-            const editParams = req.body;
-
-            //updates the hackathon
-            let updateHackathon = await Hackathon.findOneAndUpdate({ _id: hackathonId }, { $set: editParams }, { new: true })
-
-            res.status(200).json(updateHackathon);
-        } catch (err) {
-            console.error(err);
-            res.status(500).send('Server Error or hackathon not found');
-        }
-
-    })
-    //PUT       /api/hackathons/edit/add-donation/:id
-    //Action    add donations that the group has recieved (automatic process)
-    //PRIVATE   user must be the same user as the hackathon creator
-router.put('/edit/add-donations/:id', async(req, res, next) => {
+})
+//PUT       /api/hackathons/edit/add-donation/:id
+//Action    add donations that the group has recieved (automatic process)
+//PRIVATE   user must be the same user as the hackathon creator
+router.put('/edit/add-donations/:id', async (req, res, next) => {
     //get the hackathon id
     let hackathonId = req.params.id;
 
@@ -293,7 +292,7 @@ router.put('/edit/add-donations/:id', async(req, res, next) => {
 //PUT       /api/hackathons/edit/add-donations-received/:id
 //Action    add donations that the group has recieved (automatic process)
 //PRIVATE   happens behind the scenes when a sponsor agrees to sponsor a hackathon
-router.put('/edit/add-donations-received/:hackathonId/:donationId', async(req, res, next) => {
+router.put('/edit/add-donations-received/:hackathonId/:donationId', async (req, res, next) => {
 
     //grab the prameters from the request
     let hackathonId = req.params.hackathonId;
@@ -325,7 +324,7 @@ router.put('/edit/add-donations-received/:hackathonId/:donationId', async(req, r
 //DELETE    /api/hackathons/deleteDonation/:hackathonId/:donationId
 //Action    allows creator of hackathon to delete a donation criteria if they are no longer looking for that to be
 //PRIVATE   needs to be owner of the hackathon
-router.delete('/deleteDonation/:hackathonId/:donationId', async(req, res, next) => {
+router.delete('/deleteDonation/:hackathonId/:donationId', async (req, res, next) => {
     //initializes variables to 
     const hackathonId = req.params.hackathonId;
     const donationId = req.params.donationId;
@@ -369,7 +368,7 @@ router.delete('/deleteDonation/:hackathonId/:donationId', async(req, res, next) 
 //PUT       /api/hackathons/add-winner/:hackathonId
 //Action    allows the creator of the hackathon to add winnners 
 //PRIVATE   needs to be owner of the hackathon
-router.put('/add-winner/:hackathonId', async(req, res, next) => {
+router.put('/add-winner/:hackathonId', async (req, res, next) => {
     //grab the hackathon's id from the requeset's parameters
     let hackathonId = req.params.hackathonId;
 
@@ -418,7 +417,7 @@ router.put('/add-winner/:hackathonId', async(req, res, next) => {
 //DELETE    api/hackathons/delete-winner/:hackathonId/:winnerId
 //Action    allows the creator of the hackathon to delete a winner
 //PRIVATE   needs to be owner of the hackathon
-router.delete('/delete-winner/:hackathonId/:winnerId', async(req, res, next) => {
+router.delete('/delete-winner/:hackathonId/:winnerId', async (req, res, next) => {
     //pulls the parameters from the request
     const hackathonId = req.params.hackathonId;
     const winnerId = req.params.winnerId;
@@ -461,7 +460,7 @@ router.delete('/delete-winner/:hackathonId/:winnerId', async(req, res, next) => 
 //DELETE    api/hackathons/delete-hackathon/:hackathonId
 //Action    allows the hackathon user to delete a hackathon
 //PRIVATE   needs to be owner of the hackathon
-router.delete('/delete-hackathon/:hackathonId', async(req, res, next) => {
+router.delete('/delete-hackathon/:hackathonId', async (req, res, next) => {
     //save the variables from the request parameters
     let hackathonId = req.params.hackathonId;
 
@@ -490,7 +489,7 @@ router.delete('/delete-hackathon/:hackathonId', async(req, res, next) => {
 //GET       /api/hackathons
 //Action    returns all the hackathons
 //PUBLIC    no authorization required to view all the hackathons
-router.get('/', async(req, res, next) => {
+router.get('/', async (req, res, next) => {
     try {
         //grabs all the hackathons
         let hackathons = await Hackathon.find().sort({ startDate: -1 });
@@ -505,7 +504,7 @@ router.get('/', async(req, res, next) => {
 //GET       /api/hackathons
 //Action    returns all the hackathons
 //PUBLIC    no authorization required to view all the hackathons
-router.get('/:id', async(req, res, next) => {
+router.get('/:id', async (req, res, next) => {
     try {
         //grabs all the hackathons
         let hackathon = await Hackathon.findById(req.params.id);
@@ -517,7 +516,7 @@ router.get('/:id', async(req, res, next) => {
     }
 });
 
-router.get('/search/locations', async(req, res) => {
+router.get('/search/locations', async (req, res) => {
     if (!req.user) {
         return res.status(404).json({ msg: 'User not authorized' })
     }
@@ -526,7 +525,7 @@ router.get('/search/locations', async(req, res) => {
         myLocation = myLocation.location
         let profiles = await Hackathon.find();
         let destinations = [];
-        profiles.forEach(async(profile) => {
+        profiles.forEach(async (profile) => {
             if (profile.location) {
                 destinations.push(profile.location)
             }

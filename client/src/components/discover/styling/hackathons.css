@@ -20,9 +20,13 @@
   }
 }
 
+.discoverContainer {
+  font-size: 1.6rem;
+}
+
 .header {
   text-align: center;
-  color: #4A535C;
+  color: #4a535c;
 }
 
 .hackathon-holder {
@@ -40,14 +44,14 @@
   -webkit-transition: 0.2s;
   transition: 0.2s;
   border-radius: 4px;
-  background-color: #2F72FF;
+  background-color: #2f72ff;
   color: rgba(255, 255, 255, 0.95);
   -webkit-box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.8);
           box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.8);
 }
 
 .hackathon-holder .hackathon-item h1 {
-  font-size: 1.4em;
+  font-size: 1.6rem;
 }
 
 .hackathon-holder .hackathon-item:hover {
@@ -86,6 +90,7 @@
 .modal-main {
   -webkit-transition: 2s;
   transition: 2s;
+  min-height: 400px;
   position: fixed;
   background: white;
   width: 80%;
@@ -95,9 +100,77 @@
   max-height: 600px;
   overflow-y: scroll;
   background-color: #41a0f2;
+  position: relative;
   background-position: 0, 0;
   -webkit-transform: scale(0) translate(-50%, -50%);
           transform: scale(0) translate(-50%, -50%);
+}
+
+.modal-main::-webkit-scrollbar {
+  display: none;
+}
+
+.modal-main .arrow {
+  position: absolute;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  color: white;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  width: 25px;
+}
+
+.modal-main .arrow:hover {
+  cursor: pointer;
+  width: 35px;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal-main .right-arrow {
+  right: 0;
+  top: 0;
+}
+
+.modal-main .modal-text {
+  font-size: 1.6em;
+}
+
+.modal-main .modal-text .modal-form {
+  margin-bottom: 70px;
+}
+
+.modal-main .modal-text .dots-holder {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  text-align: center;
+}
+
+.modal-main .modal-text .dots-holder .dot {
+  margin: 20px 10px;
+  display: inline-block;
+  height: 15px;
+  width: 15px;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  background: grey;
+  border-radius: 50%;
+}
+
+.modal-main .modal-text .dots-holder .dot:hover {
+  cursor: pointer;
+  background: darkgrey;
 }
 
 .modal-main .modal-text .lead {
@@ -113,8 +186,18 @@
 }
 
 .modal-main .modal-text .text-header {
-  text-align: left;
+  text-align: center;
+  font-size: 1.8em;
   color: #2b323a;
+  margin-top: 15px;
+}
+
+.modal-main .modal-text small {
+  padding: 5px;
+  border-bottom: 2px solid #2b323a;
+  width: 100%;
+  display: block;
+  margin-bottom: 40px;
 }
 
 .modal-main .modal-text .delete-request {
@@ -261,17 +344,26 @@
   margin: 10px 0px 10px 0px;
   text-align: center;
   width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .locationTags .locTag {
-  width: 150px;
-  height: 30px;
+  width: 15rem;
+  height: 3rem;
   display: inline-block;
   text-align: center;
-  margin: 20px 20px;
+  margin: 2rem 2rem;
   background-color: #71b8f5;
   color: black;
-  border-radius: 10px;
+  border-radius: 1rem;
   -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
@@ -292,5 +384,9 @@
 
 .locationTags .pressedTag {
   background-color: #d0e8fc;
+}
+
+.active {
+  background: darkgrey !important;
 }
 /*# sourceMappingURL=hackathons.css.map */

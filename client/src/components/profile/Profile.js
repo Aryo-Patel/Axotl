@@ -11,6 +11,7 @@ import Credentials from './Credentials';
 import Social from './Social';
 import Axios from 'axios';
 import { setAuthFalse } from '../../actions/auth';
+import "./styling/main.css"
 
 class Profile extends Component {
     constructor(props){

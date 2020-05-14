@@ -6,7 +6,7 @@ import {connect} from 'react-redux'
 
 const Discover = ({isSponsor}) => {
     return (
-        <div>
+        <div className = 'discoverContainer'>
            {isSponsor ? <Hackathons /> : <Companies />} 
         </div>
     )
