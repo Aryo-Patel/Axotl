@@ -1,29 +1,37 @@
-
+$primary-green: #87ffa7;
+$light-grey: #a5a5a5;
+$background-color: lighten(rgb(47, 114, 255), 5%);
+$primary-orange: lighten(rgb(255, 102, 71), 5%);
+$background-color-light: #2d3142;
+$primary-white: #eee;
 //Login body
-*:focus{
+*:focus {
     outline: none;
 }
+
 $text-color: rgb(86, 96, 104);
 $translateAmount: 100px;
-@keyframes fadeIn{
-    from{
+@keyframes fadeIn {
+    from {
         opacity: 0;
         transform: translateY($translateAmount)
     }
-    to{
+    to {
         opacity: 1;
         transform: translateY(0);
     }
 }
-@keyframes popUp{
-    from{
+
+@keyframes popUp {
+    from {
         transform: scale(0)
     }
-    to{
+    to {
         transform: scale(1);
     }
 }
-.body{
+
+.body {
     width: 100%;
     height: 100vh;
     background: url('../../images/hackathon-background.jpg');
@@ -32,76 +40,312 @@ $translateAmount: 100px;
     background-size: cover;
     overflow: hidden;
 }
-.login-container{
-    
+
+.login-container {
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: 50%; 
-
-    .form-group{
+    width: 50%;
+    .form-group {
         transform: translateY($translateAmount);
         opacity: 0;
         position: relative;
         animation: fadeIn 1.5s forwards;
-
-        &:nth-child(1){
+        &:nth-child(1) {
             animation-delay: 0.5s;
         }
-        &:nth-child(2){
+        &:nth-child(2) {
             animation-delay: 1s;
         }
     }
-
-    .form-group > label {
+    .form-group>label {
+        font-size: 2rem;
         position: absolute;
         width: 100%;
         top: 0;
-        left: 20px;
+        left: 2rem;
         pointer-events: none;
         color: $text-color;
         transition: 0.3s;
     }
-    .form-group:focus{
+    .form-group:focus {
         background-color: red;
     }
-    .form-input{
-        
+    .form-input {
+        font-size: 2rem;
         margin-bottom: 15px;
         background: none;
         border: none;
-        border-bottom: 2px solid $text-color; 
+        border-bottom: 2px solid $text-color;
         border-radius: 0px;
         width: 85%;
         z-index: 2;
         display: inline-block;
-
-        &:focus{
+        &:focus {
             border: none;
-            border-bottom: 2px solid $text-color; 
+            border-bottom: 2px solid $text-color;
         }
-
-        &:focus + label{
-            top: -20px;
-            font-size: 0.8em;
+        &:focus+label {
+            top: -2rem;
+            font-size: 1rem;
         }
-        &:valid + label{
-            top: -20px;
-            font-size: 0.8em;
+        &:valid+label {
+            top: -2rem;
+            font-size: 1rem;
         }
     }
-
-    .login-button{
+    .login-button {
         width: 85%;
         transform: scale(0);
         display: inline-block;
         animation: popUp 1s 1.5s forwards;
     }
-
-    .forgot-password{
+    .forgot-password {
         display: inline-block;
+        font-size: 1.6rem;
         transform: scale(0);
         animation: popUp 1s 1.5s forwards;
     }
+    .login__icon {
+        width: 2rem;
+        height: 2rem;
+        font-size: 2rem;
+    }
+}
+
+//forgot password page styling
+.forgotPassword {
+    border: 2px solid $light-grey;
+    border-radius: 10px;
+    padding: 10rem 7.5rem 20rem 7.5rem;
+    margin-top: 10rem;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    h3 {
+        margin-bottom: 10rem;
+    }
+    &__label {
+        font-size: 2rem;
+        position: absolute;
+        width: 100%;
+        top: 0;
+        left: 1rem;
+        pointer-events: none;
+        color: $text-color;
+        transition: 0.3s;
+    }
+    &__form {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    &__container {
+        display: flex;
+        opacity: 0;
+        transform: translateY($translateAmount);
+        position: relative;
+        align-items: center;
+        justify-content: space-around;
+        animation: fadeIn 1s 0s forwards;
+    }
+    &__email {
+        font-size: 2rem;
+        margin-bottom: 15px;
+        background: none;
+        border: none;
+        border-bottom: 2px solid $text-color;
+        border-radius: 0px;
+        width: 85%;
+        z-index: 2;
+        display: inline-block;
+        margin-right: 2rem;
+        &:focus {
+            border: none;
+            border-bottom: 2px solid $text-color;
+        }
+        &:focus+label {
+            top: -2rem;
+            font-size: 1rem;
+        }
+        &:valid+label {
+            top: -2rem;
+            font-size: 1rem;
+        }
+    }
+}
+
+.changePassword {
+    margin-top: 10rem;
+    border: 2px solid $light-grey;
+    border-radius: 10px;
+    padding: 10rem 15rem 25rem 15rem;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &__form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 50rem;
+    }
+    &__form-group {
+        transform: translateY($translateAmount);
+        opacity: 0;
+        position: relative;
+        margin: 2rem 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        animation: fadeIn 1s forwards;
+        &:nth-child(1) {
+            animation-delay: 0s;
+        }
+        &:nth-child(2) {
+            animation-delay: .25s;
+        }
+        &:nth-child(3) {
+            animation-delay: .5s;
+        }
+    }
+    &__input {
+        align-self: stretch;
+        font-size: 2rem;
+        margin-bottom: 15px;
+        background: none;
+        border: none;
+        border-bottom: 2px solid $text-color;
+        border-radius: 0px;
+        width: 100%;
+        z-index: 2;
+        display: inline-block;
+        &:focus {
+            border: none;
+            border-bottom: 2px solid $text-color;
+        }
+        &:focus+label {
+            top: -2rem;
+            font-size: 1rem;
+        }
+        &:valid+label {
+            top: -2rem;
+            font-size: 1rem;
+        }
+    }
+    &__label {
+        font-size: 2rem;
+        position: absolute;
+        width: 100%;
+        top: 0;
+        left: 1rem;
+        pointer-events: none;
+        color: $text-color;
+        transition: 0.3s;
+    }
+    &__submit {
+        width: 85%;
+        transform: scale(0);
+        display: inline-block;
+        animation: popUp 1s .75s forwards;
+    }
+    .forgot-password {
+        display: inline-block;
+        font-size: 1.6rem;
+        transform: scale(0);
+        animation: popUp 1s .75s forwards;
+    }
+}
+
+.resetPassword {
+    margin-top: 10rem;
+    border: 2px solid $light-grey;
+    border-radius: 10px;
+    padding: 10rem 15rem 25rem 15rem;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &__form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 50rem;
+    }
+    &__group {
+        transform: translateY($translateAmount);
+        opacity: 0;
+        position: relative;
+        margin: 2rem 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        animation: fadeIn 1s forwards;
+        &:nth-child(1) {
+            animation-delay: 0s;
+        }
+        &:nth-child(2) {
+            animation-delay: .25s;
+        }
+        &:nth-child(3) {
+            animation-delay: .5s;
+        }
+    }
+    &__input {
+        align-self: stretch;
+        font-size: 2rem;
+        margin-bottom: 15px;
+        background: none;
+        border: none;
+        border-bottom: 2px solid $text-color;
+        border-radius: 0px;
+        width: 100%;
+        z-index: 2;
+        display: inline-block;
+        &:focus {
+            border: none;
+            border-bottom: 2px solid $text-color;
+        }
+        &:focus+label {
+            top: -2rem;
+            font-size: 1rem;
+        }
+        &:valid+label {
+            top: -2rem;
+            font-size: 1rem;
+        }
+    }
+    &__label {
+        font-size: 2rem;
+        position: absolute;
+        width: 100%;
+        top: 0;
+        left: 1rem;
+        pointer-events: none;
+        color: $text-color;
+        transition: 0.3s;
+    }
+    &__submit {
+        width: 85%;
+        transform: scale(0);
+        display: inline-block;
+        animation: popUp 1s .75s forwards;
+    }
+}
+
+.emailSent {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

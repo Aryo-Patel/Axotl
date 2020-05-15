@@ -89,10 +89,11 @@
 }
 
 .login-container .form-group > label {
+  font-size: 2rem;
   position: absolute;
   width: 100%;
   top: 0;
-  left: 20px;
+  left: 2rem;
   pointer-events: none;
   color: #566068;
   -webkit-transition: 0.3s;
@@ -104,6 +105,7 @@
 }
 
 .login-container .form-input {
+  font-size: 2rem;
   margin-bottom: 15px;
   background: none;
   border: none;
@@ -120,13 +122,13 @@
 }
 
 .login-container .form-input:focus + label {
-  top: -20px;
-  font-size: 0.8em;
+  top: -2rem;
+  font-size: 1rem;
 }
 
 .login-container .form-input:valid + label {
-  top: -20px;
-  font-size: 0.8em;
+  top: -2rem;
+  font-size: 1rem;
 }
 
 .login-container .login-button {
@@ -140,9 +142,364 @@
 
 .login-container .forgot-password {
   display: inline-block;
+  font-size: 1.6rem;
   -webkit-transform: scale(0);
           transform: scale(0);
   -webkit-animation: popUp 1s 1.5s forwards;
           animation: popUp 1s 1.5s forwards;
+}
+
+.login-container .login__icon {
+  width: 2rem;
+  height: 2rem;
+  font-size: 2rem;
+}
+
+.forgotPassword {
+  border: 2px solid #a5a5a5;
+  border-radius: 10px;
+  padding: 10rem 7.5rem 20rem 7.5rem;
+  margin-top: 10rem;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.forgotPassword h3 {
+  margin-bottom: 10rem;
+}
+
+.forgotPassword__label {
+  font-size: 2rem;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 1rem;
+  pointer-events: none;
+  color: #566068;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.forgotPassword__form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.forgotPassword__container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  opacity: 0;
+  -webkit-transform: translateY(100px);
+          transform: translateY(100px);
+  position: relative;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-animation: fadeIn 1s 0s forwards;
+          animation: fadeIn 1s 0s forwards;
+}
+
+.forgotPassword__email {
+  font-size: 2rem;
+  margin-bottom: 15px;
+  background: none;
+  border: none;
+  border-bottom: 2px solid #566068;
+  border-radius: 0px;
+  width: 85%;
+  z-index: 2;
+  display: inline-block;
+  margin-right: 2rem;
+}
+
+.forgotPassword__email:focus {
+  border: none;
+  border-bottom: 2px solid #566068;
+}
+
+.forgotPassword__email:focus + label {
+  top: -2rem;
+  font-size: 1rem;
+}
+
+.forgotPassword__email:valid + label {
+  top: -2rem;
+  font-size: 1rem;
+}
+
+.changePassword {
+  margin-top: 10rem;
+  border: 2px solid #a5a5a5;
+  border-radius: 10px;
+  padding: 10rem 15rem 25rem 15rem;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.changePassword__form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 50rem;
+}
+
+.changePassword__form-group {
+  -webkit-transform: translateY(100px);
+          transform: translateY(100px);
+  opacity: 0;
+  position: relative;
+  margin: 2rem 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  -webkit-animation: fadeIn 1s forwards;
+          animation: fadeIn 1s forwards;
+}
+
+.changePassword__form-group:nth-child(1) {
+  -webkit-animation-delay: 0s;
+          animation-delay: 0s;
+}
+
+.changePassword__form-group:nth-child(2) {
+  -webkit-animation-delay: .25s;
+          animation-delay: .25s;
+}
+
+.changePassword__form-group:nth-child(3) {
+  -webkit-animation-delay: .5s;
+          animation-delay: .5s;
+}
+
+.changePassword__input {
+  -ms-flex-item-align: stretch;
+      -ms-grid-row-align: stretch;
+      align-self: stretch;
+  font-size: 2rem;
+  margin-bottom: 15px;
+  background: none;
+  border: none;
+  border-bottom: 2px solid #566068;
+  border-radius: 0px;
+  width: 100%;
+  z-index: 2;
+  display: inline-block;
+}
+
+.changePassword__input:focus {
+  border: none;
+  border-bottom: 2px solid #566068;
+}
+
+.changePassword__input:focus + label {
+  top: -2rem;
+  font-size: 1rem;
+}
+
+.changePassword__input:valid + label {
+  top: -2rem;
+  font-size: 1rem;
+}
+
+.changePassword__label {
+  font-size: 2rem;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 1rem;
+  pointer-events: none;
+  color: #566068;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.changePassword__submit {
+  width: 85%;
+  -webkit-transform: scale(0);
+          transform: scale(0);
+  display: inline-block;
+  -webkit-animation: popUp 1s .75s forwards;
+          animation: popUp 1s .75s forwards;
+}
+
+.changePassword .forgot-password {
+  display: inline-block;
+  font-size: 1.6rem;
+  -webkit-transform: scale(0);
+          transform: scale(0);
+  -webkit-animation: popUp 1s .75s forwards;
+          animation: popUp 1s .75s forwards;
+}
+
+.resetPassword {
+  margin-top: 10rem;
+  border: 2px solid #a5a5a5;
+  border-radius: 10px;
+  padding: 10rem 15rem 25rem 15rem;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.resetPassword__form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 50rem;
+}
+
+.resetPassword__group {
+  -webkit-transform: translateY(100px);
+          transform: translateY(100px);
+  opacity: 0;
+  position: relative;
+  margin: 2rem 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  -webkit-animation: fadeIn 1s forwards;
+          animation: fadeIn 1s forwards;
+}
+
+.resetPassword__group:nth-child(1) {
+  -webkit-animation-delay: 0s;
+          animation-delay: 0s;
+}
+
+.resetPassword__group:nth-child(2) {
+  -webkit-animation-delay: .25s;
+          animation-delay: .25s;
+}
+
+.resetPassword__group:nth-child(3) {
+  -webkit-animation-delay: .5s;
+          animation-delay: .5s;
+}
+
+.resetPassword__input {
+  -ms-flex-item-align: stretch;
+      -ms-grid-row-align: stretch;
+      align-self: stretch;
+  font-size: 2rem;
+  margin-bottom: 15px;
+  background: none;
+  border: none;
+  border-bottom: 2px solid #566068;
+  border-radius: 0px;
+  width: 100%;
+  z-index: 2;
+  display: inline-block;
+}
+
+.resetPassword__input:focus {
+  border: none;
+  border-bottom: 2px solid #566068;
+}
+
+.resetPassword__input:focus + label {
+  top: -2rem;
+  font-size: 1rem;
+}
+
+.resetPassword__input:valid + label {
+  top: -2rem;
+  font-size: 1rem;
+}
+
+.resetPassword__label {
+  font-size: 2rem;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 1rem;
+  pointer-events: none;
+  color: #566068;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.resetPassword__submit {
+  width: 85%;
+  -webkit-transform: scale(0);
+          transform: scale(0);
+  display: inline-block;
+  -webkit-animation: popUp 1s .75s forwards;
+          animation: popUp 1s .75s forwards;
+}
+
+.emailSent {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
 }
 /*# sourceMappingURL=authstyles.css.map */

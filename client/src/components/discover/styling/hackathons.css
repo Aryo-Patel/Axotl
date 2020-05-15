@@ -101,7 +101,7 @@
   overflow-y: scroll;
   background-color: #41a0f2;
   position: relative;
-  background-position: 0, 0;
+  background-position: 0, 0;
   -webkit-transform: scale(0) translate(-50%, -50%);
           transform: scale(0) translate(-50%, -50%);
 }
@@ -271,16 +271,16 @@
   display: inline-block;
   text-align: center;
   width: 100%;
-  margin: 50px 0px 0px 0px;
-  z-index: -1;
+  margin: 10rem 0px 0px 0px;
+  z-index: 1;
 }
 
 .searchingContainer .searchBar {
   vertical-align: middle;
-  padding: 0px 20px;
-  width: 800px;
-  height: 50px;
-  font-size: 30px;
+  padding: 0px 2rem;
+  width: 80rem;
+  height: 5rem;
+  font-size: 3rem;
   border: 5px solid #566068;
   border-radius: 100px;
 }
@@ -294,11 +294,11 @@
 }
 
 .searchingContainer .search {
-  margin: 0px 10px;
+  margin: 0px 1rem;
   vertical-align: middle;
-  height: 50px;
+  height: 5rem;
   background-color: #41a0f2;
-  width: 150px;
+  width: 15rem;
   border: 2px solid #1188ef;
   border-radius: 100px;
 }
@@ -310,11 +310,11 @@
 }
 
 .donTags .donTag {
-  width: 150px;
-  height: 30px;
+  width: 15rem;
+  height: 3rem;
   display: inline-block;
   text-align: center;
-  margin: 20px 20px;
+  margin: 2rem 2rem;
   background-color: #71b8f5;
   color: black;
   border-radius: 10px;

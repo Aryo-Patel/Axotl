@@ -88,7 +88,7 @@ router.get('/forgotpassword/:email', async(req, res) => {
 })
 
 //POST /api/recipients/resetpassword/:jwt
-//Action send reset password
+//Action reset password
 // PUBLIC (ish, no authentication)
 router.post('/resetpassword/:jwt', async(req, res) => {
     try {
@@ -109,6 +109,49 @@ router.post('/resetpassword/:jwt', async(req, res) => {
         await user.save()
         console.log(`After User :`)
         console.log(user)
+        res.json({ msg: "Password Changed" })
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server Error")
+    }
+})
+
+//POST /api/auth/changepassword
+//Action change password
+// PRIVATE
+router.post('/changepassword', async(req, res) => {
+    //check if user is logged in
+    if (!req.user) {
+        console.log('unauthorized')
+        return res.status(401).json({ msg: "User not authorized" });
+    }
+    //extract passwords from body and check if current password is correct
+    const { password, newPassword } = req.body;
+    const corrPassword = await bcrypt.compare(password, req.user.password)
+    const sameNewPassword = await bcrypt.compare(newPassword, req.user.password)
+    if (!corrPassword) {
+        console.log("password didn't match")
+        return res.status(401).json({ msg: "Incorrect Credentials" });
+    }
+    // if (sameNewPassword) {
+    //     return res.status(400).json({ msg: "New password cannot be the same as old password" })
+    // }
+
+
+    try {
+        //find the user
+        const user = await Recipient.findById(req.user._id) || await Sponsor.findById(req.user._id);
+        //validate the password
+        if (newPassword.length < 6) {
+            return res.status(400).json({ msg: 'Password too short' })
+        }
+        //ASSUMING PASSWORDS MATCH
+        //encrypt the new password
+        const salt = await bcrypt.genSalt(10)
+        user.password = await bcrypt.hash(newPassword, salt)
+            //save the new password
+        await user.save()
+        console.log('we made it')
         res.json({ msg: "Password Changed" })
     } catch (err) {
         console.error(err.message);

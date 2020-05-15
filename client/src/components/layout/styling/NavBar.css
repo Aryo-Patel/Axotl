@@ -19,15 +19,15 @@
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  -webkit-transition: color .2s, background-color .2s;
-  transition: color .2s, background-color .2s;
+  -webkit-transition: color 0.2s, background-color 0.2s;
+  transition: color 0.2s, background-color 0.2s;
 }
 
 .navContainer .navbar-brand {
   margin-left: 3rem;
   color: #4983ff;
-  -webkit-transition: color .2s, background-color .2s;
-  transition: color .2s, background-color .2s;
+  -webkit-transition: color 0.2s, background-color 0.2s;
+  transition: color 0.2s, background-color 0.2s;
 }
 
 .navContainer .auth-links {
@@ -40,8 +40,8 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-transition: color .2s, background-color .2s;
-  transition: color .2s, background-color .2s;
+  -webkit-transition: color 0.2s, background-color 0.2s;
+  transition: color 0.2s, background-color 0.2s;
 }
 
 .navContainer .auth-links div {
@@ -61,8 +61,8 @@
       -ms-flex-align: stretch;
           align-items: stretch;
   color: white;
-  -webkit-transition: color .2s, background-color .2s;
-  transition: color .2s, background-color .2s;
+  -webkit-transition: color 0.2s, background-color 0.2s;
+  transition: color 0.2s, background-color 0.2s;
 }
 
 .navContainer .auth-links .link-list .active {
@@ -73,15 +73,15 @@
 .navContainer .auth-links .link-list a:link {
   color: #4983ff;
   background-color: none !important;
-  -webkit-transition: color .2s, background-color .2s;
-  transition: color .2s, background-color .2s;
+  -webkit-transition: color 0.2s, background-color 0.2s;
+  transition: color 0.2s, background-color 0.2s;
   text-decoration: none;
 }
 
 .navContainer .auth-links .link-list label {
   color: #4983ff;
-  -webkit-transition: color .2s, background-color .2s;
-  transition: color .2s, background-color .2s;
+  -webkit-transition: color 0.2s, background-color 0.2s;
+  transition: color 0.2s, background-color 0.2s;
 }
 
 .navContainer .auth-links .link-list li {
@@ -100,8 +100,8 @@
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  -webkit-transition: all .2s;
-  transition: all .2s;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
   -webkit-box-flex: 0;
       -ms-flex: 0 0 20%;
           flex: 0 0 20%;
@@ -121,8 +121,8 @@
 
 .navContainer .logout-link {
   max-height: 4rem;
-  -webkit-transition: color .2s, background-color .2s;
-  transition: color .2s, background-color .2s;
+  -webkit-transition: color 0.2s, background-color 0.2s;
+  transition: color 0.2s, background-color 0.2s;
 }
 
 .navContainer .dropdown__toggle:hover h3 {
@@ -329,14 +329,15 @@
 .dropdown {
   opacity: 0;
   visibility: none;
-  top: 100.0%;
+  height: 0;
+  top: 100%;
   right: 0%;
   width: 22.875rem;
   position: absolute;
   border-bottom: 1px solid transparent;
   border-radius: 20px;
-  -webkit-transition: all .2s ease;
-  transition: all .2s ease;
+  -webkit-transition: visibility .3s ease, opacity .3s ease;
+  transition: visibility .3s ease, opacity .3s ease;
 }
 
 .dropdown__item {
@@ -345,7 +346,7 @@
   background-color: #2f72ff;
   text-align: right;
   font-size: 1.6rem;
-  padding: 1rem 0rem;
+  padding: 1rem 1rem;
   -webkit-box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.1);
           box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.1);
   z-index: 2;
@@ -370,9 +371,9 @@
   color: #eee;
   display: table;
   margin-right: 3rem;
-  padding: .5rem 2rem;
-  -webkit-transition: all .3s;
-  transition: all .3s;
+  padding: 0.5rem 2rem;
+  -webkit-transition: visibility .5s ease, background-color .2s, opacity .5s ease;
+  transition: visibility .5s ease, background-color .2s, opacity .5s ease;
   position: relative;
   z-index: 100;
 }
@@ -387,8 +388,13 @@
 }
 
 .dropdown__toggle:hover .dropdown {
+  height: 137px;
   visibility: visible;
   opacity: 1;
+}
+
+.dropdown__toggle:hover ~ .dropdown {
+  background-color: red;
 }
 
 .dropdown__top {
@@ -402,6 +408,7 @@
       -ms-flex-align: center;
           align-items: center;
   color: #eee;
+  padding: 0 1rem;
 }
 
 .dropdown__top h3 {
@@ -430,7 +437,7 @@
 }
 
 .hackModalToggler {
-  margin-top: .5rem;
+  margin-top: 0.5rem;
   color: #2f72ff;
 }
 /*# sourceMappingURL=NavBar.css.map */
