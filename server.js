@@ -1,11 +1,10 @@
 //packages
 const express = require('express')
-const socketio = require('socket.io')
-const http = require('http')
 const passport = require('passport')
 const session = require('express-session')
 const config = require('config')
 const MongoStore = require('connect-mongo')(session);
+const socket = require('socket.io');
 
 //routers
 const recipients = require('./routes/api/recipients');
@@ -126,6 +125,17 @@ app.use('/api/hackathons/hackathon', hackathonProfile);
 app.use('/api/auth', auth)
 
 //Server Initialization
-app.listen(PORT, () => {
+let server = app.listen(PORT, () => {
     console.log(`Server Initialized on port ${PORT}`)
-})
+});
+
+let io = socket(server);
+
+io.on('connection', (socket) =>{
+    console.log("Connection to socket made...")
+
+    socket.on('newMessage', (message) => {
+        console.log(message);
+        io.sockets.emit('newMessage', (message))
+    })
+});

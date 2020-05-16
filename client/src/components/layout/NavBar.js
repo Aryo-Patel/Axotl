@@ -14,33 +14,28 @@ const NavBar = ({ isAuthenticated, auth }) => {
   }, [isSmallScreen]);
   const [modalDisplay, setModalDisplay] = useState(false);
   //checking to make sure the correct thing was clicked on, and if so closing the modal
-  const closeModal = (e) => {
-    if (
-      e.target.classList.contains("hackModalToggler") ||
-      e.target.classList.contains("hack-modal")
-    ) {
-      setModalDisplay(!modalDisplay);
-    }
+  const closeModal = () => {
+    setModalDisplay(!modalDisplay);
+
   };
 
   //adding the scrolled class to the navcontainer if the document scroll is larger than the navbar
   $(() => {
     $(document).scroll(() => {
-      console.log('HELLO MC')
       let $nav = $('.navContainer');
-      if($(document).scrollTop() > $nav.innerHeight()) {
+      if ($(document).scrollTop() > $nav.innerHeight()) {
         $nav.addClass('scrolled')
       } else {
         try {
-        $nav.removeClass('scrolled')
-        } catch(err) {
+          $nav.removeClass('scrolled')
+        } catch (err) {
           console.log(err)
         }
       }
-     
+
     })
   })
-  
+
 
   const authRecLinks = (
     <ul className="link-list">
@@ -56,7 +51,7 @@ const NavBar = ({ isAuthenticated, auth }) => {
       </li>
       <li className="nav-item active mx-4 text-center">
         <label
-          onClick={(e) => closeModal(e)}
+          onClick={(e) => closeModal()}
           className="nav-link nav__btn hackModalToggler"
           htmlFor="navToggle"
         >
@@ -142,7 +137,7 @@ const NavBar = ({ isAuthenticated, auth }) => {
       <input type="checkbox" className="navCheckbox" id="navToggle" />
       <CreateHackathonModal
         show={modalDisplay}
-        handleClose={(e) => closeModal(e)}
+        handleClose={() => closeModal()}
       />
       <div className="navContainer">
         {/*
@@ -177,23 +172,23 @@ const NavBar = ({ isAuthenticated, auth }) => {
                   <div>{authSponsLinks}</div>
                 </Fragment>
               ) : (
-                authRecLinks
-              )}
+                    authRecLinks
+                  )}
             </div>
             {!auth.loading && auth.user && (
               <div onClick={e=>onClick(e)} className="dropdown__toggle">
                 <div className="dropdown__top">
-                <img
-                  src={auth.user.user.avatar}
-                  alt=""
-                  className="dropdown__img"
-                />
-                <h3 className="display-5 display-inline align-middle dropdown__name">
-                  {auth.user.user.name.split(" ")[0]}
-                </h3>
-                <svg className="dropdown__icon" viewBox="0 0 20 20">
-                  <path d="M17.418 6.109c0.272-0.268 0.709-0.268 0.979 0s0.271 0.701 0 0.969l-7.908 7.83c-0.27 0.268-0.707 0.268-0.979 0l-7.908-7.83c-0.27-0.268-0.27-0.701 0-0.969s0.709-0.268 0.979 0l7.419 7.141 7.418-7.141z"></path>
-                </svg>
+                  <img
+                    src={auth.user.user.avatar}
+                    alt=""
+                    className="dropdown__img"
+                  />
+                  <h3 className="display-5 display-inline align-middle dropdown__name">
+                    {auth.user.user.name.split(" ")[0]}
+                  </h3>
+                  <svg className="dropdown__icon" viewBox="0 0 20 20">
+                    <path d="M17.418 6.109c0.272-0.268 0.709-0.268 0.979 0s0.271 0.701 0 0.969l-7.908 7.83c-0.27 0.268-0.707 0.268-0.979 0l-7.908-7.83c-0.27-0.268-0.27-0.701 0-0.969s0.709-0.268 0.979 0l7.419 7.141 7.418-7.141z"></path>
+                  </svg>
                 </div>
                 <div className="dropdown">
                   <Link to="/profile" className="dropdown__item">
@@ -212,61 +207,61 @@ const NavBar = ({ isAuthenticated, auth }) => {
             )}
           </Fragment>
         ) : (
-          <Fragment>
-            <button
-              onClick={(e) => toggleDropDown()}
-              className="navbar-toggler"
-              style={{
-                borderColor: "#87ffa7",
-                padding: "0",
-                width: "44",
-                height: "50",
-              }}
-              type="button"
-              data-target="#navbarContent"
-              aria-controls="navbarContent"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <svg
-                className="bi bi-chevron-compact-down"
-                style={{ width: "44", height: "50" }}
-                width="1em"
-                height="1em"
-                viewBox="0 0 16 16"
-                fill="currentColor"
-                xmlns="http://www.w3.org/2000/svg"
+            <Fragment>
+              <button
+                onClick={(e) => toggleDropDown()}
+                className="navbar-toggler"
+                style={{
+                  borderColor: "#87ffa7",
+                  padding: "0",
+                  width: "44",
+                  height: "50",
+                }}
+                type="button"
+                data-target="#navbarContent"
+                aria-controls="navbarContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
               >
-                <path
-                  fillRule="evenodd"
-                  d="M1.553 6.776a.5.5 0 01.67-.223L8 9.44l5.776-2.888a.5.5 0 11.448.894l-6 3a.5.5 0 01-.448 0l-6-3a.5.5 0 01-.223-.67z"
-                  clipRule="evenodd"
+                <svg
+                  className="bi bi-chevron-compact-down"
+                  style={{ width: "44", height: "50" }}
+                  width="1em"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M1.553 6.776a.5.5 0 01.67-.223L8 9.44l5.776-2.888a.5.5 0 11.448.894l-6 3a.5.5 0 01-.448 0l-6-3a.5.5 0 01-.223-.67z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </button>
+
+              <Link to="/" className="navbar-brand">
+                <img
+                  className="mx-2 align-middle"
+                  src="https://i.imgur.com/LVIZD64.jpg?1"
+                  alt="Logo"
+                  style={{ width: "46px", height: "43px", opacity: "100%" }}
                 />
-              </svg>
-            </button>
-
-            <Link to="/" className="navbar-brand">
-              <img
-                className="mx-2 align-middle"
-                src="https://i.imgur.com/LVIZD64.jpg?1"
-                alt="Logo"
-                style={{ width: "46px", height: "43px", opacity: "100%" }}
-              />
-              <h3
-                className="display-5 display-inline align-middle"
-                style={{ display: "inline" }}
-              >
-                Axotl
+                <h3
+                  className="display-5 display-inline align-middle"
+                  style={{ display: "inline" }}
+                >
+                  Axotl
               </h3>
-            </Link>
-
-            {!auth.loading && auth.user && (
-              <Link to="/logout" className="btn btn-danger">
-                Logout
               </Link>
-            )}
-          </Fragment>
-        )}
+
+              {!auth.loading && auth.user && (
+                <Link to="/logout" className="btn btn-danger">
+                  Logout
+                </Link>
+              )}
+            </Fragment>
+          )}
       </div>
       {dropDown && (
         <Fragment>
@@ -282,8 +277,8 @@ const NavBar = ({ isAuthenticated, auth }) => {
                     <div>{authSponsLinks}</div>
                   </Fragment>
                 ) : (
-                  authRecLinks
-                )}
+                      authRecLinks
+                    )}
               </div>
             </div>
           </div>

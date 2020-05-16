@@ -1,0 +1,45 @@
+.header {
+    width: 80%;
+    position: relative;
+    background-color: lightgrey;
+    height: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%)
+}
+
+.container {
+    width: 80%;
+    background-color: white;
+    margin: none;
+}
+.first {
+    width: 25%;
+    float: left;
+    height: 500px;
+    background-color: lightblue;
+    overflow: scroll;
+}
+.second {
+    width: 75%;
+    float: left;
+    height: 475px;
+    background-color: whitesmoke;
+    overflow-y: scroll;
+    overflow-wrap: break-word;
+
+}
+
+.text-field {
+    width: 75%;
+    left: 25%;
+    float: left;
+    height: 25px;
+    background-color: whitesmoke;
+    overflow-y: scroll;
+    overflow-wrap: break-word;
+    bottom: 0px;
+}
+
+.clear {
+    clear: both;
+}

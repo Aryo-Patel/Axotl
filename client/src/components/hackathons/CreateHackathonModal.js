@@ -2,6 +2,7 @@ import React, { useState, Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import $ from 'jquery';
 //importing create hackathon action
 import { createHackathon } from '../../actions/hackathonActions';
 
@@ -26,8 +27,8 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
             awardTitle: '',
             prize: ''
         }],
-        requirements: [],
-        criteria: [],
+        requirements: [''],
+        criteria: [''],
         location: '',
         forms: [{
             title: '',
@@ -79,6 +80,9 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
         }
 
         //depending on what the selected table is, create the respective elements and adds the data to the formData object
+        //the inputs MUST have a name in the format row-${newIndex}-[what the input corresponds to in the state component]
+        //the first class on the delete buttons (spans) must correspond to the name of the table it is in. For example, if
+        //the span is being appended to the table in the table called #donations-table, it should have a classList[0] of donations
         switch (category) {
             case 'donations':
                 //sets the donation form data
@@ -90,6 +94,7 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
                 let array = formData.donations;
                 array.push(formDataDonationUpdate);
                 setFormData({
+                    ...formData,
                     donations: array
                 });
 
@@ -98,131 +103,199 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
                 let quantity = newRow.insertCell(1);
                 let description = newRow.insertCell(2);
                 let deleteButton = newRow.insertCell(3);
-                type.innerHTML = `<input type = "text" placeholder = "Type" value = "${formData.donations[newIndex].type}" name = row-${newIndex}-type onChange = "${e => donationAddText(e)}"/> `;
-                quantity.innerHTML = `<input type = "text" placeholder = "Quantity" value = "${formData.donations[newIndex].quantity}" name = row-${newIndex}-quantity onChange = "${e => donationAddText(e)}"/> `;
-                description.innerHTML = `<input type = "text" placeholder = "Description" value = "${formData.donations[newIndex].description}" name = row-${newIndex}-description onChange = "${e => donationAddText(e)}"/>`;
+                //creates the input elements
+                let typeInput = document.createElement('input');
+                let quantityInput = document.createElement('input');
+                let descriptionInput = document.createElement('input');
+
+                //adds the type input
+                typeInput.type = 'text';
+                typeInput.placeholder = 'Type';
+                typeInput.value = formData.donations[newIndex].type;
+                typeInput.addEventListener('keyup', e => {
+                    addText(e);
+                });
+                typeInput.name = `row-${newIndex}-type`;
+                type.appendChild(typeInput);
+
+                //adds quantity input
+                quantityInput.type = 'text';
+                quantityInput.placeholder = 'Quantity';
+                quantityInput.value = formData.donations[newIndex].quantity;
+                quantityInput.addEventListener('keyup', e => {
+                    addText(e);
+                });
+                quantityInput.name = `row-${newIndex}-quantity`;
+                quantity.appendChild(quantityInput);
+                //adds the description input
+                descriptionInput.type = 'text';
+                descriptionInput.placeholder = 'Description';
+                descriptionInput.value = formData.donations[newIndex].description;
+                descriptionInput.addEventListener('keyup', e => {
+                    addText(e);
+                });
+                descriptionInput.name = `row-${newIndex}-description`;
+                description.appendChild(descriptionInput);
+
                 let deleteSpan = document.createElement('span');
+                deleteSpan.classList.add('donations');
                 deleteSpan.classList.add('delete-request');
                 deleteSpan.textContent = 'X';
                 deleteSpan.addEventListener('click', e => deleteTableRow(e));
                 deleteButton.appendChild(deleteSpan);
+                return;
+
+            case 'prizes':
+                //component to add to the state
+                let stateWinnersUpdate = {
+                    awardTitle: '',
+                    prize: ''
+                }
+
+                //appending blank donation object to the state component
+                let prizesArray = formData.prizes;
+                prizesArray.push(stateWinnersUpdate);
+                setFormData({
+                    ...formData,
+                    winners: prizesArray
+                });
+
+                //create the row items
+                let awardTitle = newRow.insertCell(0);
+                let prize = newRow.insertCell(1);
+                let deleteRow = newRow.insertCell(2);
+
+                let awardTitleInput = document.createElement('input');
+                awardTitleInput.type = 'text';
+                awardTitleInput.value = formData.prizes[newIndex].awardTitle;
+                awardTitleInput.name = `row-${newIndex}-awardTitle`;
+                awardTitleInput.addEventListener('keyup', e => {
+                    addText(e);
+                });
+                awardTitleInput.placeholder = 'Award Title';
+                awardTitle.appendChild(awardTitleInput);
+
+
+                let prizeInput = document.createElement('input');
+                prizeInput.type = 'text';
+                prizeInput.value = formData.prizes[newIndex].prize;
+                prizeInput.name = `row-${newIndex}-prize`;
+                prizeInput.addEventListener('keyup', e => {
+                    addText(e);
+                });
+                prizeInput.placeholder = 'Prize';
+                prize.appendChild(prizeInput);
+
+                let prizesDeleteSpan = document.createElement('span');
+                prizesDeleteSpan.classList.add('prizes');
+                prizesDeleteSpan.classList.add('delete-request');
+                prizesDeleteSpan.textContent = 'X';
+                prizesDeleteSpan.addEventListener('click', e => deleteTableRow(e));
+                deleteRow.appendChild(prizesDeleteSpan);
+                return;
+
+            case 'requirements':
+                //add data to formData
+                let requirementsArray = formData.requirements;
+                requirementsArray.push('');
+
+                setFormData({
+                    ...formData,
+                    requirements: requirementsArray
+                });
+
+                let requirement = newRow.insertCell(0);
+                let requirementDeleteButton = newRow.insertCell(1);
+
+                let requirementInput = document.createElement('input');
+                requirementInput.type = 'text';
+                requirementInput.placeholder = 'Requirement';
+                requirementInput.value = formData.requirements[newIndex];
+                requirementInput.name = `row-${newIndex}-requirement`;
+                requirementInput.addEventListener('keyup', e => {
+                    addText(e);
+                });
+                requirement.appendChild(requirementInput);
+
+                let requirementDeleteSpan = document.createElement('span');
+                requirementDeleteSpan.classList.add('requirements');
+                requirementDeleteSpan.classList.add('delete-request');
+                requirementDeleteSpan.textContent = 'X';
+                requirementDeleteSpan.addEventListener('click', e => deleteTableRow(e));
+                requirementDeleteButton.appendChild(requirementDeleteSpan);
+                return;
+            case 'criteria':
+                //adding the form data
+                let criteriaArray = formData.criteria;
+                criteriaArray.push('');
+                setFormData({
+                    ...formData,
+                    criteria: criteriaArray
+                });
+
+                let criterion = newRow.insertCell(0);
+                let criterionDelete = newRow.insertCell(1);
+
+                let criterionInput = document.createElement('input');
+                criterionInput.type = 'text';
+                criterionInput.name = `row-${newIndex}-criteria`;
+                criterionInput.placeholder = 'Criterion';
+                criterionInput.value = formData.criteria[newIndex];
+                criterionInput.addEventListener('keyup', e => {
+                    addText(e);
+                });
+                criterion.appendChild(criterionInput);
+
+                let criterionDeleteSpan = document.createElement('span');
+                criterionDeleteSpan.classList.add('criteria');
+                criterionDeleteSpan.classList.add('delete-request');
+                criterionDeleteSpan.textContent = 'X';
+                criterionDeleteSpan.addEventListener('click', e => {
+                    deleteTableRow(e);
+                });
+                criterionDelete.appendChild(criterionDeleteSpan);
+                return;
+            case 'judges':
+
+                //set formData
+                let judgesArray = formData.judges;
+                judgesArray.push('');
+                setFormData({
+                    judges: judgesArray
+                });
+
+                let judge = newRow.insertCell(0);
+                let judgeDeleteButton = newRow.insertCell(1);
+
+                let judgeInput = document.createElement('input');
+                judgeInput.type = 'text';
+                judgeInput.placeholder = "Judge's name";
+                judgeInput.value = formData.judges[newIndex];
+                judgeInput.name = `row-${newIndex}-judges`;
+                judgeInput.addEventListener('keyup', e => {
+                    addText(e);
+                });
+                judge.appendChild(judgeInput);
+
+                let judgeDeleteButtonInput = document.createElement('span');
+                judgeDeleteButtonInput.classList.add('judges');
+                judgeDeleteButtonInput.classList.add('delete-request');
+                judgeDeleteButtonInput.textContent = 'X';
+                judgeDeleteButtonInput.addEventListener('click', e => {
+                    deleteTableRow(e);
+                });
+                judgeDeleteButton.appendChild(judgeDeleteButtonInput);
                 return;
             default:
                 alert('unrecognized tables because a specific developer is a potato (Aryo)');
                 return
         }
 
-        //adds a new table row to form data in the respective category
-    }
-
-    function deleteTableRow(e) {
-        //deletes table row
-        //renames the classes to re-align with the array indeces
-    }
-    //adds a table row to either 
-    function addTableRowDonation(e) {
-
-        //done to calculate the digit that will be added to the new table row values
-        let tableArray = e.target.parentNode.children[1].children[1].children;
-        let newRow = e.target.parentNode.children[1].insertRow();
-        let newIndex = tableArray.length - 1;
-
-
-        //sets newIndex to zero if there's nothing in the array
-        if (typeof (newIndex) !== 'number') {
-            newIndex = 0;
-        }
-
-        if (newIndex < 0) {
-            newIndex = 0;
-        }
-        //component to add to the state
-        let stateDonationUpdate = {
-            type: '',
-            quantity: '',
-            description: ''
-        }
-
-        //appending blank donation object to the state component
-        let array = formData.donations;
-        array.push(stateDonationUpdate)
-        setFormData({
-            ...formData,
-            donations: array
-        })
-
-        let type = newRow.insertCell(0);
-        let quantity = newRow.insertCell(1);
-        let description = newRow.insertCell(2);
-        let deleteRow = newRow.insertCell(3);
-
-        //adds in the table elements
-        type.innerHTML = `<input type = "text" placeholder = "Type" value = "${formData.donations[newIndex].type}" name = row-${newIndex}-type onChange = "${e => donationAddText(e)}"/> `;
-        quantity.innerHTML = `<input type = "text" placeholder = "Quantity" value = "${formData.donations[newIndex].quantity}" name = row-${newIndex}-quantity onChange = "${e => donationAddText(e)}"/> `;
-        description.innerHTML = `<input type = "text" placeholder = "Description" value = "${formData.donations[newIndex].description}" name = row-${newIndex}-description onChange = "${e => donationAddText(e)}"/>`;
-        //deleteRow.innerHTML = `<span className = "delete-request" onClick = "${e => deleteTableRow(e)}">X</span>`;
-        let deleteSpan = document.createElement('span');
-        deleteSpan.classList.add('delete-request');
-        deleteSpan.textContent = 'X';
-        deleteSpan.addEventListener('click', e => deleteTableRow(e));
-        deleteRow.appendChild(deleteSpan);
 
     }
 
-    function addTableRowWinners(e) {
-        if (!formData.prizes[0]) {
-
-        }
-        else {
-
-        }
-        let newRow = e.target.parentNode.children[1].insertRow();
-        let tableArray;
-        let newIndex;
-        try {
-            tableArray = e.target.parentNode.children[1].children[1].children;
-            newIndex = tableArray.length - 1;
-        } catch (err) {
-            newIndex = 0;
-        }
-
-        if (newIndex < 0) {
-            newIndex = 0;
-        }
-
-        //component to add to the state
-        let stateWinnersUpdate = {
-            awardTitle: '',
-            prize: ''
-        }
-
-        //appending blank donation object to the state component
-        let array = formData.prizes;
-        array.push(stateWinnersUpdate);
-        setFormData({
-            ...formData,
-            winners: array
-        })
-
-
-        //create the row items
-        let awardTitle = newRow.insertCell(0);
-        let prize = newRow.insertCell(1);
-        let deleteRow = newRow.insertCell(2);
-
-        //add the items to the table
-
-        awardTitle.innerHTML = `<input type = "text" placeholder = "Award Title" value = "${formData.prizes[newIndex].awardTitle}" name = "row-${newIndex}-awardTitle" onChange = "${e => winnersAddText(e)}"/>`;
-        prize.innerHTML = `<input type = "text" placeholder = "Prize" value = "${formData.prizes[newIndex].prize}" name = row-${newIndex}-prize onChange = "${e => winnersAddText(e)}"//>`;
-        // deleteRow.innerHTML = `<span className = "delete-request" onClick = "${e => deleteTableRow(e)}" >X</span>`;
-
-        let deleteSpan = document.createElement('span');
-        deleteSpan.classList.add('delete-request');
-        deleteSpan.textContent = 'X';
-        deleteSpan.addEventListener('click', e => deleteTableRow(e));
-        deleteRow.appendChild(deleteSpan);
-    }
     function addText(e) {
+
         let donationIndex = e.target.name.split('-')[1];
         let donationName = e.target.name.split('-')[2] + '';
         let myInput = e.target.value;
@@ -230,40 +303,28 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
 
         //grabs the category that it is from
         let category = e.target.parentNode.parentNode.parentNode.parentNode.id.split('-')[0]
+        console.log(category);
+        let array = formData[category];
+        console.log(typeof (category));
 
+        if (category !== 'requirements' && category !== 'judges' && category !== 'criteria') {
+            array[donationIndex][donationName] = myInput;
 
+            setFormData({
+                ...formData,
+                [`${category}`]: array
+            });
+            console.log(formData);
+        }
+        else {
+            array[donationIndex] = myInput;
+            setFormData({
+                ...formData,
+                [`${category}`]: array
+            });
+        }
     }
-    function donationAddText(e) {
-        //grabs basic information from the input
-        let donationIndex = e.target.name.split('-')[1];
-        let donationName = e.target.name.split('-')[2] + '';
-        let myInput = e.target.value;
 
-        //changes the array value so set form data can be done
-        let array = formData.donations;
-        array[donationIndex][donationName] = myInput;
-
-        setFormData({
-            ...formData,
-            donations: array
-        });
-
-    }
-    function winnersAddText(e) {
-        //grabs basic information from input
-        //grabs basic information from the input
-        let winnersIndex = e.target.name.split('-')[1];
-        let winnersName = e.target.name.split('-')[2] + '';
-        let myInput = e.target.value;
-
-        let array = formData.prizes;
-        array[winnersIndex][winnersName] = myInput;
-
-        setFormData({
-            ...formData,
-            'prizes': array
-        });
-    };
     function deleteTableRow(e) {
         let rowExtract = e.target.parentNode.parentNode.children[0].children[0].name.split('-')[1];
 
@@ -276,23 +337,36 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
         parentNode.remove(child);
 
 
-        //remove the data from the specific part of the state
-        if (rowName === 'type') {
+        //grabs the table name
+        let category = e.target.classList[0];
+        console.log(category);
+        let array = formData[`${category}`];
+        array.splice(rowExtract, 1);
+        setFormData({
+            ...formData,
+            [`${category}`]: array
+        });
 
-            let array = formData.donations;
-            array.splice(rowExtract, 1);
-            setFormData({
-                ...formData,
-                donations: array
-            })
-        }
-        else if (rowName === 'awardTitle') {
-            let array = formData.prizes;
+        console.log(formData);
 
-            array.splice(rowExtract, 1);
-            setFormData({
-                ...formData,
-                prizes: array
+        //for every element inputted after the deleted element, decrement the number in the name by one.
+        //finds the corresponding table so that the correct elements can be referenced
+        let table = document.getElementById(`${category}-table`);
+
+        for (let i = rowExtract; i < table.children[1].children.length; i++) {
+            let tableRow = table.children[1].children[i];
+
+            Array.from(tableRow.children).forEach(tableComponent => {
+                console.log(tableComponent);
+                Array.from(tableComponent.children).forEach(tableItem => {
+                    let itemName = tableItem.name;
+                    if (itemName) {
+                        let itemNameBrokenUp = itemName.split('-');
+                        itemNameBrokenUp[1] = itemNameBrokenUp[1] - 1;
+                        let replacementItemName = itemNameBrokenUp.join('-');
+                        tableItem.name = replacementItemName;
+                    }
+                })
             })
         }
 
@@ -302,7 +376,7 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
         if (e.target.classList.contains('hack-modal')) {
             e.target.parentNode.childNodes[0].checked = false;
 
-            handleClose(e)
+            handleClose();
         }
 
     }
@@ -380,13 +454,60 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
                                 </div>
 
                                 <div className="form-group">
-                                    <input type="text" placeholder="Judge's Name" value={formData.judges[0]} onChange={e => changeJudges(e)}></input>
+                                    <p className="lead text-header">What are the requirements to participate in your hackathon?</p>
+                                    <table id="requirements-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Requirements:</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><input type='text' placeholder='Requirement' name='row-0-requirement' value={formData.requirements[0]} onChange={e => addText(e)} /></td>
+                                                <td><span className="requirements delete-request" onClick={e => deleteTableRow(e)}>X</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <button type='button' id="requirements" onClick={e => addTableRow(e)} className="requirements-request btn btn-secondary btn-success">Add</button>
                                 </div>
                             </Fragment>
                         )}
                         {pageNumber === 3 && (
                             <Fragment>
-
+                                <div className="form-group">
+                                    <p className="lead text-header">What are the categories people can win in?</p>
+                                    <table id="criteria-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Criteria</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><input type='text' placeholder="Criterion" value={formData.criteria ? formData.criteria[0] : ''} name='row-0-criteria' onChange={e => addText(e)} /></td>
+                                                <td><span className="criteria delete-request" onClick={e => deleteTableRow(e)}>X</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <button type='button' id="criteria" className="criteria-request btn btn-secondary btn-success" onClick={e => addTableRow(e)}>Add</button>
+                                </div>
+                                <div className="form-group">
+                                    <p className="lead text-header">Who are the judges at your hackathon?</p>
+                                    <table id="judges-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Judge Names</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><input type='text' placeholder="Judge's name" value={formData.judges[0]} name='row-0-judges' onChange={e => addText(e)} /></td>
+                                                <td><span className="judges delete-request" onClick={e => deleteTableRow(e)}>X</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <button type='button' id='judges' className='judges btn btn-secondary btn-success' onClick={e => addTableRow(e)}>Add</button>
+                                </div>
                             </Fragment>
                         )}
                         {pageNumber === 4 && (
@@ -406,7 +527,7 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
                                                 <td><input type="text" placeholder="Type" name="row-0-type" value={formData.donations[0] ? formData.donations[0].type : ''} onChange={e => addText(e)} /></td>
                                                 <td><input type="text" placeholder="Quantity" value={formData.donations[0] ? formData.donations[0].quantity : ''} name="row-0-quantity" onChange={e => addText(e)} /></td>
                                                 <td><input type="text" placeholder="Description" value={formData.donations[0] ? formData.donations[0].description : ''} name="row-0-description" onChange={e => addText(e)} /></td>
-                                                <td><span className="delete-request" onClick={e => deleteTableRow(e)}>X</span></td>
+                                                <td><span className="donations delete-request" onClick={e => deleteTableRow(e)}>X</span></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -418,7 +539,7 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
                             <Fragment>
                                 <div className="form-group">
                                     <p className="lead text-header">What are the categories people can win in?</p>
-                                    <table className="winners-table">
+                                    <table id="prizes-table">
                                         <thead>
                                             <tr>
                                                 <th>Award Title</th>
@@ -427,13 +548,13 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td><input type="text" placeholder="Award Title" name="row-0-awardTitle" value={formData.prizes[0] ? formData.prizes[0].awardTitle : ''} onChange={e => winnersAddText(e)} /></td>
-                                                <td><input type="text" placeholder="Prize" name="row-0-prize" value={formData.prizes[0] ? formData.prizes[0].prize : ''} onChange={e => winnersAddText(e)} /></td>
-                                                <td><span className="delete-request" onClick={e => deleteTableRow(e)}>X</span></td>
+                                                <td><input type="text" placeholder="Award Title" name="row-0-awardTitle" value={formData.prizes[0] ? formData.prizes[0].awardTitle : ''} onChange={e => addText(e)} /></td>
+                                                <td><input type="text" placeholder="Prize" name="row-0-prize" value={formData.prizes[0] ? formData.prizes[0].prize : ''} onChange={e => addText(e)} /></td>
+                                                <td><span className="prizes delete-request" onClick={e => deleteTableRow(e)}>X</span></td>
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <button type="button" onClick={e => addTableRowWinners(e)} className="add-donation-request btn btn-secondary btn-success">Add</button>
+                                    <button type="button" id="prizes" onClick={e => addTableRow(e)} className="add-donation-request btn btn-secondary btn-success">Add</button>
                                 </div>
 
                                 <input type="submit" className="btn btn-primary my-1" />
