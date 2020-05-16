@@ -1,0 +1,29 @@
+.header {
+    width: 80%;
+    position: absolute;
+    background-color: lightgrey;
+    height: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%)
+}
+
+.container {
+    width: 80%;
+    background-color: white;
+    margin: none;
+}
+.first {
+    width: 25%;
+    float: left;
+    height: 500px;
+    background-color: lightblue;
+}
+.second {
+    width: 75%;
+    float: left;
+    height: 500px;
+    background-color: whitesmoke;
+}
+.clear {
+    clear: both;
+}

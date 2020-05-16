@@ -1,19 +1,28 @@
 import React, { Component } from 'react';
 import openSocket from 'socket.io-client';
 import { connect } from 'react-redux';
-
-const ENDPOINT = "http://localhost:6969";
+import './styling/chat.css'
 
 class Chat extends Component {
     componentDidMount(){
         this.state = {
-            socket: openSocket(ENDPOINT),
+            socket: openSocket(),
+            chat: []
         }
     }
     render(){
         return (
-            <div style={{padding: '10% 0% 10%'}}className='container'>
-                <h3>This is the chat page.</h3>
+            <div style={{padding:'10% 0 10%'}}>
+            <div className="header"></div>
+                <div className="container">
+                    <div className="first">
+
+                    </div>
+                    <div className="second">
+                        
+                    </div>
+                    <div className="clear"></div>
+                </div>
             </div>
         )
     }
@@ -21,7 +30,6 @@ class Chat extends Component {
 }
 
 let mapStateToProps = (state) => {
-
 }
 
 export default connect(mapStateToProps, {})(Chat);
