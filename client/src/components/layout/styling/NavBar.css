@@ -28,6 +28,23 @@
   color: #4983ff;
   -webkit-transition: color 0.2s, background-color 0.2s;
   transition: color 0.2s, background-color 0.2s;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.navContainer .navbar-brand h3 {
+  font-size: 3rem;
+}
+
+.navContainer .navbar-brand .navbar__icon {
+  width: 7rem;
+  height: 7rem;
+  display: inline;
+  margin-right: 1rem;
 }
 
 .navContainer .auth-links {
@@ -71,11 +88,19 @@
 
 .navContainer .auth-links .link-list a:active,
 .navContainer .auth-links .link-list a:link {
+  font-size: 2rem;
   color: #4983ff;
   background-color: none !important;
-  -webkit-transition: color 0.2s, background-color 0.2s;
-  transition: color 0.2s, background-color 0.2s;
+  -webkit-transition: color 0.2s, background-color 0.2s;
+  transition: color 0.2s, background-color 0.2s;
   text-decoration: none;
+}
+
+@media (max-width: 100em) {
+  .navContainer .auth-links .link-list a:active,
+  .navContainer .auth-links .link-list a:link {
+    font-size: 2.5rem;
+  }
 }
 
 .navContainer .auth-links .link-list label {

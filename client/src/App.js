@@ -31,14 +31,10 @@ import PrivateRoute from './components/routing/PrivateRoute'
 import ConfirmEmailSponsor from './components/auth/ConfirmEmailSponsor'
 import ConfirmEmailRecipient from './components/auth/ConfirmEmailRecipient'
 import Hackathon from './components/singleView/Hackathon'
-<<<<<<< HEAD
 import Company from './components/singleView/Company'
 import Settings from './components/settings/Settings'
 import EmailSent from './components/auth/EmailSent';
-=======
-import Company from './components/singleView/Company';
 import Chat from './components/chat/Chat';
->>>>>>> a1d8f6e229732e95b471865638190500e09b9991
 
 //import logo from './logo.svg';
 import './App.css';

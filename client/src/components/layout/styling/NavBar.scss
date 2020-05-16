@@ -3,6 +3,10 @@ $light-grey: #a5a5a5;
 $background-color: lighten(rgb(47, 114, 255), 5%);
 $primary-orange: lighten(rgb(255, 102, 71), 5%);
 $primary-white: #eee;
+$bp-largest: 100em;
+$bp-large: 75em;
+$bp-medium: 56.25em;
+$bp-small: 37.5em;
 .navContainer {
     position: fixed;
     color: $primary-white;
@@ -22,6 +26,17 @@ $primary-white: #eee;
         margin-left: 3rem;
         color: $background-color;
         transition: color 0.2s, background-color 0.2s;
+        display: flex;
+        align-items: center;
+        h3 {
+            font-size: 3rem;
+        }
+        .navbar__icon {
+            width: 7rem;
+            height: 7rem;
+            display: inline;
+            margin-right: 1rem;
+        }
     }
     .auth-links {
         color: $primary-white;
@@ -47,9 +62,14 @@ $primary-white: #eee;
             }
             a:active,
             a:link {
+                font-size: 2rem;
+                @media (max-width: $bp-largest) {
+                    font-size: 2.5rem;
+                }
                 color: $background-color;
                 background-color: none !important;
-                transition: color 0.2s, background-color 0.2s;
+                transition: color 0.2s,
+                background-color 0.2s;
                 text-decoration: none;
             }
             label {
