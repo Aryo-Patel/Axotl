@@ -131,6 +131,11 @@ let server = app.listen(PORT, () => {
 
 let io = socket(server);
 
-io.on('connection', () =>{
+io.on('connection', (socket) =>{
     console.log("Connection to socket made...")
+
+    socket.on('newMessage', (message) => {
+        console.log(message);
+        io.sockets.emit('newMessage', (message))
+    })
 });
