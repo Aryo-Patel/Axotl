@@ -1,55 +1,56 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@700&display=swap');
-
-body{
-    margin:0;
-    color:rgb(255,102,71);
-    
+body {
+    margin: 0;
+    color: rgb(255, 102, 71);
 }
 
-h1,h3{
+h1,
+h3 {
     font-family: 'Raleway', sans-serif;
 }
 
+
 /* nav bar*/
 
-header{
-    margin-bottom:5em;
+header {
+    margin-bottom: 5em;
 }
 
-.nav-c{
+.nav-c {
     margin-bottom: 5em;
 }
 
 .nav-head-c {
-    margin-bottom:0px;
+    margin-bottom: 0px;
 }
 
-.nav-c .nav-link{
+.nav-c .nav-link {
     padding: .25rem;
 }
 
-.nav-c .nav-link:hover{
-    color:rgb(254,181,68);
+.nav-c .nav-link:hover {
+    color: rgb(254, 181, 68);
 }
 
-@media (min-width: 40em){
-.nav-head-c{
-    float: left;
+@media (min-width: 40em) {
+    .nav-head-c {
+        float: left;
+    }
+    .nav-links {
+        float: right;
+    }
 }
-.nav-links{
-    float: right;
-}
-}
+
 
 /* home page content*/
 
-.landingLogin{
+.landingLogin {
     font-size: 2rem;
 }
 
 .home-head {
     font-size: 6rem;
-    margin-top:1em;
+    margin-top: 1em;
 }
 
 .lead {
@@ -57,53 +58,52 @@ header{
 }
 
 .button-c {
-    color:rgb(254,181,68);
-    background:transparent;
+    color: rgb(254, 181, 68);
+    background: transparent;
     border-color: transparent;
-    margin:1em;
-    font-size:2rem;
+    margin: 1em;
+    font-size: 2rem;
 }
 
-.button-c:hover{
-    color:rgb(47,114,255);
-    background:transparent;
+.button-c:hover {
+    color: rgb(47, 114, 255);
+    background: transparent;
     border-color: transparent;
 }
-
 
 
 /* blocks - content for the home page */
 
-.blockIcon{
+.blockIcon {
     display: inline-flex;
     align-self: center;
-    margin:1em;
+    margin: 1em;
 }
 
-.block1{
-    background:rgb(47,114,255);
-    color:white;
+.block1 {
+    background: rgb(47, 114, 255);
+    color: white;
 }
 
-
-.block2{
+.block2 {
     justify-content: center;
     text-align: center;
-    background:rgb(255,102,71);
-    color:white;
+    background: rgb(255, 102, 71);
+    color: white;
 }
 
-.block3{
-    background:rgb(254,181,68);
-    color:white;
+.block3 {
+    background: rgb(254, 181, 68);
+    color: white;
 }
 
-.block4{
-    background:white;
-    color:rgb(255,102,71);
+.block4 {
+    background: white;
+    color: rgb(255, 102, 71);
 }
-.block4 h1{
-    color:rgb(47,114,255);
+
+.block4 h1 {
+    color: rgb(47, 114, 255);
 }
 
 @keyframes moveInUp {
@@ -120,9 +120,12 @@ header{
     }
 }
 
-@media (min-width: 40em){
-    .block1,.block2,.block3,.block4{
-        padding:2em;
+@media (min-width: 40em) {
+    .block1,
+    .block2,
+    .block3,
+    .block4 {
+        padding: 2em;
     }
     .cover-container {
         margin-top: 10rem;
@@ -132,9 +135,12 @@ header{
     }
 }
 
-@media (min-width: 50em){
-    .block1,.block2,.block3,.block4{
-        padding:4em;
+@media (min-width: 50em) {
+    .block1,
+    .block2,
+    .block3,
+    .block4 {
+        padding: 4em;
     }
 }
 
@@ -145,58 +151,60 @@ header{
 .landingLogin__contents {
     animation: moveInUp 1s ease-out;
 }
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@700&display=swap');
 
-body{
-    margin:0;
-    color:rgb(255,102,71);
-    
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@700&display=swap');
+body {
+    margin: 0;
+    color: rgb(255, 102, 71);
 }
 
-h1,h3{
+h1,
+h3 {
     font-family: 'Raleway', sans-serif;
 }
 
+
 /* nav bar*/
 
-header{
-    margin-bottom:5em;
+header {
+    margin-bottom: 5em;
 }
 
-.nav-c{
+.nav-c {
     margin-bottom: 5em;
 }
 
 .nav-head-c {
-    margin-bottom:0px;
+    margin-bottom: 0px;
 }
 
-.nav-c .nav-link{
+.nav-c .nav-link {
     padding: .25rem;
 }
 
-.nav-c .nav-link:hover{
-    color:rgb(254,181,68);
+.nav-c .nav-link:hover {
+    color: rgb(254, 181, 68);
 }
 
-@media (min-width: 40em){
-.nav-head-c{
-    float: left;
+@media (min-width: 40em) {
+    .nav-head-c {
+        float: left;
+    }
+    .nav-links {
+        float: right;
+    }
 }
-.nav-links{
-    float: right;
-}
-}
+
 
 /* home page content*/
 
-.landingLogin{
+.landingLogin {
     font-size: 2rem;
 }
 
 .home-head {
     font-size: 6rem;
-    margin-top:1em;
+    margin-top: 1em;
 }
 
 .lead {
@@ -204,53 +212,61 @@ header{
 }
 
 .button-c {
-    color:rgb(254,181,68);
-    background:transparent;
+    color: rgb(254, 181, 68);
+    background: transparent;
     border-color: transparent;
-    margin:1em;
-    font-size:2rem;
+    margin: 1em;
+    font-size: 2rem;
+    transition: all .2s ease;
+    border-radius: 5px;
 }
 
-.button-c:hover{
-    color:rgb(47,114,255);
-    background:transparent;
+.button-c:hover {
+    color: rgb(47, 114, 255);
+    background: transparent;
     border-color: transparent;
+    transform: translateY(-3px);
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, .2);
 }
 
+.button-c:active {
+    transform: translateY(1px);
+    box-shadow: 0rem .25rem .5rem rgba(0, 0, 0, .1);
+}
 
 
 /* blocks - content for the home page */
 
-.blockIcon{
+.blockIcon {
     display: inline-flex;
     align-self: center;
-    margin:1em;
+    margin: 1em;
 }
 
-.block1{
-    background:rgb(47,114,255);
-    color:white;
+.block1 {
+    background: rgb(47, 114, 255);
+    color: white;
 }
 
-
-.block2{
+.block2 {
     justify-content: center;
     text-align: center;
-    background:rgb(255,102,71);
-    color:white;
+    background: rgb(255, 102, 71);
+    color: white;
 }
 
-.block3{
-    background:rgb(254,181,68);
-    color:white;
+.block3 {
+    background: rgb(254, 181, 68);
+    color: white;
 }
 
-.block4{
-    background:white;
-    color:rgb(255,102,71);
+.block4 {
+    background: white;
+    color: rgb(255, 102, 71);
 }
-.block4 h1{
-    color:rgb(47,114,255);
+
+.block4 h1 {
+    color: rgb(47, 114, 255);
 }
 
 @keyframes moveInUp {
@@ -267,9 +283,12 @@ header{
     }
 }
 
-@media (min-width: 40em){
-    .block1,.block2,.block3,.block4{
-        padding:2em;
+@media (min-width: 40em) {
+    .block1,
+    .block2,
+    .block3,
+    .block4 {
+        padding: 2em;
     }
     .cover-container {
         margin-top: 10rem;
@@ -279,9 +298,12 @@ header{
     }
 }
 
-@media (min-width: 50em){
-    .block1,.block2,.block3,.block4{
-        padding:4em;
+@media (min-width: 50em) {
+    .block1,
+    .block2,
+    .block3,
+    .block4 {
+        padding: 4em;
     }
 }
 

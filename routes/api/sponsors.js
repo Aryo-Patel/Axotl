@@ -158,7 +158,7 @@ router.put('/confirmemail/:jwt', async(req, res) => {
 // PUBLIC
 
 router.post('/login', passport.authenticate('local', { failureRedirect: 'http://localhost:3000/sponsor/login' }), (req, res) => {
-
+    req.session.tries = 0;
     /**const email = req.body.email;
     const password = req.body.password;
 

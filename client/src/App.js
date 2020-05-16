@@ -25,12 +25,15 @@ import Logout from './components/auth/Logout';
 import NotFound from './components/routing/NotFound';
 import Discover from './components/discover/Discover';
 import ForgotPassword from './components/auth/ForgotPassword'
+import ChangePassword from './components/auth/ChangePassword'
 import ResetPassword from './components/auth/ResetPassword'
 import PrivateRoute from './components/routing/PrivateRoute'
 import ConfirmEmailSponsor from './components/auth/ConfirmEmailSponsor'
 import ConfirmEmailRecipient from './components/auth/ConfirmEmailRecipient'
 import Hackathon from './components/singleView/Hackathon'
-import Company from './components/singleView/Company';
+import Company from './components/singleView/Company'
+import Settings from './components/settings/Settings'
+import EmailSent from './components/auth/EmailSent';
 import Chat from './components/chat/Chat';
 
 //import logo from './logo.svg';
@@ -64,10 +67,13 @@ function App() {
             <PrivateRoute exact path = '/logout' component = {Logout} />
             <Route exact path = '/forgotpassword' component = {ForgotPassword} />
             <Route path = '/resetpassword' component = {ResetPassword} />
+            <Route path = '/email-sent' component = {EmailSent} />
             <Route path = '/users/confirmemail' component = {ConfirmEmailRecipient} />
             <Route path = '/sponsors/confirmemail' component = {ConfirmEmailSponsor} />
             <PrivateRoute exact path = '/hackathon/:id' component = {Hackathon} />
             <PrivateRoute exact path = '/company/:id' component = {Company} />
+            <PrivateRoute exact path = '/settings' component = {Settings} />
+            <PrivateRoute exact path = '/changepassword' component = {ChangePassword} />
             <Route component = {NotFound} />
           </Switch>
         </Fragment>
