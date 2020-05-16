@@ -4,7 +4,7 @@
   margin: 0;
   padding: 0;
   -webkit-box-sizing: border-box;
-  box-sizing: border-box;
+          box-sizing: border-box;
   font-size: 1.6rem;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -12,13 +12,13 @@
   width: 100%;
   height: 6rem;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   background-color: white;
   z-index: 1000000;
   -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   -webkit-transition: color 0.2s, background-color 0.2s;
   transition: color 0.2s, background-color 0.2s;
 }
@@ -36,15 +36,15 @@
   display: -ms-flexbox;
   display: flex;
   -ms-flex-item-align: stretch;
-  align-self: stretch;
+      align-self: stretch;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   background-color: white;
   z-index: 1000000;
   -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   -webkit-transition: color 0.2s, background-color 0.2s;
   transition: color 0.2s, background-color 0.2s;
 }
@@ -54,6 +54,23 @@
   color: #4983ff;
   -webkit-transition: color 0.2s, background-color 0.2s;
   transition: color 0.2s, background-color 0.2s;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.navContainer .auth-links .navbar-brand h3 {
+  font-size: 3rem;
+}
+
+.navContainer .auth-links .navbar-brand .navbar__icon {
+  width: 7rem;
+  height: 7rem;
+  display: inline;
+  margin-right: 1rem;
 }
 
 .navContainer .auth-links .auth-links {
@@ -62,10 +79,10 @@
   display: -ms-flexbox;
   display: flex;
   -ms-flex-item-align: stretch;
-  align-self: stretch;
+      align-self: stretch;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-transition: color 0.2s, background-color 0.2s;
   transition: color 0.2s, background-color 0.2s;
   background-color: #4983ff !important;
@@ -85,8 +102,8 @@
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
   color: white;
   -webkit-transition: color 0.2s, background-color 0.2s;
   transition: color 0.2s, background-color 0.2s;
@@ -96,13 +113,48 @@
   background: none !important;
 }
 
-.navContainer .auth-links .auth-links .link-list a:active,
-.navContainer .auth-links .auth-links .link-list a:link {
+.navContainer .auth-links .auth-links .link-list .link-list {
+  min-height: 100%;
+  list-style-type: none;
+  background-color: transparent !important;
+  padding: 0;
+  margin: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+  color: white;
+  -webkit-transition: color 0.2s, background-color 0.2s;
+  transition: color 0.2s, background-color 0.2s;
+}
+
+.navContainer .auth-links .auth-links .link-list .link-list .active {
+  background: none !important;
+}
+
+.navContainer .auth-links .auth-links .link-list .link-list a:active,
+.navContainer .auth-links .auth-links .link-list .link-list a:link {
+  font-size: 2rem;
   color: #4983ff;
   background-color: none !important;
   -webkit-transition: color 0.2s, background-color 0.2s;
   transition: color 0.2s, background-color 0.2s;
   text-decoration: none;
+}
+
+@media (max-width: 100em) {
+  .navContainer .auth-links .auth-links .link-list .link-list a:active,
+  .navContainer .auth-links .auth-links .link-list .link-list a:link {
+    font-size: 2.5rem;
+  }
+}
+
+.navContainer .auth-links .auth-links .link-list .link-list label {
+  color: #4983ff;
+  -webkit-transition: color 0.2s, background-color 0.2s;
+  transition: color 0.2s, background-color 0.2s;
 }
 
 .navContainer .auth-links .auth-links .link-list label {
@@ -122,16 +174,16 @@
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-transition: all 0.2s;
   transition: all 0.2s;
   -webkit-box-flex: 0;
-  -ms-flex: 0 0 20%;
-  flex: 0 0 20%;
+      -ms-flex: 0 0 20%;
+          flex: 0 0 20%;
 }
 
 .navContainer .auth-links .auth-links .link-list li:hover {
@@ -161,7 +213,7 @@
   -webkit-transition: background-color 200ms linear;
   transition: background-color 200ms linear;
   -webkit-box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+          box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
 }
 
 .scrolled .link-list li {
@@ -207,9 +259,9 @@
   display: block;
   background-color: #4983ff;
   -webkit-animation: dropdown;
-  animation: dropdown;
+          animation: dropdown;
   -webkit-animation-duration: 0.7s;
-  animation-duration: 0.7s;
+          animation-duration: 0.7s;
   color: #eee;
 }
 
@@ -226,11 +278,11 @@
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .dropdownReplacement .auth-links .link-list li {
@@ -243,9 +295,9 @@
 .dropdownReplacement .auth-links .link-list li .nav-link {
   color: #eee;
   -webkit-animation: dropdown-text;
-  animation: dropdown-text;
+          animation: dropdown-text;
   -webkit-animation-duration: 0.7s;
-  animation-duration: 0.7s;
+          animation-duration: 0.7s;
 }
 
 .navCheckbox {
@@ -257,13 +309,13 @@
     top: 50%;
     left: 50%;
     -webkit-transform: scale(0.125) translate(-50%, -50%);
-    transform: scale(0.125) translate(-50%, -50%);
+            transform: scale(0.125) translate(-50%, -50%);
   }
   100% {
     top: 50%;
     left: 50%;
     -webkit-transform: scale(1) translate(-50%, -50%);
-    transform: scale(1) translate(-50%, -50%);
+            transform: scale(1) translate(-50%, -50%);
   }
 }
 
@@ -272,13 +324,13 @@
     top: 50%;
     left: 50%;
     -webkit-transform: scale(0.125) translate(-50%, -50%);
-    transform: scale(0.125) translate(-50%, -50%);
+            transform: scale(0.125) translate(-50%, -50%);
   }
   100% {
     top: 50%;
     left: 50%;
     -webkit-transform: scale(1) translate(-50%, -50%);
-    transform: scale(1) translate(-50%, -50%);
+            transform: scale(1) translate(-50%, -50%);
   }
 }
 
@@ -290,12 +342,12 @@
   from {
     height: 0px;
     -webkit-transform: translateY(-100%);
-    transform: translateY(-100%);
+            transform: translateY(-100%);
   }
   to {
     height: 3rem;
     -webkit-transform: translateY(0);
-    transform: translateY(0);
+            transform: translateY(0);
   }
 }
 
@@ -303,12 +355,12 @@
   from {
     height: 0px;
     -webkit-transform: translateY(-100%);
-    transform: translateY(-100%);
+            transform: translateY(-100%);
   }
   to {
     height: 3rem;
     -webkit-transform: translateY(0);
-    transform: translateY(0);
+            transform: translateY(0);
   }
 }
 
@@ -316,12 +368,12 @@
   from {
     opacity: 0%;
     -webkit-transform: translateY(-100%);
-    transform: translateY(-100%);
+            transform: translateY(-100%);
   }
   to {
     opacity: 1;
     -webkit-transform: translateY(0);
-    transform: translateY(0);
+            transform: translateY(0);
   }
 }
 
@@ -329,12 +381,12 @@
   from {
     opacity: 0%;
     -webkit-transform: translateY(-100%);
-    transform: translateY(-100%);
+            transform: translateY(-100%);
   }
   to {
     opacity: 1;
     -webkit-transform: translateY(0);
-    transform: translateY(0);
+            transform: translateY(0);
   }
 }
 
@@ -364,7 +416,7 @@
   font-size: 1.6rem;
   padding: 1rem 1rem;
   -webkit-box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.1);
-  box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.1);
+          box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.1);
   z-index: 2;
 }
 
@@ -388,8 +440,7 @@
   display: table;
   margin-right: 3rem;
   padding: 0.5rem 2rem;
-  -webkit-transition: visibility 0.5s ease, background-color 0.2s,
-    opacity 0.5s ease;
+  -webkit-transition: visibility 0.5s ease, background-color 0.2s, opacity 0.5s ease;
   transition: visibility 0.5s ease, background-color 0.2s, opacity 0.5s ease;
   position: relative;
   z-index: 100;
@@ -397,7 +448,7 @@
 
 .dropdown__toggle:hover {
   -webkit-box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.1);
-  box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.1);
+          box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.1);
   border-radius: 20px;
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
@@ -419,11 +470,11 @@
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   color: #eee;
   padding: 0 1rem;
 }
@@ -450,7 +501,7 @@
 
 .dropdown__toggle:hover {
   -webkit-box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.1);
-  box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.1);
+          box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.1);
   border-radius: 20px;
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
@@ -467,11 +518,11 @@
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   color: #eee;
 }
 
