@@ -30,7 +30,8 @@ import PrivateRoute from './components/routing/PrivateRoute'
 import ConfirmEmailSponsor from './components/auth/ConfirmEmailSponsor'
 import ConfirmEmailRecipient from './components/auth/ConfirmEmailRecipient'
 import Hackathon from './components/singleView/Hackathon'
-import Company from './components/singleView/Company'
+import Company from './components/singleView/Company';
+import Chat from './components/chat/Chat';
 
 //import logo from './logo.svg';
 import './App.css';
@@ -59,6 +60,7 @@ function App() {
             <PrivateRoute exact path = '/edit-profile' component = {EditProfile} />
             <PrivateRoute exact path = '/edit-sponsor-profile' component = {EditSponsorProfile} />
             <PrivateRoute exact path = '/discover' component = {Discover} />
+            <PrivateRoute exact path = '/chat' component = {Chat} />
             <PrivateRoute exact path = '/logout' component = {Logout} />
             <Route exact path = '/forgotpassword' component = {ForgotPassword} />
             <Route path = '/resetpassword' component = {ResetPassword} />

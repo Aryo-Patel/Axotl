@@ -4,6 +4,7 @@ const passport = require('passport')
 const session = require('express-session')
 const config = require('config')
 const MongoStore = require('connect-mongo')(session);
+const socket = require('socket.io');
 
 //routers
 const recipients = require('./routes/api/recipients');
@@ -111,20 +112,7 @@ if (process.env.NODE_ENV === 'production') {
 
 
 //Placeholder for socket initialization for chat
-// const server = require('http').Server(app);
-// const io = require('socket.io')(server);
-// server.listen(PORT);
 
-// io.on('connection', function(socket){
-//     console.log("A user connected...");
-//     socket.on('disconnect', function(){
-//         console.log("A user disconnected...");
-//     });
-
-//     socket.on('message', function(msg){
-//         console.log('Message: ' + msg);
-//     })
-// })
 
 
 //Use the routes
@@ -137,6 +125,12 @@ app.use('/api/hackathons/hackathon', hackathonProfile);
 app.use('/api/auth', auth)
 
 //Server Initialization
-app.listen(PORT, () => {
+let server = app.listen(PORT, () => {
     console.log(`Server Initialized on port ${PORT}`)
-})
+});
+
+let io = socket(server);
+
+io.on('connection', () =>{
+    console.log("Connection to socket made...")
+});
