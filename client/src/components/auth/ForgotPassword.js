@@ -10,6 +10,7 @@ const ForgotPassword = ({ forPass, history }) => {
   });
   return (
     <Fragment>
+      <div className="forgotPassword__background">
       <div className="forgotPassword">
         <h3 className="heading">Forgot Password</h3>
         <form
@@ -34,6 +35,7 @@ const ForgotPassword = ({ forPass, history }) => {
           </button>
           </div>
         </form>
+      </div>
       </div>
     </Fragment>
   );
