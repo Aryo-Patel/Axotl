@@ -13,7 +13,8 @@ const recipientProfile = require('./routes/api/recipientProfile');
 const sponsorProfile = require('./routes/api/sponsorProfile')
 const hackathons = require('./routes/api/hackathons');
 const hackathonProfile = require('./routes/api/hackathonProfile')
-const auth = require('./routes/api/auth')
+const auth = require('./routes/api/auth');
+const chat = require('./routes/api/chats');
 
 
 //database functions
@@ -123,6 +124,7 @@ app.use('/api/profiles/sponsor', sponsorProfile)
 app.use('/api/hackathons', hackathons);
 app.use('/api/hackathons/hackathon', hackathonProfile);
 app.use('/api/auth', auth)
+app.use('/api/chat', chat)
 
 //Server Initialization
 let server = app.listen(PORT, () => {

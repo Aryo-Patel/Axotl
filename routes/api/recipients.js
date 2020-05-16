@@ -114,6 +114,22 @@ router.post('/register', [check('name', 'Name is required').not().isEmpty(), che
 
 });
 
+//GET       api/users/find
+//Action    Find a recipient by their handle
+//Private
+router.get('/find', (req, res) => {
+    Recipient.findOne({handle: req.body.handle})
+    .then(recipient => {
+        res.json(recipient)
+    })
+    .catch(err => {
+        res.status(404).send("Recipient not found");
+        console.log("Recipient not found");
+    })
+})
+
+
+
 //POST api/users/confirmemail
 // Action confirm user's email
 //PUBLIC
@@ -189,7 +205,6 @@ router.delete('/', async(req, res) => {
         res.status(400).send("Server Error")
     }
 })
-
 
 
 //GET       api/users/logout

@@ -116,6 +116,19 @@ router.post('/register', [check('name', 'Name is required').not().isEmpty(), che
 
 });
 
+//GET       api/sponsors/find
+//Action    Find a sponsor by their handle
+//Private
+router.get('/find', (req, res) => {
+    Sponsor.findOne({handle: req.body.handle})
+    .then(sponsor => {
+        res.json(sponsor)
+    })
+    .catch(err => {
+        res.status(404).send("Sponsor not found");
+        console.log("Sponsor not found");
+    })
+})
 
 //POST api/sponsors/confirmemail
 // Action confirm user's email
@@ -187,6 +200,7 @@ router.delete('/', async(req, res) => {
         res.status(400).send("Server Error")
     }
 })
+
 
 //GET /api/sponsors/forgotpassword
 //Action request password change
