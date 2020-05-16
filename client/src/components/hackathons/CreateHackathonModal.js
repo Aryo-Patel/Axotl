@@ -2,6 +2,7 @@ import React, { useState, Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import $ from 'jquery';
 //importing create hackathon action
 import { createHackathon } from '../../actions/hackathonActions';
 
@@ -79,6 +80,9 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
         }
 
         //depending on what the selected table is, create the respective elements and adds the data to the formData object
+        //the inputs MUST have a name in the format row-${newIndex}-[what the input corresponds to in the state component]
+        //the first class on the delete buttons (spans) must correspond to the name of the table it is in. For example, if
+        //the span is being appended to the table in the table called #donations-table, it should have a classList[0] of donations
         switch (category) {
             case 'donations':
                 //sets the donation form data
@@ -90,6 +94,7 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
                 let array = formData.donations;
                 array.push(formDataDonationUpdate);
                 setFormData({
+                    ...formData,
                     donations: array
                 });
 
@@ -98,10 +103,42 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
                 let quantity = newRow.insertCell(1);
                 let description = newRow.insertCell(2);
                 let deleteButton = newRow.insertCell(3);
-                type.innerHTML = `<input type = "text" placeholder = "Type" value = "${formData.donations[newIndex].type}" name = row-${newIndex}-type onChange = "${e => donationAddText(e)}"/> `;
-                quantity.innerHTML = `<input type = "text" placeholder = "Quantity" value = "${formData.donations[newIndex].quantity}" name = row-${newIndex}-quantity onChange = "${e => donationAddText(e)}"/> `;
-                description.innerHTML = `<input type = "text" placeholder = "Description" value = "${formData.donations[newIndex].description}" name = row-${newIndex}-description onChange = "${e => donationAddText(e)}"/>`;
+                //creates the input elements
+                let typeInput = document.createElement('input');
+                let quantityInput = document.createElement('input');
+                let descriptionInput = document.createElement('input');
+
+                //adds the type input
+                typeInput.type = 'text';
+                typeInput.placeholder = 'Type';
+                typeInput.value = formData.donations[newIndex].type;
+                typeInput.addEventListener('keyup', e => {
+                    addText(e);
+                });
+                typeInput.name = `row-${newIndex}-type`;
+                type.appendChild(typeInput);
+
+                //adds quantity input
+                quantityInput.type = 'text';
+                quantityInput.placeholder = 'Quantity';
+                quantityInput.value = formData.donations[newIndex].quantity;
+                quantityInput.addEventListener('keyup', e => {
+                    addText(e);
+                });
+                quantityInput.name = `row-${newIndex}-quantity`;
+                quantity.appendChild(quantityInput);
+                //adds the description input
+                descriptionInput.type = 'text';
+                descriptionInput.placeholder = 'description';
+                descriptionInput.value = formData.donations[newIndex].description;
+                descriptionInput.addEventListener('keyup', e => {
+                    addText(e);
+                });
+                descriptionInput.name = `row-${newIndex}-description`;
+                description.appendChild(descriptionInput);
+
                 let deleteSpan = document.createElement('span');
+                deleteSpan.classList.add('donations');
                 deleteSpan.classList.add('delete-request');
                 deleteSpan.textContent = 'X';
                 deleteSpan.addEventListener('click', e => deleteTableRow(e));
@@ -112,13 +149,9 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
                 return
         }
 
-        //adds a new table row to form data in the respective category
+
     }
 
-    function deleteTableRow(e) {
-        //deletes table row
-        //renames the classes to re-align with the array indeces
-    }
     //adds a table row to either 
     function addTableRowDonation(e) {
 
@@ -223,6 +256,7 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
         deleteRow.appendChild(deleteSpan);
     }
     function addText(e) {
+
         let donationIndex = e.target.name.split('-')[1];
         let donationName = e.target.name.split('-')[2] + '';
         let myInput = e.target.value;
@@ -230,8 +264,16 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
 
         //grabs the category that it is from
         let category = e.target.parentNode.parentNode.parentNode.parentNode.id.split('-')[0]
+        console.log(category);
+        let array = formData[category];
 
+        array[donationIndex][donationName] = myInput;
 
+        setFormData({
+            ...formData,
+            [`${category}`]: array
+        });
+        console.log(formData);
     }
     function donationAddText(e) {
         //grabs basic information from the input
@@ -276,23 +318,36 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
         parentNode.remove(child);
 
 
-        //remove the data from the specific part of the state
-        if (rowName === 'type') {
+        //grabs the table name
+        let category = e.target.classList[0];
 
-            let array = formData.donations;
-            array.splice(rowExtract, 1);
-            setFormData({
-                ...formData,
-                donations: array
-            })
-        }
-        else if (rowName === 'awardTitle') {
-            let array = formData.prizes;
+        let array = formData[`${category}`];
+        array.splice(rowExtract, 1);
+        setFormData({
+            ...formData,
+            [`${category}`]: array
+        });
 
-            array.splice(rowExtract, 1);
-            setFormData({
-                ...formData,
-                prizes: array
+        console.log(formData);
+
+        //for every element inputted after the deleted element, decrement the number in the name by one.
+        //finds the corresponding table so that the correct elements can be referenced
+        let table = document.getElementById(`${category}-table`);
+
+        for (let i = rowExtract; i < table.children[1].children.length; i++) {
+            let tableRow = table.children[1].children[i];
+
+            Array.from(tableRow.children).forEach(tableComponent => {
+                console.log(tableComponent);
+                Array.from(tableComponent.children).forEach(tableItem => {
+                    let itemName = tableItem.name;
+                    if (itemName) {
+                        let itemNameBrokenUp = itemName.split('-');
+                        itemNameBrokenUp[1] = itemNameBrokenUp[1] - 1;
+                        let replacementItemName = itemNameBrokenUp.join('-');
+                        tableItem.name = replacementItemName;
+                    }
+                })
             })
         }
 
@@ -406,7 +461,7 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
                                                 <td><input type="text" placeholder="Type" name="row-0-type" value={formData.donations[0] ? formData.donations[0].type : ''} onChange={e => addText(e)} /></td>
                                                 <td><input type="text" placeholder="Quantity" value={formData.donations[0] ? formData.donations[0].quantity : ''} name="row-0-quantity" onChange={e => addText(e)} /></td>
                                                 <td><input type="text" placeholder="Description" value={formData.donations[0] ? formData.donations[0].description : ''} name="row-0-description" onChange={e => addText(e)} /></td>
-                                                <td><span className="delete-request" onClick={e => deleteTableRow(e)}>X</span></td>
+                                                <td><span className="donations delete-request" onClick={e => deleteTableRow(e)}>X</span></td>
                                             </tr>
                                         </tbody>
                                     </table>
