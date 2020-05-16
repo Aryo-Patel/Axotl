@@ -53,7 +53,7 @@ const NavBar = ({ isAuthenticated, auth }) => {
         <label
           onClick={(e) => closeModal()}
           className="nav-link nav__btn hackModalToggler"
-          for="navToggle"
+          htmlFor="navToggle"
         >
           Create
         </label>
@@ -176,20 +176,7 @@ const NavBar = ({ isAuthenticated, auth }) => {
                   )}
             </div>
             {!auth.loading && auth.user && (
-              <div onClick={e => onClick(e)} className="dropdown__toggle">
-                <div className="dropdown">
-                  <Link to="/profile" className="dropdown__item">
-                    Your Profile
-                  </Link>
-                  <Link to="/settings" className="dropdown__item">
-                    Settings
-                  </Link>
-                  {!auth.loading && auth.user && (
-                    <Link to="/logout" className="dropdown__item">
-                      Logout
-                    </Link>
-                  )}
-                </div>
+              <div onClick={e=>onClick(e)} className="dropdown__toggle">
                 <div className="dropdown__top">
                   <img
                     src={auth.user.user.avatar}
@@ -202,6 +189,19 @@ const NavBar = ({ isAuthenticated, auth }) => {
                   <svg className="dropdown__icon" viewBox="0 0 20 20">
                     <path d="M17.418 6.109c0.272-0.268 0.709-0.268 0.979 0s0.271 0.701 0 0.969l-7.908 7.83c-0.27 0.268-0.707 0.268-0.979 0l-7.908-7.83c-0.27-0.268-0.27-0.701 0-0.969s0.709-0.268 0.979 0l7.419 7.141 7.418-7.141z"></path>
                   </svg>
+                </div>
+                <div className="dropdown">
+                  <Link to="/profile" className="dropdown__item">
+                    Your Profile
+                  </Link>
+                  <Link to="/settings" className="dropdown__item">
+                    Settings
+                  </Link>
+                  {!auth.loading && auth.user && (
+                    <Link to="/logout" className="dropdown__item">
+                      Logout
+                    </Link>
+                  )}
                 </div>
               </div>
             )}

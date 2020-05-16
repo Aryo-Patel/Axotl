@@ -32,14 +32,14 @@ const Login = ({sendLogin, isAuthenticated}) => {
                 <div className = "login-container">
                     <form action="" className="" onSubmit = {e => onSubmit(e)}>
                         <div className="form-group">
-                            <i className="fas fa-user" samesite = "none" SameSite = "none"></i>{"  "}<input className = 'form-input' type="text"  name = 'email' onChange = {e => onChange(e)} required value = {formData.email}/>
+                            <i className="fas fa-user login__icon" samesite = "none" SameSite = "none"></i>{"  "}<input className = 'form-input' type="text"  name = 'email' onChange = {e => onChange(e)} required value = {formData.email}/>
                             <label>Email Address</label>
                         </div>
                         <div className="form-group">
-                            <i className="fas fa-lock"></i>{"  "}<input className = 'form-input' type="password" name = 'password' onChange = {e => onChange(e)} value = {formData.password} required/>
+                            <i className="fas fa-lock login__icon"></i>{"  "}<input className = 'form-input' type="password" name = 'password' onChange = {e => onChange(e)} value = {formData.password} required/>
                             <label>Password</label>
                         </div>
-                        <input type='submit' className="btn btn-large btn-primary login-button" value="Login"></input>
+                        <input type='submit' className="button login-button" value="Login"></input>
                     </form>
                     <Link to = '/forgotpassword' className = "forgot-password">Forgot Password?</Link>
                 </div>

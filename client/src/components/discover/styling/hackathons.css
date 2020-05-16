@@ -149,7 +149,30 @@
   display: none;
 }
 
-.modal-main .arrow {
+.modal-main .modal-main {
+  -webkit-transition: 2s;
+  transition: 2s;
+  min-height: 400px;
+  position: fixed;
+  background: white;
+  width: 80%;
+  height: auto;
+  top: 50%;
+  left: 50%;
+  max-height: 600px;
+  overflow-y: scroll;
+  background-color: #41a0f2;
+  position: relative;
+  background-position: 0, 0;
+  -webkit-transform: scale(0) translate(-50%, -50%);
+          transform: scale(0) translate(-50%, -50%);
+}
+
+.modal-main .modal-main::-webkit-scrollbar {
+  display: none;
+}
+
+.modal-main .modal-main .arrow {
   position: absolute;
   height: 100%;
   background: rgba(0, 0, 0, 0.2);
@@ -168,70 +191,18 @@
   width: 25px;
 }
 
-.modal-main .arrow:hover {
+.modal-main .modal-main .arrow:hover {
   cursor: pointer;
   width: 35px;
   background-color: rgba(0, 0, 0, 0.6);
 }
 
-.modal-main .right-arrow {
+.modal-main .modal-main .right-arrow {
   right: 0;
   top: 0;
 }
 
-.modal-main .modal-text {
-  font-size: 1.6em;
-}
-
-.modal-main .modal-text .modal-form {
-  margin-bottom: 70px;
-}
-
-.modal-main .modal-text .dots-holder {
-  position: fixed;
-  bottom: 0;
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
-  text-align: center;
-}
-
-.modal-main .modal-text .dots-holder .dot {
-  margin: 20px 10px;
-  display: inline-block;
-  height: 15px;
-  width: 15px;
-  -webkit-transition: 0.3s;
-  transition: 0.3s;
-  background: grey;
-  border-radius: 50%;
-}
-
-.modal-main .modal-text .dots-holder .dot:hover {
-  cursor: pointer;
-  background: darkgrey;
-}
-
-.modal-main .modal-text .lead {
-  text-align: center;
-}
-
-.modal-main .modal-text input {
-  width: 100%;
-}
-
-.modal-main .modal-text textarea {
-  width: 100%;
-}
-
-.modal-main .modal-text .text-header {
-  text-align: center;
-  font-size: 1.8em;
-  color: #2b323a;
-  margin-top: 15px;
-}
-
-.modal-main .modal-text small {
+.modal-main .modal-main small {
   padding: 5px;
   border-bottom: 2px solid #2b323a;
   width: 100%;
@@ -239,7 +210,7 @@
   margin-bottom: 40px;
 }
 
-.modal-main .modal-text .delete-request {
+.modal-main .modal-main .delete-request {
   display: inline-block;
   border-radius: 50%;
   text-align: center;
@@ -248,7 +219,7 @@
   transition: 0.3s;
 }
 
-.modal-main .modal-text .delete-request:hover {
+.modal-main .modal-main .delete-request:hover {
   -webkit-transition: 0.3s;
   transition: 0.3s;
   -webkit-transform: scale(1.2);
@@ -259,15 +230,15 @@
   cursor: pointer;
 }
 
-.display-block {
+.modal-main .display-block {
   display: block;
 }
 
-.display-none {
+.modal-main .display-none {
   display: none;
 }
 
-.company-holder {
+.modal-main .company-holder {
   width: 80%;
   margin: 0 auto;
   display: -ms-grid;
@@ -278,7 +249,7 @@
           column-gap: 3vw;
 }
 
-.company-holder .company-item {
+.modal-main .company-holder .company-item {
   -webkit-transition: 0.2s;
   transition: 0.2s;
   border-radius: 4px;
@@ -287,11 +258,11 @@
   background-repeat: no-repeat;
 }
 
-.company-holder .company-item h1 {
+.modal-main .company-holder .company-item h1 {
   font-size: 1.4em;
 }
 
-.company-holder .company-item:hover {
+.modal-main .company-holder .company-item:hover {
   -webkit-transition: 0.2s;
   transition: 0.2s;
   -webkit-transform: rotate3d(1, 1, 0, 20deg);
@@ -299,67 +270,67 @@
   cursor: pointer;
 }
 
-.company-holder .company-item .company-content {
+.modal-main .company-holder .company-item .company-content {
   width: 85%;
   margin: 0 auto;
 }
 
-.company-widget-donations .donButton {
+.modal-main .company-widget-donations .donButton {
   background-color: #41a0f2;
   border: 1px solid #41a0f2;
   border-radius: 5px;
   margin: 0px 5px 0px 5px;
 }
 
-.searchingContainer {
+.modal-main .searchingContainer {
   position: relative;
   display: inline-block;
   text-align: center;
   width: 100%;
-  margin: 50px 0px 0px 0px;
-  z-index: -1;
+  margin: 10rem 0px 0px 0px;
+  z-index: 1;
 }
 
-.searchingContainer .searchBar {
+.modal-main .searchingContainer .searchBar {
   vertical-align: middle;
-  padding: 0px 20px;
-  width: 800px;
-  height: 50px;
-  font-size: 30px;
+  padding: 0px 2rem;
+  width: 80rem;
+  height: 5rem;
+  font-size: 3rem;
   border: 5px solid #566068;
   border-radius: 100px;
 }
 
-.searchingContainer .searchBar:hover {
+.modal-main .searchingContainer .searchBar:hover {
   border-color: #41a0f2;
 }
 
-.searchingContainer .searchBar:focus {
+.modal-main .searchingContainer .searchBar:focus {
   border-color: #41a0f2;
 }
 
-.searchingContainer .search {
-  margin: 0px 10px;
+.modal-main .searchingContainer .search {
+  margin: 0px 1rem;
   vertical-align: middle;
-  height: 50px;
+  height: 5rem;
   background-color: #41a0f2;
-  width: 150px;
+  width: 15rem;
   border: 2px solid #1188ef;
   border-radius: 100px;
 }
 
-.donTags {
+.modal-main .donTags {
   margin: 10px 0px 10px 0px;
   text-align: center;
   width: 100%;
 }
 
-.donTags .donTag {
-  width: 150px;
-  height: 30px;
+.modal-main .donTags .donTag {
+  width: 15rem;
+  height: 3rem;
   display: inline-block;
   text-align: center;
-  margin: 20px 20px;
+  margin: 2rem 2rem;
   background-color: #71b8f5;
   color: black;
   border-radius: 10px;
@@ -367,25 +338,25 @@
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.donTags .donTag:hover {
+.modal-main .donTags .donTag:hover {
   -webkit-transform: translateY(-2px);
           transform: translateY(-2px);
   -webkit-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
           box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
-.donTags .donTag:active {
+.modal-main .donTags .donTag:active {
   -webkit-transform: translateY(-1px);
           transform: translateY(-1px);
   -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
           box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 
-.donTags .pressedTag {
+.modal-main .donTags .pressedTag {
   background-color: #d0e8fc;
 }
 
-.locationTags {
+.modal-main .locationTags {
   margin: 10px 0px 10px 0px;
   text-align: center;
   width: 100%;
@@ -400,7 +371,7 @@
           justify-content: center;
 }
 
-.locationTags .locTag {
+.modal-main .locationTags .locTag {
   width: 15rem;
   height: 3rem;
   display: inline-block;
@@ -413,25 +384,25 @@
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.locationTags .locTag:hover {
+.modal-main .locationTags .locTag:hover {
   -webkit-transform: translateY(-2px);
           transform: translateY(-2px);
   -webkit-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
           box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
-.locationTags .locTag:active {
+.modal-main .locationTags .locTag:active {
   -webkit-transform: translateY(-1px);
           transform: translateY(-1px);
   -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
           box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 
-.locationTags .pressedTag {
+.modal-main .locationTags .pressedTag {
   background-color: #d0e8fc;
 }
 
-.active {
+.modal-main .active {
   background: darkgrey !important;
 }
 /*# sourceMappingURL=hackathons.css.map */
