@@ -125,6 +125,14 @@
   transition: color .2s, background-color .2s;
 }
 
+.navContainer .dropdown__toggle:hover h3 {
+  color: #eee;
+}
+
+.navContainer .dropdown__toggle h3 {
+  color: #4983ff;
+}
+
 .scrolled {
   background-color: #4983ff;
   -webkit-transition: background-color 200ms linear;
@@ -160,6 +168,10 @@
 
 .scrolled .navbar-brand h3 {
   color: #eee !important;
+}
+
+.scrolled .dropdown__toggle .dropdown__top h3 {
+  color: #eee;
 }
 
 .dropdown-background {

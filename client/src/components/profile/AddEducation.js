@@ -57,7 +57,7 @@ class AddEducation extends Component {
 
     render() {
         return (
-            <div>
+            <div className = 'educationWrapper'>
                 <form onSubmit={this.onSubmit}>
                 <TextField
                 name="school"
