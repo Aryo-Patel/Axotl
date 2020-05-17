@@ -20,6 +20,28 @@
   }
 }
 
+@-webkit-keyframes scaleTranslateModal {
+  0% {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+
+@keyframes scaleTranslateModal {
+  0% {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+
 .discoverContainer {
   font-size: 1.6rem;
 }
@@ -68,19 +90,11 @@
 }
 
 .hack-modal {
+  color: #4983ff;
   z-index: 69420;
   position: fixed;
   height: 100vh;
   width: 100vw;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   -webkit-transition: all 1s ease;
   transition: all 1s ease;
   background: rgba(0, 0, 0, 0.6);
@@ -91,27 +105,44 @@
   margin: 0 auto;
 }
 
+.animation-wrapper {
+  height: 100vh;
+  -webkit-animation: scaleTranslateModal 1s;
+          animation: scaleTranslateModal 1s;
+}
+
 ::webkit-scrollbar {
   display: none;
 }
 
 .modal-main {
-  -webkit-transition: 2s;
-  transition: 2s;
-  min-height: 400px;
-  position: fixed;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  height: 550px;
   background: white;
   width: 80%;
-  height: auto;
-  top: 50%;
-  left: 50%;
-  max-height: 600px;
   overflow-y: scroll;
-  background-color: #41a0f2;
-  position: relative;
-  background-position: 0, 0;
-  -webkit-transform: scale(0) translate(-50%, -50%);
-          transform: scale(0) translate(-50%, -50%);
+  background-position: 0, 0;
+}
+
+.modal-main input {
+  border: none;
+  margin-top: 10px;
+  border-bottom: 1px solid grey;
+}
+
+.modal-main table:not(#donations-table):not(#prizes-table) > tbody {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
+}
+
+.modal-main textarea {
+  border: 1px solid grey;
 }
 
 .modal-main::-webkit-scrollbar {
@@ -209,16 +240,21 @@
 }
 
 .modal-main .modal-text .delete-request {
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
   display: inline-block;
-  border: 1px solid black;
   text-align: center;
-  border-radius: 3px;
+  border-radius: 50%;
   width: 30px;
 }
 
 .modal-main .modal-text .delete-request:hover {
-  background: red;
-  color: white;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+  -webkit-box-shadow: 0 0px 5px #000;
+          box-shadow: 0 0px 5px #000;
   cursor: pointer;
 }
 

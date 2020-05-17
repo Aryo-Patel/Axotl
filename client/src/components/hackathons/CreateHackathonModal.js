@@ -59,6 +59,9 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
         createHackathon(formData);
 
         handleClose();
+
+        window.location.reload(false);
+        return false;
     }
 
     //add table row
@@ -409,172 +412,174 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
         dots[pageNumber - 1].classList.add('active');
     }
 
-    function changeJudges(e) {
-
+    function choosePage(n) {
+        changePageNumber(n);
     }
     return (
         <div onClick={e => close(e)} className={showHideClassName}>
-            <section className="modal-main">
-                <div className="left-arrow arrow" onClick={e => decrementPage()}>
-                    <h1>&#10094;</h1>
-                </div>
-                <div className="modal-text">
-                    <h2 className="text-header">Fill in the information about your hackathon!</h2>
-                    <small>* = required field</small>
+            <div className="animation-wrapper">
+                <section className="modal-main">
+                    <div className="left-arrow arrow" onClick={e => decrementPage()}>
+                        <h1>&#10094;</h1>
+                    </div>
+                    <div className="modal-text">
+                        <h2 className="text-header">Fill in the information about your hackathon!</h2>
+                        <small>* = required field</small>
 
-                    <form className="modal-form" onSubmit={e => submitData(e)}>
-                        {pageNumber === 1 && (
-                            <Fragment>
-                                <div className='form-group'>
-                                    <input type="text" placeholder="* Hackathon name" name="title" value={formData.title} onChange={e => onInput(e)} required />
-                                </div>
+                        <form className="modal-form" onSubmit={e => submitData(e)}>
+                            {pageNumber === 1 && (
+                                <Fragment>
+                                    <div className='form-group'>
+                                        <input type="text" placeholder="* Hackathon name" name="title" value={formData.title} onChange={e => onInput(e)} required />
+                                    </div>
 
-                                <div className="form-group">
-                                    <input type="text" placeholder="Where will your hackathon be held?" name="location" value={formData.location} onChange={e => onInput(e)} required />
-                                </div>
+                                    <div className="form-group">
+                                        <input type="text" placeholder="Where will your hackathon be held?" name="location" value={formData.location} onChange={e => onInput(e)} required />
+                                    </div>
 
-                                <div className="form-group">
-                                    <input type="text" placeholder="Give us a link to your hackathon's website" name="website" value={formData.website} onChange={e => onInput(e)} />
-                                </div>
+                                    <div className="form-group">
+                                        <input type="text" placeholder="Give us a link to your hackathon's website" name="website" value={formData.website} onChange={e => onInput(e)} />
+                                    </div>
 
-                                <div className="form-group"><h2>What days will your hackathon be run?</h2></div>
-                                <div className="form-group">
-                                    <span>*Start Date: </span><input type="date" name="startDate" value={formData.startDate} onChange={e => onInput(e)} />
-                                </div>
+                                    <div className="form-group"><h2>What days will your hackathon be run?</h2></div>
+                                    <div className="form-group">
+                                        <span>*Start Date: </span><input type="date" name="startDate" value={formData.startDate} onChange={e => onInput(e)} />
+                                    </div>
 
-                                <div className="form-group">
-                                    <span>*End Date: </span><input type="date" name="endDate" value={formData.endDate} onChange={e => onInput(e)} />
-                                </div>
-                            </Fragment>
-                        )}
-                        {pageNumber === 2 && (
-                            <Fragment>
-                                <div className="form-group">
-                                    <textarea type="text" placeholder="* A short description about your hackathon" name="description" value={formData.description} onChange={e => onInput(e)}></textarea>
-                                </div>
+                                    <div className="form-group">
+                                        <span>*End Date: </span><input type="date" name="endDate" value={formData.endDate} onChange={e => onInput(e)} />
+                                    </div>
+                                </Fragment>
+                            )}
+                            {pageNumber === 2 && (
+                                <Fragment>
+                                    <div className="form-group">
+                                        <textarea type="text" placeholder="* A short description about your hackathon" name="description" value={formData.description} onChange={e => onInput(e)}></textarea>
+                                    </div>
 
-                                <div className="form-group">
-                                    <p className="lead text-header">What are the requirements to participate in your hackathon?</p>
-                                    <table id="requirements-table">
-                                        <thead>
-                                            <tr>
-                                                <th>Requirements:</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td><input type='text' placeholder='Requirement' name='row-0-requirement' value={formData.requirements[0]} onChange={e => addText(e)} /></td>
-                                                <td><span className="requirements delete-request" onClick={e => deleteTableRow(e)}>X</span></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <button type='button' id="requirements" onClick={e => addTableRow(e)} className="requirements-request btn btn-secondary btn-success">Add</button>
-                                </div>
-                            </Fragment>
-                        )}
-                        {pageNumber === 3 && (
-                            <Fragment>
-                                <div className="form-group">
-                                    <p className="lead text-header">What are the categories people can win in?</p>
-                                    <table id="criteria-table">
-                                        <thead>
-                                            <tr>
-                                                <th>Criteria</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td><input type='text' placeholder="Criterion" value={formData.criteria ? formData.criteria[0] : ''} name='row-0-criteria' onChange={e => addText(e)} /></td>
-                                                <td><span className="criteria delete-request" onClick={e => deleteTableRow(e)}>X</span></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <button type='button' id="criteria" className="criteria-request btn btn-secondary btn-success" onClick={e => addTableRow(e)}>Add</button>
-                                </div>
-                                <div className="form-group">
-                                    <p className="lead text-header">Who are the judges at your hackathon?</p>
-                                    <table id="judges-table">
-                                        <thead>
-                                            <tr>
-                                                <th>Judge Names</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td><input type='text' placeholder="Judge's name" value={formData.judges[0]} name='row-0-judges' onChange={e => addText(e)} /></td>
-                                                <td><span className="judges delete-request" onClick={e => deleteTableRow(e)}>X</span></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <button type='button' id='judges' className='judges btn btn-secondary btn-success' onClick={e => addTableRow(e)}>Add</button>
-                                </div>
-                            </Fragment>
-                        )}
-                        {pageNumber === 4 && (
-                            <Fragment>
-                                <div className="form-group">
-                                    <p className="lead text-header">What donations will your hackathon require?</p>
-                                    <table id="donations-table" className="input-table">
-                                        <thead>
-                                            <tr>
-                                                <th>Type</th>
-                                                <th>Quantity</th>
-                                                <th>Description</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td><input type="text" placeholder="Type" name="row-0-type" value={formData.donations[0] ? formData.donations[0].type : ''} onChange={e => addText(e)} /></td>
-                                                <td><input type="text" placeholder="Quantity" value={formData.donations[0] ? formData.donations[0].quantity : ''} name="row-0-quantity" onChange={e => addText(e)} /></td>
-                                                <td><input type="text" placeholder="Description" value={formData.donations[0] ? formData.donations[0].description : ''} name="row-0-description" onChange={e => addText(e)} /></td>
-                                                <td><span className="donations delete-request" onClick={e => deleteTableRow(e)}>X</span></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <button type="button" onClick={e => addTableRow(e)} id="donations" className="donations-request btn btn-secondary btn-success">Add</button>
-                                </div>
-                            </Fragment>
-                        )}
-                        {pageNumber === 5 && (
-                            <Fragment>
-                                <div className="form-group">
-                                    <p className="lead text-header">What are the categories people can win in?</p>
-                                    <table id="prizes-table">
-                                        <thead>
-                                            <tr>
-                                                <th>Award Title</th>
-                                                <th>Prize</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td><input type="text" placeholder="Award Title" name="row-0-awardTitle" value={formData.prizes[0] ? formData.prizes[0].awardTitle : ''} onChange={e => addText(e)} /></td>
-                                                <td><input type="text" placeholder="Prize" name="row-0-prize" value={formData.prizes[0] ? formData.prizes[0].prize : ''} onChange={e => addText(e)} /></td>
-                                                <td><span className="prizes delete-request" onClick={e => deleteTableRow(e)}>X</span></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <button type="button" id="prizes" onClick={e => addTableRow(e)} className="add-donation-request btn btn-secondary btn-success">Add</button>
-                                </div>
+                                    <div className="form-group">
+                                        <p className="lead text-header">What are the requirements to participate in your hackathon?</p>
+                                        <table id="requirements-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Requirements:</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><input type='text' placeholder='Requirement' name='row-0-requirement' value={formData.requirements[0]} onChange={e => addText(e)} /></td>
+                                                    <td><span className="requirements delete-request" onClick={e => deleteTableRow(e)}>X</span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <button type='button' id="requirements" onClick={e => addTableRow(e)} className="requirements-request btn btn-secondary btn-success">Add</button>
+                                    </div>
+                                </Fragment>
+                            )}
+                            {pageNumber === 3 && (
+                                <Fragment>
+                                    <div className="form-group">
+                                        <p className="lead text-header">What are the categories people can win in?</p>
+                                        <table id="criteria-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Criteria</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><input type='text' placeholder="Criterion" value={formData.criteria ? formData.criteria[0] : ''} name='row-0-criteria' onChange={e => addText(e)} /></td>
+                                                    <td><span className="criteria delete-request" onClick={e => deleteTableRow(e)}>X</span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <button type='button' id="criteria" className="criteria-request btn btn-secondary btn-success" onClick={e => addTableRow(e)}>Add</button>
+                                    </div>
+                                    <div className="form-group">
+                                        <p className="lead text-header">Who are the judges at your hackathon?</p>
+                                        <table id="judges-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Judge Names</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><input type='text' placeholder="Judge's name" value={formData.judges[0]} name='row-0-judges' onChange={e => addText(e)} /></td>
+                                                    <td><span className="judges delete-request" onClick={e => deleteTableRow(e)}>X</span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <button type='button' id='judges' className='judges btn btn-secondary btn-success' onClick={e => addTableRow(e)}>Add</button>
+                                    </div>
+                                </Fragment>
+                            )}
+                            {pageNumber === 4 && (
+                                <Fragment>
+                                    <div className="form-group">
+                                        <p className="lead text-header">What donations will your hackathon require?</p>
+                                        <table id="donations-table" className="input-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Type</th>
+                                                    <th>Quantity</th>
+                                                    <th>Description</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><input type="text" placeholder="Type" name="row-0-type" value={formData.donations[0] ? formData.donations[0].type : ''} onChange={e => addText(e)} /></td>
+                                                    <td><input type="text" placeholder="Quantity" value={formData.donations[0] ? formData.donations[0].quantity : ''} name="row-0-quantity" onChange={e => addText(e)} /></td>
+                                                    <td><input type="text" placeholder="Description" value={formData.donations[0] ? formData.donations[0].description : ''} name="row-0-description" onChange={e => addText(e)} /></td>
+                                                    <td><span className="donations delete-request" onClick={e => deleteTableRow(e)}>X</span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <button type="button" onClick={e => addTableRow(e)} id="donations" className="donations-request btn btn-secondary btn-success">Add</button>
+                                    </div>
+                                </Fragment>
+                            )}
+                            {pageNumber === 5 && (
+                                <Fragment>
+                                    <div className="form-group">
+                                        <p className="lead text-header">What are the categories people can win in?</p>
+                                        <table id="prizes-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Award Title</th>
+                                                    <th>Prize</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><input type="text" placeholder="Award Title" name="row-0-awardTitle" value={formData.prizes[0] ? formData.prizes[0].awardTitle : ''} onChange={e => addText(e)} /></td>
+                                                    <td><input type="text" placeholder="Prize" name="row-0-prize" value={formData.prizes[0] ? formData.prizes[0].prize : ''} onChange={e => addText(e)} /></td>
+                                                    <td><span className="prizes delete-request" onClick={e => deleteTableRow(e)}>X</span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <button type="button" id="prizes" onClick={e => addTableRow(e)} className="add-donation-request btn btn-secondary btn-success">Add</button>
+                                    </div>
 
-                                <input type="submit" className="btn btn-primary my-1" />
-                            </Fragment>
-                        )}
-                        <div className="dots-holder">
-                            <span className="dot active"></span>
-                            <span className="dot"></span>
-                            <span className="dot"></span>
-                            <span className="dot"></span>
-                            <span className="dot"></span>
-                        </div>
+                                    <input type="submit" className="btn btn-primary my-1" />
+                                </Fragment>
+                            )}
+                            <div className="dots-holder">
+                                <span className="dot active" onClick={e => choosePage(1)}></span>
+                                <span className="dot" onClick={e => choosePage(2)}></span>
+                                <span className="dot" onClick={e => choosePage(3)}></span>
+                                <span className="dot" onClick={e => choosePage(4)}></span>
+                                <span className="dot" onClick={e => choosePage(5)}></span>
+                            </div>
 
-                    </form>
-                </div>
+                        </form>
+                    </div>
 
-                <div className="right-arrow arrow" onClick={e => incrementPage()}>
-                    <h1>&#10095;</h1>
-                </div>
-            </section>
+                    <div className="right-arrow arrow" onClick={e => incrementPage()}>
+                        <h1>&#10095;</h1>
+                    </div>
+                </section>
+            </div>
         </div>
     )
 }

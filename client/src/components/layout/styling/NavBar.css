@@ -91,8 +91,8 @@
   font-size: 2rem;
   color: #4983ff;
   background-color: none !important;
-  -webkit-transition: color 0.2s, background-color 0.2s;
-  transition: color 0.2s, background-color 0.2s;
+  -webkit-transition: color 0.2s, background-color 0.2s;
+  transition: color 0.2s, background-color 0.2s;
   text-decoration: none;
 }
 
@@ -109,7 +109,13 @@
   transition: color 0.2s, background-color 0.2s;
 }
 
-.navContainer .auth-links .link-list li {
+.navContainer .auth-links label {
+  color: #4983ff;
+  -webkit-transition: color 0.2s, background-color 0.2s;
+  transition: color 0.2s, background-color 0.2s;
+}
+
+.navContainer .link-list li {
   color: #4983ff;
   margin: 0 !important;
   text-align: center;
@@ -132,15 +138,15 @@
           flex: 0 0 20%;
 }
 
-.navContainer .auth-links .link-list li:hover {
+.navContainer .link-list li:hover {
   background-color: #4983ff !important;
 }
 
-.navContainer .auth-links .link-list li:hover a {
+.navContainer .link-list li:hover a {
   color: #eee;
 }
 
-.navContainer .auth-links .link-list li:hover label {
+.navContainer .link-list li:hover label {
   color: #eee;
 }
 
@@ -195,7 +201,7 @@
   color: #eee !important;
 }
 
-.scrolled .dropdown__toggle .dropdown__top h3 {
+.dropdown__toggle .dropdown__top h3 {
   color: #eee;
 }
 
@@ -252,13 +258,6 @@
 
 .navCheckbox {
   display: none;
-}
-
-.navCheckbox:checked ~ .hack-modal .modal-main {
-  -webkit-animation: scaleTranslateModal 1s;
-          animation: scaleTranslateModal 1s;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
 }
 
 @-webkit-keyframes scaleTranslateModal {
@@ -361,8 +360,8 @@
   position: absolute;
   border-bottom: 1px solid transparent;
   border-radius: 20px;
-  -webkit-transition: visibility .3s ease, opacity .3s ease;
-  transition: visibility .3s ease, opacity .3s ease;
+  -webkit-transition: visibility 0.3s ease, opacity 0.3s ease;
+  transition: visibility 0.3s ease, opacity 0.3s ease;
 }
 
 .dropdown__item {
@@ -397,8 +396,8 @@
   display: table;
   margin-right: 3rem;
   padding: 0.5rem 2rem;
-  -webkit-transition: visibility .5s ease, background-color .2s, opacity .5s ease;
-  transition: visibility .5s ease, background-color .2s, opacity .5s ease;
+  -webkit-transition: visibility 0.5s ease, background-color 0.2s, opacity 0.5s ease;
+  transition: visibility 0.5s ease, background-color 0.2s, opacity 0.5s ease;
   position: relative;
   z-index: 100;
 }
