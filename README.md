@@ -34,9 +34,12 @@ science competitions and information to those who do not have the resources to h
 <a href="http://github.com/spilr?s=200" target="_blank">`github.com/spilr`</a>
 - Silpol Dhiantravan
 
+
 ##Support
+
 Reach out to us at support@axotl.com
 
 ##License
+
 - [MIT License](https://opensource.org/licenses/mit-license.php)
 - Copyright 2020 ©Axotl
