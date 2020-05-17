@@ -35,11 +35,9 @@ science competitions and information to those who do not have the resources to h
 - Silpol Dhiantravan
 
 
-##Support
-
+## Support
 Reach out to us at support@axotl.com
 
-##License
-
+## License
 - [MIT License](https://opensource.org/licenses/mit-license.php)
 - Copyright 2020 ©Axotl
