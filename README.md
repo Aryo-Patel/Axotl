@@ -4,40 +4,40 @@ empowering the next generation of computer science enthusiasts and helping to sp
 science competitions and information to those who do not have the resources to host or participate in such events.
 
 ## Features
--Session based authentication
--Algorithm that displays hackathons to sponsors and vice versa, filterable by distance and specific tags
--Posts for hackathons to provide updates, seek other individuals
--Bidirectional direct messaging functionality
--Fleshed out platform with a variety of other smaller features
+- Session based authentication
+- Algorithm that displays hackathons to sponsors and vice versa, filterable by distance and specific tags
+- Posts for hackathons to provide updates, seek other individuals
+- Bidirectional direct messaging functionality
+- Fleshed out platform with a variety of other smaller features
 
 ## Built With
--Node.js
--React
--Redux
--Express
--MongoDB via Mongoose
--PassportJS
+- Node.js
+- React
+- Redux
+- Express
+- MongoDB via Mongoose
+- PassportJS
 
 ## Team
 
 github.com/abagel21?s=200
--Alexander Nagel
+- Alexander Nagel
 
 github.com/Aryo-Patel?s=200
--Aryo Patel
+- Aryo Patel
 
 github.com/Nadharm?s=200
--Nadharm Dhiantravan
+- Nadharm Dhiantravan
 
 github.com/sassifr?s=200
--Isabella Allada
+- Isabella Allada
 
 github.com/spilr?s=200
--Silpol Dhiantravan
+- Silpol Dhiantravan
 
 ##Support
 Reach out to us at support@axotl.com
 
 ##License
--https://opensource.org/licenses/mit-license.php
--Copyright 2020 ©
+- [MIT License](https://opensource.org/licenses/mit-license.php)
+- Copyright 2020 ©Axotl
