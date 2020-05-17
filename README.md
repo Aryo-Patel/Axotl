@@ -27,8 +27,10 @@ science competitions and information to those who do not have the resources to h
 
 <a href="http://github.com/Nadharm?s=200" target="_blank">`github.com/Nadharm`</a>
 - Nadharm Dhiantravan
+
 <a href="http://github.com/sassifr?s=200" target="_blank">`github.com/sassifr`</a>
 - Isabella Allada
+
 <a href="http://github.com/spilr?s=200" target="_blank">`github.com/spilr`</a>
 - Silpol Dhiantravan
 
