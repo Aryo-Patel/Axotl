@@ -24,8 +24,15 @@ $bp-small: 37.5em;
     transition: color 0.2s, background-color 0.2s;
     .navbar-brand {
         margin-left: 3rem;
+        @media (max-width: $bp-large) {
+            margin-left: 2rem;
+        }
+        @media (max-width: 68.75em) {
+            margin-left: 1.5rem;
+        }
         color: $background-color;
-        transition: color 0.2s, background-color 0.2s;
+        transition: color 0.2s,
+        background-color 0.2s;
         display: flex;
         align-items: center;
         h3 {
@@ -66,6 +73,12 @@ $bp-small: 37.5em;
                 @media (max-width: $bp-largest) {
                     font-size: 2.5rem;
                 }
+                @media (max-width: $bp-large) {
+                    font-size: 2rem;
+                }
+                @media (max-width: 68.75em) {
+                    font-size: 1.5rem;
+                }
                 color: $background-color;
                 background-color: none !important;
                 transition: color 0.2s,
@@ -75,6 +88,15 @@ $bp-small: 37.5em;
             label {
                 color: $background-color;
                 transition: color 0.2s, background-color 0.2s;
+                @media (max-width: $bp-largest) {
+                    font-size: 2.5rem;
+                }
+                @media (max-width: $bp-large) {
+                    font-size: 2rem;
+                }
+                @media (max-width: 68.75em) {
+                    font-size: 1.5rem;
+                }
             }
         }
         .link-list li {
@@ -120,7 +142,9 @@ $bp-small: 37.5em;
 .scrolled {
     background-color: $background-color;
     transition: background-color 200ms linear;
-    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+    @media (max-width: $bp-small) {
+        box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+    }
     .link-list li {
         color: $primary-white;
         &:hover {
@@ -156,36 +180,97 @@ $bp-small: 37.5em;
 }
 
 .dropdownReplacement {
+    position: fixed;
+    margin-top: 6rem;
     height: 3rem;
     width: 100%;
     display: block;
-    background-color: $background-color;
+    background-color: white;
     // border-top: 2px solid $primary-white;
     animation: dropdown;
     animation-duration: 0.7s;
     color: $primary-white;
     .auth-links {
+        color: $primary-white;
+        background-color: white;
+        display: flex;
+        align-self: stretch;
+        align-items: center;
+        justify-content: center;
+        transition: color 0.2s, background-color 0.2s;
+        .nav-link {
+            color: $background-color;
+            animation: dropdown-text;
+            animation-duration: 0.7s;
+        }
         div {
             display: inline-block;
         }
         .link-list {
-            color: $primary-white;
             min-height: 100%;
             list-style-type: none;
+            background-color: transparent !important;
             padding: 0;
+            margin: 0;
             display: flex;
-            justify-content: center;
-            align-items: center;
+            align-items: stretch;
+            color: white;
+            transition: color 0.2s, background-color 0.2s;
+            .active {
+                background: none !important;
+            }
+            a:active,
+            a:link {
+                font-size: 2rem;
+                @media (max-width: $bp-largest) {
+                    font-size: 2.5rem;
+                }
+                @media (max-width: $bp-large) {
+                    font-size: 2rem;
+                }
+                @media (max-width: 68.75em) {
+                    font-size: 1.5rem;
+                }
+                color: $background-color;
+                background-color: none !important;
+                transition: color 0.2s,
+                background-color 0.2s;
+                text-decoration: none;
+            }
+            label {
+                color: $background-color;
+                transition: color 0.2s, background-color 0.2s;
+                @media (max-width: $bp-largest) {
+                    font-size: 2.5rem;
+                }
+                @media (max-width: $bp-large) {
+                    font-size: 2rem;
+                }
+                @media (max-width: 68.75em) {
+                    font-size: 1.5rem;
+                }
+            }
         }
         .link-list li {
-            color: $primary-white;
+            color: $background-color;
+            margin: 0 !important;
+            text-align: center;
             padding: 0;
             float: left;
             list-style-type: none;
-            .nav-link {
-                color: $primary-white;
-                animation: dropdown-text;
-                animation-duration: 0.7s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            flex: 0 0 20%;
+            &:hover {
+                a {
+                    color: $primary-white;
+                }
+                label {
+                    color: $primary-white;
+                }
+                background-color: $background-color !important;
             }
         }
     }
@@ -253,7 +338,7 @@ $bp-small: 37.5em;
     opacity: 0;
     visibility: none;
     height: 0;
-    // display: none;
+    display: none;
     top: 100%;
     right: 0%;
     width: 22.875rem;
@@ -287,8 +372,16 @@ $bp-small: 37.5em;
         color: $primary-white;
         display: table;
         margin-right: 3rem;
+        @media (max-width: $bp-large) {
+            margin-right: 2rem;
+        }
+        @media (max-width: 68.75em) {
+            margin-right: 1.5rem;
+        }
         padding: 0.5rem 2rem;
-        transition: visibility .5s ease, background-color .2s, opacity .5s ease;
+        transition: visibility .5s ease,
+        background-color .2s,
+        opacity .5s ease;
         position: relative;
         z-index: 100;
         // .dropdown__top {
@@ -314,6 +407,7 @@ $bp-small: 37.5em;
             border-bottom-right-radius: 0px;
             background-color: darken($background-color, 5%);
             .dropdown {
+                display: block;
                 height: 137px;
                 visibility: visible;
                 opacity: 1;
@@ -353,7 +447,24 @@ $bp-small: 37.5em;
     }
 }
 
+.scrolledAuthLinks {
+    background-color: $background-color!important;
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+    .link-list .nav-item .nav-link {
+        color: $primary-white;
+    }
+}
+
 .hackModalToggler {
     margin-top: 0.5rem;
     color: rgb(47, 114, 255);
+}
+
+.navbar-toggler {
+    @media (max-width: $bp-large) {
+        margin-left: 2rem;
+    }
+    @media (max-width: 68.75em) {
+        margin-left: 1.5rem;
+    }
 }
