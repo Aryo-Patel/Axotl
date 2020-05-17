@@ -264,6 +264,7 @@
   -webkit-animation-duration: 0.7s;
           animation-duration: 0.7s;
   color: #eee;
+  z-index: 10000;
 }
 
 .dropdownReplacement .auth-links {
@@ -282,6 +283,8 @@
           justify-content: center;
   -webkit-transition: color 0.2s, background-color 0.2s;
   transition: color 0.2s, background-color 0.2s;
+  position: relative;
+  z-index: 5;
 }
 
 .dropdownReplacement .auth-links .nav-link {

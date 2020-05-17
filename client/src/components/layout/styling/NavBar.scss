@@ -190,6 +190,7 @@ $bp-small: 37.5em;
     animation: dropdown;
     animation-duration: 0.7s;
     color: $primary-white;
+    z-index: 10000;
     .auth-links {
         color: $primary-white;
         background-color: white;
@@ -198,6 +199,8 @@ $bp-small: 37.5em;
         align-items: center;
         justify-content: center;
         transition: color 0.2s, background-color 0.2s;
+        position: relative;
+        z-index: 5;
         .nav-link {
             color: $background-color;
             animation: dropdown-text;
