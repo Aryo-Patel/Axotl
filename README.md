@@ -19,20 +19,17 @@ science competitions and information to those who do not have the resources to h
 - PassportJS
 
 ## Team
-
-github.com/abagel21?s=200
+<a href="http://github.com/abagel21?s=200" target="_blank">`github.com/abagel21`</a>
 - Alexander Nagel
 
-github.com/Aryo-Patel?s=200
+<a href="http://github.com/Aryo-Patel?s=200" target="_blank">`github.com/Aryo-Patel`</a>
 - Aryo Patel
 
-github.com/Nadharm?s=200
+<a href="http://github.com/Nadharm?s=200" target="_blank">`github.com/Nadharm`</a>
 - Nadharm Dhiantravan
-
-github.com/sassifr?s=200
+<a href="http://github.com/sassifr?s=200" target="_blank">`github.com/sassifr`</a>
 - Isabella Allada
-
-github.com/spilr?s=200
+<a href="http://github.com/spilr?s=200" target="_blank">`github.com/spilr`</a>
 - Silpol Dhiantravan
 
 ##Support
