@@ -367,7 +367,6 @@
 }
 
 .forgotPassword {
-  border: 2px solid #a5a5a5;
   border-radius: 10px;
   padding: 10rem 7.5rem 20rem 7.5rem;
   margin-top: 10rem;
@@ -376,6 +375,108 @@
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
+  background-image: -webkit-gradient(linear, right bottom, left top, from(#ff7b61), to(yellow));
+  background-image: linear-gradient(to top left, #ff7b61, yellow);
+  -webkit-box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.3);
+          box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.3);
+}
+
+.forgotPassword::after {
+  background-repeat: no-repeat;
+  content: "";
+  position: absolute;
+  z-index: -100;
+  width: 99%;
+  height: 99%;
+  top: .5%;
+  left: .5%;
+  border-radius: 20px;
+  background-color: #eee;
+}
+
+@media (max-width: 100em) and (min-height: 1400px) {
+  .forgotPassword {
+    padding: 15rem 5rem;
+    width: 70%;
+  }
+}
+
+@media (max-width: 75em) and (min-height: 1400px) {
+  .forgotPassword {
+    padding: 20rem 5rem;
+    width: 75%;
+  }
+}
+
+@media (max-width: 56.25em) and (min-height: 1400px) {
+  .forgotPassword {
+    padding: 20rem 5rem;
+    width: 75%;
+  }
+}
+
+@media (max-width: 37.5em) and (min-height: 1400px) {
+  .forgotPassword {
+    padding: 5rem 4rem;
+    width: 100%;
+    background-image: none;
+    color: #eee;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+    margin-top: -5rem;
+  }
+  .forgotPassword::after {
+    background-color: transparent;
+  }
+}
+
+@media (max-height: 1100px) and (min-width: 75em) {
+  .forgotPassword {
+    padding: 17.5rem 12.5rem;
+  }
+}
+
+@media (max-height: 1400px) and (min-width: 75em) {
+  .forgotPassword {
+    padding: 20rem 15rem;
+    width: 65%;
+  }
+}
+
+@media (max-height: 1400px) and (min-width: 100em) {
+  .forgotPassword {
+    padding: 17.5rem 12.5rem;
+  }
+}
+
+@media (max-height: 1400px) and (max-width: 75em) {
+  .forgotPassword {
+    padding: 20rem 5rem;
+    width: 75%;
+  }
+}
+
+@media (max-height: 1100px) and (max-width: 75em) {
+  .forgotPassword {
+    padding: 20rem 5rem;
+  }
+}
+
+@media (max-height: 950px) and (max-width: 75em) {
+  .forgotPassword {
+    padding: 10rem 5rem;
+  }
+}
+
+.forgotPassword__background {
+  width: 100%;
+  height: 100vh;
+  background-image: -webkit-gradient(linear, left top, right bottom, from(#7ca6ff), to(#003ea3));
+  background-image: linear-gradient(to right bottom, #7ca6ff, #003ea3);
+  background-repeat: no-repeat;
+  background-position: top;
+  background-size: cover;
+  overflow: hidden;
 }
 
 .forgotPassword h3 {
@@ -421,11 +522,13 @@
       justify-content: space-around;
   -webkit-animation: fadeIn 1s 0s forwards;
           animation: fadeIn 1s 0s forwards;
+  width: 100%;
 }
 
 .forgotPassword__email {
   font-size: 2rem;
   margin-bottom: 15px;
+  margin-right: 2rem;
   background: none;
   border: none;
   border-bottom: 2px solid #566068;
