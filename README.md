@@ -1,5 +1,7 @@
 # Axotl
-A multifaceted social media platform facilitating relationships between sponsors and hackathon organizers, empowering the next generation of computer science enthusiasts and helping to spread access to good computer science competitions and information to those who do not have the resources to host or participate in such events.
+A multifaceted social media platform facilitating relationships between sponsors and hackathon organizers, 
+empowering the next generation of computer science enthusiasts and helping to spread access to good computer 
+science competitions and information to those who do not have the resources to host or participate in such events.
 
 ## Features
 -Session based authentication
