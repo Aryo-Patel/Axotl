@@ -13,7 +13,7 @@ const Companies = ({companies : {loading, companyList}, getCompanies, getDistanc
         getDistances()
     }, [getDistances])
     
-    const [query, setQuery] = useState('')
+    const [search, setSearch] = useState('')
 
     const [donTag, setDonTag] = useState([])
 
@@ -27,16 +27,16 @@ const Companies = ({companies : {loading, companyList}, getCompanies, getDistanc
     }
 
     const onChange = e => {
-        setQuery(e.target.value)
+        setSearch(e.target.value);
     }
 
     const addTag = e => {
         if(!e.target.classList.contains('pressedTag')) {
         e.target.classList.add('pressedTag')
-        console.log('first hit')
+        
         setDonTag([...donTag, e.target.id])
         } else {
-            console.log('second hit')
+            
             e.target.classList.remove('pressedTag')
             setDonTag(donTag.filter(tag => tag != e.target.id))
         }
@@ -65,7 +65,7 @@ const Companies = ({companies : {loading, companyList}, getCompanies, getDistanc
                 <h1>Find and connect with potential sponsors!</h1>
             </div>
             <form className="searchingContainer" onSubmit = {e=> onSubmit(e)}>
-                <input type="text" className="searchBar" placeholder='Search for a sponsor...' onChange = {e => onChange(e)} value= {query}/>
+                <input type="text" className="searchBar" placeholder='Search for a sponsor...' onChange = {e => onChange(e)} value= {search}/>
                 <input type='submit' className = 'search' value='Search'/>
             </form>
             <div className="donTags">
@@ -91,13 +91,11 @@ const Companies = ({companies : {loading, companyList}, getCompanies, getDistanc
                             tagsTrue = false;
                         }
                     }
-                    console.log(`distfiltertoggle : ${distFilterToggle}`)
-                    console.log(`distFilter: ${distFilter}`)
-                    console.log(company.distanceFromUser.split(" ")[0].split(",").join(""))
+                    
                     if(distFilterToggle && Number(company.distanceFromUser.split(" ")[0].split(",").join("")) > Number(distFilter.split(" ")[0])) {
                         distTrue = false;
                     }
-                    return company.organization.substring(0, query.length).toUpperCase() == query.toUpperCase() && tagsTrue && distTrue}).map((company, index) => (
+                    return company.organization.substring(0, search.length).toUpperCase() == search.toUpperCase() && tagsTrue && distTrue}).map((company, index) => (
                     <Company key = {index} company = {company} />
                 ))
                 : <Spinner />}

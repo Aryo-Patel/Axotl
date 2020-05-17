@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-import { LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, ACCOUNT_DELETED, RES_PASSWORD, REGISTER_SUCCESS, REGISTER_FAIL, USER_FAILED, USER_LOADED, FORGOT_PASSWORD_FAIL, FORGOT_PASSWORD } from './Types'
-
+import { LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, ACCOUNT_DELETED, RES_PASSWORD, REGISTER_SUCCESS, REGISTER_FAIL, USER_FAILED, USER_LOADED, FORGOT_PASSWORD_FAIL, FORGOT_PASSWORD, CHANGE_PASSWORD } from './Types'
+import bcrypt from 'bcryptjs';
 
 export const sendLogin = (formData) => async dispatch => {
     const config = {
@@ -119,7 +119,7 @@ export const logout = () => async dispatch => {
     }
 }
 
-export const setAuthFalse = () =>  dispatch => {
+export const setAuthFalse = () => dispatch => {
     try {
         dispatch({
             type: LOGOUT
@@ -129,11 +129,11 @@ export const setAuthFalse = () =>  dispatch => {
     }
 }
 
-export const forPass = (email) => async dispatch => {
+export const forPass = (email, history) => async dispatch => {
     console.log('forpass hit')
     try {
         const res = await axios.get(`/api/auth/forgotpassword/${email}`)
-        console.log(res)
+        history.push('/email-sent')
         dispatch({
             type: FORGOT_PASSWORD
         })
@@ -144,7 +144,7 @@ export const forPass = (email) => async dispatch => {
     }
 }
 
-export const resPass = (formData, jwt) => async dispatch => {
+export const resPass = (formData, jwt, history) => async dispatch => {
     console.log('respass hit')
     const config = {
             headers: {
@@ -157,8 +157,32 @@ export const resPass = (formData, jwt) => async dispatch => {
 
     try {
         await axios.post(`/api/auth/resetpassword/${jwt}`, body, config)
+        history.push('dashboard')
         dispatch({
             type: RES_PASSWORD
+        })
+    } catch (err) {
+        console.log('did not work lmao')
+    }
+}
+
+export const changePass = (formData, history) => async dispatch => {
+    const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        //CHECK PASSWORDS?
+
+    const password = formData.currPass;
+    const newPassword = formData.newPass;
+    const body = JSON.stringify({ password, newPassword })
+
+    try {
+        await axios.post(`/api/auth/changepassword`, body, config)
+        history.push('/dashboard')
+        dispatch({
+            type: CHANGE_PASSWORD
         })
     } catch (err) {
         console.log('did not work lmao')

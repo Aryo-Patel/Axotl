@@ -80,6 +80,7 @@ $font-size: 1.6rem;
 ::webkit-scrollbar {
   display: none;
 }
+
 .modal-main {
   position: absolute;
   left: 50%;
@@ -102,13 +103,12 @@ $font-size: 1.6rem;
   &::-webkit-scrollbar {
     display: none;
   }
-  height: 500px;
+  height: 550px;
   background: white;
   width: 80%;
   overflow-y: scroll;
 
   background-position: 0, 0;
-
   .arrow {
     position: absolute;
     height: 100%;
@@ -177,16 +177,15 @@ $font-size: 1.6rem;
       margin-bottom: 40px;
     }
     .delete-request {
-      display: inline-block;
-      border-radius: 50%;
-      text-align: center;
-      width: 30px;
       transition: 0.3s;
+      display: inline-block;
+      text-align: center;
+      border-radius: 50%;
+      width: 30px;
       &:hover {
         transition: 0.3s;
         transform: scale(1.2);
-        box-shadow: 0 0 5px #000;
-        border-radius: 50%;
+        box-shadow: 0 0px 5px #000;
         cursor: pointer;
       }
     }
@@ -242,14 +241,14 @@ $font-size: 1.6rem;
   display: inline-block;
   text-align: center;
   width: 100%;
-  margin: 50px 0px 0px 0px;
-  z-index: -1;
+  margin: 10rem 0px 0px 0px;
+  z-index: 1;
   .searchBar {
     vertical-align: middle;
-    padding: 0px 20px;
-    width: 800px;
-    height: 50px;
-    font-size: 30px;
+    padding: 0px 2rem;
+    width: 80rem;
+    height: 5rem;
+    font-size: 3rem;
     border: 5px solid $grey-text;
     border-radius: 100px;
     &:hover {
@@ -260,11 +259,11 @@ $font-size: 1.6rem;
     }
   }
   .search {
-    margin: 0px 10px;
+    margin: 0px 1rem;
     vertical-align: middle;
-    height: 50px;
+    height: 5rem;
     background-color: $light-blue;
-    width: 150px;
+    width: 15rem;
     border: 2px solid darken($light-blue, 10%);
     border-radius: 100px;
   }
@@ -275,11 +274,11 @@ $font-size: 1.6rem;
   text-align: center;
   width: 100%;
   .donTag {
-    width: 150px;
-    height: 30px;
+    width: 15rem;
+    height: 3rem;
     display: inline-block;
     text-align: center;
-    margin: 20px 20px;
+    margin: 2rem 2rem;
     background-color: lighten($tag-color, 10%);
     color: black;
     border-radius: 10px;

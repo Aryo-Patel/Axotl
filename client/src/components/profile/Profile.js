@@ -68,21 +68,7 @@ class Profile extends Component {
               <Credentials profile={profile} />
             )}
             <Social props={profile} />
-            {sponsor ? (
-              <button
-                className="btn btn-lg btn-primary"
-                onClick={this.deleteSponsorAccount}
-              >
-                Delete Profile and Account
-              </button>
-            ) : (
-              <button
-                className="btn btn-lg btn-primary"
-                onClick={this.deleteRecipientAccount}
-              >
-                Delete Profile and Account
-              </button>
-            )}
+            
           </div>
         </div>
       );

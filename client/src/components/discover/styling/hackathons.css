@@ -121,7 +121,7 @@
   top: 50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
-  height: 500px;
+  height: 550px;
   background: white;
   width: 80%;
   overflow-y: scroll;
@@ -240,12 +240,12 @@
 }
 
 .modal-main .modal-text .delete-request {
-  display: inline-block;
-  border-radius: 50%;
-  text-align: center;
-  width: 30px;
   -webkit-transition: 0.3s;
   transition: 0.3s;
+  display: inline-block;
+  text-align: center;
+  border-radius: 50%;
+  width: 30px;
 }
 
 .modal-main .modal-text .delete-request:hover {
@@ -253,9 +253,8 @@
   transition: 0.3s;
   -webkit-transform: scale(1.2);
           transform: scale(1.2);
-  -webkit-box-shadow: 0 0 5px #000;
-          box-shadow: 0 0 5px #000;
-  border-radius: 50%;
+  -webkit-box-shadow: 0 0px 5px #000;
+          box-shadow: 0 0px 5px #000;
   cursor: pointer;
 }
 
@@ -316,16 +315,16 @@
   display: inline-block;
   text-align: center;
   width: 100%;
-  margin: 50px 0px 0px 0px;
-  z-index: -1;
+  margin: 10rem 0px 0px 0px;
+  z-index: 1;
 }
 
 .searchingContainer .searchBar {
   vertical-align: middle;
-  padding: 0px 20px;
-  width: 800px;
-  height: 50px;
-  font-size: 30px;
+  padding: 0px 2rem;
+  width: 80rem;
+  height: 5rem;
+  font-size: 3rem;
   border: 5px solid #566068;
   border-radius: 100px;
 }
@@ -339,11 +338,11 @@
 }
 
 .searchingContainer .search {
-  margin: 0px 10px;
+  margin: 0px 1rem;
   vertical-align: middle;
-  height: 50px;
+  height: 5rem;
   background-color: #41a0f2;
-  width: 150px;
+  width: 15rem;
   border: 2px solid #1188ef;
   border-radius: 100px;
 }
@@ -355,11 +354,11 @@
 }
 
 .donTags .donTag {
-  width: 150px;
-  height: 30px;
+  width: 15rem;
+  height: 3rem;
   display: inline-block;
   text-align: center;
-  margin: 20px 20px;
+  margin: 2rem 2rem;
   background-color: #71b8f5;
   color: black;
   border-radius: 10px;
