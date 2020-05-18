@@ -120,9 +120,12 @@ router.post('/register', [check('name', 'Name is required').not().isEmpty(), che
 //Action    Find a sponsor by their handle
 //Private
 router.get('/find', (req, res) => {
-    Sponsor.findOne({handle: req.body.handle})
-    .then(sponsor => {
-        res.json(sponsor)
+    SponsorProfile.findOne({handle: req.body.handle})
+    .then(profile => {
+        Sponsor.findOne({_id: profile.sponsor})
+        .then(sponsor => 
+            res.json(sponsor)
+        )
     })
     .catch(err => {
         res.status(404).send("Sponsor not found");

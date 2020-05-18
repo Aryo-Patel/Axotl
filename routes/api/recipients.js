@@ -118,9 +118,12 @@ router.post('/register', [check('name', 'Name is required').not().isEmpty(), che
 //Action    Find a recipient by their handle
 //Private
 router.get('/find', (req, res) => {
-    Recipient.findOne({handle: req.body.handle})
-    .then(recipient => {
-        res.json(recipient)
+    RecipientProfile.findOne({handle: req.body.handle})
+    .then(profile => {
+        Recipient.findOne({_id: profile.recipient})
+        .then(recipient => {
+            res.json(recipient)
+        })
     })
     .catch(err => {
         res.status(404).send("Recipient not found");
