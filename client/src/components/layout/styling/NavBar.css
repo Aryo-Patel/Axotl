@@ -133,6 +133,7 @@
   color: #4983ff;
   -webkit-transition: color 0.2s, background-color 0.2s;
   transition: color 0.2s, background-color 0.2s;
+  font-size: 2rem;
 }
 
 @media (max-width: 100em) {

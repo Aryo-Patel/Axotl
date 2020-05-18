@@ -406,22 +406,105 @@ $translateAmount: 100px;
 }
 
 .changePassword {
-    margin-top: 10rem;
-    border: 2px solid $light-grey;
     border-radius: 10px;
-    padding: 10rem 15rem 25rem 15rem;
+    padding: 10rem 7.5rem 10rem 7.5rem;
+    margin-top: 10rem;
     position: absolute;
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
+    background-image: linear-gradient(to top left, $primary-orange, $primary-yellow);
+    box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.3);
     display: flex;
-    flex-direction: column;
     align-items: center;
+    flex-direction: column;
+    &::after {
+        background-repeat: no-repeat;
+        content: "";
+        position: absolute;
+        z-index: -100;
+        width: 99%;
+        height: 99%;
+        top: .5%;
+        left: .5%;
+        border-radius: 20px;
+        background-color: $primary-white;
+        @media (max-width: 550px) {
+            display: none;
+        }
+    }
+    @media(max-width: $bp-largest) and (min-height: 1400px) {
+        padding: 10rem 5rem;
+        width: 70%;
+    }
+    @media (max-width: $bp-large) and (min-height: 1400px) {
+        padding: 10rem 5rem;
+        width: 75%;
+    }
+    // @media (max-width: $bp-medium) {
+    //     padding: 8rem 7.5rem;
+    //     width: 75%;
+    // }
+    @media (max-width: $bp-medium) and (min-height: 1400px) {
+        padding: 10rem 5rem;
+        width: 75%;
+    }
+    @media (max-width: $bp-small) and (min-height: 1400px) {
+        padding: 5rem 4rem;
+        width: 100%;
+        background-image: none;
+        color: $primary-white;
+        box-shadow: none;
+        margin-top: -5rem;
+        &::after {
+            background-color: transparent;
+        }
+    }
+    @media (max-height: 1100px) and(min-width: 75em) {
+        padding: 10rem 12.5rem;
+    }
+    @media (max-height: 1400px) and(min-width: 75em) {
+        padding: 10rem 15rem;
+        width: 65%;
+    }
+    @media (max-height: 1400px) and (min-width: 100em) {
+        padding: 2rem 10rem;
+        width: 55%;
+    }
+    @media (max-height: 1400px) and(max-width: 75em) {
+        padding: 10rem 5rem;
+        width: 75%;
+    }
+    @media (max-height: 1100px) and(max-width: 75em) {
+        padding: 10rem 5rem;
+    }
+    @media (max-height: 950px) and(max-width: 75em) {
+        padding: 10rem 5rem;
+    }
+    @media (max-width: 550px) {
+        background-image: none;
+        box-shadow: none;
+        padding: 2.5rem 2.5rem;
+        top: 30%;
+        h3 {
+            color: $primary-white;
+        }
+    }
+    &__background {
+        width: 100%;
+        height: 100vh;
+        background-image: linear-gradient(to right bottom, $background-color, $background-color-dark);
+        background-repeat: no-repeat;
+        background-position: top;
+        background-size: cover;
+        overflow: hidden;
+    }
     &__form {
         display: flex;
         flex-direction: column;
         align-items: center;
-        width: 50rem;
+        justify-content: center;
+        width: 100%;
     }
     &__form-group {
         transform: translateY($translateAmount);
@@ -431,6 +514,8 @@ $translateAmount: 100px;
         display: flex;
         flex-direction: column;
         align-items: center;
+        align-content: center;
+        justify-content: center;
         width: 100%;
         animation: fadeIn 1s forwards;
         &:nth-child(1) {
@@ -452,6 +537,11 @@ $translateAmount: 100px;
         border-bottom: 2px solid $text-color;
         border-radius: 0px;
         width: 100%;
+        @media (max-width: 550px) {
+            padding: 0rem 2.5rem;
+            color: $primary-white;
+            border-bottom: 2px solid $primary-white;
+        }
         z-index: 2;
         display: inline-block;
         &:focus {
@@ -476,6 +566,9 @@ $translateAmount: 100px;
         pointer-events: none;
         color: $text-color;
         transition: 0.3s;
+        @media (max-width: 550px) {
+            color: $primary-white;
+        }
     }
     &__submit {
         width: 85%;
@@ -488,6 +581,9 @@ $translateAmount: 100px;
         font-size: 1.6rem;
         transform: scale(0);
         animation: popUp 1s .75s forwards;
+        @media (max-width: 550px) {
+            color: $primary-white;
+        }
     }
 }
 

@@ -554,25 +554,146 @@
 }
 
 .changePassword {
-  margin-top: 10rem;
-  border: 2px solid #a5a5a5;
   border-radius: 10px;
-  padding: 10rem 15rem 25rem 15rem;
+  padding: 10rem 7.5rem 10rem 7.5rem;
+  margin-top: 10rem;
   position: absolute;
   top: 40%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
+  background-image: -webkit-gradient(linear, right bottom, left top, from(#ff7b61), to(yellow));
+  background-image: linear-gradient(to top left, #ff7b61, yellow);
+  -webkit-box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.3);
+          box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.3);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+}
+
+.changePassword::after {
+  background-repeat: no-repeat;
+  content: "";
+  position: absolute;
+  z-index: -100;
+  width: 99%;
+  height: 99%;
+  top: .5%;
+  left: .5%;
+  border-radius: 20px;
+  background-color: #eee;
+}
+
+@media (max-width: 550px) {
+  .changePassword::after {
+    display: none;
+  }
+}
+
+@media (max-width: 100em) and (min-height: 1400px) {
+  .changePassword {
+    padding: 10rem 5rem;
+    width: 70%;
+  }
+}
+
+@media (max-width: 75em) and (min-height: 1400px) {
+  .changePassword {
+    padding: 10rem 5rem;
+    width: 75%;
+  }
+}
+
+@media (max-width: 56.25em) and (min-height: 1400px) {
+  .changePassword {
+    padding: 10rem 5rem;
+    width: 75%;
+  }
+}
+
+@media (max-width: 37.5em) and (min-height: 1400px) {
+  .changePassword {
+    padding: 5rem 4rem;
+    width: 100%;
+    background-image: none;
+    color: #eee;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+    margin-top: -5rem;
+  }
+  .changePassword::after {
+    background-color: transparent;
+  }
+}
+
+@media (max-height: 1100px) and (min-width: 75em) {
+  .changePassword {
+    padding: 10rem 12.5rem;
+  }
+}
+
+@media (max-height: 1400px) and (min-width: 75em) {
+  .changePassword {
+    padding: 10rem 15rem;
+    width: 65%;
+  }
+}
+
+@media (max-height: 1400px) and (min-width: 100em) {
+  .changePassword {
+    padding: 2rem 10rem;
+    width: 55%;
+  }
+}
+
+@media (max-height: 1400px) and (max-width: 75em) {
+  .changePassword {
+    padding: 10rem 5rem;
+    width: 75%;
+  }
+}
+
+@media (max-height: 1100px) and (max-width: 75em) {
+  .changePassword {
+    padding: 10rem 5rem;
+  }
+}
+
+@media (max-height: 950px) and (max-width: 75em) {
+  .changePassword {
+    padding: 10rem 5rem;
+  }
+}
+
+@media (max-width: 550px) {
+  .changePassword {
+    background-image: none;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+    padding: 2.5rem 2.5rem;
+    top: 30%;
+  }
+  .changePassword h3 {
+    color: #eee;
+  }
+}
+
+.changePassword__background {
+  width: 100%;
+  height: 100vh;
+  background-image: -webkit-gradient(linear, left top, right bottom, from(#7ca6ff), to(#003ea3));
+  background-image: linear-gradient(to right bottom, #7ca6ff, #003ea3);
+  background-repeat: no-repeat;
+  background-position: top;
+  background-size: cover;
+  overflow: hidden;
 }
 
 .changePassword__form {
@@ -586,7 +707,10 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  width: 50rem;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 100%;
 }
 
 .changePassword__form-group {
@@ -605,6 +729,11 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   width: 100%;
   -webkit-animation: fadeIn 1s forwards;
           animation: fadeIn 1s forwards;
@@ -640,6 +769,14 @@
   display: inline-block;
 }
 
+@media (max-width: 550px) {
+  .changePassword__input {
+    padding: 0rem 2.5rem;
+    color: #eee;
+    border-bottom: 2px solid #eee;
+  }
+}
+
 .changePassword__input:focus {
   border: none;
   border-bottom: 2px solid #566068;
@@ -667,6 +804,12 @@
   transition: 0.3s;
 }
 
+@media (max-width: 550px) {
+  .changePassword__label {
+    color: #eee;
+  }
+}
+
 .changePassword__submit {
   width: 85%;
   -webkit-transform: scale(0);
@@ -683,6 +826,12 @@
           transform: scale(0);
   -webkit-animation: popUp 1s .75s forwards;
           animation: popUp 1s .75s forwards;
+}
+
+@media (max-width: 550px) {
+  .changePassword .forgot-password {
+    color: #eee;
+  }
 }
 
 .resetPassword {

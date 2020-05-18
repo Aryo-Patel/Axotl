@@ -16,6 +16,7 @@ const ChangePassword = ({ changePass, history }) => {
   }
   return (
     <Fragment>
+      <div className="changePassword__background">
       <div className="changePassword">
         <h3 className="heading">Change Password</h3>
         <form
@@ -75,6 +76,7 @@ const ChangePassword = ({ changePass, history }) => {
           </button>
         </form>
         <Link to = '/forgotpassword' className = "forgot-password">Forgot Password?</Link>
+      </div>
       </div>
     </Fragment>
   );
