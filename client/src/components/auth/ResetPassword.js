@@ -18,6 +18,7 @@ const ResetPassword = ({resPass}) => {
     }
     return (
         <Fragment>
+            <div className="resetPassword__background">
             <div className="resetPassword">
                 <h3 className="heading">Reset Password</h3>
                <form action="" className="resetPassword__form" onSubmit = {e=> {
@@ -39,6 +40,7 @@ const ResetPassword = ({resPass}) => {
                    </div>
                    <button type="submit" class = 'resetPassword__submit button'>Submit</button>
                </form>
+               </div>
                </div>
         </Fragment>
     )

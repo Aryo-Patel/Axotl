@@ -62,9 +62,6 @@ const Hackathons = ({getHackathons, hackathons: {hackathonList, loading}}) => {
     }
     return (
         <Fragment>
-            <div className = "header">
-                <h1>Find upcoming hackathons, or checkout past results!</h1>
-            </div>
             <form className="searchingContainer" onSubmit = {e=> onSubmit(e)}>
                 <input type="text" className="searchBar" placeholder='Search for a sponsor...' onChange = {e => onChange(e)} value= {query}/>
                 <input type='submit' className = 'search' value='Search'/>

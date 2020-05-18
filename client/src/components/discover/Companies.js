@@ -61,13 +61,9 @@ const Companies = ({companies : {loading, companyList}, getCompanies, getDistanc
 
     return (
         <Fragment>
-            <div className = "header">
-                <h1>Find and connect with potential sponsors!</h1>
-            </div>
-            <form className="searchingContainer" onSubmit = {e=> onSubmit(e)}>
-                <input type="text" className="searchBar" placeholder='Search for a sponsor...' onChange = {e => onChange(e)} value= {search}/>
-                <input type='submit' className = 'search' value='Search'/>
-            </form>
+            <div className="companies__wrapper">
+            <div className="companies__filters">
+                <h2 className="heading">Filters</h2>
             <div className="donTags">
                 <h3 style = {{display: 'inline-block'}}>Contribution Tags: </h3>
                 {prizeTypes.map((prizeType, index) => (<div id = {prizeType} key = {index} className = 'donTag' onClick = {e => addTag(e)}>{prizeType}</div>))}
@@ -81,7 +77,15 @@ const Companies = ({companies : {loading, companyList}, getCompanies, getDistanc
                 <div className="locTag" onClick = {e => locationRouting(e)}>250 miles</div>
                 <div className="locTag" onClick = {e => locationRouting(e)}>1000 miles</div>
             </div>
+            </div>
+            <div className="companies__content-wrapper">
+            <form className="searchingContainer" onSubmit = {e=> onSubmit(e)}>
+                <input type="text" className="searchBar" placeholder='Search for a sponsor...' onChange = {e => onChange(e)} value= {search}/>
+                <input type='submit' className = 'search' value='Search'/>
+            </form>
+            
             <div className = "company-holder">
+            
                 {!loading ?
                 companyList.filter(company => {
                     let distTrue = true;
@@ -99,6 +103,8 @@ const Companies = ({companies : {loading, companyList}, getCompanies, getDistanc
                     <Company key = {index} company = {company} />
                 ))
                 : <Spinner />}
+            </div>
+            </div>
             </div>
         </Fragment>
     )

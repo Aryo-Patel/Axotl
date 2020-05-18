@@ -44,7 +44,7 @@
 
 .discoverContainer {
   font-size: 1.6rem;
-  padding-top: 15rem;
+  padding-top: 0rem;
 }
 
 .header {
@@ -269,13 +269,15 @@
 
 .company-holder {
   width: 80%;
-  margin: 0 auto;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 1fr 1fr 1fr;
-      grid-template-columns: 1fr 1fr 1fr;
-  -webkit-column-gap: 3vw;
-          column-gap: 3vw;
+  margin: 0 auto;
+  -ms-grid-columns: (minmax(20rem, 1fr))[auto-fill];
+      grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+  grid-gap: 5vw;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
 }
 
 .company-holder .company-item {
@@ -313,19 +315,28 @@
 
 .searchingContainer {
   position: relative;
-  display: inline-block;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   text-align: center;
   width: 100%;
-  margin: 10rem 0px 0px 0px;
+  margin: 10rem 2.5rem 5rem 2.5rem;
   z-index: 1;
 }
 
 .searchingContainer .searchBar {
-  vertical-align: middle;
   padding: 0px 2rem;
-  width: 80rem;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 75%;
+          flex: 0 0 75%;
   height: 5rem;
-  font-size: 3rem;
+  font-size: 2.5rem;
   border: 5px solid #566068;
   border-radius: 100px;
 }
@@ -348,10 +359,74 @@
   border-radius: 100px;
 }
 
+.companies__wrapper {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: minmax(20rem, min-content) 1fr;
+      grid-template-columns: minmax(20rem, -webkit-min-content) 1fr;
+      grid-template-columns: minmax(20rem, min-content) 1fr;
+  -ms-grid-rows: 1fr;
+      grid-template-rows: 1fr;
+      grid-template-areas: "filters content";
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.companies__filters {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  grid-area: filters;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-right: 2px solid #a5a5a5;
+  height: 120%;
+  padding-top: 27.5vh;
+}
+
+.companies__filters h2 {
+  border-bottom: 2px solid #a5a5a5;
+  width: 100%;
+  text-align: center;
+}
+
+.companies__content-wrapper {
+  -ms-grid-row: 1;
+  -ms-grid-column: 2;
+  grid-area: content;
+  margin-top: -50vh;
+}
+
+@media (max-width: 1320px) {
+  .companies__content-wrapper {
+    margin-top: -35vh;
+  }
+}
+
 .donTags {
   margin: 10px 0px 10px 0px;
-  text-align: center;
   width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .donTags .donTag {
@@ -387,11 +462,14 @@
 
 .locationTags {
   margin: 10px 0px 10px 0px;
-  text-align: center;
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;

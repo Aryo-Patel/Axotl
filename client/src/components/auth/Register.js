@@ -8,6 +8,8 @@ import TextField from "../layout/TextField";
 
 import { registerUser, registerSponsor } from "../../actions/auth";
 
+import $ from 'jquery';
+
 class Register extends React.Component {
   constructor(props) {
     super(props);
@@ -19,9 +21,9 @@ class Register extends React.Component {
 
       password: "",
 
-      password2 : '',
+      password2: "",
 
-      sponsor : false,
+      sponsor: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -37,11 +39,15 @@ class Register extends React.Component {
     });
   }
 
-  onToggle(){
-    //Weird ass bug with toggle
+  onToggle() {
+    //Weird bug with toggle
+    const sponsor = $('.register__sponsor-toggle-label--2')
+    const recipient = $('.register__sponsor-toggle-label--1')
+    sponsor.hasClass('register__selected') ? sponsor.removeClass('register__selected') : sponsor.addClass('register__selected');
+    recipient.hasClass('register__selected') ? recipient.removeClass('register__selected') : recipient.addClass('register__selected');
     this.setState({
       sponsor: !this.state.sponsor,
-    })
+    });
     console.log(this.state.sponsor);
   }
 
@@ -55,72 +61,99 @@ class Register extends React.Component {
       password: this.state.password,
     };
 
-    if(this.state.sponsor === true){
-      console.log("Registering sponsor...")
+    if (this.state.sponsor === true) {
+      console.log("Registering sponsor...");
       this.props.registerSponsor(userData, this.props.history);
     } else if (this.state.sponsor === false) {
-      console.log("Registering recipient...")
+      console.log("Registering recipient...");
       this.props.registerUser(userData, this.props.history);
     }
   }
 
-
   render() {
-      if(this.props.isRegistered) {
-        return <Redirect  to = '/login' />
-      }
+    if (this.props.isRegistered) {
+      return <Redirect to="/login" />;
+    }
     return (
-      <div>
-        <h5>Register for an Axotl account!</h5>
+      <div className="register__background">
+        <div className="register">
+          <h5 className="heading">Register for an Axotl account!</h5>
 
-        <form onSubmit={this.onSubmit}>
-          <TextField
-            name="name"
-            placeholder="Enter your full name"
-            value={this.state.name}
-            onChange={this.handleChange}
-            type="text"
-            required
-          />
+          <form className = 'register__form' onSubmit={this.onSubmit}>
+            <TextField
+              name="name"
+              placeholder="Enter your full name"
+              className="register__field"
+              parentClassName='register'
+              value={this.state.name}
+              onChange={this.handleChange}
+              type="text"
+              required
+            ><i
+            className="fas fa-user register__icon"
+            samesite="none"
+            SameSite="none"
+          ></i></TextField>
 
-          <TextField
-            name="email"
-            placeholder="Enter a Valid Email."
-            value={this.state.email}
-            onChange={this.handleChange}
-            type="email"
-            required
-          />
+            <TextField
+              name="email"
+              placeholder="Enter a Valid Email."
+              className="register__field"
+              parentClassName='register'
+              value={this.state.email}
+              onChange={this.handleChange}
+              type="email"
+              required
+            ><i
+            className="fas fa-envelope register__icon"
+            samesite="none"
+            SameSite="none"
+          ></i></TextField>
 
-          <TextField
-            name="password"
-            placeholder="Enter a Password."
-            value={this.state.password}
-            onChange={this.handleChange}
-            type="password"
-            required
-          />
-          <TextField
-            name="password2"
-            placeholder="Confirm your Password."
-            value={this.state.password2}
-            onChange={this.handleChange}
-            type="password"
-            required
-          />
-
-          <input type="checkbox" id="sponsor" name="sponsorToggle" value="Sponsor Toggle" onClick={this.onToggle}/>
-          <label for="vehicle1">Check this box if you are signing up as a sponsor!</label><br></br>
-
-          <input type="submit" className="btn btn-info btn-block mt-4"></input>
-        </form>
+            <TextField
+              name="password"
+              placeholder="Enter a Password."
+              className="register__field"
+              parentClassName='register'
+              value={this.state.password}
+              onChange={this.handleChange}
+              type="password"
+              required
+            ><i className="fas fa-lock register__icon"></i></TextField>
+            <TextField
+              name="password2"
+              placeholder="Confirm your Password."
+              className="register__field register__last-field"
+              parentClassName='register'
+              value={this.state.password2}
+              onChange={this.handleChange}
+              type="password"
+              required
+            ><i className="fas fa-lock register__icon"></i></TextField>
+            <div className="register__sponsor-toggle">
+            <label id="sponsor-toggle" className="register__switch">
+              <input
+                
+                type="checkbox"
+                onClick={this.onToggle}
+              />
+              <span className="register__slider"></span>
+            </label>
+            <label className = 'register__sponsor-toggle-label--1' htmlFor="sponsor-toggle">I am a prospective sponsor</label>
+            <label className = 'register__sponsor-toggle-label--2 register__selected' htmlFor="sponsor-toggle">I am a prospective recipient</label>
+            </div>
+            <input type="submit" className="register__submit button"></input>
+          </form>
+        </div>
       </div>
     );
   }
 }
 
-const mapStateToProps = state => ({
-    isRegistered : state.auth.isRegistered
-})
+const mapStateToProps = (state) => ({
+  isRegistered: state.auth.isRegistered,
+});
 
-export default connect(mapStateToProps, { registerUser, registerSponsor })(withRouter(Register));
+export default connect(mapStateToProps, { registerUser, registerSponsor })(
+  withRouter(Register)
+);
