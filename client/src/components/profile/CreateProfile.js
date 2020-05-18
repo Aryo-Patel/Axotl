@@ -73,19 +73,24 @@ class CreateProfile extends Component {
     }
     render() {
         return (
-        <div className="container" style={{padding: '2% 0% 2%'}}>
-            <h5>Create your profile:</h5>
+        <div className="createProfile">
+            <h5 className = 'heading'>Create your profile:</h5>
             <form onSubmit={this.onSubmit}>
-                <label>Handle</label>
                 <TextField
                 placeholder="Enter a unique handle for your profile!"
+                parentClassName='createProfile'
+                className='createProfile__field'
                 name="handle"
                 type="text"
                 value={this.state.handle}
                 onChange={this.handleChange}
                 required
-                />
-                <label>Current Affiliation</label>
+                ><i
+                className="fas fa-at createSponsorProfile__icon"
+                samesite="none"
+                SameSite="none"
+              ></i></TextField>
+                
                 <TextField
                 placeholder="What organization are you currently a part of?"
                 name="organization"
@@ -93,20 +98,19 @@ class CreateProfile extends Component {
                 value={this.state.organization}
                 onChange={this.handleChange}
                 />
-                <label>Location</label>
-                <LocationInput onChange={this.handleLocationChange}/>
+
+                <LocationInput className = 'createSponsorProfile__field' onChange={this.handleLocationChange}/>
                 <br></br>
-                <TextField
+                {/* <TextField
                 placeholder="Your location..."
                 name="location"
                 type="text"
                 value={this.state.location}
                 required
                 disabled
-                />
-                <div className="form-group">
-                    <label>Biography</label>
-                    <textarea className="form-control" name='bio' value={this.state.bio} id="Bio" rows="4" onChange={this.handleChange} required></textarea>
+                /> */}
+                <div className="createProfile__form-group">
+                    <textarea className="createProfile__field" name='bio' value={this.state.bio} id="Bio" rows="4" onChange={this.handleChange} required></textarea>
                 </div>
                 <TextField
                 placeholder="Link your Twitter!"

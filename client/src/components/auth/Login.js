@@ -6,7 +6,7 @@ import { Redirect, Link } from "react-router-dom";
 
 //importing the css
 import "./authStyles/authstyles.css";
-const Login = ({ sendLogin, isAuthenticated }) => {
+const Login = ({ sendLogin, isAuthenticated, isRegistered }) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -22,6 +22,9 @@ const Login = ({ sendLogin, isAuthenticated }) => {
   };
 
   if (isAuthenticated) {
+    if(isRegistered) {
+      return <Redirect to='/profile' />
+    }
     return <Redirect to="/dashboard" />;
   }
 

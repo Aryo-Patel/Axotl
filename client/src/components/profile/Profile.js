@@ -75,18 +75,17 @@ class Profile extends Component {
     } else {
       //User is prompted to make profile
       profileContent = (
-        <div>
-          <p className="lead text-muted">Welcome</p>
+        <div className='profileWrapper'>
+          <h3 className="heading">Welcome To Axotl</h3>
           <p>
-            You have not yet created a profile. Please use this link to create
-            one.
+            The best Axotl experience relies on a user's profile. Please create one now.
           </p>
           {this.props.sponsor ? (
-            <Link to="/create-sponsor-profile" className="btn btn-lg btn-info">
+            <Link to="/create-sponsor-profile" className="button">
               Create profile
             </Link>
           ) : (
-            <Link to="/create-profile" className="btn btn-lg btn-info">
+            <Link to="/create-profile" className="button">
               Create profile
             </Link>
           )}
