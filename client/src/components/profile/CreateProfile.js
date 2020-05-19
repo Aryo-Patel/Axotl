@@ -93,27 +93,35 @@ class CreateProfile extends Component {
                 
                 <TextField
                 placeholder="What organization are you currently a part of?"
+                parentClassName='createProfile'
+                className='createProfile__field'
                 name="organization"
                 type="text"
                 value={this.state.organization}
                 onChange={this.handleChange}
+                required
                 />
-
-                <LocationInput className = 'createSponsorProfile__field' onChange={this.handleLocationChange}/>
-                <br></br>
-                {/* <TextField
-                placeholder="Your location..."
+                <div className="createProfile__locationInput">
+                <LocationInput className = 'createSponsorProfile__field'  parentClassName='createSponsorProfile' onChange={this.handleLocationChange}/>
+                </div>
+                <input
+                style={{height: 0, width: 0, opacity: 0}}
+                className='goAway'
                 name="location"
                 type="text"
                 value={this.state.location}
+                style= {{height: 0}}
                 required
                 disabled
-                /> */}
+                />
                 <div className="createProfile__form-group">
-                    <textarea className="createProfile__field" name='bio' value={this.state.bio} id="Bio" rows="4" onChange={this.handleChange} required></textarea>
+                    <textarea className="createProfile__textarea" name='bio' value={this.state.bio} id="Bio" rows="4" onChange={this.handleChange} required></textarea>
+                    <label className="createProfile__label">Write a brief biography here...</label>
                 </div>
                 <TextField
                 placeholder="Link your Twitter!"
+                parentClassName='createProfile'
+                className='createProfile__field'
                 name="twitter"
                 type="text"
                 value={this.state.twitter}
@@ -122,6 +130,8 @@ class CreateProfile extends Component {
                 />
                 <TextField
                 placeholder="Link your Youtube Channel!"
+                parentClassName='createProfile'
+                className='createProfile__field'
                 name="youtube"
                 type="text"
                 value={this.state.youtube}
@@ -130,6 +140,8 @@ class CreateProfile extends Component {
                 />
                 <TextField
                 placeholder="Link your Facebook!"
+                parentClassName='createProfile'
+                className='createProfile__field'
                 name="facebook"
                 type="text"
                 value={this.state.facebook}
@@ -138,6 +150,8 @@ class CreateProfile extends Component {
                 />
                 <TextField
                 placeholder="Link your LinkedIn!"
+                parentClassName='createProfile'
+                className='createProfile__field'
                 name="linkedin"
                 type="text"
                 value={this.state.linkedin}
@@ -146,6 +160,8 @@ class CreateProfile extends Component {
                 />
                 <TextField
                 placeholder="Link your Instagram!"
+                parentClassName='createProfile'
+                className='createProfile__field'
                 name="instagram"
                 type="text"
                 value={this.state.instagram}

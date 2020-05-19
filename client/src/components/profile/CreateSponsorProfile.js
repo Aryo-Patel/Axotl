@@ -70,7 +70,7 @@ class CreateSponsorProfile extends Component {
     }
     onSubmit(e){
         e.preventDefault();
-
+        console.log(this.state.location)
         let profileData = {
             sponsor: true,
             handle: this.state.handle,
@@ -116,19 +116,18 @@ class CreateSponsorProfile extends Component {
                 onChange={this.handleChange}
                 required
                 />
-
-                <LocationInput className = 'createSponsorProfile__field' onChange={this.handleLocationChange}/>
-                <br></br>
-                {/* <TextField
-                placeholder="Your location..."
-                parentClassName='createSponsorProfile'
+                <div className="createSponsorProfile__locationInput">
+                <LocationInput className = 'createSponsorProfile__field' parentClassName='createSponsorProfile' onChange={this.handleLocationChange}/>
+                </div>
+                <input
+                style = {{height: 0, width: 0, opacity: 0}}
                 className='createSponsorProfile__field'
                 name="location"
                 type="text"
                 value={this.state.location}
                 required
                 disabled
-                /> */}
+                />
                 <div className="createSponsorProfile__donationTypes">
                 <div className="checkbox">
                     <label><input type="checkbox" value="" onClick={this.changeDonationTypes} name="merch" />Merch/Swag</label>
