@@ -3,331 +3,334 @@ $grey-text: rgb(86, 96, 104);
 $tag-color: #41a0f2;
 $font-size: 1.6rem;
 @keyframes growModal {
-  0% {
-    transform: scaleY(0);
-  }
-  100% {
-    transform: scaleY(1);
-  }
+    0% {
+        transform: scaleY(0);
+    }
+    100% {
+        transform: scaleY(1);
+    }
 }
+
 @keyframes scaleTranslateModal {
-  0% {
-    transform: scale(0);
-  }
-  // 30% {
-  //     transform: scale(.250) translate(-150%, -150%);
-  // }
-  // 60% {
-  //     transform: scale(.5) translate(-75%, -75%);
-  // }
-  100% {
-    transform: scale(1);
-  }
+    0% {
+        transform: scale(0);
+    }
+    // 30% {
+    //     transform: scale(.250) translate(-150%, -150%);
+    // }
+    // 60% {
+    //     transform: scale(.5) translate(-75%, -75%);
+    // }
+    100% {
+        transform: scale(1);
+    }
 }
+
 .discoverContainer {
-  font-size: 1.6rem;
+    font-size: 1.6rem;
+    padding-top: 15rem;
 }
 
 .header {
-  text-align: center;
-  color: #4a535c;
+    text-align: center;
+    color: #4a535c;
 }
 
 .hackathon-holder {
-  width: 80%;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  column-gap: 3vw;
-  .hackathon-item {
-    transition: 0.2s;
-    border-radius: 4px;
-    background-color: #2f72ff;
-    color: rgba(255, 255, 255, 0.95);
-    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.8);
-    h1 {
-      font-size: $font-size;
+    width: 80%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 3vw;
+    .hackathon-item {
+        transition: 0.2s;
+        border-radius: 4px;
+        background-color: #2f72ff;
+        color: rgba(255, 255, 255, 0.95);
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.8);
+        h1 {
+            font-size: $font-size;
+        }
+        &:hover {
+            transition: 0.2s;
+            transform: rotate3d(1, 1, 0, 10deg);
+            cursor: pointer;
+        }
+        .hackathon-content {
+            width: 85%;
+            margin: 0 auto;
+        }
     }
-    &:hover {
-      transition: 0.2s;
-      transform: rotate3d(1, 1, 0, 10deg);
-      cursor: pointer;
-    }
-    .hackathon-content {
-      width: 85%;
-      margin: 0 auto;
-    }
-  }
 }
 
 .hack-modal {
-  color: #4983ff;
-  z-index: 69420;
-  position: fixed;
-  height: 100vh;
-  width: 100vw;
-  transition: all 1s ease;
-  background: rgba(0, 0, 0, 0.6);
-  .modal-text {
-    width: 80%;
-    margin: 0 auto;
-  }
+    color: #4983ff;
+    z-index: 69420;
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    transition: all 1s ease;
+    background: rgba(0, 0, 0, 0.6);
+    .modal-text {
+        width: 80%;
+        margin: 0 auto;
+    }
 }
+
 .animation-wrapper {
-  height: 100vh;
-  animation: scaleTranslateModal 1s;
+    height: 100vh;
+    animation: scaleTranslateModal 1s;
 }
+
 ::webkit-scrollbar {
-  display: none;
+    display: none;
 }
 
 .modal-main {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  input {
-    border: none;
-    margin-top: 10px;
-    border-bottom: 1px solid grey;
-  }
-  table:not(#donations-table):not(#prizes-table) > tbody {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-
-  textarea {
-    border: 1px solid grey;
-  }
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-  height: 550px;
-  background: white;
-  width: 80%;
-  overflow-y: scroll;
-
-  background-position: 0, 0;
-  .arrow {
     position: absolute;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    transition: 0.3s;
-    width: 25px;
-    &:hover {
-      cursor: pointer;
-      width: 35px;
-      background-color: rgba(0, 0, 0, 0.6);
-    }
-  }
-  .right-arrow {
-    right: 0;
-    top: 0;
-  }
-  .modal-text {
-    font-size: 1.6em;
-    .modal-form {
-      margin-bottom: 70px;
-    }
-    .dots-holder {
-      position: fixed;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      text-align: center;
-      .dot {
-        margin: 20px 10px;
-        display: inline-block;
-        height: 15px;
-        width: 15px;
-        transition: 0.3s;
-        background: grey;
-        border-radius: 50%;
-        &:hover {
-          cursor: pointer;
-          background: darkgrey;
-        }
-      }
-    }
-    .lead {
-      text-align: center;
-    }
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     input {
-      width: 100%;
+        border: none;
+        margin-top: 10px;
+        border-bottom: 1px solid grey;
+    }
+    table:not(#donations-table):not(#prizes-table)>tbody {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
     }
     textarea {
-      width: 100%;
+        border: 1px solid grey;
     }
-    .text-header {
-      text-align: center;
-      font-size: 1.8em;
-      color: rgb(43, 50, 58);
-      margin-top: 15px;
+    &::-webkit-scrollbar {
+        display: none;
     }
-    small {
-      padding: 5px;
-      border-bottom: 2px solid rgb(43, 50, 58);
-      width: 100%;
-      display: block;
-      margin-bottom: 40px;
-    }
-    .delete-request {
-      transition: 0.3s;
-      display: inline-block;
-      text-align: center;
-      border-radius: 50%;
-      width: 30px;
-      &:hover {
+    height: 550px;
+    background: white;
+    width: 80%;
+    overflow-y: scroll;
+    background-position: 0,
+    0;
+    .arrow {
+        position: absolute;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
         transition: 0.3s;
-        transform: scale(1.2);
-        box-shadow: 0 0px 5px #000;
-        cursor: pointer;
-      }
+        width: 25px;
+        &:hover {
+            cursor: pointer;
+            width: 35px;
+            background-color: rgba(0, 0, 0, 0.6);
+        }
     }
-  }
+    .right-arrow {
+        right: 0;
+        top: 0;
+    }
+    .modal-text {
+        font-size: 1.6em;
+        .modal-form {
+            margin-bottom: 70px;
+        }
+        .dots-holder {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            .dot {
+                margin: 20px 10px;
+                display: inline-block;
+                height: 15px;
+                width: 15px;
+                transition: 0.3s;
+                background: grey;
+                border-radius: 50%;
+                &:hover {
+                    cursor: pointer;
+                    background: darkgrey;
+                }
+            }
+        }
+        .lead {
+            text-align: center;
+        }
+        input {
+            width: 100%;
+        }
+        textarea {
+            width: 100%;
+        }
+        .text-header {
+            text-align: center;
+            font-size: 1.8em;
+            color: rgb(43, 50, 58);
+            margin-top: 15px;
+        }
+        small {
+            padding: 5px;
+            border-bottom: 2px solid rgb(43, 50, 58);
+            width: 100%;
+            display: block;
+            margin-bottom: 40px;
+        }
+        .delete-request {
+            transition: 0.3s;
+            display: inline-block;
+            text-align: center;
+            border-radius: 50%;
+            width: 30px;
+            &:hover {
+                transition: 0.3s;
+                transform: scale(1.2);
+                box-shadow: 0 0px 5px #000;
+                cursor: pointer;
+            }
+        }
+    }
 }
 
 .display-block {
-  display: block;
+    display: block;
 }
 
 .display-none {
-  display: none;
+    display: none;
 }
 
 .company-holder {
-  width: 80%;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  column-gap: 3vw;
-  .company-item {
-    transition: 0.2s;
-    border-radius: 4px;
-    background-image: url("../../images/hackathon-background.jpg");
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    h1 {
-      font-size: 1.4em;
+    width: 80%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 3vw;
+    .company-item {
+        transition: 0.2s;
+        border-radius: 4px;
+        background-image: url("../../images/hackathon-background.jpg");
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        h1 {
+            font-size: 1.4em;
+        }
+        &:hover {
+            transition: 0.2s;
+            transform: rotate3d(1, 1, 0, 20deg);
+            cursor: pointer;
+        }
+        .company-content {
+            width: 85%;
+            margin: 0 auto;
+        }
     }
-    &:hover {
-      transition: 0.2s;
-      transform: rotate3d(1, 1, 0, 20deg);
-      cursor: pointer;
-    }
-    .company-content {
-      width: 85%;
-      margin: 0 auto;
-    }
-  }
 }
 
 .company-widget-donations {
-  .donButton {
-    background-color: #41a0f2;
-    border: 1px solid #41a0f2;
-    border-radius: 5px;
-    margin: 0px 5px 0px 5px;
-  }
+    .donButton {
+        background-color: #41a0f2;
+        border: 1px solid #41a0f2;
+        border-radius: 5px;
+        margin: 0px 5px 0px 5px;
+    }
 }
 
 .searchingContainer {
-  position: relative;
-  display: inline-block;
-  text-align: center;
-  width: 100%;
-  margin: 10rem 0px 0px 0px;
-  z-index: 1;
-  .searchBar {
-    vertical-align: middle;
-    padding: 0px 2rem;
-    width: 80rem;
-    height: 5rem;
-    font-size: 3rem;
-    border: 5px solid $grey-text;
-    border-radius: 100px;
-    &:hover {
-      border-color: $light-blue;
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    margin: 10rem 0px 0px 0px;
+    z-index: 1;
+    .searchBar {
+        vertical-align: middle;
+        padding: 0px 2rem;
+        width: 80rem;
+        height: 5rem;
+        font-size: 3rem;
+        border: 5px solid $grey-text;
+        border-radius: 100px;
+        &:hover {
+            border-color: $light-blue;
+        }
+        &:focus {
+            border-color: $light-blue;
+        }
     }
-    &:focus {
-      border-color: $light-blue;
+    .search {
+        margin: 0px 1rem;
+        vertical-align: middle;
+        height: 5rem;
+        background-color: $light-blue;
+        width: 15rem;
+        border: 2px solid darken($light-blue, 10%);
+        border-radius: 100px;
     }
-  }
-  .search {
-    margin: 0px 1rem;
-    vertical-align: middle;
-    height: 5rem;
-    background-color: $light-blue;
-    width: 15rem;
-    border: 2px solid darken($light-blue, 10%);
-    border-radius: 100px;
-  }
 }
 
 .donTags {
-  margin: 10px 0px 10px 0px;
-  text-align: center;
-  width: 100%;
-  .donTag {
-    width: 15rem;
-    height: 3rem;
-    display: inline-block;
+    margin: 10px 0px 10px 0px;
     text-align: center;
-    margin: 2rem 2rem;
-    background-color: lighten($tag-color, 10%);
-    color: black;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    &:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    .donTag {
+        width: 15rem;
+        height: 3rem;
+        display: inline-block;
+        text-align: center;
+        margin: 2rem 2rem;
+        background-color: lighten($tag-color, 10%);
+        color: black;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        &:active {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
     }
-    &:active {
-      transform: translateY(-1px);
-      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    .pressedTag {
+        background-color: lighten($tag-color, 30%);
     }
-  }
-  .pressedTag {
-    background-color: lighten($tag-color, 30%);
-  }
 }
 
 .locationTags {
-  margin: 10px 0px 10px 0px;
-  text-align: center;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  .locTag {
-    width: 15rem;
-    height: 3rem;
-    display: inline-block;
+    margin: 10px 0px 10px 0px;
     text-align: center;
-    margin: 2rem 2rem;
-    background-color: lighten($tag-color, 10%);
-    color: black;
-    border-radius: 1rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    &:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .locTag {
+        width: 15rem;
+        height: 3rem;
+        display: inline-block;
+        text-align: center;
+        margin: 2rem 2rem;
+        background-color: lighten($tag-color, 10%);
+        color: black;
+        border-radius: 1rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        &:active {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
     }
-    &:active {
-      transform: translateY(-1px);
-      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    .pressedTag {
+        background-color: lighten($tag-color, 30%);
     }
-  }
-  .pressedTag {
-    background-color: lighten($tag-color, 30%);
-  }
 }
 
 .active {
-  background: darkgrey !important;
+    background: darkgrey !important;
 }

@@ -44,6 +44,7 @@
 
 .discoverContainer {
   font-size: 1.6rem;
+  padding-top: 15rem;
 }
 
 .header {
@@ -125,7 +126,7 @@
   background: white;
   width: 80%;
   overflow-y: scroll;
-  background-position: 0, 0;
+  background-position: 0, 0;
 }
 
 .modal-main input {
