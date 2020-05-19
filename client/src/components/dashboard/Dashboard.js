@@ -12,7 +12,7 @@ const Dashboard = ({ isRegistered }) => {
         <Redirect to="/profile" />
       ) : (
         <div className="dashboard">
-            Dashboard
+            <a href="https://www.youtube.com/watch?v=J9qrO_-NLjc">monke</a>
         </div>
       )}
     </Fragment>
