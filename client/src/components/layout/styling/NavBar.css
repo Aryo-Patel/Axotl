@@ -519,7 +519,7 @@
   display: none;
   top: 100%;
   right: 0%;
-  width: 22.875rem;
+  width: 26rem;
   position: absolute;
   border-bottom: 1px solid transparent;
   border-radius: 20px;
@@ -591,10 +591,6 @@
   height: 137px;
   visibility: visible;
   opacity: 1;
-}
-
-.dropdown__toggle:hover ~ .dropdown {
-  background-color: red;
 }
 
 .dropdown__top {

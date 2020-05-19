@@ -135,5 +135,11 @@ $primary-white: #eee;
     }
     &__submission {
         margin: 3rem;
+        visibility: none;
+        opacity: 0;
+    }
+    .visible {
+        visibility: visible;
+        opacity: 1;
     }
 }

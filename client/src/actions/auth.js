@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, ACCOUNT_DELETED, RES_PASSWORD, REGISTER_SUCCESS, REGISTER_FAIL, USER_FAILED, USER_LOADED, FORGOT_PASSWORD_FAIL, FORGOT_PASSWORD, CHANGE_PASSWORD } from './Types'
+import { LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, ACCOUNT_DELETED, RES_PASSWORD, REGISTER_SUCCESS, REGISTER_FAIL, USER_FAILED, USER_LOADED, FORGOT_PASSWORD_FAIL, FORGOT_PASSWORD, CHANGE_PASSWORD, EDIT_ACCOUNT } from './Types'
 import bcrypt from 'bcryptjs';
 
 export const sendLogin = (formData) => async dispatch => {
@@ -187,4 +187,24 @@ export const changePass = (formData, history) => async dispatch => {
     } catch (err) {
         console.log('did not work lmao')
     }
+}
+
+export const editAccount = (formData) => async dispatch => {
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+    const body = JSON.stringify(formData);
+    try {
+        const res = await axios.post('/api/auth/edit-account', body, config);
+        dispatch({
+            type: EDIT_ACCOUNT,
+            payload: res.data
+        })
+    } catch (err) {
+        console.error(err.message);
+        //dispatch alert?
+    }
+
 }

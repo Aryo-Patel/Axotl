@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getCurrentProfile } from "../../actions/ProfileActions";
@@ -8,6 +8,7 @@ import Axios from "axios";
 import "./styling/main.css";
 import $ from 'jquery';
 import {Link} from 'react-router-dom';
+import {editAccount} from '../../actions/auth';
 
 const Settings = ({
   sponsor,
@@ -17,6 +18,11 @@ const Settings = ({
   setAuthFalse,
   user,
 }) => {
+  const [formData, setFormData] = useState({
+    name: user.name,
+    email: user.email
+  })
+
   const deleteAccount = async () => {
     if (sponsor) {
       await Axios.delete("/api/sponsors").then((res) => {
@@ -30,21 +36,22 @@ const Settings = ({
   };
   //Making user information editable upon clicking the edit button
   const onClick = (e) => {
-    $(`.${e.target.classList[0]}`).next().attr(
+    $(`.${e.target.classList[1]}`).next().attr(
       "readOnly",
-      !$(`.${e.target.classList[0]}`).next().attr("readOnly")
+      !$(`.${e.target.classList[1]}`).next().attr("readOnly")
     );
-    if(!$('.form__submission').hasClass('visible')) {
-        $('.form__submission').addClass('visible');
+    if(!$('.forms__submission').hasClass('visible')) {
+        $('.forms__submission').addClass('visible');
     }
     
   };
 
   //submitting updated information to the back end
   const onSubmit = (e) => {
-    if($('.form__submission').hasClass('visible')) {
-        $('.form__submission').removeClass('visible');
+    if($('.forms__submission').hasClass('visible')) {
+        $('.forms__submission').removeClass('visible');
     }
+
   }
 
   return (
@@ -57,14 +64,14 @@ const Settings = ({
             onClick={(e) => onClick(e)}
             id="icon-edit"
             viewBox="0 0 20 20"
-            className="forms__edit"
+            className="forms__edit forms__edit-1"
           >
             <path d="M17.561 2.439c-1.442-1.443-2.525-1.227-2.525-1.227l-12.826 12.825-1.010 4.762 4.763-1.010 12.826-12.823c-0.001 0 0.216-1.083-1.228-2.527zM5.68 17.217l-1.624 0.35c-0.156-0.293-0.345-0.586-0.69-0.932s-0.639-0.533-0.932-0.691l0.35-1.623 0.47-0.469c0 0 0.883 0.018 1.881 1.016 0.997 0.996 1.016 1.881 1.016 1.881l-0.471 0.468z"></path>
           </svg>
           <input
             type="text"
             readOnly={true}
-            value={user.name}
+            value={formData.name}
             className="forms__input"
           />
         </div>
@@ -73,14 +80,14 @@ const Settings = ({
             onClick={(e) => onClick(e)}
             id="icon-edit"
             viewBox="0 0 20 20"
-            className="forms__edit"
+            className="forms__edit forms__edit-2"
           >
             <path d="M17.561 2.439c-1.442-1.443-2.525-1.227-2.525-1.227l-12.826 12.825-1.010 4.762 4.763-1.010 12.826-12.823c-0.001 0 0.216-1.083-1.228-2.527zM5.68 17.217l-1.624 0.35c-0.156-0.293-0.345-0.586-0.69-0.932s-0.639-0.533-0.932-0.691l0.35-1.623 0.47-0.469c0 0 0.883 0.018 1.881 1.016 0.997 0.996 1.016 1.881 1.016 1.881l-0.471 0.468z"></path>
           </svg>
           <input
             type="text"
             readOnly={true}
-            value={user.email}
+            value={formData.email}
             className="forms__input"
           />
         </div>
@@ -108,6 +115,6 @@ const mapStateToProps = (state) => ({
   sponsor: state.auth.user.user.sponsor,
 });
 
-export default connect(mapStateToProps, { getCurrentProfile, setAuthFalse })(
+export default connect(mapStateToProps, { getCurrentProfile, setAuthFalse, editAccount })(
   Settings
 );

@@ -159,4 +159,33 @@ router.post('/changepassword', async(req, res) => {
     }
 })
 
+//POST /api/auth/edit-account
+//Action edit the user's account
+// PRIVATE
+router.post('edit-account', async(req, res) => {
+    if (!req.user) {
+        return res.status(401).json({ msg: 'Unauthorized' })
+    }
+    const {
+        email,
+        name
+    } = req.body;
+    try {
+        if (req.user.sponsor) {
+            const newUser = await Sponsor.findById(req.user._id);
+
+        } else {
+            const newUser = await Recipient.findById(req.user._id);
+        }
+        newUser.email = email;
+        newUser.name = name;
+        await newUser.save;
+        res.json(newUser);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+})
+
+
 module.exports = router;

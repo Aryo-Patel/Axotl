@@ -345,7 +345,7 @@ $bp-small: 37.5em;
     display: none;
     top: 100%;
     right: 0%;
-    width: 22.875rem;
+    width: 26rem;
     position: absolute;
     border-bottom: 1px solid transparent;
     border-radius: 20px;
@@ -416,9 +416,6 @@ $bp-small: 37.5em;
                 visibility: visible;
                 opacity: 1;
             }
-        }
-        &:hover~.dropdown {
-            background-color: red;
         }
     }
     &__top {

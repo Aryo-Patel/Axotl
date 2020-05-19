@@ -186,5 +186,12 @@
 
 .forms__submission {
   margin: 3rem;
+  visibility: none;
+  opacity: 0;
+}
+
+.forms .visible {
+  visibility: visible;
+  opacity: 1;
 }
 /*# sourceMappingURL=main.css.map */

@@ -15,6 +15,7 @@ const hackathons = require('./routes/api/hackathons');
 const hackathonProfile = require('./routes/api/hackathonProfile')
 const auth = require('./routes/api/auth');
 const chat = require('./routes/api/chats');
+const posts = require('./routes/api/posts')
 
 
 //database functions
@@ -125,6 +126,7 @@ app.use('/api/hackathons', hackathons);
 app.use('/api/hackathons/hackathon', hackathonProfile);
 app.use('/api/auth', auth)
 app.use('/api/chat', chat)
+app.use('/api/posts', posts)
 
 //Server Initialization
 let server = app.listen(PORT, () => {
@@ -133,7 +135,7 @@ let server = app.listen(PORT, () => {
 
 let io = socket(server);
 
-io.on('connection', (socket) =>{
+io.on('connection', (socket) => {
     console.log("Connection to socket made...")
 
     socket.on('newMessage', (message) => {
