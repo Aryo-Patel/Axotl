@@ -22,7 +22,7 @@ export default class Messages extends Component {
                 </div>
                 <form className="text-field" onSubmit={this.props.onSubmit}>
                         <input type="text" onChange={this.props.onChange} value={this.props.newMessageValue} name="newMessage"/>   
-                        <button type="submit" className="btn btn-primary">Submit</button>
+                        <button type="submit">Submit</button>
                 </form>
             </div>
         )

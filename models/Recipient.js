@@ -21,34 +21,6 @@ const RecipientSchema = new Schema({
     avatar: {
         type: String,
     },
-    chatlogs: [{
-        name: {
-            type: String,
-        },
-        read: {
-            type: Boolean,
-        },
-        recipient: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Recipients",
-        },
-        sponsor: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Sponsors",
-        },
-        messages: [{
-            text: {
-                type: String,
-            },
-            date: {
-                type: Date,
-                default: Date.now,
-            },
-            name: {
-                type: String,
-            },
-        }]
-    }],
     emailConfirmed: {
         type: Boolean,
         default: false

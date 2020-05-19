@@ -43,3 +43,38 @@
 .clear {
     clear: both;
 }
+
+.modal {
+    position: absolute;
+    top: auto;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    height: 50%;
+    background: rgba(44, 101, 224, 0.562);
+    top: 50%;
+    /* transform: translate(0, -50%) */
+}
+  
+.modal-main {
+    position:absolute;
+    background: white;
+    width: 80%;
+    height: auto;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+}
+
+.display-block {
+    display: block;
+}
+
+.display-none {
+    display: none;
+}
+
+/* .center{
+    top: 50%;
+    transform: translate(0, -50%)
+} */
