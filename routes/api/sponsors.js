@@ -116,10 +116,14 @@ router.post('/register', [check('name', 'Name is required').not().isEmpty(), che
 
 });
 
-//GET       api/sponsors/find
+//POST       api/sponsors/find
 //Action    Find a sponsor by their handle
 //Private
-router.get('/find', (req, res) => {
+router.post('/find', (req, res) => {
+    Object.keys(req.body).forEach((item) => {
+        console.log("THING: " + req.body[item]);
+    })
+    console.log("Finding sponsor with handle: " + req.body.handle)
     SponsorProfile.findOne({handle: req.body.handle})
     .then(profile => {
         Sponsor.findOne({_id: profile.sponsor})

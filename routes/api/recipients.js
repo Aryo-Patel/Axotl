@@ -114,10 +114,10 @@ router.post('/register', [check('name', 'Name is required').not().isEmpty(), che
 
 });
 
-//GET       api/users/find
+//POST       api/users/find
 //Action    Find a recipient by their handle
 //Private
-router.get('/find', (req, res) => {
+router.post('/find', (req, res) => {
     RecipientProfile.findOne({handle: req.body.handle})
     .then(profile => {
         Recipient.findOne({_id: profile.recipient})

@@ -2,36 +2,47 @@ import axios from 'axios';
 import { GET_SPONSORS, GET_RECIPIENTS, SET_LOADING } from './Types';
 
 
-export const getRecipients = (handle) => dispatch => {
+export const getRecipients = (data) => dispatch => {
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
     dispatch({type: SET_LOADING})
-    axios.get('/api/profiles/users/find', handle)
+    axios.post('/api/users/find', data, config)
     .then(res => {
         dispatch({
-            type: GET_USERS,
+            type: GET_RECIPIENTS,
             payload: res.data
         })
     })
     .catch(err => {
         dispatch({
-            type: GET_USERS,
-            payload: res.data
+            type: GET_RECIPIENTS,
+            payload: err
         })
     })
 }
 
-export const getSponsors = (handle) => dispatch => {
+export const getSponsors = (data) => dispatch => {
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+    console.log("Second: " + data);
     dispatch({type: SET_LOADING})
-    axios.get('/api/profiles/users/find', handle)
+    axios.post('/api/sponsors/find', data, config)
     .then(res => {
         dispatch({
-            type: GET_USERS,
+            type: GET_SPONSORS,
             payload: res.data
         })
     })
     .catch(err => {
         dispatch({
-            type: GET_USERS,
-            payload: res.data
+            type: GET_SPONSORS,
+            payload: err
         })
     })
 }

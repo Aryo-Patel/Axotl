@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import connect from 'connect-mongodb-session';
+import { connect } from 'react-redux';
 import { getRecipients, getSponsors } from '../../actions/chat';
 import TextField from '../layout/TextField';
+import "./styling/chat.css";
 
 class CreateChat extends Component {
     constructor(props){
@@ -25,36 +26,47 @@ class CreateChat extends Component {
     }
 
     searchRecipient(e){
-        e.preventDefault;
-        let recipient = this.getRecipients(this.state.recipientSearch);
+        e.preventDefault();
+        let data = {
+            handle: this.state.recipientSearch,
+        }
+        let body = JSON.stringify(data);
+        this.props.getRecipients(body);
 
     }
 
     searchSponsor(e){
-        e.preventDefault;
-        let sponsor = this.getSponsors(this.state.sponsorSearch);
+        e.preventDefault();
+        let data = {
+            handle: this.state.sponsorSearch,
+        }
+        let body = JSON.stringify(data)
+        console.log(body);
+        this.props.getSponsors(body);
 
     }
 
-    confirmRecipient(e){
+    // confirmRecipient(e){
 
-    }
+    // }
 
-    confirmSponsor(e){
+    // confirmSponsor(e){
 
-    }
+    // }
 
-    confirmFinal(e){
+    // confirmFinal(e){
 
-    }
+    // }
 
     render() {
         let recipientChoice;
         let sponsorsChoice;
-        let memberList = this.state.members,
-
+        let memberList = this.state.members;
+        const showHideClassName = this.props.show ? "modal display-block" : "modal display-none";
         return (
-            <div>
+            <div className="center">
+            <div className={showHideClassName}>
+                <div className='modal-main'>
                 <form onSubmit={this.searchRecipient}>
                     <TextField 
                         type='text'
@@ -75,18 +87,20 @@ class CreateChat extends Component {
                     />
                     <button type="submit" className="btn btn-primary">Confirm Add</button>
                 </form> 
-                <form onSubmit={this.confirmFinal}>
-                    <button type="submit" className="btn btn-primary">Submit</button>
-                </form>
+                <br></br>
+                <button type="submit" onClick={this.props.onHide} className="btn btn-secondary">Close</button>
+                <button type="submit" onClick={this.confirmFinal} className="btn btn-primary">Submit</button>
+                </div>
+                </div>
             </div>
         )
     }
 }
 
 const mapStateToProps = (state) => ({
-    recipient: state.chat.chat.recipients,
-    sponsor: state.chat.chat.sponsors,
-    loading: state.chat.chat.loading,
+    recipient: state.chat.recipients,
+    sponsor: state.chat.sponsors,
+    loading: state.chat.loading,
 })
 
 export default connect(mapStateToProps, {getRecipients, getSponsors})(CreateChat);

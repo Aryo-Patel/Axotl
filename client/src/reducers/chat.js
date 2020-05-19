@@ -28,5 +28,8 @@ export default function(state = initialState, action) {
                 sponsors: payload,
                 loading: false,
             }
+        default: 
+            return state;
         }
+        
     }
