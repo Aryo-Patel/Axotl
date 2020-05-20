@@ -44,12 +44,62 @@
 
 .discoverContainer {
   font-size: 1.6rem;
-  padding-top: 0rem;
+  padding-top: 5rem;
 }
 
 .header {
   text-align: center;
   color: #4a535c;
+}
+
+.hackathons__wrapper {
+  position: relative;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: minmax(20rem, min-content) 1fr;
+      grid-template-columns: minmax(20rem, -webkit-min-content) 1fr;
+      grid-template-columns: minmax(20rem, min-content) 1fr;
+  -ms-grid-rows: 1fr;
+      grid-template-rows: 1fr;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: start;
+      grid-template-areas: "filters content";
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.hackathons__wrapper .hackathon-holder {
+  -ms-grid-row: 1;
+  -ms-grid-column: 2;
+  grid-area: content;
+}
+
+.hackathons__filters {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  grid-area: filters;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+  border-right: 2px solid #a5a5a5;
+  height: 120%;
+  padding-top: 0vh;
+}
+
+.hackathons__filters h2 {
+  border-bottom: 2px solid #a5a5a5;
+  width: 100%;
+  text-align: center;
 }
 
 .hackathon-holder {
@@ -148,7 +198,7 @@
   background: white;
   width: 80%;
   overflow-y: scroll;
-  background-position: 0, 0;
+  background-position: 0, 0;
 }
 
 .modal-main input {

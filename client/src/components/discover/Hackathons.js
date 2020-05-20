@@ -89,10 +89,8 @@ const Hackathons = ({ getHackathons, hackathons: { hackathonList, loading } }) =
     })
     return (
         <Fragment>
-            <form className="searchingContainer" onSubmit={e => onSubmit(e)}>
-                <input type="text" className="searchBar" placeholder='Search for a sponsor...' onChange={e => onChange(e)} value={query} />
-                <input type='submit' className='search' value='Search' />
-            </form>
+            <div className="hackathons__wrapper">
+            <div className="hackathons__filters">
             <div className="donTags">
                 <h3 style={{ display: 'inline-block' }}>Contribution Tags: </h3>
                 {prizeTypes.map((prizeType, index) => (<div id={prizeType} key={index} className='donTag' onClick={e => addTag(e)}>{prizeType}</div>))}
@@ -106,7 +104,15 @@ const Hackathons = ({ getHackathons, hackathons: { hackathonList, loading } }) =
                 <div className="locTag" onClick={e => locationRouting(e)}>250 miles</div>
                 <div className="locTag" onClick={e => locationRouting(e)}>1000 miles</div>
             </div>
+            </div>
+            <div className="hackathons__content">
+            <form className="searchingContainer" onSubmit={e => onSubmit(e)}>
+                <input type="text" className="searchBar" placeholder='Search for a sponsor...' onChange={e => onChange(e)} value={query} />
+                <input type='submit' className='search' value='Search' />
+            </form>
+            
             <div className="hackathon-holder">
+                
                 {!loading ?
                     hackathonList.filter(hackathon => {
                         let distTrue = true;
@@ -127,6 +133,8 @@ const Hackathons = ({ getHackathons, hackathons: { hackathonList, loading } }) =
                         <Hackathon key={index} hackathon={hackathon} />
                     ))
                     : <Spinner />}
+            </div>
+            </div>
             </div>
         </Fragment>
     )
