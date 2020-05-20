@@ -126,7 +126,7 @@ router.post('/find', (req, res) => {
         })
     })
     .catch(err => {
-        res.status(404).send("Recipient not found");
+        res.json({error: "Recipient not found"});
         console.log("Recipient not found");
     })
 })

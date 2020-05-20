@@ -45,6 +45,7 @@
 }
 
 .modal {
+    display: flex;
     position: absolute;
     top: auto;
     left: 50%;
@@ -72,6 +73,11 @@
 
 .display-none {
     display: none;
+}
+
+.profile-pic {
+    width: 30px;
+    float: left;
 }
 
 /* .center{

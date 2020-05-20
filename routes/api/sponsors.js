@@ -132,7 +132,7 @@ router.post('/find', (req, res) => {
         )
     })
     .catch(err => {
-        res.status(404).send("Sponsor not found");
+        res.json({error: "Recipient not found"});
         console.log("Sponsor not found");
     })
 })
