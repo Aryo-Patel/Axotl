@@ -58,7 +58,7 @@
 }
   
 .modal-main {
-    position:absolute;
+    position:relative;
     background: white;
     width: 80%;
     height: auto;
@@ -80,6 +80,23 @@
     float: left;
 }
 
+.chat-tab {
+    position: relative;
+    background-color: whitesmoke;
+    margin-top: 1%;
+    margin-left:1%;
+    margin-right: 1%;
+    text-align: center;
+}
+
+.chat-tab-hovered {
+    position: relative;
+    background-color: lightslategrey;
+    margin-top: 1%;
+    margin-left:1%;
+    margin-right: 1%;
+    text-align: center;
+}
 /* .center{
     top: 50%;
     transform: translate(0, -50%)

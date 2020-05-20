@@ -3,6 +3,7 @@ import openSocket from 'socket.io-client';
 import { connect } from 'react-redux';
 import Messages from './Messages';
 import CreateChat from './CreateChat';
+import Contact from './Contact';
 import './styling/chat.css';
 
 class Chat extends Component {
@@ -65,6 +66,7 @@ class Chat extends Component {
                     <CreateChat show={this.state.show} onHide={this.hideModal}/>
                     <div className="first">
                         <button onClick={this.showModal} className="btn btn-primary">+ Create a new chat</button>
+                        <Contact />
                     </div>
                     <Messages onChange={this.onChange} onSubmit={this.sendMessage} messages={this.state.messages} newMessageValue={this.state.newMessage}/>
                     <div className="clear">

@@ -84,4 +84,28 @@ router.post('/messages/:id', (req, res) => {
     })
 })
 
+//GET       api/chat/
+//Action    This will allow us to get all the chat groups that the user is currently part of.
+//Private
+router.get('/', async(req, res) => {
+    try{
+        let chats = await Chat.find();
+        console.log(typeof chats);
+        chats.filter(chat => {
+            let x = false;
+            chat.recipients.forEach(recipient => {
+                if(recipient.toString() === req.user._id.toString()){
+                    x = true;
+                }
+            })
+            return x;
+        })
+        res.json(chats);
+    }
+    catch(err){
+        console.error(err.messsage)
+        return res.status(500).send("Server Error")
+    }
+})
+
 module.exports = router;
