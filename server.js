@@ -126,7 +126,7 @@ app.use('/api/hackathons', hackathons);
 app.use('/api/hackathons/hackathon', hackathonProfile);
 app.use('/api/auth', auth)
 app.use('/api/chat', chat)
-app.use('/api/posts', posts)
+app.use('/api/posts', posts);
 
 //Server Initialization
 let server = app.listen(PORT, () => {
