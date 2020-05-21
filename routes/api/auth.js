@@ -11,6 +11,7 @@ const Sponsor = require('../../models/Sponsor')
 
 //auth route
 router.get('/', (req, res) => {
+    console.log('trying in api/auth');
     try {
         if (!req.user) {
             return res.status(401)
@@ -23,7 +24,7 @@ router.get('/', (req, res) => {
         // }
         console.log(req.session)
         res.json({ user: req.user })
-            // res.json({ user: req.user })
+        // res.json({ user: req.user })
     } catch (err) {
         console.error(err.message)
         res.status(500).send('Server Error')
@@ -34,7 +35,7 @@ router.get('/', (req, res) => {
 //GET /api/recipients/forgotpassword
 //Action request password change
 // PUBLIC
-router.get('/forgotpassword/:email', async(req, res) => {
+router.get('/forgotpassword/:email', async (req, res) => {
     const transporter = createTransport({
         host: 'mail.privateemail.com',
         port: 465,
@@ -90,7 +91,7 @@ router.get('/forgotpassword/:email', async(req, res) => {
 //POST /api/recipients/resetpassword/:jwt
 //Action reset password
 // PUBLIC (ish, no authentication)
-router.post('/resetpassword/:jwt', async(req, res) => {
+router.post('/resetpassword/:jwt', async (req, res) => {
     try {
         console.log('backend reset reached')
         const email = await jwt.verify(req.params.jwt, config.get('JWTSecret')).email
@@ -119,7 +120,7 @@ router.post('/resetpassword/:jwt', async(req, res) => {
 //POST /api/auth/changepassword
 //Action change password
 // PRIVATE
-router.post('/changepassword', async(req, res) => {
+router.post('/changepassword', async (req, res) => {
     //check if user is logged in
     if (!req.user) {
         console.log('unauthorized')
@@ -149,7 +150,7 @@ router.post('/changepassword', async(req, res) => {
         //encrypt the new password
         const salt = await bcrypt.genSalt(10)
         user.password = await bcrypt.hash(newPassword, salt)
-            //save the new password
+        //save the new password
         await user.save()
         console.log('we made it')
         res.json({ msg: "Password Changed" })
@@ -162,7 +163,7 @@ router.post('/changepassword', async(req, res) => {
 //POST /api/auth/edit-account
 //Action edit the user's account
 // PRIVATE
-router.post('edit-account', async(req, res) => {
+router.post('edit-account', async (req, res) => {
     if (!req.user) {
         return res.status(401).json({ msg: 'Unauthorized' })
     }
