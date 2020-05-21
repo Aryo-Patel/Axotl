@@ -6,6 +6,10 @@ import Moment from 'react-moment'
 
 import "./styling/single-view-styling.css";
 
+
+//jquery import
+import $ from 'jquery';
+
 const Hackathon = ({
   match,
   getHackathon,
@@ -29,6 +33,10 @@ const Hackathon = ({
     getHackathon(match.params.id);
   }, [getHackathon]);
 
+  $(document).ready(function () {
+    window.scrollTo(0, 0);
+  })
+  let key = 0; //key to give each element that's iterated through a unique id
   return (
     <Fragment>
       <div className="compHeader">
@@ -90,18 +98,63 @@ const Hackathon = ({
         </div>
       </div>
       <hr />
-      <hr />
-      <hr />
       <div className="donationContainer">
-
-        {donations &&
+        <h4 className="donation-header">WHAT WE'RE ASKING FOR</h4>
+        <svg className='horizontal-line'>
+          <rect ></rect>
+        </svg>
+        <div className="donation-info-container">
+          <div className="still-required">
+            <div className="still-required-text">
+              <h5 className='header-text'>
+                What we still need
+              </h5>
+              <ul>
+                {donations && donations.map(donation => (
+                  donation.received.length > 0 ? null :
+                    <li key={key++}>
+                      <p>Type: {donation.type}</p>
+                      <p>Quantity: {donation.quantity}</p>
+                      <p>Description: {donation.description}</p>
+                    </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          <div className="centerLine">
+            <svg>
+              <rect></rect>
+            </svg>
+          </div>
+          <div className="already-received">
+            <div className='already-received-text'>
+              <h5 className='header-text'>What we've received</h5>
+              <ul>
+                {donations && donations.map(donation => (
+                  donation.received.length > 0 ?
+                    <li key={key++}>
+                      <p>Type: {donation.received.type}</p>
+                      <p>Quantity: {donation.received.quantity}</p>
+                      <p>Description: {donation.received.description}</p>
+                    </li>
+                    :
+                    null
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+        {/* {donations &&
           donations.map((donation) => (
             <div className="oneDonationContainer">
               <h5 className="donationType">{donation.type}</h5>
               <p className="donationQuantity">{donation.quantity}</p>
-              <p classname="donationDescription">{donation.description}</p>
+              <p className="donationDescription">{donation.description}</p>
             </div>
-          ))}
+          ))} */}
+      </div>
+      <div className='bottom-padding'>
+
       </div>
     </Fragment>
   );

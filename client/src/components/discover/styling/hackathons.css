@@ -1,44 +1,44 @@
 @-webkit-keyframes growModal {
   0% {
     -webkit-transform: scaleY(0);
-    transform: scaleY(0);
+            transform: scaleY(0);
   }
   100% {
     -webkit-transform: scaleY(1);
-    transform: scaleY(1);
+            transform: scaleY(1);
   }
 }
 
 @keyframes growModal {
   0% {
     -webkit-transform: scaleY(0);
-    transform: scaleY(0);
+            transform: scaleY(0);
   }
   100% {
     -webkit-transform: scaleY(1);
-    transform: scaleY(1);
+            transform: scaleY(1);
   }
 }
 
 @-webkit-keyframes scaleTranslateModal {
   0% {
     -webkit-transform: scale(0);
-    transform: scale(0);
+            transform: scale(0);
   }
   100% {
     -webkit-transform: scale(1);
-    transform: scale(1);
+            transform: scale(1);
   }
 }
 
 @keyframes scaleTranslateModal {
   0% {
     -webkit-transform: scale(0);
-    transform: scale(0);
+            transform: scale(0);
   }
   100% {
     -webkit-transform: scale(1);
-    transform: scale(1);
+            transform: scale(1);
   }
 }
 
@@ -57,17 +57,17 @@
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: minmax(20rem, min-content) 1fr;
-  grid-template-columns: minmax(20rem, -webkit-min-content) 1fr;
-  grid-template-columns: minmax(20rem, min-content) 1fr;
+      grid-template-columns: minmax(20rem, -webkit-min-content) 1fr;
+      grid-template-columns: minmax(20rem, min-content) 1fr;
   -ms-grid-rows: 1fr;
-  grid-template-rows: 1fr;
+      grid-template-rows: 1fr;
   -webkit-box-align: start;
-  -ms-flex-align: start;
-  align-items: start;
-  grid-template-areas: "filters content";
+      -ms-flex-align: start;
+          align-items: start;
+      grid-template-areas: "filters content";
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .hackathons__wrapper .hackathon-holder {
@@ -86,11 +86,11 @@
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
   -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
   border-right: 2px solid #a5a5a5;
   height: 120%;
   padding-top: 0vh;
@@ -107,11 +107,11 @@
   margin: 0 auto;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: (minmax(400px, 1fr)) [auto-fit];
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  -ms-grid-columns: (minmax(400px, 1fr))[auto-fit];
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   row-gap: 5vh;
   -webkit-column-gap: 3vw;
-  column-gap: 3vw;
+          column-gap: 3vw;
 }
 
 .hackathon-holder .hackathon-item {
@@ -122,17 +122,11 @@
   -webkit-transition: 0.2s;
   transition: 0.2s;
   border-radius: 4px;
-  background-image: -webkit-gradient(
-    linear,
-    right bottom,
-    left top,
-    from(#f77b61),
-    to(yellow)
-  );
+  background-image: -webkit-gradient(linear, right bottom, left top, from(#f77b61), to(yellow));
   background-image: linear-gradient(to top left, #f77b61, yellow);
   color: rgba(0, 0, 0, 0.95);
   -webkit-box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.8);
-  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.8);
+          box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.8);
   z-index: 10;
   overflow: hidden;
 }
@@ -154,12 +148,11 @@
   font-size: 1.6rem;
 }
 
-.hackathon-holder .hackathon-item:hover,
-.hackathon-holder .hackathon-item:hover::after {
+.hackathon-holder .hackathon-item:hover, .hackathon-holder .hackathon-item:hover::after {
   -webkit-transition: 0.2s;
   transition: 0.2s;
   -webkit-transform: rotate3d(1, 1, 0, 10deg);
-  transform: rotate3d(1, 1, 0, 10deg);
+          transform: rotate3d(1, 1, 0, 10deg);
   cursor: pointer;
 }
 
@@ -188,7 +181,7 @@
 .animation-wrapper {
   height: 100vh;
   -webkit-animation: scaleTranslateModal 1s;
-  animation: scaleTranslateModal 1s;
+          animation: scaleTranslateModal 1s;
 }
 
 ::webkit-scrollbar {
@@ -200,7 +193,7 @@
   left: 50%;
   top: 50%;
   -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
   height: 550px;
   background: white;
   width: 80%;
@@ -218,7 +211,7 @@
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 1fr 1fr 1fr;
-  grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
 }
 
 .modal-main textarea {
@@ -237,11 +230,11 @@
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   color: white;
   -webkit-transition: 0.3s;
   transition: 0.3s;
@@ -272,7 +265,7 @@
   bottom: 0;
   left: 50%;
   -webkit-transform: translateX(-50%);
-  transform: translateX(-50%);
+          transform: translateX(-50%);
   text-align: center;
 }
 
@@ -332,9 +325,9 @@
   -webkit-transition: 0.3s;
   transition: 0.3s;
   -webkit-transform: scale(1.2);
-  transform: scale(1.2);
+          transform: scale(1.2);
   -webkit-box-shadow: 0 0px 5px #000;
-  box-shadow: 0 0px 5px #000;
+          box-shadow: 0 0px 5px #000;
   cursor: pointer;
 }
 
@@ -351,12 +344,12 @@
   display: -ms-grid;
   display: grid;
   margin: 0 auto;
-  -ms-grid-columns: (minmax(20rem, 1fr)) [auto-fill];
-  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+  -ms-grid-columns: (minmax(20rem, 1fr))[auto-fill];
+      grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
   grid-gap: 5vw;
   -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
 }
 
 .company-holder .company-item {
@@ -376,7 +369,7 @@
   -webkit-transition: 0.2s;
   transition: 0.2s;
   -webkit-transform: rotate3d(1, 1, 0, 20deg);
-  transform: rotate3d(1, 1, 0, 20deg);
+          transform: rotate3d(1, 1, 0, 20deg);
   cursor: pointer;
 }
 
@@ -398,11 +391,11 @@
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   text-align: center;
   width: 100%;
   margin: 10rem 2.5rem 5rem 2.5rem;
@@ -412,8 +405,8 @@
 .searchingContainer .searchBar {
   padding: 0px 2rem;
   -webkit-box-flex: 0;
-  -ms-flex: 0 0 75%;
-  flex: 0 0 75%;
+      -ms-flex: 0 0 75%;
+          flex: 0 0 75%;
   height: 5rem;
   font-size: 2.5rem;
   border: 5px solid #566068;
@@ -442,14 +435,14 @@
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: minmax(20rem, min-content) 1fr;
-  grid-template-columns: minmax(20rem, -webkit-min-content) 1fr;
-  grid-template-columns: minmax(20rem, min-content) 1fr;
+      grid-template-columns: minmax(20rem, -webkit-min-content) 1fr;
+      grid-template-columns: minmax(20rem, min-content) 1fr;
   -ms-grid-rows: 1fr;
-  grid-template-rows: 1fr;
-  grid-template-areas: "filters content";
+      grid-template-rows: 1fr;
+      grid-template-areas: "filters content";
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .companies__filters {
@@ -461,11 +454,11 @@
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   border-right: 2px solid #a5a5a5;
   height: 120%;
   padding-top: 27.5vh;
@@ -498,14 +491,14 @@
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .donTags .donTag {
@@ -518,21 +511,21 @@
   color: black;
   border-radius: 10px;
   -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .donTags .donTag:hover {
   -webkit-transform: translateY(-2px);
-  transform: translateY(-2px);
+          transform: translateY(-2px);
   -webkit-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .donTags .donTag:active {
   -webkit-transform: translateY(-1px);
-  transform: translateY(-1px);
+          transform: translateY(-1px);
   -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 
 .donTags .pressedTag {
@@ -547,14 +540,14 @@
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .locationTags .locTag {
@@ -567,21 +560,21 @@
   color: black;
   border-radius: 1rem;
   -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .locationTags .locTag:hover {
   -webkit-transform: translateY(-2px);
-  transform: translateY(-2px);
+          transform: translateY(-2px);
   -webkit-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .locationTags .locTag:active {
   -webkit-transform: translateY(-1px);
-  transform: translateY(-1px);
+          transform: translateY(-1px);
   -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 
 .locationTags .pressedTag {

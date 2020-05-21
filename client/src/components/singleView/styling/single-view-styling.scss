@@ -218,3 +218,86 @@ $primary-white: #eee;
     margin-bottom: 30px;
   }
 }
+.donationContainer {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  font-size: 4em;
+  h4 {
+    font-size: 1em;
+  }
+  svg rect {
+    width: 100%;
+    height: 3px;
+    stroke: #ff6647;
+    fill: #ff6647;
+    stroke-dasharray: 400;
+    stroke-dashoffset: 400;
+  }
+  svg {
+    height: 3px;
+    width: 90%;
+  }
+  .donation-info-container {
+    display: flex;
+    width: 100%;
+    .still-required {
+      max-width: 49.5%;
+      flex-grow: 1;
+      .still-required-text {
+        margin-top: 15px;
+        width: 80%;
+        float: right;
+        h5 {
+          font-size: 0.5em;
+          text-decoration: underline;
+        }
+        ul {
+          li {
+            font-size: 0.3em;
+            line-height: 8px;
+          }
+        }
+      }
+    }
+    .centerLine {
+      width: 3px;
+      max-width: 1%;
+      svg rect {
+        height: 100%;
+        stroke: #ff6647;
+        fill: #ff6647;
+        width: 3px;
+      }
+      svg {
+        height: 100%;
+      }
+    }
+    .already-received {
+      max-width: 49.5%;
+      flex-grow: 1;
+
+      .already-received-text {
+        margin-top: 15px;
+        width: 80%;
+        float: right;
+        h5 {
+          font-size: 0.5em;
+          text-decoration: underline;
+        }
+        ul {
+          li {
+            font-size: 0.3em;
+            line-height: 8px;
+          }
+        }
+      }
+    }
+  }
+}
+.bottom-padding {
+  width: 100%;
+  height: 300px;
+}
