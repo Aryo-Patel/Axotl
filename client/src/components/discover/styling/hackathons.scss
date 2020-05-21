@@ -50,7 +50,6 @@ $bp-small: 37.5em;
     display: grid;
     grid-template-columns: minmax(20rem, min-content) 1fr;
     grid-template-rows: 1fr;
-    align-items: start;
     grid-template-areas: "filters content";
     align-items: center;
     .hackathon-holder {
