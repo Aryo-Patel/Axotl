@@ -139,7 +139,6 @@ io.on('connection', (socket) => {
     console.log("Connection to socket made...")
 
     socket.on('newMessage', (message) => {
-        console.log(message);
         io.sockets.emit('newMessage', (message))
     })
 });

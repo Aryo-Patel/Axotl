@@ -26,7 +26,7 @@ const ChatSchema = new Schema({
             name: {
                 type: String,
             },
-            text: {
+            message: {
                 type: String,
             },
             date: {

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './styling/chat.css';
+import axios from 'axios';
 
 export default class Messages extends Component {
     constructor(props){

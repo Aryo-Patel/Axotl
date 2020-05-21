@@ -5,6 +5,7 @@ import Messages from './Messages';
 import CreateChat from './CreateChat';
 import Contact from './Contact';
 import './styling/chat.css';
+import axios from 'axios';
 
 class Chat extends Component {
     constructor(props){
@@ -14,17 +15,20 @@ class Chat extends Component {
             socket: openSocket(),
             messages: [],
             newMessage: '',
+            currentChatId: '',
+            currentChat: {},
+
         }
         this.onChange = this.onChange.bind(this);
         this.sendMessage = this.sendMessage.bind(this);
         this.showModal = this.showModal.bind(this);
         this.hideModal = this.hideModal.bind(this);
+        this.onChoose = this.onChoose.bind(this);
 
         this.state.socket.on('newMessage', (message) => {
             this.setState({
                 messages: [...this.state.messages, message],
             })
-            console.log(this.state.messages);
         });
     }
 
@@ -53,9 +57,43 @@ class Chat extends Component {
             name: name,
             message: this.state.newMessage,
         }
+        console.log('SEnding message with this id: ' + this.state.currentChatId)
+        //Database update
+        axios.post(`/api/chat/messages/${this.state.currentChatId}`, data)
+        .then(res => {
+            console.log(res)
+        })
+        .catch(err => {
+            console.log(err);
+        })
+        //Socket update
         this.state.socket.emit('newMessage', (data));
         this.setState({
             newMessage: '',
+        })
+    }
+    //This will be for choosing the chat that we want to be interacting with
+    onChoose(id) {
+        this.setState({
+            currentChatId: id,
+        })
+        //Retrieving the chat by its ID
+        axios.get(`/api/chat/${id}`)
+        .then(res => {
+            this.setState({
+                currentChat: res.data,
+                messages: res.data.messages,
+            })
+        })
+    }
+    //stand alone function to get messages and put into state, perhaps will link up to a 'refresh' button.
+    getMessages(){
+        axios.get(`/api/chat/${this.state.currentChatId}`)
+        .then(res => {
+            this.setState({
+                currentChat: res.data,
+                messages: res.data.messages,
+            })
         })
     }
 
@@ -63,10 +101,10 @@ class Chat extends Component {
         return (
             <div style={{padding:'10% 0 10%'}}>
                 <div className="container">
-                    <CreateChat show={this.state.show} onHide={this.hideModal}/>
+                    <CreateChat show={this.state.show} onHide={this.hideModal} />
                     <div className="first">
                         <button onClick={this.showModal} className="btn btn-primary">+ Create a new chat</button>
-                        <Contact />
+                        <Contact onChoose={this.onChoose}/>
                     </div>
                     <Messages onChange={this.onChange} onSubmit={this.sendMessage} messages={this.state.messages} newMessageValue={this.state.newMessage}/>
                     <div className="clear">

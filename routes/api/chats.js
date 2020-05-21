@@ -28,7 +28,7 @@ router.post('/create', (req, res) => {
     })
 })
 
-//POST      api/chat/:id
+//POST      api/chat/users/:id
 //Action    This will be to add recipients or sponsors
 //Private
 router.post('/users/:id', (req, res) => {
@@ -60,28 +60,23 @@ router.post('/users/:id', (req, res) => {
 //POST      api/chat/messages/:id
 //Action    This will be the thing that adds messages
 //Private
-router.post('/messages/:id', (req, res) => {
-    let {name, text, date} = req.body;
+router.post('/messages/:id', async(req, res) => {
+    let {name, message, date} = req.body;
 
     let newMessage = {
         name: name,
-        text: text,
-        date: date,
+        message: message,
     }
-    Chat.findOne({id: req.params.id})
-    .then(chat => {
+    console.log("This is the message we are going to push: " + newMessage)
+    try {
+    let chat = await Chat.findOne({_id: req.params.id})
         chat.messages.push(newMessage)
-        chat.save()
-        .then(res => {
-            res.status(200).send("Yay! Message saved!")
-        }).catch(err => {
-            res.status(500).send("Error saving message :(")
-            console.log(err)
-        })
-    }).catch(err => {
-        res.status(500).send("Server error")
-        console.log(err)
-    })
+        await chat.save()
+        res.json({msg: "Saved!"})
+    }
+    catch(err) {
+        return res.status(500).send("Server error")
+    }
 })
 
 //GET       api/chat/
@@ -101,6 +96,22 @@ router.get('/', async(req, res) => {
             return x;
         })
         res.json(chats);
+    }
+    catch(err){
+        console.error(err.messsage)
+        return res.status(500).send("Server Error")
+    }
+})
+
+//GET       api/chat/:id
+//Action    Get us the chosen chat's information
+//Private
+router.get('/:id', async(req, res) => {
+    try{
+        console.log(req.params.id);
+        let chat = await Chat.findOne({_id: req.params.id})
+        res.json(chat)
+        console.log(chat);
     }
     catch(err){
         console.error(err.messsage)
