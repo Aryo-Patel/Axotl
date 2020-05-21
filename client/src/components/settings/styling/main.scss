@@ -1,0 +1,145 @@
+$primary-green: #87ffa7;
+$light-grey: #a5a5a5;
+$background-color: lighten(rgb(47, 114, 255), 5%);
+$primary-orange: lighten(rgb(255, 102, 71), 5%);
+$background-color-light: #2d3142;
+$primary-white: #eee;
+.heading {
+    font-size: 4rem;
+    margin-bottom: 2rem;
+    color: $background-color;
+    font-weight: 400;
+    text-align: center
+}
+
+.subheading {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: $background-color;
+    font-weight: 300;
+    text-align: center
+}
+
+.button {
+    display: block;
+    border-radius: 100px;
+    background-color: $background-color;
+    font-size: 1.5rem;
+    font-weight: 700;
+    width: fit-content;
+    color: $primary-white;
+    padding: 1.2rem 2rem;
+    border: none;
+    box-shadow: 0rem .5rem 1rem rgba(0, 0, 0, 0.15);
+    text-align: center;
+    text-transform: uppercase;
+    transition: all .2s ease;
+    &:hover {
+        transform: translate(-3px);
+        box-shadow: 0rem 1rem 2rem rgba(0, 0, 0, 0.15);
+    }
+    &:active {
+        transform: translateY(-1px);
+    }
+}
+
+.button-large {
+    display: block;
+    border-radius: 100px;
+    background-color: $background-color;
+    font-size: 2.5rem;
+    font-weight: 700;
+    width: fit-content;
+    color: $primary-white;
+    padding: 1.5rem 3rem;
+    border: none;
+    box-shadow: 0rem .5rem 1rem rgba(0, 0, 0, 0.15);
+    text-align: center;
+    text-transform: uppercase;
+    transition: all .2s ease;
+    &:hover {
+        transform: translate(-3px);
+        box-shadow: 0rem 1rem 2rem rgba(0, 0, 0, 0.15);
+    }
+    &:active {
+        transform: translateY(-1px);
+    }
+}
+
+.settings {
+    padding-top: 10rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.deleteButton {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    background-color: #dc3545;
+    border: 2px $background-color-light;
+    box-shadow: 0rem .2rem 5rem rgba(0, 0, 0, 0.1);
+    color: $primary-white;
+    font-size: 2.5rem;
+    font-weight: 400;
+    border-radius: 100px;
+    transition: all .2s ease;
+    text-transform: uppercase;
+    &:hover {
+        transform: translate(-3px);
+        box-shadow: 0rem .5rem 1rem rgba(0, 0, 0, 0.15)
+    }
+    &:active {
+        transform: translateY(-1px);
+    }
+}
+
+.forms {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 6rem 0rem;
+    &__container {
+        display: flex;
+        justify-content: center;
+        position: relative;
+        margin: 2rem 0rem;
+    }
+    &__input {
+        border: none;
+        font-size: 2rem;
+        text-decoration: none;
+        border-bottom: 2px solid $light-grey;
+        padding: 1rem 1rem;
+        text-align: center;
+        width: 35rem;
+    }
+    &__edit {
+        width: 3.5rem;
+        height: 3.5rem;
+        position: absolute;
+        top: 1.5rem;
+        margin-left: 20rem;
+        padding: .5rem .5rem;
+        border: 2px solid $light-grey;
+        border-radius: 50%;
+    }
+    &__forgot-password {
+        font-size: 2rem;
+        text-align: center;
+        text-transform: uppercase;
+        margin: 3rem;
+    }
+    &__submission {
+        margin: 3rem;
+        visibility: none;
+        opacity: 0;
+    }
+    .visible {
+        visibility: visible;
+        opacity: 1;
+    }
+}

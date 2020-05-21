@@ -1,0 +1,197 @@
+.heading {
+  font-size: 4rem;
+  margin-bottom: 2rem;
+  color: #4983ff;
+  font-weight: 400;
+  text-align: center;
+}
+
+.subheading {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #4983ff;
+  font-weight: 300;
+  text-align: center;
+}
+
+.button {
+  display: block;
+  border-radius: 100px;
+  background-color: #4983ff;
+  font-size: 1.5rem;
+  font-weight: 700;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  color: #eee;
+  padding: 1.2rem 2rem;
+  border: none;
+  -webkit-box-shadow: 0rem 0.5rem 1rem rgba(0, 0, 0, 0.15);
+          box-shadow: 0rem 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  text-align: center;
+  text-transform: uppercase;
+  -webkit-transition: all .2s ease;
+  transition: all .2s ease;
+}
+
+.button:hover {
+  -webkit-transform: translate(-3px);
+          transform: translate(-3px);
+  -webkit-box-shadow: 0rem 1rem 2rem rgba(0, 0, 0, 0.15);
+          box-shadow: 0rem 1rem 2rem rgba(0, 0, 0, 0.15);
+}
+
+.button:active {
+  -webkit-transform: translateY(-1px);
+          transform: translateY(-1px);
+}
+
+.button-large {
+  display: block;
+  border-radius: 100px;
+  background-color: #4983ff;
+  font-size: 2.5rem;
+  font-weight: 700;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  color: #eee;
+  padding: 1.5rem 3rem;
+  border: none;
+  -webkit-box-shadow: 0rem 0.5rem 1rem rgba(0, 0, 0, 0.15);
+          box-shadow: 0rem 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  text-align: center;
+  text-transform: uppercase;
+  -webkit-transition: all .2s ease;
+  transition: all .2s ease;
+}
+
+.button-large:hover {
+  -webkit-transform: translate(-3px);
+          transform: translate(-3px);
+  -webkit-box-shadow: 0rem 1rem 2rem rgba(0, 0, 0, 0.15);
+          box-shadow: 0rem 1rem 2rem rgba(0, 0, 0, 0.15);
+}
+
+.button-large:active {
+  -webkit-transform: translateY(-1px);
+          transform: translateY(-1px);
+}
+
+.settings {
+  padding-top: 10rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.deleteButton {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background-color: #dc3545;
+  border: 2px #2d3142;
+  -webkit-box-shadow: 0rem 0.2rem 5rem rgba(0, 0, 0, 0.1);
+          box-shadow: 0rem 0.2rem 5rem rgba(0, 0, 0, 0.1);
+  color: #eee;
+  font-size: 2.5rem;
+  font-weight: 400;
+  border-radius: 100px;
+  -webkit-transition: all .2s ease;
+  transition: all .2s ease;
+  text-transform: uppercase;
+}
+
+.deleteButton:hover {
+  -webkit-transform: translate(-3px);
+          transform: translate(-3px);
+  -webkit-box-shadow: 0rem 0.5rem 1rem rgba(0, 0, 0, 0.15);
+          box-shadow: 0rem 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.deleteButton:active {
+  -webkit-transform: translateY(-1px);
+          transform: translateY(-1px);
+}
+
+.forms {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin: 6rem 0rem;
+}
+
+.forms__container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  position: relative;
+  margin: 2rem 0rem;
+}
+
+.forms__input {
+  border: none;
+  font-size: 2rem;
+  text-decoration: none;
+  border-bottom: 2px solid #a5a5a5;
+  padding: 1rem 1rem;
+  text-align: center;
+  width: 35rem;
+}
+
+.forms__edit {
+  width: 3.5rem;
+  height: 3.5rem;
+  position: absolute;
+  top: 1.5rem;
+  margin-left: 20rem;
+  padding: .5rem .5rem;
+  border: 2px solid #a5a5a5;
+  border-radius: 50%;
+}
+
+.forms__forgot-password {
+  font-size: 2rem;
+  text-align: center;
+  text-transform: uppercase;
+  margin: 3rem;
+}
+
+.forms__submission {
+  margin: 3rem;
+  visibility: none;
+  opacity: 0;
+}
+
+.forms .visible {
+  visibility: visible;
+  opacity: 1;
+}
+/*# sourceMappingURL=main.css.map */

@@ -1,0 +1,531 @@
+$primary-green: #87ffa7;
+$light-grey: #a5a5a5;
+$background-color: lighten(rgb(47, 114, 255), 15%);
+$background-color-dark: #003ea3;
+$primary-orange: lighten(rgb(255, 102, 71), 5%);
+$background-color-light: #2d3142;
+$primary-white: #eee;
+$primary-yellow: rgb(255, 255, 0);
+//border-radius value for the form containers on login, forgot password, reset password, change password, and register
+$form-border-radius: 20px;
+$bp-largest: 100em;
+$bp-large: 75em;
+$bp-medium: 56.25em;
+$bp-small: 37.5em;
+$text-color: rgb(86, 96, 104);
+$translateAmount: 100px;
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY($translateAmount)
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes popUp {
+    from {
+        transform: scale(0)
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+.header-3 {
+    font-size: 2rem;
+    color: $primary-white;
+    border-bottom: 1px solid $primary-white;
+}
+
+//Styles for a user's profile that has been created
+.myProfileWrapper {
+    display: flex;
+    justify-content: center;
+    .profileWrapper {
+        margin-top: 5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: stretch;
+        width: 90%;
+    }
+    .compHeader {
+        padding: 2rem 2rem;
+        margin-top: 8rem;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        background-color: $background-color-light;
+        margin-bottom: .5rem;
+    }
+    .descrWrapper {
+        color: $primary-white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 3;
+    }
+    .title {
+        display: block;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 8rem;
+        text-align: center;
+    }
+    .imgWrapper {
+        display: flex;
+        justify-content: center;
+        .avatar {
+            display: block;
+            border: 2px solid red;
+            border-radius: 50%;
+            width: 20rem;
+            height: 20rem;
+        }
+    }
+    .handle {
+        display: block;
+        font-size: 2rem;
+    }
+    .location {
+        display: block;
+        font-size: 2rem;
+    }
+    .bio {
+        display: block;
+        font-size: 2rem;
+    }
+    .mainContent {
+        margin: 0;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: stretch;
+        &__donationTypes {
+            padding-top: 2rem;
+            flex-basis: 20%;
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            align-items: center;
+            background-color: $background-color-light;
+            margin-right: .5rem;
+        }
+        &__donoType {
+            color: $primary-white;
+        }
+        &__post {
+            background-color: $background-color-light;
+            width: 100%;
+            padding: 2rem 3rem;
+            border-radius: 5px;
+            &:not(:last-child) {
+                margin-bottom: 1.5rem;
+            }
+        }
+        &__posts {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: white;
+            min-height: 40vh;
+            align-items: center;
+            .posts__header {
+                width: 100%;
+                border-radius: 5px;
+                background-color: $background-color-light;
+                text-align: center;
+                margin-bottom: .5rem;
+                border: none;
+                &-1 {
+                    text-decoration: none;
+                    font-size: 2rem;
+                    color: $primary-white;
+                }
+            }
+        }
+    }
+}
+
+//styles for a user who hasn't created a profile
+.profileWrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    p {
+        text-align: center;
+        font-size: 1.6rem;
+    }
+}
+
+.educationWrapper {
+    padding-top: 10rem;
+}
+
+.experienceWrapper {
+    padding-top: 10rem;
+}
+
+//styles for the create profile page for recipients
+.createProfile {
+    padding: 10rem 20rem;
+    display: flex;
+    flex-direction: column;
+    &__form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+    &__field {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        background: none;
+        border: none;
+        border-bottom: 2px solid $text-color;
+        border-radius: 0px;
+        width: 100%;
+        z-index: 2;
+        display: inline-block;
+        padding-bottom: .5rem;
+        padding-left: 1rem;
+        @media (max-width: 550px) {
+            border-bottom: 2px solid $primary-white;
+        }
+        @media (max-height: 550px) {
+            border-bottom: 2px solid $primary-white;
+        }
+        &:focus {
+            border: none;
+            border-bottom: 2px solid $text-color;
+        }
+        &:focus+label {
+            top: -2rem;
+            font-size: 1rem;
+        }
+        &:valid+label {
+            top: -2rem;
+            font-size: 1rem;
+        }
+    }
+    &__textarea {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        background: none;
+        // border: none;
+        border: 2px solid $text-color;
+        border-radius: 20px;
+        width: 100%;
+        z-index: 2;
+        display: inline-block;
+        padding: .5rem 1rem;
+        // @media (max-width: 550px) {
+        //     border-bottom: 2px solid $primary-white;
+        // }
+        // @media (max-height: 550px) {
+        //     border-bottom: 2px solid $primary-white;
+        // }
+        &:focus {
+            border: 2px solid $text-color;
+        }
+        &:focus+label {
+            top: -2rem;
+            font-size: 1rem;
+        }
+        &:valid+label {
+            top: -2rem;
+            font-size: 1rem;
+        }
+        &::webkit-scrollbar {
+            width: 10px;
+            &-track {
+                box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+                border-radius: 10px;
+            }
+        }
+    }
+    &__last-field {
+        margin-bottom: 4rem;
+    }
+    &__form-group {
+        width: 100%;
+        transform: translateY($translateAmount);
+        opacity: 0;
+        position: relative;
+        animation: fadeIn 1.5s forwards;
+        margin-top: 4rem;
+        &:nth-child(1) {
+            animation-delay: 0.5s;
+        }
+        &:nth-child(2) {
+            animation-delay: 1s;
+        }
+        &:nth-child(3) {
+            animation-delay: 1.5s;
+        }
+        &:nth-child(4) {
+            animation-delay: 2s;
+        }
+    }
+    &__label {
+        font-size: 2rem;
+        @media (max-width: $bp-largest) {
+            font-size: 2.5rem;
+        }
+        @media (max-width: 550px) {
+            color: $primary-white;
+        }
+        @media (max-height: 550px) {
+            color: $primary-white;
+        }
+        position: absolute;
+        margin: 0;
+        margin-left: 1rem;
+        width: 100%;
+        left: 0rem;
+        top: -.5rem;
+        pointer-events: none;
+        color: $text-color;
+        transition: 0.3s;
+    }
+    &__icon {
+        width: 2rem;
+        height: 2rem;
+        font-size: 2rem;
+        position: absolute;
+        left: -2rem;
+        top: .5rem;
+    }
+    &__locationInput {
+        width: 100%;
+    }
+    &__locationLabel {
+        font-size: 2rem;
+        @media (max-width: $bp-largest) {
+            font-size: 2.5rem;
+        }
+        @media (max-width: 550px) {
+            color: $primary-white;
+        }
+        @media (max-height: 550px) {
+            color: $primary-white;
+        }
+        position: absolute;
+        margin: 0;
+        margin-left: 1rem;
+        width: 100%;
+        left: 0rem;
+        top: 3.5rem;
+        pointer-events: none;
+        color: $text-color;
+        transition: 0.3s;
+    }
+    .location-search-input {
+        margin-bottom: 0;
+        margin-top: 4rem;
+        width: 100%;
+    }
+    &__locationWrapper {
+        width: 100%;
+        .untitled-form-group {
+            width: 100%;
+        }
+    }
+    .autocomplete-dropdown-container {
+        margin-bottom: 4rem;
+        color: $light-grey;
+        font-size: 1.6rem;
+        border-bottom: 2px solid $light-grey;
+        border-left: 2px solid $light-grey;
+        border-right: 2px solid $light-grey;
+    }
+}
+
+//styles for the create profile page for sponsors
+.createSponsorProfile {
+    padding: 10rem 20rem;
+    display: flex;
+    flex-direction: column;
+    &__form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+    &__field {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        background: none;
+        border: none;
+        border-bottom: 2px solid $text-color;
+        border-radius: 0px;
+        width: 100%;
+        z-index: 2;
+        display: inline-block;
+        padding-bottom: .5rem;
+        padding-left: 1rem;
+        @media (max-width: 550px) {
+            border-bottom: 2px solid $primary-white;
+        }
+        @media (max-height: 550px) {
+            border-bottom: 2px solid $primary-white;
+        }
+        &:focus {
+            border: none;
+            border-bottom: 2px solid $text-color;
+        }
+        &:focus+label {
+            top: -2rem;
+            font-size: 1rem;
+        }
+        &:valid+label {
+            top: -2rem;
+            font-size: 1rem;
+        }
+    }
+    &__textarea {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        background: none;
+        // border: none;
+        border: 2px solid $text-color;
+        border-radius: 20px;
+        width: 100%;
+        z-index: 2;
+        display: inline-block;
+        padding: .5rem 1rem;
+        // @media (max-width: 550px) {
+        //     border-bottom: 2px solid $primary-white;
+        // }
+        // @media (max-height: 550px) {
+        //     border-bottom: 2px solid $primary-white;
+        // }
+        &:focus {
+            border: 2px solid $text-color;
+        }
+        &:focus+label {
+            top: -2rem;
+            font-size: 1rem;
+        }
+        &:valid+label {
+            top: -2rem;
+            font-size: 1rem;
+        }
+        &::webkit-scrollbar {
+            width: 10px;
+            &-track {
+                box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+                border-radius: 10px;
+            }
+        }
+    }
+    &__last-field {
+        margin-bottom: 4rem;
+    }
+    &__form-group {
+        width: 100%;
+        transform: translateY($translateAmount);
+        opacity: 0;
+        position: relative;
+        animation: fadeIn 1.5s forwards;
+        margin-top: 4rem;
+        &:nth-child(1) {
+            animation-delay: 0.5s;
+        }
+        &:nth-child(2) {
+            animation-delay: 1s;
+        }
+        &:nth-child(3) {
+            animation-delay: 1.5s;
+        }
+        &:nth-child(4) {
+            animation-delay: 2s;
+        }
+    }
+    &__label {
+        font-size: 2rem;
+        @media (max-width: $bp-largest) {
+            font-size: 2.5rem;
+        }
+        @media (max-width: 550px) {
+            color: $primary-white;
+        }
+        @media (max-height: 550px) {
+            color: $primary-white;
+        }
+        position: absolute;
+        margin: 0;
+        margin-left: 1rem;
+        width: 100%;
+        left: 0rem;
+        top: -.5rem;
+        pointer-events: none;
+        color: $text-color;
+        transition: 0.3s;
+    }
+    &__icon {
+        width: 2rem;
+        height: 2rem;
+        font-size: 2rem;
+        position: absolute;
+        left: -2rem;
+        top: .5rem;
+    }
+    &__locationInput {
+        width: 100%;
+    }
+    &__locationLabel {
+        font-size: 2rem;
+        @media (max-width: $bp-largest) {
+            font-size: 2.5rem;
+        }
+        @media (max-width: 550px) {
+            color: $primary-white;
+        }
+        @media (max-height: 550px) {
+            color: $primary-white;
+        }
+        position: absolute;
+        margin: 0;
+        margin-left: 1rem;
+        width: 100%;
+        left: 0rem;
+        top: 3.5rem;
+        pointer-events: none;
+        color: $text-color;
+        transition: 0.3s;
+    }
+    .location-search-input {
+        margin-bottom: 0;
+        margin-top: 4rem;
+        width: 100%;
+    }
+    &__locationWrapper {
+        width: 100%;
+        .untitled-form-group {
+            width: 100%;
+        }
+    }
+    .autocomplete-dropdown-container {
+        margin-bottom: 4rem;
+        color: $light-grey;
+        font-size: 1.6rem;
+        border-bottom: 2px solid $light-grey;
+        border-left: 2px solid $light-grey;
+        border-right: 2px solid $light-grey;
+    }
+}
+
+.goAway {
+    opacity: 0;
+    visibility: none;
+}
