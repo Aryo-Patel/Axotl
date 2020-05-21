@@ -139,7 +139,10 @@ io.on('connection', (socket) => {
     console.log("Connection to socket made...")
 
     socket.on('newMessage', (message) => {
+<<<<<<< HEAD
         console.log(message);
+=======
+>>>>>>> 326c168ca4bd22358c22c252c4ae7ea7bd1aca8a
         io.sockets.emit('newMessage', (message))
     })
 });

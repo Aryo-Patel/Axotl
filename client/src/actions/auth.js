@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, ACCOUNT_DELETED, RES_PASSWORD, REGISTER_SUCCESS, REGISTER_FAIL, USER_FAILED, USER_LOADED, FORGOT_PASSWORD_FAIL, FORGOT_PASSWORD, CHANGE_PASSWORD, EDIT_ACCOUNT } from './Types'
+import { LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, ACCOUNT_DELETED, RES_PASSWORD, REGISTER_SUCCESS, REGISTER_FAIL, USER_FAILED, USER_LOADED, FORGOT_PASSWORD_FAIL, FORGOT_PASSWORD, CHANGE_PASSWORD, EDIT_ACCOUNT, CLEAR_CHATLOG } from './Types'
 import bcrypt from 'bcryptjs';
 
 export const sendLogin = (formData) => async dispatch => {
@@ -24,14 +24,14 @@ export const sendLogin = (formData) => async dispatch => {
         })
     } catch (err) {
         console.error(err.message)
-            //DISPATCH ALERTS FOR ERRORS
+        //DISPATCH ALERTS FOR ERRORS
         dispatch({
             type: LOGIN_FAIL
         })
     }
 }
 
-export const registerUser = (userData, history) => async(dispatch) => {
+export const registerUser = (userData, history) => async (dispatch) => {
     let config = {
         headers: {
             'Content-Type': 'application/json'
@@ -54,7 +54,7 @@ export const registerUser = (userData, history) => async(dispatch) => {
     }
 }
 
-export const registerSponsor = (userData, history) => async(dispatch) => {
+export const registerSponsor = (userData, history) => async (dispatch) => {
     let config = {
         headers: {
             'Content-Type': 'application/json'
@@ -114,6 +114,9 @@ export const logout = () => async dispatch => {
         dispatch({
             type: LOGOUT
         })
+        dispatch({
+            type: CLEAR_CHATLOG
+        })
     } catch (err) {
         console.error(err.message);
     }
@@ -147,11 +150,11 @@ export const forPass = (email, history) => async dispatch => {
 export const resPass = (formData, jwt, history) => async dispatch => {
     console.log('respass hit')
     const config = {
-            headers: {
-                'Content-Type': 'application/json'
-            }
+        headers: {
+            'Content-Type': 'application/json'
         }
-        //CHECK PASSWORDS?
+    }
+    //CHECK PASSWORDS?
     const password = formData.pass1
     const body = JSON.stringify({ password })
 
@@ -168,11 +171,11 @@ export const resPass = (formData, jwt, history) => async dispatch => {
 
 export const changePass = (formData, history) => async dispatch => {
     const config = {
-            headers: {
-                'Content-Type': 'application/json'
-            }
+        headers: {
+            'Content-Type': 'application/json'
         }
-        //CHECK PASSWORDS?
+    }
+    //CHECK PASSWORDS?
 
     const password = formData.currPass;
     const newPassword = formData.newPass;

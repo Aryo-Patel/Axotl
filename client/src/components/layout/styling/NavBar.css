@@ -4,7 +4,7 @@
   margin: 0;
   padding: 0;
   -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   font-size: 1.6rem;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -12,13 +12,13 @@
   width: 100%;
   height: 6rem;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   background-color: white;
   z-index: 1000000;
   -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
   -webkit-transition: color 0.2s, background-color 0.2s;
   transition: color 0.2s, background-color 0.2s;
 }
@@ -32,8 +32,8 @@
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 @media (max-width: 75em) {
@@ -65,10 +65,10 @@
   display: -ms-flexbox;
   display: flex;
   -ms-flex-item-align: stretch;
-      align-self: stretch;
+  align-self: stretch;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   -webkit-transition: color 0.2s, background-color 0.2s;
   transition: color 0.2s, background-color 0.2s;
 }
@@ -87,8 +87,8 @@
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: stretch;
-      -ms-flex-align: stretch;
-          align-items: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
   color: white;
   -webkit-transition: color 0.2s, background-color 0.2s;
   transition: color 0.2s, background-color 0.2s;
@@ -165,16 +165,16 @@
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   -webkit-transition: all 0.2s;
   transition: all 0.2s;
   -webkit-box-flex: 0;
-      -ms-flex: 0 0 20%;
-          flex: 0 0 20%;
+  -ms-flex: 0 0 20%;
+  flex: 0 0 20%;
 }
 
 .navContainer .auth-links .link-list li:hover {
@@ -212,7 +212,7 @@
 @media (max-width: 37.5em) {
   .scrolled {
     -webkit-box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
-            box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
   }
 }
 
@@ -261,9 +261,9 @@
   display: block;
   background-color: white;
   -webkit-animation: dropdown;
-          animation: dropdown;
+  animation: dropdown;
   -webkit-animation-duration: 0.7s;
-          animation-duration: 0.7s;
+  animation-duration: 0.7s;
   color: #eee;
   z-index: 10000;
 }
@@ -275,13 +275,13 @@
   display: -ms-flexbox;
   display: flex;
   -ms-flex-item-align: stretch;
-      align-self: stretch;
+  align-self: stretch;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   -webkit-transition: color 0.2s, background-color 0.2s;
   transition: color 0.2s, background-color 0.2s;
   position: relative;
@@ -291,9 +291,9 @@
 .dropdownReplacement .auth-links .nav-link {
   color: #4983ff;
   -webkit-animation: dropdown-text;
-          animation: dropdown-text;
+  animation: dropdown-text;
   -webkit-animation-duration: 0.7s;
-          animation-duration: 0.7s;
+  animation-duration: 0.7s;
 }
 
 .dropdownReplacement .auth-links div {
@@ -310,8 +310,8 @@
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: stretch;
-      -ms-flex-align: stretch;
-          align-items: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
   color: white;
   -webkit-transition: color 0.2s, background-color 0.2s;
   transition: color 0.2s, background-color 0.2s;
@@ -387,16 +387,16 @@
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   -webkit-transition: all 0.2s;
   transition: all 0.2s;
   -webkit-box-flex: 0;
-      -ms-flex: 0 0 20%;
-          flex: 0 0 20%;
+  -ms-flex: 0 0 20%;
+  flex: 0 0 20%;
 }
 
 .dropdownReplacement .auth-links .link-list li:hover {
@@ -417,9 +417,9 @@
 
 .navCheckbox:checked ~ .hack-modal .modal-main {
   -webkit-animation: scaleTranslateModal 1s;
-          animation: scaleTranslateModal 1s;
+  animation: scaleTranslateModal 1s;
   -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 
 @-webkit-keyframes scaleTranslateModal {
@@ -427,13 +427,13 @@
     top: 50%;
     left: 50%;
     -webkit-transform: scale(0.125) translate(-50%, -50%);
-            transform: scale(0.125) translate(-50%, -50%);
+    transform: scale(0.125) translate(-50%, -50%);
   }
   100% {
     top: 50%;
     left: 50%;
     -webkit-transform: scale(1) translate(-50%, -50%);
-            transform: scale(1) translate(-50%, -50%);
+    transform: scale(1) translate(-50%, -50%);
   }
 }
 
@@ -442,13 +442,13 @@
     top: 50%;
     left: 50%;
     -webkit-transform: scale(0.125) translate(-50%, -50%);
-            transform: scale(0.125) translate(-50%, -50%);
+    transform: scale(0.125) translate(-50%, -50%);
   }
   100% {
     top: 50%;
     left: 50%;
     -webkit-transform: scale(1) translate(-50%, -50%);
-            transform: scale(1) translate(-50%, -50%);
+    transform: scale(1) translate(-50%, -50%);
   }
 }
 
@@ -460,12 +460,12 @@
   from {
     height: 0px;
     -webkit-transform: translateY(-100%);
-            transform: translateY(-100%);
+    transform: translateY(-100%);
   }
   to {
     height: 3rem;
     -webkit-transform: translateY(0);
-            transform: translateY(0);
+    transform: translateY(0);
   }
 }
 
@@ -473,12 +473,12 @@
   from {
     height: 0px;
     -webkit-transform: translateY(-100%);
-            transform: translateY(-100%);
+    transform: translateY(-100%);
   }
   to {
     height: 3rem;
     -webkit-transform: translateY(0);
-            transform: translateY(0);
+    transform: translateY(0);
   }
 }
 
@@ -486,12 +486,12 @@
   from {
     opacity: 0%;
     -webkit-transform: translateY(-100%);
-            transform: translateY(-100%);
+    transform: translateY(-100%);
   }
   to {
     opacity: 1;
     -webkit-transform: translateY(0);
-            transform: translateY(0);
+    transform: translateY(0);
   }
 }
 
@@ -499,12 +499,12 @@
   from {
     opacity: 0%;
     -webkit-transform: translateY(-100%);
-            transform: translateY(-100%);
+    transform: translateY(-100%);
   }
   to {
     opacity: 1;
     -webkit-transform: translateY(0);
-            transform: translateY(0);
+    transform: translateY(0);
   }
 }
 
@@ -523,8 +523,8 @@
   position: absolute;
   border-bottom: 1px solid transparent;
   border-radius: 20px;
-  -webkit-transition: visibility .3s ease, opacity .3s ease;
-  transition: visibility .3s ease, opacity .3s ease;
+  -webkit-transition: visibility 0.3s ease, opacity 0.3s ease;
+  transition: visibility 0.3s ease, opacity 0.3s ease;
 }
 
 .dropdown__item {
@@ -535,7 +535,7 @@
   font-size: 1.6rem;
   padding: 1rem 1rem;
   -webkit-box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.1);
-          box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.1);
   z-index: 2;
 }
 
@@ -559,8 +559,9 @@
   display: table;
   margin-right: 3rem;
   padding: 0.5rem 2rem;
-  -webkit-transition: visibility .5s ease, background-color .2s, opacity .5s ease;
-  transition: visibility .5s ease, background-color .2s, opacity .5s ease;
+  -webkit-transition: visibility 0.5s ease, background-color 0.2s,
+    opacity 0.5s ease;
+  transition: visibility 0.5s ease, background-color 0.2s, opacity 0.5s ease;
   position: relative;
   z-index: 100;
 }
@@ -579,7 +580,7 @@
 
 .dropdown__toggle:hover {
   -webkit-box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.1);
-          box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.1);
   border-radius: 20px;
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
@@ -598,11 +599,11 @@
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   color: #eee;
   padding: 0 1rem;
 }
@@ -635,7 +636,7 @@
 .scrolledAuthLinks {
   background-color: #4983ff !important;
   -webkit-box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
-          box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
 }
 
 .scrolledAuthLinks .link-list .nav-item .nav-link {

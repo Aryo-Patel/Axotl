@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getRecipients, getSponsors } from '../../actions/chat';
+import { getRecipients, getSponsors, getChatLogs } from '../../actions/chat';
 import TextField from '../layout/TextField';
 import "./styling/chat.css";
 import axios from 'axios';
 
 class CreateChat extends Component {
-    constructor(props){
+    constructor(props) {
         super(props)
 
         this.state = {
@@ -28,13 +28,22 @@ class CreateChat extends Component {
         this.closeModal = this.closeModal.bind(this);
     }
 
-    onChange(e){
+    componentDidMount() {
+        if (this.props.user.sponsor) {
+            this.state.sponsors.push(this.props.user)
+        }
+        if (!this.props.user.sponsor) {
+            this.state.recipients.push(this.props.user)
+        }
+    }
+
+    onChange(e) {
         this.setState({
             [e.target.name]: e.target.value
         })
     }
 
-    searchRecipient(e){
+    searchRecipient(e) {
         e.preventDefault();
         let data = {
             handle: this.state.recipientSearch,
@@ -44,7 +53,7 @@ class CreateChat extends Component {
 
     }
 
-    searchSponsor(e){
+    searchSponsor(e) {
         e.preventDefault();
         let data = {
             handle: this.state.sponsorSearch,
@@ -55,27 +64,27 @@ class CreateChat extends Component {
 
     }
 
-    async fullRecipientSearchFunction(e){
+    async fullRecipientSearchFunction(e) {
         await this.onChange(e);
         this.searchRecipient(e);
     }
 
-    async fullSponsorSearchFunction(e){
+    async fullSponsorSearchFunction(e) {
         await this.onChange(e);
         this.searchSponsor(e);
     }
 
 
-    confirmRecipient(e){
+    confirmRecipient(e) {
         //Will push the recipient object to our member array if it is not a repeat
         let repeat;
         this.state.recipients.forEach((item) => {
-            if(item._id === this.props.recipient._id){
+            if (item._id === this.props.recipient._id) {
                 repeat = true;
             }
         })
-        if(!repeat){
-        this.state.recipients.push(this.props.recipient);
+        if (!repeat) {
+            this.state.recipients.push(this.props.recipient);
         }
 
         this.setState({
@@ -83,16 +92,16 @@ class CreateChat extends Component {
         })
     }
 
-    confirmSponsor(e){
+    confirmSponsor(e) {
         //Will push the sponsor object to our member array if it is not a repeat
         let repeat;
         this.state.sponsors.forEach((item) => {
-            if(item._id === this.props.sponsor._id){
+            if (item._id === this.props.sponsor._id) {
                 repeat = true;
             }
         })
-        if(!repeat){
-        this.state.sponsors.push(this.props.sponsor);
+        if (!repeat) {
+            this.state.sponsors.push(this.props.sponsor);
         }
 
         this.setState({
@@ -100,7 +109,7 @@ class CreateChat extends Component {
         })
     }
 
-    confirmFinal(e){
+    confirmFinal(e) {
         let info = {
             name: this.state.chatName,
             recipients: this.state.recipients,
@@ -109,7 +118,7 @@ class CreateChat extends Component {
 
         }
         axios.post('api/chat/create', info)
-        
+
         this.setState({
             chatName: '',
             recipients: [],
@@ -117,9 +126,11 @@ class CreateChat extends Component {
             sponsorSearch: '',
             recipientSearch: '',
         })
+
+        this.props.getChatLogs();
     }
 
-    closeModal(e){
+    closeModal(e) {
         this.setState({
             chatName: '',
             recipients: [],
@@ -146,36 +157,36 @@ class CreateChat extends Component {
 
         //This will handle the recipient searching and the output associated with certain searches.
         let searchOutputR;
-        if (recipientChoice === null || this.state.recipientSearch === ''){
+        if (recipientChoice === null || this.state.recipientSearch === '') {
             searchOutputR = <div></div>
-        } else if(loading){
+        } else if (loading) {
             searchOutputR = <p>Searching...</p>
         } else if (recipientChoice.error != null) {
             searchOutputR = <p>User with that handle not found</p>
-        } else if (recipientChoice.name != null){
+        } else if (recipientChoice.name != null) {
             searchOutputR = (
-            <div>
-                <p>Were you looking for this user?</p>
-                <div><img className="profile-pic" src={recipientChoice.avatar}></img><p>{recipientChoice.name}</p></div>
-                <button type="submit" className="btn btn-primary" onClick={this.confirmRecipient}>Confirm Add</button>
-            </div>
+                <div>
+                    <p>Were you looking for this user?</p>
+                    <div><img className="profile-pic" src={recipientChoice.avatar}></img><p>{recipientChoice.name}</p></div>
+                    <button type="submit" className="btn btn-primary" onClick={this.confirmRecipient}>Confirm Add</button>
+                </div>
             )
         }
 
         let searchOutputS;
-        if (sponsorChoice === null || this.state.sponsorSearch === ''){
+        if (sponsorChoice === null || this.state.sponsorSearch === '') {
             searchOutputS = <div></div>
-        }else if(loading){
+        } else if (loading) {
             searchOutputS = <p>Searching...</p>
         } else if (sponsorChoice.error != null) {
             searchOutputS = <p>User with that handle not found</p>
-        } else if (sponsorChoice.name != null){
+        } else if (sponsorChoice.name != null) {
             searchOutputS = (
-            <div>
-                <p>Were you looking for this user?</p>
-                <div><img className="profile-pic" src={sponsorChoice.avatar}></img><p>{sponsorChoice.name}</p></div>
-                <button type="submit" className="btn btn-primary" onClick={this.confirmSponsor}>Confirm Add</button>
-            </div>
+                <div>
+                    <p>Were you looking for this user?</p>
+                    <div><img className="profile-pic" src={sponsorChoice.avatar}></img><p>{sponsorChoice.name}</p></div>
+                    <button type="submit" className="btn btn-primary" onClick={this.confirmSponsor}>Confirm Add</button>
+                </div>
             )
         }
 
@@ -198,50 +209,50 @@ class CreateChat extends Component {
 
         return (
             <div className="center">
-            <div className={showHideClassName}>
-                <div className='modal-main'>
-                    <h5>ChatName:</h5>
-                    <TextField 
-                        type='text'
-                        placeholder="Name your chat!"
-                        name='chatName'
-                        value={this.state.chatName}
-                        onChange={this.onChange}
-                    />
-                <form onSubmit={this.searchRecipient}>
-                <h5>Add Recipients (by handle):</h5>
-                    <TextField 
-                        type='text'
-                        placeholder="Search for a RECIPIENT by handle to add to your chat"
-                        name='recipientSearch'
-                        value={this.state.recipientSearch}
-                        onChange={this.fullRecipientSearchFunction}
-                    />
-                    <div>
-                        {searchOutputR}
+                <div className={showHideClassName}>
+                    <div className='modal-main'>
+                        <h5>ChatName:</h5>
+                        <TextField
+                            type='text'
+                            placeholder="Name your chat!"
+                            name='chatName'
+                            value={this.state.chatName}
+                            onChange={this.onChange}
+                        />
+                        <form onSubmit={this.searchRecipient}>
+                            <h5>Add Recipients (by handle):</h5>
+                            <TextField
+                                type='text'
+                                placeholder="Search for a RECIPIENT by handle to add to your chat"
+                                name='recipientSearch'
+                                value={this.state.recipientSearch}
+                                onChange={this.fullRecipientSearchFunction}
+                            />
+                            <div>
+                                {searchOutputR}
+                            </div>
+                        </form>
+                        <form onSubmit={this.searchSponsor}>
+                            <h5>Add Sponsors (by handle):</h5>
+                            <TextField
+                                type='text'
+                                placeholder="Search for a SPONSOR by handle to add to your chat"
+                                name='sponsorSearch'
+                                value={this.state.sponsorSearch}
+                                onChange={this.fullSponsorSearchFunction}
+                            />
+                            <div>
+                                {searchOutputS}
+                            </div>
+                        </form>
+                        <br></br>
+                        <h5>Member List:</h5>
+                        {recipientList}
+                        {sponsorList}
+                        <br></br>
+                        <button type="submit" onClick={this.closeModal} className="btn btn-secondary">Close</button>
+                        <button type="submit" onClick={this.confirmFinal} className="btn btn-primary">Submit</button>
                     </div>
-                </form> 
-                <form onSubmit={this.searchSponsor}>
-                <h5>Add Sponsors (by handle):</h5>
-                    <TextField 
-                        type='text'
-                        placeholder="Search for a SPONSOR by handle to add to your chat"
-                        name='sponsorSearch'
-                        value={this.state.sponsorSearch}
-                        onChange={this.fullSponsorSearchFunction}
-                    />
-                    <div>
-                        {searchOutputS}
-                    </div>
-                </form>
-                <br></br>
-                <h5>Member List:</h5>
-                {recipientList}
-                {sponsorList}
-                <br></br>
-                <button type="submit" onClick={this.closeModal} className="btn btn-secondary">Close</button>
-                <button type="submit" onClick={this.confirmFinal} className="btn btn-primary">Submit</button>
-                </div>
                 </div>
             </div>
         )
@@ -249,9 +260,10 @@ class CreateChat extends Component {
 }
 
 const mapStateToProps = (state) => ({
+    user: state.auth.user.user,
     recipient: state.chat.recipients,
     sponsor: state.chat.sponsors,
     loading: state.chat.loading,
 })
 
-export default connect(mapStateToProps, {getRecipients, getSponsors})(CreateChat);
+export default connect(mapStateToProps, { getRecipients, getSponsors, getChatLogs })(CreateChat);

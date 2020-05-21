@@ -103,7 +103,6 @@ const Hackathon = ({
             </div>
           ))}
       </div>
-
     </Fragment>
   );
 };

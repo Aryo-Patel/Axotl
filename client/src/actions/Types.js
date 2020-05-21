@@ -31,3 +31,4 @@ export const GET_RECIPIENTS = 'GET_RECIPIENTS';
 export const GET_SPONSORS = 'GET_SPONSORS';
 export const SET_LOADING = 'SET_LOADING';
 export const GET_CHATLOGS = 'GET_CHATLOGS';
+export const CLEAR_CHATLOG = 'CLEAR_CHATLOG';

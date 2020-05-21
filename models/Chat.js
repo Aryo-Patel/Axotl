@@ -12,7 +12,7 @@ const ChatSchema = new Schema({
     //     read: {
     //         type: Boolean,
     //     }
-        
+
     // }],
     recipients: [{
         type: Schema.Types.ObjectId,
@@ -23,16 +23,19 @@ const ChatSchema = new Schema({
         ref: 'Sponsors',
     }],
     messages: [{
-            name: {
-                type: String,
-            },
-            text: {
-                type: String,
-            },
-            date: {
-                type: Date,
-                default: Date.now,
-            },
+        user: {
+            type: String,
+        },
+        name: {
+            type: String,
+        },
+        message: {
+            type: String,
+        },
+        date: {
+            type: Date,
+            default: Date.now,
+        },
 
     }],
 })
