@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, ACCOUNT_DELETED, RES_PASSWORD, REGISTER_SUCCESS, REGISTER_FAIL, USER_FAILED, USER_LOADED, FORGOT_PASSWORD_FAIL, FORGOT_PASSWORD, CHANGE_PASSWORD, EDIT_ACCOUNT } from './Types'
+import { LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, ACCOUNT_DELETED, RES_PASSWORD, REGISTER_SUCCESS, REGISTER_FAIL, USER_FAILED, USER_LOADED, FORGOT_PASSWORD_FAIL, FORGOT_PASSWORD, CHANGE_PASSWORD, EDIT_ACCOUNT, CLEAR_CHATLOG } from './Types'
 import bcrypt from 'bcryptjs';
 
 export const sendLogin = (formData) => async dispatch => {
@@ -113,6 +113,9 @@ export const logout = () => async dispatch => {
         await axios.get('/api/users/logout')
         dispatch({
             type: LOGOUT
+        })
+        dispatch({
+            type: CLEAR_CHATLOG
         })
     } catch (err) {
         console.error(err.message);

@@ -97,6 +97,10 @@
     margin-right: 1%;
     text-align: center;
 }
+
+.your-message {
+    text-align: right;
+}
 /* .center{
     top: 50%;
     transform: translate(0, -50%)

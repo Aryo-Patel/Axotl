@@ -24,13 +24,18 @@ class Chat extends Component {
         this.showModal = this.showModal.bind(this);
         this.hideModal = this.hideModal.bind(this);
         this.onChoose = this.onChoose.bind(this);
+        this.getMessages = this.getMessages.bind(this);
+        this.sendMessage = this.sendMessage.bind(this);
 
-        this.state.socket.on('newMessage', (message) => {
-            this.setState({
-                messages: [...this.state.messages, message],
-            })
-        });
+        // this.state.socket.on('newMessage', (message) => {
+        //     this.setState({
+        //         messages: [...this.state.messages, message],
+        //     })
+        // });
+
     }
+
+
 
     onChange(e){
         this.setState({
@@ -50,27 +55,23 @@ class Chat extends Component {
         })
     }
 
-    sendMessage(e){
+    sendMessage = async(e) => {
         e.preventDefault();
         let name = this.props.user.name;
         let data = {
+            user: this.props.user._id,
             name: name,
             message: this.state.newMessage,
         }
         console.log('SEnding message with this id: ' + this.state.currentChatId)
         //Database update
-        axios.post(`/api/chat/messages/${this.state.currentChatId}`, data)
-        .then(res => {
-            console.log(res)
-        })
-        .catch(err => {
-            console.log(err);
-        })
+        await axios.post(`/api/chat/messages/${this.state.currentChatId}`, data)
         //Socket update
         this.state.socket.emit('newMessage', (data));
         this.setState({
             newMessage: '',
         })
+        this.getMessages();
     }
     //This will be for choosing the chat that we want to be interacting with
     onChoose(id) {
@@ -98,6 +99,7 @@ class Chat extends Component {
     }
 
     render(){
+
         return (
             <div style={{padding:'10% 0 10%'}}>
                 <div className="container">
@@ -106,12 +108,12 @@ class Chat extends Component {
                         <button onClick={this.showModal} className="btn btn-primary">+ Create a new chat</button>
                         <Contact onChoose={this.onChoose}/>
                     </div>
-                    <Messages onChange={this.onChange} onSubmit={this.sendMessage} messages={this.state.messages} newMessageValue={this.state.newMessage}/>
+                    <Messages yourID={this.props.user._id} onChange={this.onChange} onSubmit={this.sendMessage} messages={this.state.messages} newMessageValue={this.state.newMessage}/>
                     <div className="clear">
 
                     </div>
                 </div>
-                </div>
+            </div>
         )
     }
 

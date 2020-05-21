@@ -23,6 +23,9 @@ const ChatSchema = new Schema({
         ref: 'Sponsors',
     }],
     messages: [{
+            user: {
+                type: String,
+            },
             name: {
                 type: String,
             },

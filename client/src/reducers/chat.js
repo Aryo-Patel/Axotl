@@ -1,4 +1,4 @@
-import { GET_RECIPIENTS, GET_SPONSORS, SET_LOADING, GET_CHATLOGS } from "../actions/Types";
+import { GET_RECIPIENTS, GET_SPONSORS, SET_LOADING, GET_CHATLOGS, CLEAR_CHATLOG } from "../actions/Types";
 
 const initialState = {
     recipients: null,
@@ -33,6 +33,14 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 chatlogs: payload,
+                loading: false,
+            }
+        case CLEAR_CHATLOG:
+            return {
+                ...state,
+                chatlogs: null,
+                recipients: null,
+                sponsors: null, 
                 loading: false,
             }
         default: 

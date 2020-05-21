@@ -64,6 +64,7 @@ router.post('/messages/:id', async(req, res) => {
     let {name, message, date} = req.body;
 
     let newMessage = {
+        user: req.user._id.toString(),
         name: name,
         message: message,
     }
@@ -85,17 +86,22 @@ router.post('/messages/:id', async(req, res) => {
 router.get('/', async(req, res) => {
     try{
         let chats = await Chat.find();
-        console.log(typeof chats);
-        chats.filter(chat => {
+        console.log(req.user._id);
+        let yourChats = chats.filter(chat => {
             let x = false;
             chat.recipients.forEach(recipient => {
                 if(recipient.toString() === req.user._id.toString()){
                     x = true;
                 }
             })
+            chat.sponsors.forEach(sponsor => {
+                if(sponsor.toString() === req.user._id.toString()){
+                    x = true;
+                }
+            })
             return x;
         })
-        res.json(chats);
+        res.json(yourChats);
     }
     catch(err){
         console.error(err.messsage)

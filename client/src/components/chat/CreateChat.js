@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getRecipients, getSponsors } from '../../actions/chat';
+import { getRecipients, getSponsors, getChatLogs } from '../../actions/chat';
 import TextField from '../layout/TextField';
 import "./styling/chat.css";
 import axios from 'axios';
@@ -26,6 +26,15 @@ class CreateChat extends Component {
         this.confirmSponsor = this.confirmSponsor.bind(this);
         this.confirmFinal = this.confirmFinal.bind(this);
         this.closeModal = this.closeModal.bind(this);
+    }
+
+    componentDidMount(){
+        if(this.props.user.sponsor){
+            this.state.sponsors.push(this.props.user)
+        }
+        if(!this.props.user.sponsor){
+            this.state.recipients.push(this.props.user)
+        }
     }
 
     onChange(e){
@@ -117,6 +126,8 @@ class CreateChat extends Component {
             sponsorSearch: '',
             recipientSearch: '',
         })
+
+        this.props.getChatLogs();
     }
 
     closeModal(e){
@@ -249,9 +260,10 @@ class CreateChat extends Component {
 }
 
 const mapStateToProps = (state) => ({
+    user: state.auth.user.user,
     recipient: state.chat.recipients,
     sponsor: state.chat.sponsors,
     loading: state.chat.loading,
 })
 
-export default connect(mapStateToProps, {getRecipients, getSponsors})(CreateChat);
+export default connect(mapStateToProps, {getRecipients, getSponsors, getChatLogs})(CreateChat);
