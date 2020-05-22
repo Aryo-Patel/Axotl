@@ -33,7 +33,13 @@ class Contact extends Component {
             chatlogs = this.props.chatlogs.map(item => {
                 return (
                     <div className='chat-tab' key={item._id} name={item._id} onClick={() => this.onClick(item._id)}>
-                        <h5 key={item._id}>{item.name}</h5>
+                        <h5 key={item._id}>{item.name} 
+                        <div style={{color:"white"}} className={
+                            this.props.sponsor ? (item.sponsors.filter((sponsor) => { return sponsor['userID'].toString() === this.props.yourID.toString()})[0]['numUnread'] > 0 ? "dot" : "dot-none") : (item.recipients.filter((recipient) => { return recipient['userID'].toString() === this.props.yourID.toString()})[0]['numUnread'] > 0 ? "dot" : "dot-none")
+                        }>
+                            {this.props.sponsor ? item.sponsors.filter((sponsor) => { return sponsor['userID'].toString() === this.props.yourID.toString()})[0]['numUnread'] : item.recipients.filter((recipient) => { return recipient['userID'].toString() === this.props.yourID.toString()})[0]['numUnread']}
+                        </div>
+                        </h5>
                     </div>
                 )
             })

@@ -19,13 +19,7 @@ router.post('/create', (req, res) => {
 
     let chat = new Chat(chatParts)
     chat.save()
-        .then(res => {
-            res.json(chat)
-        })
-        .catch(err => {
-            res.status(400).send('Something went wrong')
-            console.log(err)
-        })
+    res.json(chat);
 })
 
 //POST      api/chat/users/:id
@@ -68,10 +62,19 @@ router.post('/messages/:id', async (req, res) => {
         name: name,
         message: message,
     }
-    console.log("This is the message we are going to push: " + newMessage)
     try {
         let chat = await Chat.findOne({ _id: req.params.id })
         chat.messages.push(newMessage)
+        chat.recipients.forEach(recipient => {
+            if (recipient['userID'].toString() != req.user._id.toString()) {
+                recipient['numUnread'] += 1
+            }
+        })
+        chat.sponsors.forEach(sponsor => {
+            if (sponsor['userID'].toString() != req.user._id.toString()) {
+                sponsor['numUnread'] += 1
+            }
+        })
         await chat.save()
         res.json({ msg: "Saved!" })
     }
@@ -86,16 +89,15 @@ router.post('/messages/:id', async (req, res) => {
 router.get('/', async (req, res) => {
     try {
         let chats = await Chat.find();
-        console.log(req.user._id);
         let yourChats = chats.filter(chat => {
             let x = false;
             chat.recipients.forEach(recipient => {
-                if (recipient.toString() === req.user._id.toString()) {
+                if (recipient['userID'].toString() === req.user._id.toString()) {
                     x = true;
                 }
             })
             chat.sponsors.forEach(sponsor => {
-                if (sponsor.toString() === req.user._id.toString()) {
+                if (sponsor['userID'].toString() === req.user._id.toString()) {
                     x = true;
                 }
             })
@@ -116,13 +118,28 @@ router.get('/:id', async (req, res) => {
     try {
         console.log(req.params.id);
         let chat = await Chat.findOne({ _id: req.params.id })
-        res.json(chat)
-        console.log(chat);
+        if(req.user.sponsor){
+            chat.sponsors.forEach(sponsor => {
+                if(sponsor.userID.toString() === req.user._id.toString()){
+                    sponsor['numUnread'] = 0;
+                }
+            })
+        } else if(!req.user.sponsor){
+            chat.recipients.forEach(recipient => {
+                if(recipient.userID.toString() === req.user._id.toString()){
+                    recipient['numUnread'] = 0;
+                }
+            })
+        }
+        chat.save()
+        res.json(chat);
+        
     }
     catch (err) {
         console.error(err.messsage)
         return res.status(500).send("Server Error")
     }
 })
+
 
 module.exports = router;

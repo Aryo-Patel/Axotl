@@ -14,13 +14,25 @@ const ChatSchema = new Schema({
     //     }
 
     // }],
-    recipients: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Recipients',
-    }],
+    recipients: [
+        {
+        userID: {
+            type: Schema.Types.ObjectId,
+            ref: 'Recipients',
+        },
+        numUnread: {
+            type: Number,
+        }
+    }
+    ],
     sponsors: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Sponsors',
+        userID: {
+            type: Schema.Types.ObjectId,
+            ref: 'Recipients',
+        },
+        numUnread: {
+            type: Number,
+        }
     }],
     messages: [{
         user: {
@@ -36,7 +48,6 @@ const ChatSchema = new Schema({
             type: Date,
             default: Date.now,
         },
-
     }],
 })
 

@@ -135,10 +135,10 @@ let server = app.listen(PORT, () => {
 
 let io = socket(server);
 
-io.on('connection', (socket) => {
-    console.log("Connection to socket made...")
+// io.on('connection', (socket) => {
+//     console.log("Connection to socket made...")
 
-    socket.on('newMessage', (message) => {
-        io.sockets.emit('newMessage', (message))
-    })
-});
+//     socket.on('newMessage', (message) => {
+//         io.sockets.emit('newMessage', (message))
+//     })
+// });
