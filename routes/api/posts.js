@@ -36,15 +36,15 @@ router.get("/me", async(req, res) => {
     }
 });
 
-//GET      /api/posts/me
-//Action    get user's posts
+//GET      /api/posts/single-view/:id
+//Action    get a single post
 //PRIVATE   need to be signed in (recipient or sponsor to access route)
 router.get("/single-view/:id", async(req, res) => {
     if (!req.user) {
         return res.status(401).json({ msg: "Unauthorized" });
     }
     try {
-        const post = Post.findById(req.params.id).sort({ Date: -1 });
+        const post = Post.findById(req.params.id)
         res.json({ post });
     } catch (err) {
         console.error(err.message);
@@ -245,6 +245,7 @@ router.put("/reply/:post_id/:comment_id", async(req, res) => {
         res.status(500).send("Server Error");
     }
 });
+
 
 //PUT       /api/posts/reply/:post_id/:comment_id/:reply_id
 //Action    edit a reply to a comment
