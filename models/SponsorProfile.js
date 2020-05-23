@@ -62,6 +62,10 @@ let SponsorProfileSchema = new Schema({
         youtube: {
             type: String
         },
+        defaultInitializer: {
+            type: String,
+            default: "DEFAULT INIT.",
+        }
     },
     sponsoredProjects: [{
         type: mongoose.Schema.Types.ObjectId,

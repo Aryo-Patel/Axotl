@@ -127,7 +127,13 @@ class CreateProfile extends Component {
                 value={this.state.twitter}
                 onChange={this.handleChange}
                 
-                />
+                >
+                    <i
+                        className="fab fa-twitter createProfile__icon"
+                        samesite="none"
+                        SameSite="none">
+                    </i>
+                </TextField>
                 <TextField
                 placeholder="Link your Youtube Channel!"
                 parentClassName='createProfile'
@@ -137,7 +143,13 @@ class CreateProfile extends Component {
                 value={this.state.youtube}
                 onChange={this.handleChange}
                 
-                />
+                >
+                    <i
+                        className="fab fa-youtube createProfile__icon"
+                        samesite="none"
+                        SameSite="none">
+                    </i>
+                </TextField>
                 <TextField
                 placeholder="Link your Facebook!"
                 parentClassName='createProfile'
@@ -147,7 +159,13 @@ class CreateProfile extends Component {
                 value={this.state.facebook}
                 onChange={this.handleChange}
                 
-                />
+                >
+                    <i
+                        className="fab fa-facebook createProfile__icon"
+                        samesite="none"
+                        SameSite="none">
+                    </i>
+                </TextField>
                 <TextField
                 placeholder="Link your LinkedIn!"
                 parentClassName='createProfile'
@@ -157,7 +175,13 @@ class CreateProfile extends Component {
                 value={this.state.linkedin}
                 onChange={this.handleChange}
                 
-                />
+                >
+                    <i
+                        className="fab fa-linkedin createProfile__icon"
+                        samesite="none"
+                        SameSite="none">
+                    </i>
+                </TextField>
                 <TextField
                 placeholder="Link your Instagram!"
                 parentClassName='createProfile'
@@ -167,7 +191,13 @@ class CreateProfile extends Component {
                 value={this.state.instagram}
                 onChange={this.handleChange}
                 
-                />
+                >
+                    <i
+                        className="fab fa-instagram createProfile__icon"
+                        samesite="none"
+                        SameSite="none">
+                    </i>
+                </TextField>
 
                 <button type="submit" className="btn btn-primary">Submit</button>
             </form>

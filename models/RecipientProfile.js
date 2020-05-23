@@ -120,6 +120,10 @@ let RecipientProfileSchema = new Schema({
         instagram: {
             type: String,
         },
+        defaultInitializer: {
+            type: String,
+            default: "DEFAULT INIT.",
+        }
     },
     date: {
         type: Date,
