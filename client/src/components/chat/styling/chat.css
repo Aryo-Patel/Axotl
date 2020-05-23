@@ -104,3 +104,15 @@
     top: 50%;
     transform: translate(0, -50%)
 } */
+
+.dot {
+  height: 50%;
+  width: 10%;
+  background-color: orange;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dot-none {
+  display: none;
+}

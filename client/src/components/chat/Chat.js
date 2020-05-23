@@ -61,7 +61,7 @@ class Chat extends Component {
             name: name,
             message: this.state.newMessage,
         }
-        console.log('SEnding message with this id: ' + this.state.currentChatId)
+        console.log('Sending message with this id: ' + this.state.currentChatId)
         //Database update
         await axios.post(`/api/chat/messages/${this.state.currentChatId}`, data)
         //Socket update
@@ -96,6 +96,10 @@ class Chat extends Component {
             })
     }
 
+    readMessages(){
+        axios.post(`/api/chat/${this.state.currentChatId}`)
+    }
+
     render() {
 
         return (
@@ -104,7 +108,7 @@ class Chat extends Component {
                     <CreateChat show={this.state.show} onHide={this.hideModal} />
                     <div className="first">
                         <button onClick={this.showModal} className="btn btn-primary">+ Create a new chat</button>
-                        <Contact onChoose={this.onChoose} />
+                        <Contact onChoose={this.onChoose} yourID={this.props.user._id} sponsor={this.props.user.sponsor}/>
                     </div>
                     <Messages yourID={this.props.user._id} onChange={this.onChange} onSubmit={this.sendMessage} messages={this.state.messages} newMessageValue={this.state.newMessage} />
                     <div className="clear">
