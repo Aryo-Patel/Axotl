@@ -747,6 +747,243 @@
   border-right: 2px solid #a5a5a5;
 }
 
+.editProfile {
+  padding: 10rem 20rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.editProfile__form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+}
+
+.editProfile__field {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  background: none;
+  border: none;
+  border-bottom: 2px solid #566068;
+  border-radius: 0px;
+  width: 100%;
+  z-index: 2;
+  display: inline-block;
+  padding-bottom: .5rem;
+  padding-left: 1rem;
+}
+
+@media (max-width: 550px) {
+  .editProfile__field {
+    border-bottom: 2px solid #eee;
+  }
+}
+
+@media (max-height: 550px) {
+  .editProfile__field {
+    border-bottom: 2px solid #eee;
+  }
+}
+
+.editProfile__field:focus {
+  border: none;
+  border-bottom: 2px solid #566068;
+}
+
+.editProfile__field:focus + label {
+  top: -2rem;
+  font-size: 1rem;
+}
+
+.editProfile__field:valid + label {
+  top: -2rem;
+  font-size: 1rem;
+}
+
+.editProfile__textarea {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  background: none;
+  border: 2px solid #566068;
+  border-radius: 20px;
+  width: 100%;
+  z-index: 2;
+  display: inline-block;
+  padding: .5rem 1rem;
+}
+
+.editProfile__textarea:focus {
+  border: 2px solid #566068;
+}
+
+.editProfile__textarea:focus + label {
+  top: -2rem;
+  font-size: 1rem;
+}
+
+.editProfile__textarea:valid + label {
+  top: -2rem;
+  font-size: 1rem;
+}
+
+.editProfile__textarea::webkit-scrollbar {
+  width: 10px;
+}
+
+.editProfile__textarea::webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+          box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+
+.editProfile__last-field {
+  margin-bottom: 4rem;
+}
+
+.editProfile__form-group {
+  width: 100%;
+  -webkit-transform: translateY(100px);
+          transform: translateY(100px);
+  opacity: 0;
+  position: relative;
+  -webkit-animation: fadeIn 1.5s forwards;
+          animation: fadeIn 1.5s forwards;
+  margin-top: 4rem;
+}
+
+.editProfile__form-group:nth-child(1) {
+  -webkit-animation-delay: 0.5s;
+          animation-delay: 0.5s;
+}
+
+.editProfile__form-group:nth-child(2) {
+  -webkit-animation-delay: 1s;
+          animation-delay: 1s;
+}
+
+.editProfile__form-group:nth-child(3) {
+  -webkit-animation-delay: 1.5s;
+          animation-delay: 1.5s;
+}
+
+.editProfile__form-group:nth-child(4) {
+  -webkit-animation-delay: 2s;
+          animation-delay: 2s;
+}
+
+.editProfile__label {
+  font-size: 2rem;
+  position: absolute;
+  margin: 0;
+  margin-left: 1rem;
+  width: 100%;
+  left: 0rem;
+  top: -.5rem;
+  pointer-events: none;
+  color: #566068;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+@media (max-width: 100em) {
+  .editProfile__label {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 550px) {
+  .editProfile__label {
+    color: #eee;
+  }
+}
+
+@media (max-height: 550px) {
+  .editProfile__label {
+    color: #eee;
+  }
+}
+
+.editProfile__icon {
+  width: 2rem;
+  height: 2rem;
+  font-size: 2rem;
+  position: absolute;
+  left: -2rem;
+  top: .5rem;
+}
+
+.editProfile__locationInput {
+  width: 100%;
+}
+
+.editProfile__locationLabel {
+  font-size: 2rem;
+  position: absolute;
+  margin: 0;
+  margin-left: 1rem;
+  width: 100%;
+  left: 0rem;
+  top: 3.5rem;
+  pointer-events: none;
+  color: #566068;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+@media (max-width: 100em) {
+  .editProfile__locationLabel {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 550px) {
+  .editProfile__locationLabel {
+    color: #eee;
+  }
+}
+
+@media (max-height: 550px) {
+  .editProfile__locationLabel {
+    color: #eee;
+  }
+}
+
+.editProfile .location-search-input {
+  margin-bottom: 0;
+  margin-top: 4rem;
+  width: 100%;
+}
+
+.editProfile__locationWrapper {
+  width: 100%;
+}
+
+.editProfile__locationWrapper .untitled-form-group {
+  width: 100%;
+}
+
+.editProfile .autocomplete-dropdown-container {
+  margin-bottom: 4rem;
+  color: #a5a5a5;
+  font-size: 1.6rem;
+  border-bottom: 2px solid #a5a5a5;
+  border-left: 2px solid #a5a5a5;
+  border-right: 2px solid #a5a5a5;
+}
+
 .goAway {
   opacity: 0;
   visibility: none;

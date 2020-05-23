@@ -37,7 +37,7 @@ class CreateProfile extends Component {
     }
 
     componentDidMount(){
-        if(this.props.sponser === true){
+        if(this.props.sponsor === true){
             return <Redirect to="/dashboard"/>
         }
     }
