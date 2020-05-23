@@ -25,6 +25,17 @@ const SponsorSchema = new Schema({
         type: Boolean,
         default: false
     },
+    myPosts: [Schema.Types.ObjectId],
+    myComments: [{
+        post: { type: Schema.Types.ObjectId },
+        comment: { type: Schema.Types.ObjectId }
+    }],
+    myReplies: [{
+        post: { type: Schema.Types.ObjectId },
+        comment: { type: Schema.Types.ObjectId },
+        reply: { type: Schema.Types.ObjectId }
+    }],
+    myLiked: [Schema.Types.ObjectId],
     Date: {
         type: Date,
         default: Date.now,

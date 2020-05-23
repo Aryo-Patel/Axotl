@@ -291,6 +291,7 @@
   -webkit-animation: fadeIn 1.5s forwards;
           animation: fadeIn 1.5s forwards;
   margin-top: 4rem;
+  padding-top: 2rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -318,7 +319,7 @@
   margin-left: 4rem;
   width: 100%;
   left: 0rem;
-  top: .5rem;
+  top: 2.5rem;
   pointer-events: none;
   color: #566068;
   -webkit-transition: 0.3s;
@@ -359,7 +360,7 @@
 }
 
 .login__container .form-input:focus + label {
-  top: -2rem;
+  top: 0rem;
   font-size: 1rem;
 }
 
@@ -370,7 +371,7 @@
 }
 
 .login__container .form-input:valid + label {
-  top: -2rem;
+  top: 0rem;
   font-size: 1rem;
 }
 
@@ -399,7 +400,7 @@
   font-size: 2rem;
   position: absolute;
   left: .5rem;
-  top: .5rem;
+  top: 2.5rem;
   fill: #7ca6ff;
 }
 
