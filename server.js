@@ -68,7 +68,7 @@ app.use(session({
 }))
 
 //session test route
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
     res.json(req.session);
 });
 
@@ -87,7 +87,7 @@ passport.serializeUser((user, done) => {
 
 
 // deserializes user and attaches user object to req.user from session
-passport.deserializeUser(async(id, done) => {
+passport.deserializeUser(async (id, done) => {
     try {
         console.log('hello')
         console.log(`id : ${id}`)
@@ -139,7 +139,6 @@ io.on('connection', (socket) => {
     console.log("Connection to socket made...")
 
     socket.on('newMessage', (message) => {
-        console.log(message);
         io.sockets.emit('newMessage', (message))
     })
 });

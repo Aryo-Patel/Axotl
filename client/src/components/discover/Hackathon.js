@@ -16,13 +16,18 @@ const Hackathon = ({ hackathon }) => {
 
                 <p className="description">Description: {hackathon.description}</p>
                 {hackathon.website ? <p className="website">Website: {hackathon.website}</p> : <p>Organizer didn't link their website!</p>}
+                <p>Donations requested: </p>
                 {hackathon.donations.map(donation => (
                     donation.received.length > 0 ?
-                        donation.received.map(received_singular => (
-                            <p key={i++}>Received {received_singular.type} : {received_singular.description}</p>
-                        ))
+                        <p></p>
                         :
-                        <Fragment></Fragment>
+                        <p>{donation.type}</p>
+                    // donation.received.length > 0 ?
+                    //     donation.received.map(received_singular => (
+                    //         <p key={i++}>Received {received_singular.type} : {received_singular.description}</p>
+                    //     ))
+                    //     :
+                    //     <Fragment></Fragment>
                 ))}
                 {hackathon.location ? <p>Location : {hackathon.location}</p> : <p>Organizer did not link hackathon's location</p>}
                 <p>Start Date: <Moment format='MM/DD/YYYY'>{hackathon.startDate}</Moment></p>

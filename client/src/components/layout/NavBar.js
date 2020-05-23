@@ -492,6 +492,14 @@ const NavBar = ({ isAuthenticated, auth }) => {
                   <Link to="/profile" className="dropdown__item">
                     Your Profile
                   </Link>
+                  {!auth.loading && !auth.sponsor && (
+                    <Link to="/my-hackathons" className="dropdown__item">
+                      My Hackathons
+                    </Link>
+                  )}
+                  <Link to="/my-posts" className="dropdown__item">
+                    My Posts
+                  </Link>
                   <Link to="/settings" className="dropdown__item">
                     Settings
                   </Link>
@@ -863,6 +871,14 @@ const NavBar = ({ isAuthenticated, auth }) => {
                 <div className="dropdown">
                   <Link to="/profile" className="dropdown__item">
                     Your Profile
+                  </Link>
+                  {!auth.loading && !auth.sponsor && (
+                    <Link to="/my-hackathons" className="dropdown__item">
+                      My Hackathons
+                    </Link>
+                  )}
+                  <Link to="/my-posts" className="dropdown__item">
+                    My Posts
                   </Link>
                   <Link to="/settings" className="dropdown__item">
                     Settings

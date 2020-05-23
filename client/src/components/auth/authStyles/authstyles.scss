@@ -225,6 +225,8 @@ $translateAmount: 100px;
         position: relative;
         animation: fadeIn 1.5s forwards;
         margin-top: 4rem;
+        display: flex;
+        overflow: hidden;
         &:last-of-type {
             margin-bottom: 4rem;
         }
@@ -242,10 +244,10 @@ $translateAmount: 100px;
         }
         position: absolute;
         margin: 0;
-        margin-left: 1rem;
+        margin-left: 4rem;
         width: 100%;
         left: 0rem;
-        top: -.5rem;
+        top: .5rem;
         pointer-events: none;
         color: $text-color;
         transition: 0.3s;
@@ -263,7 +265,8 @@ $translateAmount: 100px;
         border-radius: 0px;
         width: 100%;
         display: inline-block;
-        padding-left: 1rem;
+        padding-left: 4rem;
+        background-color: none;
         padding-bottom: .5rem;
         &:focus {
             border: none;
@@ -295,13 +298,59 @@ $translateAmount: 100px;
         color: $background-color;
     }
     .login__icon {
-        width: 2rem;
-        height: 2rem;
+        width: 3rem;
+        height: 3rem;
         font-size: 2rem;
         position: absolute;
-        left: -2rem;
+        left: .5rem;
         top: .5rem;
+        fill: $background-color;
     }
+    .login__view {
+        width: 3rem;
+        height: 3rem;
+        top: .5rem;
+        right: .5rem;
+        position: absolute;
+        &-1 {
+            visibility: visible;
+        }
+        &-2 {
+            visibility: hidden;
+        }
+    }
+    .login__eyes {
+        position: relative;
+        width: 3rem;
+        text-align: center;
+        border-bottom: 2px solid $text-color;
+        transition: transform .75s ease;
+        &::after {
+            content: "";
+            width: 3rem;
+            height: 3rem;
+            position: relative;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: inline-block;
+            margin: 0 auto;
+            border-radius: 50%;
+            background-color: $primary-white;
+            bottom: 0;
+            transition: transform .75s ease;
+            z-index: -1;
+        }
+    }
+}
+
+[data-status='text'] .login__eyes::after {
+    background-color: $background-color-light;
+    transform: translateY(-50%) scale(40);
+}
+
+[data-status='text'] .form-input {
+    color: $primary-white;
 }
 
 //forgot password page styling

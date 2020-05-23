@@ -52,7 +52,9 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 loading: false,
-                user: payload
+                user: {
+                    user: payload
+                }
             }
         default:
             return state;

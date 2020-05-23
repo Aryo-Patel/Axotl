@@ -17,7 +17,7 @@ const RecipientProfile = require('../../models/RecipientProfile')
 // Action    Register the recipient
 // PUBLIC
 
-router.post('/register', [check('name', 'Name is required').not().isEmpty(), check('email', 'Not a valid email').isEmail(), check('password', 'Please enter a password with six or more characters').isLength({ min: 6 })], async(req, res) => {
+router.post('/register', [check('name', 'Name is required').not().isEmpty(), check('email', 'Not a valid email').isEmail(), check('password', 'Please enter a password with six or more characters').isLength({ min: 6 })], async (req, res) => {
     req.session.tries = 0;
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
@@ -54,7 +54,7 @@ router.post('/register', [check('name', 'Name is required').not().isEmpty(), che
         });
         const salt = await bcrypt.genSalt(10)
         newRecipient.password = await bcrypt.hash(password, salt)
-            //Saving the recipient to the Recipients collection
+        //Saving the recipient to the Recipients collection
         await newRecipient.save()
 
         //Sending confirmation email
@@ -118,17 +118,17 @@ router.post('/register', [check('name', 'Name is required').not().isEmpty(), che
 //Action    Find a recipient by their handle
 //Private
 router.post('/find', (req, res) => {
-    RecipientProfile.findOne({handle: req.body.handle})
-    .then(profile => {
-        Recipient.findOne({_id: profile.recipient})
-        .then(recipient => {
-            res.json(recipient)
+    RecipientProfile.findOne({ handle: req.body.handle })
+        .then(profile => {
+            Recipient.findOne({ _id: profile.recipient })
+                .then(recipient => {
+                    res.json(recipient)
+                })
         })
-    })
-    .catch(err => {
-        res.status(404).send("Recipient not found");
-        console.log("Recipient not found");
-    })
+        .catch(err => {
+            res.json({ error: "Recipient not found" });
+            console.log("Recipient not found");
+        })
 })
 
 
@@ -136,7 +136,7 @@ router.post('/find', (req, res) => {
 //POST api/users/confirmemail
 // Action confirm user's email
 //PUBLIC
-router.put('/confirmemail/:jwt', async(req, res) => {
+router.put('/confirmemail/:jwt', async (req, res) => {
     try {
         console.log('backend confirm email reached')
         const email = await jwt.verify(req.params.jwt, config.get('JWTSecret')).email
@@ -161,6 +161,7 @@ router.put('/confirmemail/:jwt', async(req, res) => {
 // PUBLIC
 
 router.post('/login', passport.authenticate('local', { failureRedirect: 'http://localhost:3000/recipient/login' }), (req, res) => {
+    console.log('in here');
     req.session.tries = 0;
     /**const email = req.body.email;
     const password = req.body.password;
@@ -198,7 +199,7 @@ router.post('/login', passport.authenticate('local', { failureRedirect: 'http://
 //DELETE api/users/
 // Action Delete profile and user
 // PRIVATE
-router.delete('/', async(req, res) => {
+router.delete('/', async (req, res) => {
     try {
         await RecipientProfile.deleteOne({ recipient: req.user._id })
         await Recipient.deleteOne({ _id: req.user._id })

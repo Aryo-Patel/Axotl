@@ -246,7 +246,7 @@ router.put("/reply/:post_id/:comment_id", async(req, res) => {
     }
 });
 
-//PUT       /api/posts/reply/:post_id/:comment_id
+//PUT       /api/posts/reply/:post_id/:comment_id/:reply_id
 //Action    edit a reply to a comment
 //PRIVATE   need to be signed in (recipient or sponsor to access route)
 router.put("/reply/:post_id/:comment_id/:reply_id", async(req, res) => {
@@ -260,12 +260,12 @@ router.put("/reply/:post_id/:comment_id/:reply_id", async(req, res) => {
     const { text } = req.body;
     let comments = post.comments;
     let comment = post.comments.findById(req.params.comment_id);
-    let replies = comments.replies;
+    let replies = comment.replies;
 
     try {
-        replies = await replies.findOneAndUpdate({ _id: req.params.reply_id }, { $set: { comments } }, { new: true });
-        comments = await comments.findOneAndUpdate({ _id: req.params.comment_id }, { $set: { replies } }, { new: true });
-        await Post.findOneAndUpdate({ _id: req.params.post_id }, { $set: { comments } }, { new: true });
+        replies = await replies.findOneAndUpdate({ _id: req.params.reply_id }, { $set: { text } }, { new: true });
+        // comments = await comments.findOneAndUpdate({ _id: req.params.comment_id }, { $set: { replies } }, { new: true });
+        // await Post.findOneAndUpdate({ _id: req.params.post_id }, { $set: { comments } }, { new: true });
         res.json({ post });
     } catch (err) {
         console.error(err.message);
@@ -273,8 +273,55 @@ router.put("/reply/:post_id/:comment_id/:reply_id", async(req, res) => {
     }
 });
 
-//@TODO
-//ADD LIKES FOR REPLIES
-//ADD DELETING REPLIES
+//PUT       /api/posts/reply/like/:post_id/:comment_id/:reply_id
+//Action    add a like to a reply
+//PRIVATE   need to be signed in (recipient or sponsor to access route)
+router.put("/reply/like/:post_id/:comment_id/:reply_id", async(req, res) => {
+    if (!req.user) {
+        return res.status(401).json({ msg: "Unauthorized" });
+    }
+    const post = Post.findById(req.params.post_id);
+    let comments = post.comments;
+    let comment = post.comments.findById(req.params.comment_id);
+    let replies = comment.replies;
+    let reply = replies.findById(req.params.reply_id)
+    let likes = reply.likes;
+    if (likes.filter(like => like.user.toString() == req.user._id.toString()).length != 0) {
+        likes = likes.filter(like => like.user.toString() != req.user._id.toString())
+    } else {
+        likes.push({ user: req.user._id })
+    }
+
+    try {
+        // replies = await replies.findOneAndUpdate({ _id: req.params.reply_id }, { $set: { likes } }, { new: true });
+        // comments = await comments.findOneAndUpdate({ _id: req.params.comment_id }, { $set: { replies } }, { new: true });
+        // await Post.findOneAndUpdate({ _id: req.params.post_id }, { $set: { comments } }, { new: true });
+        res.json({ post });
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server Error");
+    }
+});
+
+//DELETE /api/posts/reply/:post_id/:comment_id/:reply_id
+//Action    delete a reply
+//PRIVATE   need to be signed in (recipient or sponsor to access route)
+router.delete("/reply/:post_id/:comment_id/:reply_id", async(req, res) => {
+    if (!req.user) {
+        return res.status(401).json({ msg: "Unauthorized" });
+    }
+    const post = Post.findById(req.params.post_id);
+    const comment = post.comments.findById(req.params.comment_id)
+    try {
+        await comment.replies.filter(reply => reply._id.toString() != req.params.reply_id.toString());
+        res.json({ post });
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server Error");
+    }
+});
+
+//MAYBE @TODO
+//ADD DISLIKES
 
 module.exports = router;
