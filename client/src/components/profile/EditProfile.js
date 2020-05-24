@@ -69,85 +69,139 @@ class EditProfile extends Component {
     }
     render() {
         return (
-        <div className="container" style={{padding: '2% 0% 2%'}}>
-            <h5>Edit your profile:</h5>
-            <form onSubmit={this.onSubmit}>
-                <label>Handle</label>
-                <TextField
-                placeholder="Enter a unique handle for your profile!"
-                name="handle"
-                type="text"
-                value={this.state.handle}
-                onChange={this.handleChange}
-                />
-                <label>Current Affiliation</label>
-                <TextField
-                placeholder="What organization are you currently a part of?"
-                name="organization"
-                type="text"
-                value={this.state.organization}
-                onChange={this.handleChange}
-                />
-                <label>Location</label>
-                <LocationInput onChange={this.handleLocationChange}/>
-                <br></br>
-                <TextField
-                placeholder="Your location..."
-                name="location"
-                type="text"
-                value={this.state.location}
-                required
-                disabled={true}
-                />
+        <div className="editProfile">
+                <h5 className= 'heading'>Edit your profile:</h5>
+                <form onSubmit={this.onSubmit}>
+                    <TextField
+                    placeholder="Enter a unique handle for your profile!"
+                    parentClassName='editProfile'
+                    className='editProfile__field'
+                    name="handle"
+                    type="text"
+                    value={this.state.handle}
+                    onChange={this.handleChange}
+                    />
+                    <TextField
+                    placeholder="What organization are you currently a part of?"
+                    parentClassName='editProfile'
+                    className='editProfile__field'
+                    name="organization"
+                    type="text"
+                    value={this.state.organization}
+                    onChange={this.handleChange}
+                    />
+                    <div className="editProfile_locationInput">
+                        <LocationInput 
+                        parentClassName='editProfile'
+                        className='editProfile__field' onChange={this.handleLocationChange}
+                        location={this.state.location}
+                        />
+                    </div>
+                    <input
+                    style={{height: 0, width: 0, opacity: 0}}
+                    className='goAway'
+                    name="location"
+                    type="text"
+                    value={this.state.location}
+                    style= {{height: 0}}
+                    required
+                    disabled
+                    />
+                    <div className="editProfile__form-group">
+                        <textarea 
+                        className="editProfile__textarea" name='bio' value={this.state.bio} id="Bio" rows="4" onChange={this.handleChange}></textarea>
+                        <label 
+                        className="editProfile__label">Write a brief biography here...</label>
+                    </div>
+                    
+                    <TextField
+                    parentClassName='editProfile'
+                    className='editProfile__field'
+                    placeholder="Link your Twitter!"
+                    name="twitter"
+                    type="text"
+                    value={this.state.twitter}
+                    onChange={this.handleChange}
+                    
+                    >
+                      <i
+                        className="fab fa-twitter editProfile__icon"
+                        samesite="none"
+                        SameSite="none">
+                    </i>  
+                    </TextField>
+                    
+                    <TextField
+                    placeholder="Link your Youtube Channel!"
+                    parentClassName='editProfile'
+                    className='editProfile__field'
+                    name="youtube"
+                    type="text"
+                    value={this.state.youtube}
+                    onChange={this.handleChange}
+                    
+                    ><i
+                        className="fab fa-youtube editProfile__icon"
+                        samesite="none"
+                        SameSite="none">
+                    </i>
+                    </TextField>
+                    <i
+                        className="fab fa-facebook editProfile__icon"
+                        samesite="none"
+                        SameSite="none">
+                    </i>
+                    <TextField
+                    placeholder="Link your Facebook!"
+                    parentClassName='editProfile'
+                    className='editProfile__field'
+                    name="facebook"
+                    type="text"
+                    value={this.state.facebook}
+                    onChange={this.handleChange}
+                    >
+                        <i
+                        className="fab fa-facebook editProfile__icon"
+                        samesite="none"
+                        SameSite="none">
+                    </i>
+                    </TextField>
+                    
+                    <TextField
+                    placeholder="Link your LinkedIn!"
+                    parentClassName='editProfile'
+                    className='editProfile__field'
+                    name="linkedin"
+                    type="text"
+                    value={this.state.linkedin}
+                    onChange={this.handleChange}
+                    >
+                    <i
+                        className="fab fa-linkedin editProfile__icon"
+                        samesite="none"
+                        SameSite="none">
+                    </i>
+                    </TextField>
+                    
+                    <TextField
+                    placeholder="Link your Instagram!"
+                    parentClassName='editProfile'
+                    className='editProfile__field'
+                    name="instagram"
+                    type="text"
+                    value={this.state.instagram}
+                    onChange={this.handleChange}
+                    
+                    >
+                        <i
+                        className="fab fa-instagram editProfile__icon"
+                        samesite="none"
+                        SameSite="none">
+                    </i>
+                    </TextField>
 
-                <div className="form-group">
-                    <label>Biography</label>
-                    <textarea className="form-control" name='bio' value={this.state.bio} id="Bio" rows="4" onChange={this.handleChange}></textarea>
-                </div>
-
-                <TextField
-                placeholder="Link your Twitter!"
-                name="twitter"
-                type="text"
-                value={this.state.twitter}
-                onChange={this.handleChange}
-                
-                />
-                <TextField
-                placeholder="Link your Youtube Channel!"
-                name="youtube"
-                type="text"
-                value={this.state.youtube}
-                onChange={this.handleChange}
-                
-                />
-                <TextField
-                placeholder="Link your Facebook!"
-                name="facebook"
-                type="text"
-                value={this.state.facebook}
-                onChange={this.handleChange}
-                
-                />
-                <TextField
-                placeholder="Link your LinkedIn!"
-                name="linkedin"
-                type="text"
-                value={this.state.linkedin}
-                onChange={this.handleChange}
-                
-                />
-                <TextField
-                placeholder="Link your Instagram!"
-                name="instagram"
-                type="text"
-                value={this.state.instagram}
-                onChange={this.handleChange}
-                
-                />
-
-                <button type="submit" className="btn btn-primary">Submit</button>
-            </form>
+                    <button type="submit" className="btn btn-primary">Submit</button>
+                </form>
         </div>
         )
     }
