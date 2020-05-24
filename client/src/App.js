@@ -35,6 +35,7 @@ import Company from './components/singleView/Company'
 import Settings from './components/settings/Settings'
 import EmailSent from './components/auth/EmailSent';
 import Chat from './components/chat/Chat';
+import Posts from './components/posts/Posts'
 
 //import logo from './logo.svg';
 import './App.css';
@@ -74,6 +75,7 @@ function App() {
             <PrivateRoute exact path='/company/:id' component={Company} />
             <PrivateRoute exact path='/settings' component={Settings} />
             <PrivateRoute exact path='/changepassword' component={ChangePassword} />
+            <PrivateRoute exact path = '/posts' component = {Posts} />
             <Route component={NotFound} />
           </Switch>
         </Fragment>

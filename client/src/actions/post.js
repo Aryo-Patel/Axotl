@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { CREATE_POST, POST_FAIL, EDIT_POST, GET_POSTS, GET_POST, GET_MY_POSTS, ADD_COMMENT, EDIT_COMMENT, ADD_REPLY, EDIT_REPLY, DELETE_POST, DELETE_COMMENT, DELETE_REPLY, ADD_LIKE, REMOVE_LIKE, LIKE_COMMENT, LIKE_REPLY } from './Types.js'
+import { USER_LOADED, CREATE_POST, POST_FAIL, EDIT_POST, GET_POSTS, GET_POST, GET_MY_POSTS, ADD_COMMENT, EDIT_COMMENT, ADD_REPLY, EDIT_REPLY, DELETE_POST, DELETE_COMMENT, DELETE_REPLY, ADD_LIKE, REMOVE_LIKE, LIKE_COMMENT, LIKE_REPLY } from './Types.js'
 
 export const createPost = (formData) => async dispatch => {
     const config = {
@@ -72,14 +72,14 @@ export const getPosts = () => async dispatch => {
     try {
         const res = await axios.get('/api/posts');
         dispatch({
-            type: GET_MY_POSTS,
+            type: GET_POSTS,
             payload: res.data
         })
     } catch (err) {
         console.error(err.message);
-        dispatch({
-            type: POST_FAIL
-        })
+        // dispatch({
+        //     type: POST_FAIL
+        // })
     }
 }
 
@@ -117,7 +117,7 @@ export const getMyPosts = () => async dispatch => {
 }
 
 
-export const ADD_COMMENT = (formData, post_id) => async dispatch => {
+export const addComment = (formData, post_id) => async dispatch => {
     const config = {
         headers: {
             'Content-Type': 'application/json'
@@ -138,7 +138,7 @@ export const ADD_COMMENT = (formData, post_id) => async dispatch => {
     }
 }
 
-export const EDIT_COMMENT = (formData, post_id, comment_id) => async dispatch => {
+export const editComment = (formData, post_id, comment_id) => async dispatch => {
     const config = {
         headers: {
             'Content-Type': 'application/json'

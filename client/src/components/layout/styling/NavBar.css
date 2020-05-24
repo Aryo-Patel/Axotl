@@ -26,8 +26,8 @@
 .navContainer .navbar-brand {
   margin-left: 3rem;
   color: #4983ff;
-  -webkit-transition: color 0.2s, background-color 0.2s;
-  transition: color 0.2s, background-color 0.2s;
+  -webkit-transition: color 0.2s, background-color 0.2s;
+  transition: color 0.2s, background-color 0.2s;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -103,8 +103,8 @@
   font-size: 2rem;
   color: #4983ff;
   background-color: none !important;
-  -webkit-transition: color 0.2s, background-color 0.2s;
-  transition: color 0.2s, background-color 0.2s;
+  -webkit-transition: color 0.2s, background-color 0.2s;
+  transition: color 0.2s, background-color 0.2s;
   text-decoration: none;
 }
 
@@ -326,8 +326,8 @@
   font-size: 2rem;
   color: #4983ff;
   background-color: none !important;
-  -webkit-transition: color 0.2s, background-color 0.2s;
-  transition: color 0.2s, background-color 0.2s;
+  -webkit-transition: color 0.2s, background-color 0.2s;
+  transition: color 0.2s, background-color 0.2s;
   text-decoration: none;
 }
 
@@ -559,8 +559,8 @@
   display: table;
   margin-right: 3rem;
   padding: 0.5rem 2rem;
-  -webkit-transition: visibility .5s ease, background-color .2s, opacity .5s ease;
-  transition: visibility .5s ease, background-color .2s, opacity .5s ease;
+  -webkit-transition: visibility .5s ease, background-color .2s, opacity .5s ease;
+  transition: visibility .5s ease, background-color .2s, opacity .5s ease;
   position: relative;
   z-index: 100;
 }

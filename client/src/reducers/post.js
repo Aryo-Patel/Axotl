@@ -12,7 +12,7 @@ export default function(state = initialState, action) {
         case CREATE_POST:
             return {
                 ...state,
-                posts: post.unshift(payload),
+                posts: [payload, state.posts],
                 loading: false
             }
         case EDIT_POST:
