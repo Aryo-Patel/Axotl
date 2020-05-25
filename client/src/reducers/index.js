@@ -4,6 +4,7 @@ import auth from './auth'
 import hackathonReducer from './hackathonReducer';
 import companies from './companies';
 import chat from './chat';
+import post from './post';
 
 export default combineReducers({
     profile: profileReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
     hackathons: hackathonReducer,
     companies: companies,
     chat: chat,
+    post: post
 })

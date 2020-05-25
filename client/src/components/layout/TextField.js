@@ -25,7 +25,9 @@ const TextField = ({
         disabled={disabled}
         required={required}
       />
+      {placeholder && 
       <label className = {`${parentClassName}__label`}>{placeholder}</label>
+}
     </div>
   );
 };

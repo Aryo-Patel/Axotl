@@ -70,6 +70,8 @@ router.post("/", async(req, res) => {
             user: req.user._id,
             title,
             content,
+            name: user.name,
+            avatar: user.avatar
         });
         if (attachment) {
             newPost.attachment = attachment;
