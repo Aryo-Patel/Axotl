@@ -24,6 +24,7 @@
 }
 
 .navContainer .navbar-brand {
+  margin-left: 3rem;
   color: #2f72ff;
   -webkit-transition: color 0.2s, background-color 0.2s;
   transition: color 0.2s, background-color 0.2s;

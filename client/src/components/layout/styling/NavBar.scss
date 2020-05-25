@@ -24,7 +24,7 @@ $bp-small: 37.5em;
     justify-content: space-between;
     transition: color 0.2s, background-color 0.2s;
     .navbar-brand {
-        //margin-left: 3rem;
+        margin-left: 3rem;
         @media (max-width: $bp-large) {
             margin-left: 2rem;
         }
