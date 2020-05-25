@@ -26,9 +26,14 @@ class CreateChat extends Component {
         this.confirmSponsor = this.confirmSponsor.bind(this);
         this.confirmFinal = this.confirmFinal.bind(this);
         this.closeModal = this.closeModal.bind(this);
+        this.setCurrentUserParticipant = this.setCurrentUserParticipant.bind(this);
     }
 
     componentDidMount() {
+        this.setCurrentUserParticipant();
+    }
+
+    setCurrentUserParticipant(){
         if (this.props.user.sponsor) {
             this.state.sponsors.push(this.props.user)
         }

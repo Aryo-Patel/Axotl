@@ -103,10 +103,15 @@ class Chat extends Component {
     render() {
 
         return (
-            <div style={{ padding: '10% 0 10%' }}>
+            <div className="message-main">
                 <div className="container">
+                    <div className="header">
+                        <h1>
+                            Your chat messages
+                        </h1>
+                    </div>
                     <CreateChat show={this.state.show} onHide={this.hideModal} />
-                    <div className="first">
+                    <div className="chatlogs">
                         <button onClick={this.showModal} className="btn btn-primary">+ Create a new chat</button>
                         <Contact onChoose={this.onChoose} yourID={this.props.user._id} sponsor={this.props.user.sponsor}/>
                     </div>

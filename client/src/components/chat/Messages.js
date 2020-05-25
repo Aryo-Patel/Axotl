@@ -30,17 +30,17 @@ export default class Messages extends Component {
         )
         return (
             <div>
-                <div className="second">
+                <div className="message-container">
                     <div>
                         {displayMessages}
                         <div ref={(el) => { this.newestMessages = el }}></div>
                     </div>
-
+                    <form onSubmit={this.props.onSubmit}>
+                        <input  className="text-field" type="text" onChange={this.props.onChange} value={this.props.newMessageValue} name="newMessage" />
+                        <button className="button" type="submit">Send</button>
+                    </form>
                 </div>
-                <form className="text-field" onSubmit={this.props.onSubmit}>
-                    <input type="text" onChange={this.props.onChange} value={this.props.newMessageValue} name="newMessage" />
-                    <button type="submit">Submit</button>
-                </form>
+                
             </div>
         )
     }
