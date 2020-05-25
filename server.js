@@ -35,7 +35,7 @@ const app = express();
 //initialize database
 connectDB();
 
-//helmet middleware
+// helmet middleware
 app.use(helmet.xssFilter());
 
 //express json format body parsing middleware
@@ -61,18 +61,18 @@ app.use(express.json({ extended: false }));
 //initializing session
 console.log("initializing session");
 app.use(
-  session({
-    secret: config.get("sessionSecret"),
-    cookie: { maxAge: 10800000 },
-    store: new MongoStore({ url: config.get("mongoURI") }),
-    resave: true,
-    saveUninitialized: true,
-  })
+    session({
+        secret: config.get("sessionSecret"),
+        cookie: { maxAge: 10800000 },
+        store: new MongoStore({ url: config.get("mongoURI") }),
+        resave: true,
+        saveUninitialized: true,
+    })
 );
 
 //session test route
-app.get("/", function (req, res) {
-  res.json(req.session);
+app.get("/", function(req, res) {
+    res.json(req.session);
 });
 
 //initializing passport, passport strategies, and passport session
@@ -83,31 +83,31 @@ local(passport);
 
 //serializes user and attaches cookies
 passport.serializeUser((user, done) => {
-  done(null, user._id);
+    done(null, user._id);
 });
 
 // deserializes user and attaches user object to req.user from session
-passport.deserializeUser(async (id, done) => {
-  try {
-    console.log("hello");
-    console.log(`id : ${id}`);
-    const recipient = await Recipient.findById(id);
-    const sponsor = await Sponsor.findById(id);
-    const user = recipient || sponsor;
-    done(null, user);
-  } catch (err) {
-    console.log("deserialization error");
-    return done(err);
-  }
+passport.deserializeUser(async(id, done) => {
+    try {
+        console.log("hello");
+        console.log(`id : ${id}`);
+        const recipient = await Recipient.findById(id);
+        const sponsor = await Sponsor.findById(id);
+        const user = recipient || sponsor;
+        done(null, user);
+    } catch (err) {
+        console.log("deserialization error");
+        return done(err);
+    }
 });
 
 //production static serving from client side
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
+    app.use(express.static("client/build"));
 
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-  });
+    app.get("*", (req, res) => {
+        res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+    });
 }
 
 //Placeholder for socket initialization for chat
@@ -125,7 +125,7 @@ app.use("/api/posts", posts);
 
 //Server Initialization
 let server = app.listen(PORT, () => {
-  console.log(`Server Initialized on port ${PORT}`);
+    console.log(`Server Initialized on port ${PORT}`);
 });
 
 let io = socket(server);

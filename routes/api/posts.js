@@ -9,12 +9,12 @@ const Sponsor = require("../../models/Sponsor");
 //GET      /api/posts/
 //Action    get all posts
 //PRIVATE   need to be signed in (recipient or sponsor to access route)
-router.get("/", async(req, res) => {
+router.get("/:pageNumber", async(req, res) => {
     if (!req.user) {
         return res.status(401).json({ msg: "Unauthorized" });
     }
     try {
-        const posts = await Post.find().sort({ Date: -1 });
+        const posts = await Post.find().limit(req.params.pageNumber * 10).sort({ Date: -1 });
         res.json({ posts });
     } catch (err) {
         console.error(err.message);
@@ -95,7 +95,7 @@ router.put("/:id", async(req, res) => {
     const { title, content, attachment } = req.body;
     try {
         const newPost = await Post.findOneAndUpdate({ _id: req.params.id }, { $set: { title, content, attachment } }, { new: true });
-        const posts = await Post.find();
+        const posts = await Post.find().sort({ Date: -1 });
         //was attempting to minimize size of server response
         // for (let i = 0; i < posts.length; i++) {
         //     if (posts[i]._id.toString() == req.params.id.toString()) {
@@ -103,9 +103,11 @@ router.put("/:id", async(req, res) => {
         //         break;
         //     }
         // }
+        console.log('did we make it?')
+        newPost.save();
         res.json({ posts });
     } catch (err) {
-        console.error(err.message);
+        console.error(err);
         res.status(500).send("Server Error");
     }
 });
