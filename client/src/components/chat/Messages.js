@@ -20,7 +20,7 @@ export default class Messages extends Component {
     render() {
         let displayMessages = this.props.messages.map(item =>
             <div>
-                <div style={{ backgroundColor: 'lightblue' }} className={item.user.toString() === this.props.yourID.toString() ? "your-message" : ''}>
+                <div style={{ backgroundColor: 'lightblue' }} className={item.user.toString() === this.props.yourID.toString() ? "your-message" : "they-message"}>
                     <div>{item.user.toString() === this.props.yourID.toString() ? <p><big>You:</big></p> : <p><big>{item.name}:</big></p>}</div>
                     <p><b>{item.message}</b></p>
                     <p><small>(<Moment format="HH:mm DD/MM/YY">{item.date}</Moment>)</small></p>

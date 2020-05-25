@@ -1,5 +1,6 @@
 $light-grey: #a5a5a5;
-$background-color: lighten(rgb(47, 114, 255), 5%);
+$axo-yellow: rgb(254, 181, 68);
+$background-color:rgb(47, 114, 255);
 $primary-orange: lighten(rgb(255, 102, 71), 5%);
 $background-color-lighter: #5093ff;
 $primary-white: #eee;
@@ -23,7 +24,7 @@ $bp-small: 37.5em;
     justify-content: space-between;
     transition: color 0.2s, background-color 0.2s;
     .navbar-brand {
-        margin-left: 3rem;
+        //margin-left: 3rem;
         @media (max-width: $bp-large) {
             margin-left: 2rem;
         }
@@ -69,15 +70,15 @@ $bp-small: 37.5em;
             }
             a:active,
             a:link {
-                font-size: 2rem;
+                font-size: 1.5rem;
                 @media (max-width: $bp-largest) {
-                    font-size: 2.5rem;
+                    /*font-size: 2.5rem;*/
                 }
                 @media (max-width: $bp-large) {
-                    font-size: 2rem;
+                    /*font-size: 2rem;*/
                 }
                 @media (max-width: 68.75em) {
-                    font-size: 1.5rem;
+                    /*font-size: 1.5rem;*/
                 }
                 color: $background-color;
                 background-color: none !important;
@@ -90,13 +91,13 @@ $bp-small: 37.5em;
                 transition: color 0.2s, background-color 0.2s;
                 font-size: 2rem;
                 @media (max-width: $bp-largest) {
-                    font-size: 2.5rem;
+                    //font-size: 2.5rem;
                 }
                 @media (max-width: $bp-large) {
-                    font-size: 2rem;
+                    //font-size: 2rem;
                 }
                 @media (max-width: 68.75em) {
-                    font-size: 1.5rem;
+                    //font-size: 1.5rem;
                 }
             }
         }
@@ -114,12 +115,13 @@ $bp-small: 37.5em;
             flex: 0 0 20%;
             &:hover {
                 a {
-                    color: $primary-white;
+                    color: $axo-yellow;
+                    
                 }
                 label {
-                    color: $primary-white;
+                    color: $axo-yellow;
                 }
-                background-color: $background-color !important;
+                
             }
         }
     }
@@ -127,7 +129,6 @@ $bp-small: 37.5em;
         max-height: 4rem;
         transition: color 0.2s, background-color 0.2s;
     }
-    .dropdown {}
     .dropdown__toggle {
         &:hover {
             h3 {
@@ -158,6 +159,10 @@ $bp-small: 37.5em;
     .link-list a {
         background-color: none !important;
         color: $primary-white !important;
+    }
+    .link-list a:hover {
+        background-color: none !important;
+        color: $axo-yellow !important;
     }
     .link-list label {
         background-color: none !important;
@@ -206,6 +211,7 @@ $bp-small: 37.5em;
             color: $background-color;
             animation: dropdown-text;
             animation-duration: 0.7s;
+            
         }
         div {
             display: inline-block;
@@ -225,12 +231,13 @@ $bp-small: 37.5em;
             }
             a:active,
             a:link {
-                font-size: 2rem;
+                //font-size: 3rem;
+                color:purple;
                 @media (max-width: $bp-largest) {
-                    font-size: 2.5rem;
+                    /*font-size: 2.5rem;*/
                 }
                 @media (max-width: $bp-large) {
-                    font-size: 2rem;
+                    /*font-size: 2rem;*/
                 }
                 @media (max-width: 68.75em) {
                     font-size: 1.5rem;
@@ -245,13 +252,13 @@ $bp-small: 37.5em;
                 color: $background-color;
                 transition: color 0.2s, background-color 0.2s;
                 @media (max-width: $bp-largest) {
-                    font-size: 2.5rem;
+                    //font-size: 2.5rem;
                 }
                 @media (max-width: $bp-large) {
-                    font-size: 2rem;
+                    //font-size: 2rem;
                 }
                 @media (max-width: 68.75em) {
-                    font-size: 1.5rem;
+                    //font-size: 1.5rem;
                 }
             }
         }
@@ -269,12 +276,13 @@ $bp-small: 37.5em;
             flex: 0 0 20%;
             &:hover {
                 a {
-                    color: $primary-white;
+                    color: $axo-yellow;
+                    
                 }
                 label {
-                    color: $primary-white;
+                    color: $axo-yellow;
                 }
-                background-color: $background-color !important;
+                //background-color: $background-color !important;
             }
         }
     }
