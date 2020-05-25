@@ -19,15 +19,44 @@
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  -webkit-transition: color .2s, background-color .2s;
-  transition: color .2s, background-color .2s;
+  -webkit-transition: color 0.2s, background-color 0.2s;
+  transition: color 0.2s, background-color 0.2s;
 }
 
 .navContainer .navbar-brand {
   margin-left: 3rem;
   color: #4983ff;
-  -webkit-transition: color .2s, background-color .2s;
-  transition: color .2s, background-color .2s;
+  -webkit-transition: color 0.2s, background-color 0.2s;
+  transition: color 0.2s, background-color 0.2s;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+@media (max-width: 75em) {
+  .navContainer .navbar-brand {
+    margin-left: 2rem;
+  }
+}
+
+@media (max-width: 68.75em) {
+  .navContainer .navbar-brand {
+    margin-left: 1.5rem;
+  }
+}
+
+.navContainer .navbar-brand h3 {
+  font-size: 3rem;
+}
+
+.navContainer .navbar-brand .navbar__icon {
+  width: 7rem;
+  height: 7rem;
+  display: inline;
+  margin-right: 1rem;
 }
 
 .navContainer .auth-links {
@@ -40,8 +69,8 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-transition: color .2s, background-color .2s;
-  transition: color .2s, background-color .2s;
+  -webkit-transition: color 0.2s, background-color 0.2s;
+  transition: color 0.2s, background-color 0.2s;
 }
 
 .navContainer .auth-links div {
@@ -61,8 +90,8 @@
       -ms-flex-align: stretch;
           align-items: stretch;
   color: white;
-  -webkit-transition: color .2s, background-color .2s;
-  transition: color .2s, background-color .2s;
+  -webkit-transition: color 0.2s, background-color 0.2s;
+  transition: color 0.2s, background-color 0.2s;
 }
 
 .navContainer .auth-links .link-list .active {
@@ -71,17 +100,58 @@
 
 .navContainer .auth-links .link-list a:active,
 .navContainer .auth-links .link-list a:link {
+  font-size: 2rem;
   color: #4983ff;
   background-color: none !important;
-  -webkit-transition: color .2s, background-color .2s;
-  transition: color .2s, background-color .2s;
+  -webkit-transition: color 0.2s, background-color 0.2s;
+  transition: color 0.2s, background-color 0.2s;
   text-decoration: none;
+}
+
+@media (max-width: 100em) {
+  .navContainer .auth-links .link-list a:active,
+  .navContainer .auth-links .link-list a:link {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 75em) {
+  .navContainer .auth-links .link-list a:active,
+  .navContainer .auth-links .link-list a:link {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 68.75em) {
+  .navContainer .auth-links .link-list a:active,
+  .navContainer .auth-links .link-list a:link {
+    font-size: 1.5rem;
+  }
 }
 
 .navContainer .auth-links .link-list label {
   color: #4983ff;
-  -webkit-transition: color .2s, background-color .2s;
-  transition: color .2s, background-color .2s;
+  -webkit-transition: color 0.2s, background-color 0.2s;
+  transition: color 0.2s, background-color 0.2s;
+  font-size: 2rem;
+}
+
+@media (max-width: 100em) {
+  .navContainer .auth-links .link-list label {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 75em) {
+  .navContainer .auth-links .link-list label {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 68.75em) {
+  .navContainer .auth-links .link-list label {
+    font-size: 1.5rem;
+  }
 }
 
 .navContainer .auth-links .link-list li {
@@ -100,8 +170,8 @@
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  -webkit-transition: all .2s;
-  transition: all .2s;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
   -webkit-box-flex: 0;
       -ms-flex: 0 0 20%;
           flex: 0 0 20%;
@@ -121,15 +191,15 @@
 
 .navContainer .logout-link {
   max-height: 4rem;
-  -webkit-transition: color .2s, background-color .2s;
-  transition: color .2s, background-color .2s;
+  -webkit-transition: color 0.2s, background-color 0.2s;
+  transition: color 0.2s, background-color 0.2s;
 }
 
-.navContainer .dropdown__toggle .dropdown__top:hover h3 {
+.navContainer .dropdown__toggle:hover h3 {
   color: #eee;
 }
 
-.navContainer .dropdown__toggle .dropdown__top h3 {
+.navContainer .dropdown__toggle h3 {
   color: #4983ff;
 }
 
@@ -137,8 +207,13 @@
   background-color: #4983ff;
   -webkit-transition: background-color 200ms linear;
   transition: background-color 200ms linear;
-  -webkit-box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
-          box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 37.5em) {
+  .scrolled {
+    -webkit-box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+            box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+  }
 }
 
 .scrolled .link-list li {
@@ -179,15 +254,46 @@
 }
 
 .dropdownReplacement {
+  position: fixed;
+  margin-top: 6rem;
   height: 3rem;
   width: 100%;
   display: block;
-  background-color: #4983ff;
+  background-color: white;
   -webkit-animation: dropdown;
           animation: dropdown;
   -webkit-animation-duration: 0.7s;
           animation-duration: 0.7s;
   color: #eee;
+  z-index: 10000;
+}
+
+.dropdownReplacement .auth-links {
+  color: #eee;
+  background-color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-item-align: stretch;
+      align-self: stretch;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-transition: color 0.2s, background-color 0.2s;
+  transition: color 0.2s, background-color 0.2s;
+  position: relative;
+  z-index: 5;
+}
+
+.dropdownReplacement .auth-links .nav-link {
+  color: #4983ff;
+  -webkit-animation: dropdown-text;
+          animation: dropdown-text;
+  -webkit-animation-duration: 0.7s;
+          animation-duration: 0.7s;
 }
 
 .dropdownReplacement .auth-links div {
@@ -195,34 +301,114 @@
 }
 
 .dropdownReplacement .auth-links .link-list {
-  color: #eee;
   min-height: 100%;
   list-style-type: none;
+  background-color: transparent !important;
   padding: 0;
+  margin: 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+  color: white;
+  -webkit-transition: color 0.2s, background-color 0.2s;
+  transition: color 0.2s, background-color 0.2s;
+}
+
+.dropdownReplacement .auth-links .link-list .active {
+  background: none !important;
+}
+
+.dropdownReplacement .auth-links .link-list a:active,
+.dropdownReplacement .auth-links .link-list a:link {
+  font-size: 2rem;
+  color: #4983ff;
+  background-color: none !important;
+  -webkit-transition: color 0.2s, background-color 0.2s;
+  transition: color 0.2s, background-color 0.2s;
+  text-decoration: none;
+}
+
+@media (max-width: 100em) {
+  .dropdownReplacement .auth-links .link-list a:active,
+  .dropdownReplacement .auth-links .link-list a:link {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 75em) {
+  .dropdownReplacement .auth-links .link-list a:active,
+  .dropdownReplacement .auth-links .link-list a:link {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 68.75em) {
+  .dropdownReplacement .auth-links .link-list a:active,
+  .dropdownReplacement .auth-links .link-list a:link {
+    font-size: 1.5rem;
+  }
+}
+
+.dropdownReplacement .auth-links .link-list label {
+  color: #4983ff;
+  -webkit-transition: color 0.2s, background-color 0.2s;
+  transition: color 0.2s, background-color 0.2s;
+}
+
+@media (max-width: 100em) {
+  .dropdownReplacement .auth-links .link-list label {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 75em) {
+  .dropdownReplacement .auth-links .link-list label {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 68.75em) {
+  .dropdownReplacement .auth-links .link-list label {
+    font-size: 1.5rem;
+  }
 }
 
 .dropdownReplacement .auth-links .link-list li {
-  color: #eee;
+  color: #4983ff;
+  margin: 0 !important;
+  text-align: center;
   padding: 0;
   float: left;
   list-style-type: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 20%;
+          flex: 0 0 20%;
 }
 
-.dropdownReplacement .auth-links .link-list li .nav-link {
+.dropdownReplacement .auth-links .link-list li:hover {
+  background-color: #4983ff !important;
+}
+
+.dropdownReplacement .auth-links .link-list li:hover a {
   color: #eee;
-  -webkit-animation: dropdown-text;
-          animation: dropdown-text;
-  -webkit-animation-duration: 0.7s;
-          animation-duration: 0.7s;
+}
+
+.dropdownReplacement .auth-links .link-list li:hover label {
+  color: #eee;
 }
 
 .navCheckbox {
@@ -329,14 +515,16 @@
 .dropdown {
   opacity: 0;
   visibility: none;
-  top: 100.0%;
+  height: 0;
+  display: none;
+  top: 100%;
   right: 0%;
-  width: 22.875rem;
+  width: 26rem;
   position: absolute;
   border-bottom: 1px solid transparent;
   border-radius: 20px;
-  -webkit-transition: all .2s ease;
-  transition: all .2s ease;
+  -webkit-transition: visibility .3s ease, opacity .3s ease;
+  transition: visibility .3s ease, opacity .3s ease;
 }
 
 .dropdown__item {
@@ -345,7 +533,7 @@
   background-color: #2f72ff;
   text-align: right;
   font-size: 1.6rem;
-  padding: 1rem 0rem;
+  padding: 1rem 1rem;
   -webkit-box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.1);
           box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.1);
   z-index: 2;
@@ -370,11 +558,23 @@
   color: #eee;
   display: table;
   margin-right: 3rem;
-  padding: .5rem 2rem;
-  -webkit-transition: all .3s;
-  transition: all .3s;
+  padding: 0.5rem 2rem;
+  -webkit-transition: visibility .5s ease, background-color .2s, opacity .5s ease;
+  transition: visibility .5s ease, background-color .2s, opacity .5s ease;
   position: relative;
   z-index: 100;
+}
+
+@media (max-width: 75em) {
+  .dropdown__toggle {
+    margin-right: 2rem;
+  }
+}
+
+@media (max-width: 68.75em) {
+  .dropdown__toggle {
+    margin-right: 1.5rem;
+  }
 }
 
 .dropdown__toggle:hover {
@@ -387,6 +587,8 @@
 }
 
 .dropdown__toggle:hover .dropdown {
+  display: block;
+  height: 137px;
   visibility: visible;
   opacity: 1;
 }
@@ -402,6 +604,7 @@
       -ms-flex-align: center;
           align-items: center;
   color: #eee;
+  padding: 0 1rem;
 }
 
 .dropdown__top h3 {
@@ -429,8 +632,30 @@
   color: #2f72ff;
 }
 
+.scrolledAuthLinks {
+  background-color: #4983ff !important;
+  -webkit-box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+          box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+}
+
+.scrolledAuthLinks .link-list .nav-item .nav-link {
+  color: #eee;
+}
+
 .hackModalToggler {
-  margin-top: .5rem;
+  margin-top: 0.5rem;
   color: #2f72ff;
+}
+
+@media (max-width: 75em) {
+  .navbar-toggler {
+    margin-left: 2rem;
+  }
+}
+
+@media (max-width: 68.75em) {
+  .navbar-toggler {
+    margin-left: 1.5rem;
+  }
 }
 /*# sourceMappingURL=NavBar.css.map */

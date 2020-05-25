@@ -5,111 +5,299 @@ $primary-orange: lighten(rgb(255, 102, 71), 5%);
 $background-color-light: #2d3142;
 $primary-white: #eee;
 .header-3 {
-    font-size: 2rem;
-    color: $primary-white;
-    border-bottom: 1px solid $primary-white;
+  font-size: 2rem;
+  color: $primary-white;
+  border-bottom: 1px solid $primary-white;
 }
 
 .discoverWrapper {
+  display: flex;
+  justify-content: center;
+  .profileWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    width: 90%;
+  }
+  .compHeader {
+    padding: 2rem 2rem;
+    margin-top: 8rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    background-color: $background-color-light;
+    margin-bottom: 0.5rem;
+  }
+  .descrWrapper {
+    color: $primary-white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 3;
+  }
+  .title {
+    display: block;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 8rem;
+    text-align: center;
+  }
+  .imgWrapper {
     display: flex;
     justify-content: center;
-    .profileWrapper {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: stretch;
-        width: 90%;
+    .avatar {
+      display: block;
+      border: 2px solid red;
+      border-radius: 50%;
+      height: 20rem;
+      width: 20rem;
     }
-    .compHeader {
-        padding: 2rem 2rem;
-        margin-top: 8rem;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        align-items: center;
+  }
+  .handle {
+    display: block;
+  }
+  .location {
+    display: block;
+  }
+  .mainContent {
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: stretch;
+    &__donationTypes {
+      padding-top: 2rem;
+      flex-basis: 20%;
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+      align-items: center;
+      background-color: $background-color-light;
+      margin-right: 0.5rem;
+    }
+    &__donoType {
+      color: $primary-white;
+    }
+    &__post {
+      background-color: $background-color-light;
+      width: 100%;
+      padding: 2rem 3rem;
+      border-radius: 5px;
+      &:not(:last-child) {
+        margin-bottom: 1.5rem;
+      }
+    }
+    &__posts {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background-color: white;
+      min-height: 40vh;
+      align-items: center;
+      .posts__header {
+        width: 100%;
+        border-radius: 5px;
         background-color: $background-color-light;
-        margin-bottom: .5rem;
-    }
-    .descrWrapper {
-        color: $primary-white;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        z-index: 3;
-    }
-    .title {
-        display: block;
-        font-weight: 700;
-        text-decoration: none;
-        font-size: 8rem;
         text-align: center;
-    }
-    .imgWrapper {
-        display: flex;
-        justify-content: center;
-        .avatar {
-            display: block;
-            border: 2px solid red;
-            border-radius: 50%;
-            width: 20rem;
-            height: 20rem;
+        margin-bottom: 0.5rem;
+        border: none;
+        &-1 {
+          text-decoration: none;
+          font-size: 2rem;
+          color: $primary-white;
         }
+      }
     }
-    .handle {
-        display: block;
+  }
+}
+
+//hackathon styling
+
+@keyframes leftTextAppear {
+  from {
+    opacity: 0;
+    transform: translateX(-20%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes rightTextAppear {
+  from {
+    opacity: 0;
+    transform: translateX(20%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.compHeader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  background-image: linear-gradient(to right bottom, #7ca6ff, #003ea3);
+  .info-left {
+    margin-bottom: -5%;
+    width: 100%;
+    flex-grow: 1;
+    margin-left: 10%;
+    h1 {
+      opacity: 0;
+      transform: translateX(-20%);
+      animation: leftTextAppear 1s forwards 1s;
     }
-    .location {
-        display: block;
+    p {
+      padding-top: 30px;
+      font-size: 1.2em;
+      opacity: 0;
+      transform: translateX(-20%);
+      display: inline-block;
+      animation: leftTextAppear 1s forwards 1.5s;
     }
-    .mainContent {
-        margin: 0;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: stretch;
-        &__donationTypes {
-            padding-top: 2rem;
-            flex-basis: 20%;
-            display: flex;
-            flex-direction: column;
-            justify-content: start;
-            align-items: center;
-            background-color: $background-color-light;
-            margin-right: .5rem;
-        }
-        &__donoType {
-            color: $primary-white;
-        }
-        &__post {
-            background-color: $background-color-light;
-            width: 100%;
-            padding: 2rem 3rem;
-            border-radius: 5px;
-            &:not(:last-child) {
-                margin-bottom: 1.5rem;
-            }
-        }
-        &__posts {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            background-color: white;
-            min-height: 40vh;
-            align-items: center;
-            .posts__header {
-                width: 100%;
-                border-radius: 5px;
-                background-color: $background-color-light;
-                text-align: center;
-                margin-bottom: .5rem;
-                border: none;
-                &-1 {
-                    text-decoration: none;
-                    font-size: 2rem;
-                    color: $primary-white;
-                }
-            }
-        }
+  }
+  .info-right {
+    flex-grow: 1;
+    width: 100%;
+    margin-right: 10%;
+    text-align: right;
+
+    p {
+      font-size: 1.6em;
+      opacity: 0;
+      transform: translateX(20%);
+      display: inline-block;
+      animation: rightTextAppear 1s forwards 2.5s;
     }
+  }
+  .image-container {
+    flex-grow: 1;
+    margin-top: 72px;
+    height: 25rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    .avatar {
+      background-color: white;
+      border-radius: 50%;
+      height: 20rem;
+      width: 20rem;
+    }
+  }
+}
+.info-wrapper {
+  display: flex;
+  justify-content: center;
+}
+.infoContainer {
+  width: 80%;
+  text-align: center;
+  margin-top: 100px;
+  font-size: 4em;
+  .fa-globe {
+    color: #0f93f7;
+    margin-bottom: 30px;
+  }
+  br {
+    border: 1px solid grey;
+  }
+  .hbioContainer {
+    margin-top: 30px;
+    h4 {
+      font-size: 1.2em;
+    }
+    p {
+      font-size: 0.5em;
+    }
+    margin-bottom: 30px;
+  }
+}
+.donationContainer {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  font-size: 4em;
+  h4 {
+    font-size: 1em;
+  }
+  svg rect {
+    width: 100%;
+    height: 3px;
+    stroke: #ff6647;
+    fill: #ff6647;
+    stroke-dasharray: 400;
+    stroke-dashoffset: 400;
+  }
+  svg {
+    height: 3px;
+    width: 90%;
+  }
+  .donation-info-container {
+    display: flex;
+    width: 100%;
+    .still-required {
+      max-width: 49.5%;
+      flex-grow: 1;
+      .still-required-text {
+        margin-top: 15px;
+        width: 80%;
+        float: right;
+        h5 {
+          font-size: 0.5em;
+          text-decoration: underline;
+        }
+        ul {
+          li {
+            font-size: 0.3em;
+            line-height: 8px;
+          }
+        }
+      }
+    }
+    .centerLine {
+      width: 3px;
+      max-width: 1%;
+      svg rect {
+        height: 100%;
+        stroke: #ff6647;
+        fill: #ff6647;
+        width: 3px;
+      }
+      svg {
+        height: 100%;
+      }
+    }
+    .already-received {
+      max-width: 49.5%;
+      flex-grow: 1;
+
+      .already-received-text {
+        margin-top: 15px;
+        width: 80%;
+        float: right;
+        h5 {
+          font-size: 0.5em;
+          text-decoration: underline;
+        }
+        ul {
+          li {
+            font-size: 0.3em;
+            line-height: 8px;
+          }
+        }
+      }
+    }
+  }
+}
+.bottom-padding {
+  width: 100%;
+  height: 300px;
 }

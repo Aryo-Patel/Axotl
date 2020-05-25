@@ -59,6 +59,13 @@ let SponsorProfileSchema = new Schema({
         instagram: {
             type: String
         },
+        youtube: {
+            type: String
+        },
+        defaultInitializer: {
+            type: String,
+            default: "DEFAULT INIT.",
+        }
     },
     sponsoredProjects: [{
         type: mongoose.Schema.Types.ObjectId,

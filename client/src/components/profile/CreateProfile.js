@@ -37,7 +37,7 @@ class CreateProfile extends Component {
     }
 
     componentDidMount(){
-        if(this.props.sponser === true){
+        if(this.props.sponsor === true){
             return <Redirect to="/dashboard"/>
         }
     }
@@ -73,81 +73,131 @@ class CreateProfile extends Component {
     }
     render() {
         return (
-        <div className="container" style={{padding: '2% 0% 2%'}}>
-            <h5>Create your profile:</h5>
+        <div className="createProfile">
+            <h5 className = 'heading'>Create your profile:</h5>
             <form onSubmit={this.onSubmit}>
-                <label>Handle</label>
                 <TextField
                 placeholder="Enter a unique handle for your profile!"
+                parentClassName='createProfile'
+                className='createProfile__field'
                 name="handle"
                 type="text"
                 value={this.state.handle}
                 onChange={this.handleChange}
                 required
-                />
-                <label>Current Affiliation</label>
+                ><i
+                className="fas fa-at createSponsorProfile__icon"
+                samesite="none"
+                SameSite="none"
+              ></i></TextField>
+                
                 <TextField
                 placeholder="What organization are you currently a part of?"
+                parentClassName='createProfile'
+                className='createProfile__field'
                 name="organization"
                 type="text"
                 value={this.state.organization}
                 onChange={this.handleChange}
+                required
                 />
-                <label>Location</label>
-                <LocationInput onChange={this.handleLocationChange}/>
-                <br></br>
-                <TextField
-                placeholder="Your location..."
+                <div className="createProfile__locationInput">
+                <LocationInput className = 'createSponsorProfile__field'  parentClassName='createSponsorProfile' onChange={this.handleLocationChange}/>
+                </div>
+                <input
+                style={{height: 0, width: 0, opacity: 0}}
+                className='goAway'
                 name="location"
                 type="text"
                 value={this.state.location}
+                style= {{height: 0}}
                 required
                 disabled
                 />
-                <div className="form-group">
-                    <label>Biography</label>
-                    <textarea className="form-control" name='bio' value={this.state.bio} id="Bio" rows="4" onChange={this.handleChange} required></textarea>
+                <div className="createProfile__form-group">
+                    <textarea className="createProfile__textarea" name='bio' value={this.state.bio} id="Bio" rows="4" onChange={this.handleChange} required></textarea>
+                    <label className="createProfile__label">Write a brief biography here...</label>
                 </div>
                 <TextField
                 placeholder="Link your Twitter!"
+                parentClassName='createProfile'
+                className='createProfile__field'
                 name="twitter"
                 type="text"
                 value={this.state.twitter}
                 onChange={this.handleChange}
                 
-                />
+                >
+                    <i
+                        className="fab fa-twitter createProfile__icon"
+                        samesite="none"
+                        SameSite="none">
+                    </i>
+                </TextField>
                 <TextField
                 placeholder="Link your Youtube Channel!"
+                parentClassName='createProfile'
+                className='createProfile__field'
                 name="youtube"
                 type="text"
                 value={this.state.youtube}
                 onChange={this.handleChange}
                 
-                />
+                >
+                    <i
+                        className="fab fa-youtube createProfile__icon"
+                        samesite="none"
+                        SameSite="none">
+                    </i>
+                </TextField>
                 <TextField
                 placeholder="Link your Facebook!"
+                parentClassName='createProfile'
+                className='createProfile__field'
                 name="facebook"
                 type="text"
                 value={this.state.facebook}
                 onChange={this.handleChange}
                 
-                />
+                >
+                    <i
+                        className="fab fa-facebook createProfile__icon"
+                        samesite="none"
+                        SameSite="none">
+                    </i>
+                </TextField>
                 <TextField
                 placeholder="Link your LinkedIn!"
+                parentClassName='createProfile'
+                className='createProfile__field'
                 name="linkedin"
                 type="text"
                 value={this.state.linkedin}
                 onChange={this.handleChange}
                 
-                />
+                >
+                    <i
+                        className="fab fa-linkedin createProfile__icon"
+                        samesite="none"
+                        SameSite="none">
+                    </i>
+                </TextField>
                 <TextField
                 placeholder="Link your Instagram!"
+                parentClassName='createProfile'
+                className='createProfile__field'
                 name="instagram"
                 type="text"
                 value={this.state.instagram}
                 onChange={this.handleChange}
                 
-                />
+                >
+                    <i
+                        className="fab fa-instagram createProfile__icon"
+                        samesite="none"
+                        SameSite="none">
+                    </i>
+                </TextField>
 
                 <button type="submit" className="btn btn-primary">Submit</button>
             </form>

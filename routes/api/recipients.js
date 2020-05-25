@@ -17,7 +17,7 @@ const RecipientProfile = require('../../models/RecipientProfile')
 // Action    Register the recipient
 // PUBLIC
 
-router.post('/register', [check('name', 'Name is required').not().isEmpty(), check('email', 'Not a valid email').isEmail(), check('password', 'Please enter a password with six or more characters').isLength({ min: 6 })], async(req, res) => {
+router.post('/register', [check('name', 'Name is required').not().isEmpty(), check('email', 'Not a valid email').isEmail(), check('password', 'Please enter a password with six or more characters').isLength({ min: 6 })], async (req, res) => {
     req.session.tries = 0;
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
@@ -54,53 +54,53 @@ router.post('/register', [check('name', 'Name is required').not().isEmpty(), che
         });
         const salt = await bcrypt.genSalt(10)
         newRecipient.password = await bcrypt.hash(password, salt)
-            //Saving the recipient to the Recipients collection
+        //Saving the recipient to the Recipients collection
         await newRecipient.save()
 
         //Sending confirmation email
-        const transporter = createTransport({
-            host: 'mail.privateemail.com',
-            port: 465,
-            secure: true,
-            auth: {
-                user: config.get('emailUser'),
-                pass: config.get('emailPass')
-            },
-            // tls: {
-            //     ciphers: 'SSLv3'
-            // }
+        // const transporter = createTransport({
+        //     host: 'mail.privateemail.com',
+        //     port: 465,
+        //     secure: true,
+        //     auth: {
+        //         user: config.get('emailUser'),
+        //         pass: config.get('emailPass')
+        //     },
+        //     // tls: {
+        //     //     ciphers: 'SSLv3'
+        //     // }
 
-        });
-        let resetLink = '';
-        let authToken = '';
-        let mailOptions = {}
-        jwt.sign({ email: email }, config.get('JWTSecret'), { expiresIn: 10800000 }, async(err, token) => {
-            if (err) throw err;
-            authToken += token;
-            console.log(authToken)
-            resetLink = `${config.get('productionLink')}/users/confirmemail/${token}`
-            console.log(`reset link here 1 : ${resetLink}`)
-            mailOptions = {
-                from: '"Axotl Support" <support@axotl.com>',
-                to: email,
-                subject: "Confirm Email",
-                text: `Hello ${newRecipient.name},\n\nThank you for registering for Axotl. With brilliant individuals like you, we hope to foster the next generation of tech innovators. In order to verify your account, please confirm your email (expires in 3 hours):\n\n${resetLink}\n\n\nIf you did not request this, please notify us at http://axotl.com/support\n\nThanks!\n-Axotl Support`
-            }
+        // });
+        // let resetLink = '';
+        // let authToken = '';
+        // let mailOptions = {}
+        // jwt.sign({ email: email }, config.get('JWTSecret'), { expiresIn: 10800000 }, async(err, token) => {
+        //     if (err) throw err;
+        //     authToken += token;
+        //     console.log(authToken)
+        //     resetLink = `${config.get('productionLink')}/users/confirmemail/${token}`
+        //     console.log(`reset link here 1 : ${resetLink}`)
+        //     mailOptions = {
+        //         from: '"Axotl Support" <support@axotl.com>',
+        //         to: email,
+        //         subject: "Confirm Email",
+        //         text: `Hello ${newRecipient.name},\n\nThank you for registering for Axotl. With brilliant individuals like you, we hope to foster the next generation of tech innovators. In order to verify your account, please confirm your email (expires in 3 hours):\n\n${resetLink}\n\n\nIf you did not request this, please notify us at http://axotl.com/support\n\nThanks!\n-Axotl Support`
+        //     }
 
-            console.log(`reset link here 2 : ${resetLink}`)
+        //     console.log(`reset link here 2 : ${resetLink}`)
 
 
 
-            console.log('trycatch entered')
-            const verified = await transporter.verify((error, success) => {
-                if (error) {
-                    console.error(error.message)
-                } else { console.log("Server is good") };
-            })
-            const response = await transporter.sendMail(mailOptions)
-            console.log('email completed')
-            console.log(response)
-        })
+        //     console.log('trycatch entered')
+        //     const verified = await transporter.verify((error, success) => {
+        //         if (error) {
+        //             console.error(error.message)
+        //         } else { console.log("Server is good") };
+        //     })
+        //     const response = await transporter.sendMail(mailOptions)
+        //     console.log('email completed')
+        //     console.log(response)
+        // })
 
 
 
@@ -114,10 +114,29 @@ router.post('/register', [check('name', 'Name is required').not().isEmpty(), che
 
 });
 
+//POST       api/users/find
+//Action    Find a recipient by their handle
+//Private
+router.post('/find', (req, res) => {
+    RecipientProfile.findOne({ handle: req.body.handle })
+        .then(profile => {
+            Recipient.findOne({ _id: profile.recipient })
+                .then(recipient => {
+                    res.json(recipient)
+                })
+        })
+        .catch(err => {
+            res.json({ error: "Recipient not found" });
+            console.log("Recipient not found");
+        })
+})
+
+
+
 //POST api/users/confirmemail
 // Action confirm user's email
 //PUBLIC
-router.put('/confirmemail/:jwt', async(req, res) => {
+router.put('/confirmemail/:jwt', async (req, res) => {
     try {
         console.log('backend confirm email reached')
         const email = await jwt.verify(req.params.jwt, config.get('JWTSecret')).email
@@ -142,7 +161,8 @@ router.put('/confirmemail/:jwt', async(req, res) => {
 // PUBLIC
 
 router.post('/login', passport.authenticate('local', { failureRedirect: 'http://localhost:3000/recipient/login' }), (req, res) => {
-
+    console.log('in here');
+    req.session.tries = 0;
     /**const email = req.body.email;
     const password = req.body.password;
 
@@ -179,7 +199,7 @@ router.post('/login', passport.authenticate('local', { failureRedirect: 'http://
 //DELETE api/users/
 // Action Delete profile and user
 // PRIVATE
-router.delete('/', async(req, res) => {
+router.delete('/', async (req, res) => {
     try {
         await RecipientProfile.deleteOne({ recipient: req.user._id })
         await Recipient.deleteOne({ _id: req.user._id })
@@ -189,7 +209,6 @@ router.delete('/', async(req, res) => {
         res.status(400).send("Server Error")
     }
 })
-
 
 
 //GET       api/users/logout

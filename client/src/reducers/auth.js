@@ -1,4 +1,4 @@
-import { LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, ACCOUNT_DELETED, REGISTER_SUCCESS, REGISTER_FAIL, USER_LOADED, USER_FAILED, FORGOT_PASSWORD, FORGOT_PASSWORD_FAIL } from "../actions/Types";
+import { LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, ACCOUNT_DELETED, REGISTER_SUCCESS, REGISTER_FAIL, USER_LOADED, USER_FAILED, FORGOT_PASSWORD, FORGOT_PASSWORD_FAIL, EDIT_ACCOUNT } from "../actions/Types";
 
 const initialState = {
     user: null,
@@ -48,6 +48,14 @@ export default function(state = initialState, action) {
         case FORGOT_PASSWORD:
         case FORGOT_PASSWORD_FAIL:
             return state;
+        case EDIT_ACCOUNT:
+            return {
+                ...state,
+                loading: false,
+                user: {
+                    user: payload
+                }
+            }
         default:
             return state;
     }

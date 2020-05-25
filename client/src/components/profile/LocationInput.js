@@ -11,6 +11,13 @@ class LocationInput extends React.Component {
     this.state = {
       address: '',
     };
+    let className = this.props.className;
+  }
+
+  componentDidMount(){
+    if(this.props.location){
+      this.setState({address:this.props.location})
+    }
   }
 
   handleChange = address => {
@@ -31,13 +38,14 @@ class LocationInput extends React.Component {
           onSelect={this.handleSelect}
         >
           {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-            <div>
+            <div className = {`${this.props.parentClassName}__form-group`}>
               <input
                 {...getInputProps({
-                  placeholder: 'Search Locations ...',
-                  className: 'location-search-input',
+                  placeholder: '',
+                  className: `location-search-input ${this.props.className}`,
                 })}
-              />
+              required/>
+              <label className={`${this.props.parentClassName}__locationLabel`}>Search Locations...</label>
               <div className="autocomplete-dropdown-container">
                 {loading && <div>Loading...</div>}
                 {suggestions.map(suggestion => {

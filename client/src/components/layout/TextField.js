@@ -9,19 +9,25 @@ const TextField = ({
   type,
   onChange,
   disabled,
+  className,
+  parentClassName,
+  children,
   required
 }) => {
   return (
-    <div className="form-group">
-      <input className = 'form-control'
+    <div className={`${parentClassName}__form-group`}>
+      {children}
+      <input className = {className}
         type={type}
-        placeholder={placeholder}
         name={name}
         value={value}
         onChange={onChange}
         disabled={disabled}
         required={required}
       />
+      {placeholder && 
+      <label className = {`${parentClassName}__label`}>{placeholder}</label>
+}
     </div>
   );
 };
