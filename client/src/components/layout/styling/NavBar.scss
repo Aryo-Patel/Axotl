@@ -1,7 +1,7 @@
 $light-grey: #a5a5a5;
 $axo-yellow: rgb(254, 181, 68);
 $background-color:rgb(47, 114, 255);
-$primary-orange: lighten(rgb(255, 102, 71), 5%);
+$primary-orange: rgb(255, 102, 71);
 $background-color-lighter: #5093ff;
 $primary-white: #eee;
 $bp-largest: 100em;
@@ -132,7 +132,7 @@ $bp-small: 37.5em;
     .dropdown__toggle {
         &:hover {
             h3 {
-                color: $primary-white;
+                color: $primary-orange;
             }
         }
         h3 {
@@ -145,12 +145,13 @@ $bp-small: 37.5em;
     background-color: $background-color;
     transition: background-color 200ms linear;
     @media (max-width: $bp-small) {
-        box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+        //box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
     }
     .link-list li {
         color: $primary-white;
         &:hover {
             background-color: darken($background-color, 10%);
+            //can someone confirm, i don't think this does anything
         }
     }
     .link-list a:active,
@@ -361,16 +362,16 @@ $bp-small: 37.5em;
     &__item {
         color: $primary-white;
         display: block;
-        background-color: darken($background-color, 5%);
+        background-color: $background-color;
         text-align: right;
         font-size: 1.6rem;
         padding: 1rem 1rem;
-        box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.1);
+        //box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.1);
         z-index: 2;
         &:hover {
             text-decoration: none;
-            color: $primary-white;
-            background-color: darken($background-color, 10%);
+            color: $axo-yellow;
+            //background-color: darken($background-color, 10%);
         }
         &:not(:last-child) {
             border-bottom: 2px solid lighten($background-color, 80%);
@@ -392,7 +393,7 @@ $bp-small: 37.5em;
         }
         padding: 0.5rem 2rem;
         transition: visibility .5s ease,
-        background-color .2s,
+        //background-color .2s,
         opacity .5s ease;
         position: relative;
         z-index: 100;
@@ -413,11 +414,11 @@ $bp-small: 37.5em;
         &:hover {
             // transform: translateY(-1px);
             // box-shadow: 1px 3px 5px rgba(0, 0, 0, .1);
-            box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.1);
-            border-radius: 20px;
+            //box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.1);
+            //border-radius: 20px;
             border-bottom-left-radius: 0px;
             border-bottom-right-radius: 0px;
-            background-color: darken($background-color, 5%);
+            //background-color: darken($background-color, 5%);
             .dropdown {
                 display: block;
                 height: 137px;
@@ -430,10 +431,10 @@ $bp-small: 37.5em;
         display: flex;
         justify-content: center;
         align-items: center;
-        color: $primary-white;
+        color: $axo-yellow;
         padding: 0 1rem;
         h3 {
-            color: $primary-white;
+            color: $axo-yellow;
         }
     }
     &__img {
