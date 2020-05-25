@@ -3,7 +3,9 @@ import {
     GET_HACKATHONS_FAIL,
     CREATE_HACKATHON,
     CREATE_HACKATHON_FAIL,
-    GET_HACKATHON
+    GET_HACKATHON,
+    GET_USER_HACKATHONS,
+    GET_USER_HACKATHONS_FAIL
 } from '../actions/Types';
 
 const initialState = {
@@ -12,11 +14,12 @@ const initialState = {
     loading: true
 }
 
-export default function(state = initialState, action) {
+export default function (state = initialState, action) {
     const { type, payload } = action;
 
     switch (type) {
         case GET_HACKATHONS:
+        case GET_USER_HACKATHONS:
             return {
                 ...state,
                 hackathonList: payload,
@@ -29,6 +32,7 @@ export default function(state = initialState, action) {
                 loading: false
             }
         case CREATE_HACKATHON_FAIL:
+        case GET_USER_HACKATHONS_FAIL:
         case GET_HACKATHONS_FAIL:
             return {
                 ...state,

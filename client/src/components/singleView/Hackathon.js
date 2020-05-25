@@ -144,15 +144,13 @@ const Hackathon = ({
             </div>
           </div>
         </div>
-        {/* {donations &&
-          donations.map((donation) => (
-            <div className="oneDonationContainer">
-              <h5 className="donationType">{donation.type}</h5>
-              <p className="donationQuantity">{donation.quantity}</p>
-              <p className="donationDescription">{donation.description}</p>
-            </div>
-          ))} */}
       </div>
+      <div className='donate-now-container'>
+        <button className='donate-now'>
+          Donate to this Hackaton
+      </button>
+      </div>
+
       <div className='bottom-padding'>
 
       </div>

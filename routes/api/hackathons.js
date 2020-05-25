@@ -506,8 +506,10 @@ router.get('/', async (req, res, next) => {
 //PUBLIC    no authorization required to view all the hackathons
 router.get('/:id', async (req, res, next) => {
     try {
+        console.log('got inside here');
+        console.log(req.params.id);
         //grabs all the hackathons
-        let hackathon = await Hackathon.findById(req.params.id);
+        let hackathon = await Hackathon.find({ recipient: req.params.id });
 
         return res.status(200).json(hackathon);
     } catch (err) {

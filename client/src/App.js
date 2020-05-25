@@ -35,6 +35,7 @@ import Company from './components/singleView/Company'
 import Settings from './components/settings/Settings'
 import EmailSent from './components/auth/EmailSent';
 import Chat from './components/chat/Chat';
+import MyHackathons from './components/hackathons/MyHackathons';
 
 //import logo from './logo.svg';
 import './App.css';
@@ -65,6 +66,7 @@ function App() {
             <PrivateRoute exact path='/discover' component={Discover} />
             <PrivateRoute exact path='/chat' component={Chat} />
             <PrivateRoute exact path='/logout' component={Logout} />
+            <PrivateRoute exact path='/my-hackathons' component={MyHackathons} />
             <Route exact path='/forgotpassword' component={ForgotPassword} />
             <Route path='/resetpassword' component={ResetPassword} />
             <Route path='/email-sent' component={EmailSent} />

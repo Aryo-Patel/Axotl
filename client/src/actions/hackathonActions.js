@@ -3,7 +3,9 @@ import {
     GET_HACKATHONS_FAIL,
     CREATE_HACKATHON,
     CREATE_HACKATHON_FAIL,
-    GET_HACKATHON
+    GET_HACKATHON,
+    GET_USER_HACKATHONS,
+    GET_USER_HACKATHONS_FAIL
 } from './Types';
 
 import axios from 'axios';
@@ -13,7 +15,7 @@ export const getHackathons = () => async dispatch => {
     try {
         const config = {
             headers: {
-                'Content-Type': 'applicaiton/json'
+                'Content-Type': 'application/json'
             }
         }
 
@@ -71,6 +73,23 @@ export const getHackathon = (id) => async dispatch => {
     } catch (err) {
         dispatch({
             type: CREATE_HACKATHON_FAIL,
+        })
+    }
+}
+
+
+//get all hackathons a user has created
+export const getUserHackathons = userId => async dispatch => {
+    try {
+        let userHackathons = await axios.get(`/api/hackathons/${userId}`);
+        dispatch({
+            type: GET_USER_HACKATHONS,
+            payload: userHackathons.data
+        })
+
+    } catch (err) {
+        dispatch({
+            type: GET_USER_HACKATHONS_FAIL
         })
     }
 }
