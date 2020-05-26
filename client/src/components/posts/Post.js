@@ -1,10 +1,32 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import $ from "jquery";
-import { getPost } from "../../actions/post";
+import { getPost, addComment, editComment } from "../../actions/post";
 import ConfirmationModal from "../common/ConfirmationModal";
+import auth from "../../reducers/auth";
 
-const Post = ({ post, deletePost, editPost,confirmationModalToggle, modal, modalToggle, setPost, thisPostState, confirmationModal, setConfirmationPost, confirmationPost }) => {
+const Post = ({
+  loading,
+  user,
+  post,
+  deletePost,
+  editPost,
+  confirmationModalToggle,
+  modal,
+  modalToggle,
+  setPost,
+  thisPostState,
+  confirmationModal,
+  setConfirmationPost,
+  confirmationPost,
+  addComment,
+  addReply,
+  addLike,
+  removeLike,
+  deleteComment,
+  deleteReply,
+}) => {
   //couldn't figure out 'show more' because it was selecting only the first post
   //     useEffect(() => {
   //         overflowBlock = document.querySelector('.post__main')
@@ -12,6 +34,7 @@ const Post = ({ post, deletePost, editPost,confirmationModalToggle, modal, modal
   //             setOverflown("overflown");
   //           }
   //     }, [])
+  //was used for checking if a post had overflowing text
   const [overflown, setOverflown] = useState("notoverflown");
   //   //checks if post is overflowing
   //   const isOverflown = (e) => {
@@ -24,32 +47,53 @@ const Post = ({ post, deletePost, editPost,confirmationModalToggle, modal, modal
   //     return e.scrollHeight > e.clientHeight;
   //   };
   //   let overflowBlock = null;
+
+  //value of comment input
+  const [text, updateText] = useState("");
+  //value of edited comment
+  const [editingComment, setEditingComment] = useState("");
   return (
     <div className="post" data-status={overflown}>
       <div className="post__main">
         <div className="post__header-container">
+          {!loading && user._id.toString() == post.user.toString() ? (
             <div className="post__edit">
-                <div className="post__edit-icon"></div>
-            <div className="post__dropdown">
-                    <p className="post__dropdown-item" onClick = {async e => {
-                        setPost(post);
-                        console.log(JSON.stringify(thisPostState))
-                        console.log('opening modal')
-                        modalToggle('open')
-                        console.log(modal)}}>Edit Post</p>
-                    <p className="post__dropdown-item" onClick = {e => {
-                        //TRIGGER SOME CONFIRMATION
-                        console.log('trying to delete post')
-                        setConfirmationPost(post._id)
-                        console.log(confirmationPost)
-                        confirmationModalToggle('open')
-                        console.log(confirmationModal)}}>Delete This Post</p>
-                </div>
+              <div className="post__edit-icon"></div>
+              <div className="post__dropdown">
+                <p
+                  className="post__dropdown-item"
+                  onClick={async (e) => {
+                    setPost(post);
+                    console.log(JSON.stringify(thisPostState));
+                    console.log("opening modal");
+                    modalToggle("open");
+                    console.log(modal);
+                  }}
+                >
+                  Edit Post
+                </p>
+                <p
+                  className="post__dropdown-item"
+                  onClick={(e) => {
+                    //TRIGGER SOME CONFIRMATION
+                    console.log("trying to delete post");
+                    setConfirmationPost(post._id);
+                    console.log(confirmationPost);
+                    confirmationModalToggle("open");
+                    console.log(confirmationModal);
+                  }}
+                >
+                  Delete This Post
+                </p>
+              </div>
             </div>
-            
-            <div className="post__user-fields">
-          <h4 className="post__name">{post.name}</h4>
-          <img src={post.avatar} alt="" className="post__avatar" />
+          ) : (
+            <div></div>
+          )}
+
+          <div className="post__user-fields">
+            <h4 className="post__name">{post.name}</h4>
+            <img src={post.avatar} alt="" className="post__avatar" />
           </div>
         </div>
         <h4 className="subheading post__title">{post.title}</h4>
@@ -57,77 +101,22 @@ const Post = ({ post, deletePost, editPost,confirmationModalToggle, modal, modal
           <p className="post__content">{post.content}</p>
         </div>
       </div>
+      <button
+        className="post__show-more"
+        onClick={(e) => {
+          console.log("I EXIST");
+          // $('.post__main').css('overflow', 'visible')
+          // $('.post__main').css('max-height' , 'fit-content')
+        }}
+      >
+        Show More
+      </button>
       <div className="post__interactions">
-        <button
-          className="post__show-more"
-          onClick={(e) => {
-            console.log("I EXIST");
-            // $('.post__main').css('overflow', 'visible')
-            // $('.post__main').css('max-height' , 'fit-content')
-          }}
-        >
-          Show More
-        </button>
         <div className="post__likes">
-          <svg
-            version="1.1"
-            xmlns="http://www.w3.org/2000/svg"
-            x="0px"
-            y="0px"
-            viewBox="0 0 512 512"
-            style={{ enableBackground: "new 0 0 512 512" }}
-          >
-            <g>
-              <g>
-                <g>
-                  <path
-                    d="M495.736,290.773C509.397,282.317,512,269.397,512,260.796c0-22.4-18.253-47.462-42.667-47.462H349.918
-				c-4.284-0.051-25.651-1.51-25.651-25.6c0-4.71-3.814-8.533-8.533-8.533s-8.533,3.823-8.533,8.533
-				c0,33.749,27.913,42.667,42.667,42.667h119.467c14.182,0,25.6,16.631,25.6,30.396c0,4.437,0,17.946-26.53,20.855
-				c-4.506,0.495-7.834,4.42-7.586,8.951c0.239,4.523,3.985,8.064,8.516,8.064c14.114,0,25.6,11.486,25.6,25.6
-				s-11.486,25.6-25.6,25.6h-17.067c-4.719,0-8.533,3.823-8.533,8.533s3.814,8.533,8.533,8.533c14.114,0,25.6,11.486,25.6,25.6
-				s-11.486,25.6-25.6,25.6h-25.6c-4.719,0-8.533,3.823-8.533,8.533s3.814,8.533,8.533,8.533c8.934,0,17.067,8.132,17.067,17.067
-				c0,8.61-8.448,17.067-17.067,17.067h-128c-35.627,0-48.444-7.074-63.292-15.258c-12.553-6.921-26.786-14.763-54.963-18.79
-				c-4.668-0.674-8.994,2.577-9.66,7.236c-0.666,4.668,2.569,8.994,7.236,9.66c25.105,3.584,37.325,10.325,49.152,16.845
-				c15.497,8.542,31.505,17.374,71.526,17.374h128c17.869,0,34.133-16.273,34.133-34.133c0-6.229-1.775-12.134-4.83-17.229
-				c21.794-1.877,38.963-20.224,38.963-42.505c0-10.829-4.062-20.736-10.735-28.271C500.42,358.212,512,342.571,512,324.267
-				C512,310.699,505.634,298.59,495.736,290.773z"
-                  />
-                  <path
-                    d="M76.8,443.733c9.412,0,17.067-7.654,17.067-17.067S86.212,409.6,76.8,409.6c-9.412,0-17.067,7.654-17.067,17.067
-				S67.388,443.733,76.8,443.733z"
-                  />
-                  <path
-                    d="M179.2,247.467c25.353,0,57.429-28.297,74.3-45.167c36.634-36.634,36.634-82.167,36.634-151.1
-				c0-5.342,3.191-8.533,8.533-8.533c29.508,0,42.667,13.158,42.667,42.667v102.4c0,4.71,3.814,8.533,8.533,8.533
-				s8.533-3.823,8.533-8.533v-102.4c0-39.083-20.659-59.733-59.733-59.733c-14.831,0-25.6,10.769-25.6,25.6
-				c0,66.978,0,107.401-31.633,139.034C216.661,215.006,192.811,230.4,179.2,230.4c-4.719,0-8.533,3.823-8.533,8.533
-				S174.481,247.467,179.2,247.467z"
-                  />
-                  <path
-                    d="M145.067,213.333H8.533c-4.719,0-8.533,3.823-8.533,8.533v256c0,4.71,3.814,8.533,8.533,8.533h136.533
-				c4.719,0,8.533-3.823,8.533-8.533v-256C153.6,217.156,149.786,213.333,145.067,213.333z M136.533,469.333H17.067V230.4h119.467
-				V469.333z"
-                  />
-                </g>
-              </g>
-            </g>
-            <g></g>
-            <g></g>
-            <g></g>
-            <g></g>
-            <g></g>
-            <g></g>
-            <g></g>
-            <g></g>
-            <g></g>
-            <g></g>
-            <g></g>
-            <g></g>
-            <g></g>
-            <g></g>
-            <g></g>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+            <path d="M 6.46875 1 A 0.50005 0.50005 0 0 0 6 1.5 L 6 2.375 C 6 3.5782168 5.6709145 4.4589043 5.4082031 5 L 1 5 L 1 5.5 L 1 14 L 5.4648438 14 L 6 14 L 11.689453 14 C 12.401791 14 13.03169 13.512224 13.185547 12.818359 A 0.50005 0.50005 0 0 0 13.193359 12.775391 L 13.994141 6.7753906 L 13.986328 6.8183594 C 14.192606 5.8871169 13.445053 5 12.490234 5 L 9 5 L 9 3.25 C 9 2.1347222 8.3117537 1.4625874 7.6875 1.2089844 C 7.0632463 0.95538128 6.46875 1 6.46875 1 z M 7 2.0800781 C 7.1318795 2.0988741 7.1621385 2.0736786 7.3125 2.1347656 C 7.6882463 2.2874131 8 2.4902778 8 3.25 L 8 5.5 A 0.50005 0.50005 0 0 0 8.5 6 L 12.490234 6 C 12.849416 6 13.079487 6.2868068 13.009766 6.6015625 A 0.50005 0.50005 0 0 0 13.001953 6.6445312 L 12.207031 12.603516 C 12.155768 12.828253 11.94803 13 11.689453 13 L 6 13 L 6 6.0195312 C 6.2254734 5.6703684 7 4.3403823 7 2.375 L 7 2.0800781 z M 2 6 L 5 6 L 5 13 L 2 13 L 2 6 z M 3.5 11 A 0.5 0.5 0 0 0 3 11.5 A 0.5 0.5 0 0 0 3.5 12 A 0.5 0.5 0 0 0 4 11.5 A 0.5 0.5 0 0 0 3.5 11 z" />
           </svg>
+          <p>Like</p>
         </div>
         <div className="post__comments">
           <svg
@@ -165,7 +154,106 @@ const Post = ({ post, deletePost, editPost,confirmationModalToggle, modal, modal
             <g></g>
             <g></g>
           </svg>
+          <p>Comment</p>
         </div>
+      </div>
+      <div className="post__comment-section">
+        <div className="post__comment-container">
+          {post.comments.map((comment) => (
+            <div className="comment">
+              <div className="comment__top">
+                <div className="comment__user">
+                  <img
+                    src={comment.avatar}
+                    alt=""
+                    className="comment__avatar"
+                  />
+                  <h5 className="comment__name">{comment.name}</h5>
+                </div>
+                {!loading && user._id.toString() == comment.user.toString() ? (
+                  <div className="comment__edit">
+                    <div className="comment__edit-icon"></div>
+                    <div className="comment__dropdown">
+                      <p
+                        className="comment__dropdown-item"
+                        onClick={async (e) => {
+                          //makes the comment editable
+                          setEditingComment(comment.text);
+                          console.log(e.target.parentNode.parentNode.parentNode.parentNode.childNodes[1].childNodes[0].childNodes[0].readOnly = false);
+                        }}
+                      >
+                        Edit Comment
+                      </p>
+                      <p
+                        className="comment__dropdown-item"
+                        onClick={(e) => {
+                          //TRIGGER SOME CONFIRMATION
+                        }}
+                      >
+                        Delete This Comment
+                      </p>
+                    </div>
+                  </div>
+                ) : (
+                  <div></div>
+                )}
+              </div>
+              <div className="comment__bottom">
+                <form
+                  action=""
+                  className="comment_text-form"
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    editComment(
+                      { text: e.target.value },
+                      post._id,
+                      comment._id
+                    );
+                    e.target.readOnly = true;
+                    setEditingComment('')
+                  }}
+                >
+                  <textarea
+                    className="comment__text"
+                    readOnly
+                    value={editingComment || comment.text}
+                    onChange = {e => setEditingComment(e.target.value)}
+                  ></textarea>
+                </form>
+                <div className="comment__like-container">
+                  <p className="comment__like-counter">
+                    {comment.likes.length > 0 ? comment.likes.length : null}
+                  </p>
+                  <svg
+                    className="comment__like"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 16 16"
+                  >
+                    <path d="M 6.46875 1 A 0.50005 0.50005 0 0 0 6 1.5 L 6 2.375 C 6 3.5782168 5.6709145 4.4589043 5.4082031 5 L 1 5 L 1 5.5 L 1 14 L 5.4648438 14 L 6 14 L 11.689453 14 C 12.401791 14 13.03169 13.512224 13.185547 12.818359 A 0.50005 0.50005 0 0 0 13.193359 12.775391 L 13.994141 6.7753906 L 13.986328 6.8183594 C 14.192606 5.8871169 13.445053 5 12.490234 5 L 9 5 L 9 3.25 C 9 2.1347222 8.3117537 1.4625874 7.6875 1.2089844 C 7.0632463 0.95538128 6.46875 1 6.46875 1 z M 7 2.0800781 C 7.1318795 2.0988741 7.1621385 2.0736786 7.3125 2.1347656 C 7.6882463 2.2874131 8 2.4902778 8 3.25 L 8 5.5 A 0.50005 0.50005 0 0 0 8.5 6 L 12.490234 6 C 12.849416 6 13.079487 6.2868068 13.009766 6.6015625 A 0.50005 0.50005 0 0 0 13.001953 6.6445312 L 12.207031 12.603516 C 12.155768 12.828253 11.94803 13 11.689453 13 L 6 13 L 6 6.0195312 C 6.2254734 5.6703684 7 4.3403823 7 2.375 L 7 2.0800781 z M 2 6 L 5 6 L 5 13 L 2 13 L 2 6 z M 3.5 11 A 0.5 0.5 0 0 0 3 11.5 A 0.5 0.5 0 0 0 3.5 12 A 0.5 0.5 0 0 0 4 11.5 A 0.5 0.5 0 0 0 3.5 11 z" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <form
+          className="post__create-comment"
+          onSubmit={(e) => {
+            e.preventDefault();
+            addComment({ text }, post._id);
+            console.log("passed addcomment");
+            updateText("");
+          }}
+        >
+          <input
+            type="text"
+            value={text}
+            className="post__comment-input"
+            placeholder="Write a comment..."
+            onChange={(e) => updateText(e.target.value)}
+          />
+          <button className="post__send-comment">Send</button>
+        </form>
       </div>
     </div>
   );
@@ -173,4 +261,9 @@ const Post = ({ post, deletePost, editPost,confirmationModalToggle, modal, modal
 
 Post.propTypes = {};
 
-export default Post;
+const mapStateToProps = (state) => ({
+  user: state.auth.user.user,
+  loading: state.auth.loading,
+});
+
+export default connect(mapStateToProps, {})(Post);

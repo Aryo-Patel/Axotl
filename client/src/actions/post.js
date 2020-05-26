@@ -125,10 +125,17 @@ export const addComment = (formData, post_id) => async dispatch => {
     }
     const body = JSON.stringify(formData)
     try {
-        const res = await axios.post(`/api/posts/comment/${post_id}`, body, config);
+        const res = await axios.put(`/api/posts/comment/${post_id}`, body, config);
         dispatch({
             type: ADD_COMMENT,
-            payload: res.data
+            payload: res.data.post
+        })
+        dispatch({
+            type: USER_LOADED,
+            payload: {
+                user: { user: res.data.user },
+                sponsor: res.data.user.sponsor
+            }
         })
     } catch (err) {
         console.error(err.message);
@@ -146,7 +153,7 @@ export const editComment = (formData, post_id, comment_id) => async dispatch => 
     }
     const body = JSON.stringify(formData)
     try {
-        const res = await axios.post(`/api/posts/comment/${post_id}/${comment_id}`, body, config);
+        const res = await axios.put(`/api/posts/comment/${post_id}/${comment_id}`, body, config);
         dispatch({
             type: EDIT_COMMENT,
             payload: res.data

@@ -150,7 +150,7 @@ router.put("/comment/:post_id", async(req, res) => {
         const user =
             (await Recipient.findById(req.user._id)) ||
             (await Sponsor.findById(req.user._id));
-        await post.comments.unshift({ text, user: req.user._id });
+        await post.comments.unshift({ text, user: req.user._id, name: user.name, avatar: user.avatar });
         await post.save();
         user.myComments.unshift({ post: req.params.post_id, comment: post.comments[0]._id })
         await user.save()
@@ -328,7 +328,7 @@ router.put("/reply/:post_id/:comment_id", async(req, res) => {
         const comment = await post.comments.findById(req.params.comment_id);
         const { text } = req.body;
 
-        await post.comments.replies.unshift({ text, user: req.user._id });
+        await post.comments.replies.unshift({ text, user: req.user._id, name: user.name, avatar: user.avatar });
         user.myReplies.unshift({ post: req.params.post_id, comment: req.params.comment_id, reply: post.comments.replies[0]._id });
         await user.save();
         await post.save();

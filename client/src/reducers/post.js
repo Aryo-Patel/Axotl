@@ -33,6 +33,16 @@ export default function(state = initialState, action) {
                 post: payload,
                 loading: false
             }
+        case ADD_COMMENT:
+            return {
+                ...state,
+                posts: {
+                    posts: state.posts.posts.map(post => {
+                        return post._id.toString() == payload._id.toString() ? payload : post
+                    })
+                },
+                loading: false
+            }
         case POST_FAIL:
             return {
                 ...state,
