@@ -63,12 +63,16 @@ header {
     border-color: transparent;
     margin: 1em;
     font-size: 2rem;
+    /*transition: all .2s ease;
+    border-radius: 5px;*/
 }
 
 .button-c:hover {
     color: rgb(47, 114, 255);
     background: transparent;
     border-color: transparent;
+    /*transform: translateY(-3px);
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, .2);*/
 }
 
 
@@ -156,50 +160,8 @@ header {
     animation: moveInUp 1s ease-out;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@700&display=swap');
-body {
-    margin: 0;
-    color: rgb(255, 102, 71);
-}
 
-h1,
-h3 {
-    font-family: 'Raleway', sans-serif;
-}
-
-
-/* nav bar*/
-
-header {
-    margin-bottom: 5em;
-}
-
-.nav-c {
-    margin-bottom: 5em;
-}
-
-.nav-head-c {
-    margin-bottom: 0px;
-}
-
-.nav-c .nav-link {
-    padding: .25rem;
-}
-
-.nav-c .nav-link:hover {
-    color: rgb(254, 181, 68);
-}
-
-@media (min-width: 40em) {
-    .nav-head-c {
-        float: left;
-    }
-    .nav-links {
-        float: right;
-    }
-}
-
-
+/**/
 /* home page content*/
 
 .landingLogin {
@@ -221,16 +183,14 @@ header {
     border-color: transparent;
     margin: 1em;
     font-size: 2rem;
-    transition: all .2s ease;
-    border-radius: 5px;
+    
 }
 
 .button-c:hover {
     color: rgb(47, 114, 255);
     background: transparent;
     border-color: transparent;
-    transform: translateY(-3px);
-    box-shadow: 0 1rem 2rem rgba(0, 0, 0, .2);
+    
 }
 
 .button-c:active {
@@ -273,48 +233,3 @@ header {
     color: rgb(47, 114, 255);
 }
 
-@keyframes moveInUp {
-    0% {
-        transform: translateX(-5em);
-        opacity: 0;
-    }
-    80% {
-        transform: translateX(.5em);
-    }
-    100% {
-        transform: translateX(0px);
-        opacity: 1;
-    }
-}
-
-@media (min-width: 40em) {
-    .block1,
-    .block2,
-    .block3,
-    .block4 {
-        padding: 2em;
-    }
-    .cover-container {
-        margin-top: 10rem;
-    }
-    .landingLogin__contents {
-        margin-top: 10rem;
-    }
-}
-
-@media (min-width: 50em) {
-    .block1,
-    .block2,
-    .block3,
-    .block4 {
-        padding: 4em;
-    }
-}
-
-.cover-container {
-    animation: moveInUp 1s ease-out;
-}
-
-.landingLogin__contents {
-    animation: moveInUp 1s ease-out;
-}

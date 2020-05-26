@@ -40,6 +40,7 @@ $bp-small: 37.5em;
             font-size: 3rem;
         }
         .navbar__icon {
+            //ignore sass
             width: 7rem;
             height: 7rem;
             display: inline;
@@ -71,15 +72,17 @@ $bp-small: 37.5em;
             a:active,
             a:link {
                 font-size: 1.5rem;
+                /*
                 @media (max-width: $bp-largest) {
-                    /*font-size: 2.5rem;*/
+                    font-size: 2.5rem;
                 }
                 @media (max-width: $bp-large) {
-                    /*font-size: 2rem;*/
+                    font-size: 2rem;
                 }
                 @media (max-width: 68.75em) {
-                    /*font-size: 1.5rem;*/
+                    font-size: 1.5rem;
                 }
+                */
                 color: $background-color;
                 background-color: none !important;
                 transition: color 0.2s,
@@ -90,6 +93,7 @@ $bp-small: 37.5em;
                 color: $background-color;
                 transition: color 0.2s, background-color 0.2s;
                 font-size: 2rem;
+                /*
                 @media (max-width: $bp-largest) {
                     //font-size: 2.5rem;
                 }
@@ -99,6 +103,7 @@ $bp-small: 37.5em;
                 @media (max-width: 68.75em) {
                     //font-size: 1.5rem;
                 }
+                */
             }
         }
         .link-list li {
@@ -144,9 +149,9 @@ $bp-small: 37.5em;
 .scrolled {
     background-color: $background-color;
     transition: background-color 200ms linear;
-    @media (max-width: $bp-small) {
+    /*@media (max-width: $bp-small) {
         //box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
-    }
+    }*/
     .link-list li {
         color: $primary-white;
         &:hover {
@@ -183,7 +188,9 @@ $bp-small: 37.5em;
 }
 
 .dropdown-background {
-    background: $background-color;
+    //background: $background-color;
+    background: red;
+    //alex what does this do, delete your redundant code
 }
 
 .dropdownReplacement {
@@ -354,18 +361,19 @@ $bp-small: 37.5em;
     display: none;
     top: 100%;
     right: 0%;
-    width: 26rem;
+    width: 18rem;
     position: absolute;
     border-bottom: 1px solid transparent;
     border-radius: 20px;
     transition: visibility .3s ease, opacity .3s ease;
     &__item {
         color: $primary-white;
-        display: block;
+        display: flex;
+        width:auto;
         background-color: $background-color;
         text-align: right;
-        font-size: 1.6rem;
-        padding: 1rem 1rem;
+        font-size: .9em;
+        padding: .7rem 1rem;
         //box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.1);
         z-index: 2;
         &:hover {
@@ -377,11 +385,13 @@ $bp-small: 37.5em;
             border-bottom: 2px solid lighten($background-color, 80%);
         }
         &:last-child {
+            padding: .7rem 1rem 1rem;
             border-bottom-right-radius: 20px;
             border-bottom-left-radius: 20px;
         }
     }
-    &__toggle {
+    &__toggle {//for account specific dropdown (far right)
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
         color: $primary-white;
         display: table;
         margin-right: 3rem;
@@ -439,8 +449,8 @@ $bp-small: 37.5em;
     }
     &__img {
         display: block;
-        width: 3.5rem;
-        height: 3.5rem;
+        width: 3rem;
+        height: 3rem;
         border-radius: 50%;
         float: left;
         margin-right: 1rem;
@@ -451,8 +461,8 @@ $bp-small: 37.5em;
         text-align: center;
     }
     &__icon {
-        width: 4rem;
-        height: 2rem;
+        width: 3rem;
+        height: 1.5rem;
         color: rgb(47, 114, 255);
     }
 }
@@ -470,7 +480,7 @@ $bp-small: 37.5em;
     color: rgb(47, 114, 255);
 }
 
-.navbar-toggler {
+.navbar-toggler {//for mobile dropdown
     @media (max-width: $bp-large) {
         margin-left: 2rem;
     }
