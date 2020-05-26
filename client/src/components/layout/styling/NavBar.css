@@ -49,7 +49,8 @@
 }
 
 .navContainer .navbar-brand h3 {
-  font-size: 3rem;
+  font-family: 'Oxygen', sans-serif;
+  font-size: 2.4em;
 }
 
 .navContainer .navbar-brand .navbar__icon {
