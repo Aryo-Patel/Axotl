@@ -5,6 +5,7 @@ import $ from "jquery";
 import { getPost, addComment, editComment } from "../../actions/post";
 import ConfirmationModal from "../common/ConfirmationModal";
 import auth from "../../reducers/auth";
+import Moment from 'react-moment'
 
 const Post = ({
   loading,
@@ -26,34 +27,15 @@ const Post = ({
   removeLike,
   deleteComment,
   deleteReply,
+  setEditingComment,
+  setEditCommentModal
 }) => {
-  //couldn't figure out 'show more' because it was selecting only the first post
-  //     useEffect(() => {
-  //         overflowBlock = document.querySelector('.post__main')
-  //         if (isOverflown(overflowBlock)) {
-  //             setOverflown("overflown");
-  //           }
-  //     }, [])
-  //was used for checking if a post had overflowing text
-  const [overflown, setOverflown] = useState("notoverflown");
-  //   //checks if post is overflowing
-  //   const isOverflown = (e) => {
-  //     console.log(e)
-  //       if(!e) {
-  //           return false;
-  //       }
-  //       console.log(`scroll ${e.scrollHeight}`)
-  //       console.log(`client ${e.clientHeight}`)
-  //     return e.scrollHeight > e.clientHeight;
-  //   };
-  //   let overflowBlock = null;
-
-  //value of comment input
-  const [text, updateText] = useState("");
-  //value of edited comment
-  const [editingComment, setEditingComment] = useState("");
+    //state for creating comments 
+    const [text, updateText] = useState('');
+  //state to check if a post is liked or not
+  const [liked, setLiked] = useState(post.likes.filter(like => like.user.toString() == user._id.toString()).length > 0);
   return (
-    <div className="post" data-status={overflown}>
+    <div className="post">
       <div className="post__main">
         <div className="post__header-container">
           {!loading && user._id.toString() == post.user.toString() ? (
@@ -98,23 +80,20 @@ const Post = ({
         </div>
         <h4 className="subheading post__title">{post.title}</h4>
         <div className="post__content-container">
-          <p className="post__content">{post.content}</p>
+          <p className="post__content">{post.content.substring(0, 980)}{!(post.content.length > 980) ? null : (<span className = 'post__read-more' onClick = {e => {
+                      e.target.parentNode.innerHTML = post.content
+                      }}>... Read More</span>)}</p>
+                      <Moment className='post__date' format='hh:mm MM/DD/YYYY'>{post.Date}</Moment>
         </div>
       </div>
-      <button
-        className="post__show-more"
-        onClick={(e) => {
-          console.log("I EXIST");
-          // $('.post__main').css('overflow', 'visible')
-          // $('.post__main').css('max-height' , 'fit-content')
-        }}
-      >
-        Show More
-      </button>
       <div className="post__interactions">
-        <div className="post__likes">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-            <path d="M 6.46875 1 A 0.50005 0.50005 0 0 0 6 1.5 L 6 2.375 C 6 3.5782168 5.6709145 4.4589043 5.4082031 5 L 1 5 L 1 5.5 L 1 14 L 5.4648438 14 L 6 14 L 11.689453 14 C 12.401791 14 13.03169 13.512224 13.185547 12.818359 A 0.50005 0.50005 0 0 0 13.193359 12.775391 L 13.994141 6.7753906 L 13.986328 6.8183594 C 14.192606 5.8871169 13.445053 5 12.490234 5 L 9 5 L 9 3.25 C 9 2.1347222 8.3117537 1.4625874 7.6875 1.2089844 C 7.0632463 0.95538128 6.46875 1 6.46875 1 z M 7 2.0800781 C 7.1318795 2.0988741 7.1621385 2.0736786 7.3125 2.1347656 C 7.6882463 2.2874131 8 2.4902778 8 3.25 L 8 5.5 A 0.50005 0.50005 0 0 0 8.5 6 L 12.490234 6 C 12.849416 6 13.079487 6.2868068 13.009766 6.6015625 A 0.50005 0.50005 0 0 0 13.001953 6.6445312 L 12.207031 12.603516 C 12.155768 12.828253 11.94803 13 11.689453 13 L 6 13 L 6 6.0195312 C 6.2254734 5.6703684 7 4.3403823 7 2.375 L 7 2.0800781 z M 2 6 L 5 6 L 5 13 L 2 13 L 2 6 z M 3.5 11 A 0.5 0.5 0 0 0 3 11.5 A 0.5 0.5 0 0 0 3.5 12 A 0.5 0.5 0 0 0 4 11.5 A 0.5 0.5 0 0 0 3.5 11 z" />
+        <div className="post__likes" data-status = {liked}>
+            <p>{post.likes.length > 0 ? post.likes.length : null}</p>
+          <svg onClick = {e => {
+              addLike(post._id)
+            !liked ? setLiked(true) : setLiked(false);
+          }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+            <path   id='likeSVG' d="M 6.46875 1 A 0.50005 0.50005 0 0 0 6 1.5 L 6 2.375 C 6 3.5782168 5.6709145 4.4589043 5.4082031 5 L 1 5 L 1 5.5 L 1 14 L 5.4648438 14 L 6 14 L 11.689453 14 C 12.401791 14 13.03169 13.512224 13.185547 12.818359 A 0.50005 0.50005 0 0 0 13.193359 12.775391 L 13.994141 6.7753906 L 13.986328 6.8183594 C 14.192606 5.8871169 13.445053 5 12.490234 5 L 9 5 L 9 3.25 C 9 2.1347222 8.3117537 1.4625874 7.6875 1.2089844 C 7.0632463 0.95538128 6.46875 1 6.46875 1 z M 7 2.0800781 C 7.1318795 2.0988741 7.1621385 2.0736786 7.3125 2.1347656 C 7.6882463 2.2874131 8 2.4902778 8 3.25 L 8 5.5 A 0.50005 0.50005 0 0 0 8.5 6 L 12.490234 6 C 12.849416 6 13.079487 6.2868068 13.009766 6.6015625 A 0.50005 0.50005 0 0 0 13.001953 6.6445312 L 12.207031 12.603516 C 12.155768 12.828253 11.94803 13 11.689453 13 L 6 13 L 6 6.0195312 C 6.2254734 5.6703684 7 4.3403823 7 2.375 L 7 2.0800781 z M 2 6 L 5 6 L 5 13 L 2 13 L 2 6 z M 3.5 11 A 0.5 0.5 0 0 0 3 11.5 A 0.5 0.5 0 0 0 3.5 12 A 0.5 0.5 0 0 0 4 11.5 A 0.5 0.5 0 0 0 3.5 11 z" />
           </svg>
           <p>Like</p>
         </div>
@@ -178,8 +157,9 @@ const Post = ({
                         className="comment__dropdown-item"
                         onClick={async (e) => {
                           //makes the comment editable
-                          setEditingComment(comment.text);
-                          console.log(e.target.parentNode.parentNode.parentNode.parentNode.childNodes[1].childNodes[0].childNodes[0].readOnly = false);
+                          setEditingComment(comment);
+                          setPost(post);
+                          setEditCommentModal('open')
                         }}
                       >
                         Edit Comment
@@ -187,7 +167,7 @@ const Post = ({
                       <p
                         className="comment__dropdown-item"
                         onClick={(e) => {
-                          //TRIGGER SOME CONFIRMATION
+                          deleteComment(post._id, comment._id);
                         }}
                       >
                         Delete This Comment
@@ -213,12 +193,12 @@ const Post = ({
                     setEditingComment('')
                   }}
                 >
-                  <textarea
+                  <p
                     className="comment__text"
-                    readOnly
-                    value={editingComment || comment.text}
-                    onChange = {e => setEditingComment(e.target.value)}
-                  ></textarea>
+                  >{comment.text.substring(0, 210)}{!(comment.text.length > 210) ? null : (<span className = 'comment__read-more' onClick = {e => {
+                      e.target.parentNode.innerHTML = comment.text
+                      }}>... Read More</span>)}</p>
+                      <Moment className='post__date' format='hh:mm MM/DD/YYYY'>{comment.Date}</Moment>
                 </form>
                 <div className="comment__like-container">
                   <p className="comment__like-counter">
