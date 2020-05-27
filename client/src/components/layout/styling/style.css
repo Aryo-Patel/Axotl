@@ -80,26 +80,30 @@ header {
     margin: 1em;
 }
 
-.block1 {
-    background: rgb(47, 114, 255);
-    color: white;
+.block1{
+    background:rgb(47,114,255);
+    color:white;
+    overflow: hidden;
 }
 
 .block2 {
     justify-content: center;
     text-align: center;
-    background: rgb(255, 102, 71);
-    color: white;
+    background:rgb(255,102,71);
+    color:white;
+    overflow: hidden;
 }
 
-.block3 {
-    background: rgb(254, 181, 68);
-    color: white;
+.block3{
+    background:rgb(254,181,68);
+    color:white;
+    overflow: hidden;
 }
 
-.block4 {
-    background: white;
-    color: rgb(255, 102, 71);
+.block4{
+    background:white;
+    color:rgb(255,102,71);
+    overflow: hidden;
 }
 
 .block4 h1 {

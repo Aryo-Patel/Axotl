@@ -20,7 +20,7 @@ export default class Messages extends Component {
     render() {
         let displayMessages = this.props.messages.map(item =>
             <div>
-                <div style={{ backgroundColor: 'lightblue' }} className={item.user.toString() === this.props.yourID.toString() ? "your-message" : ''}>
+                <div style={{ backgroundColor: 'lightblue' }} className={item.user.toString() === this.props.yourID.toString() ? "your-message" : "they-message"}>
                     <div>{item.user.toString() === this.props.yourID.toString() ? <p><big>You:</big></p> : <p><big>{item.name}:</big></p>}</div>
                     <p><b>{item.message}</b></p>
                     <p><small>(<Moment format="HH:mm DD/MM/YY">{item.date}</Moment>)</small></p>
@@ -30,17 +30,17 @@ export default class Messages extends Component {
         )
         return (
             <div>
-                <div className="second">
+                <div className="message-container">
                     <div>
                         {displayMessages}
                         <div ref={(el) => { this.newestMessages = el }}></div>
                     </div>
-
+                    <form onSubmit={this.props.onSubmit}>
+                        <input  className="text-field" type="text" onChange={this.props.onChange} value={this.props.newMessageValue} name="newMessage" />
+                        <button className="button" type="submit">Send</button>
+                    </form>
                 </div>
-                <form className="text-field" onSubmit={this.props.onSubmit}>
-                    <input type="text" onChange={this.props.onChange} value={this.props.newMessageValue} name="newMessage" />
-                    <button type="submit">Submit</button>
-                </form>
+                
             </div>
         )
     }

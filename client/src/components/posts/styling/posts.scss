@@ -1,0 +1,403 @@
+$primary-green: #87ffa7;
+$light-grey: #a5a5a5;
+$background-color: lighten(rgb(47, 114, 255), 15%);
+$background-color-dark: #003ea3;
+$primary-orange: lighten(rgb(255, 102, 71), 5%);
+$background-color-light: #2d3142;
+$background-color-lighter: #5093ff;
+$primary-white: #eee;
+$primary-yellow: rgb(255, 255, 0);
+//border-radius value for the form containers on login, forgot password, reset password, change password, and register
+$form-border-radius: 20px;
+$bp-largest: 100em;
+$bp-large: 75em;
+$bp-medium: 56.25em;
+$bp-small: 37.5em;
+@keyframes submitPulse {
+    0% {
+        transform: scale(1) translateY(0px);
+    }
+    // 50% {
+    //     transform: scale(1.05) translateY(-1px);
+    // }
+    100% {
+        transform: scale(1.1) translateY(-2px);
+    }
+}
+
+.createPost {
+    &__modal-cover {
+        color: #4983ff;
+        z-index: 69420;
+        position: fixed;
+        height: 100vh;
+        width: 100vw;
+        top: 0;
+        left: 0;
+        transition: all .5s ease;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(2px);
+        visibility: hidden;
+        transform: scale(0);
+    }
+    &__modal-main {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 50rem;
+        height: 40rem;
+        display: flex;
+        flex-direction: column;
+    }
+    &__title {
+        width: 100%;
+        position: relative;
+        font-size: 3rem;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        padding-left: 2rem;
+        padding-right: 5rem;
+        height: 5rem;
+        &:focus+label,
+        &:valid+label {
+            visibility: hidden;
+        }
+    }
+    &__label {
+        position: absolute;
+        top: 0;
+        left: 0;
+        color: $background-color;
+        font-size: 3rem;
+        padding-left: 2rem;
+        pointer-events: none;
+    }
+    &__content {
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+        height: 45rem;
+        font-size: 2rem;
+        padding: 2rem 2rem;
+    }
+    &__icon {
+        height: 4rem;
+        width: 4rem;
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        z-index: 70000;
+    }
+    &__icon-wrapper {
+        position: absolute;
+        right: -2rem;
+        top: -2rem;
+        z-index: 69999;
+        height: 7rem;
+        width: 7rem;
+        background-image: radial-gradient( $background-color-lighter, $background-color);
+        border-radius: 100px;
+        box-shadow: 0rem .5rem 1rem rgba(0, 0, 0, .3);
+        transition: all 0s ease .3s;
+        &:hover {
+            animation: submitPulse .3s ease-out;
+            animation-fill-mode: forwards;
+        }
+    }
+    &__submit {
+        visibility: hidden;
+    }
+    &__submit-wrapper {
+        position: relative;
+        height: 0;
+    }
+}
+
+//modal controller
+[data-status='open'] .createPost__modal-cover,
+[data-status='open'] .editPost__modal-cover,
+[data-status='open'] .posts__modal-cover {
+    visibility: visible;
+    transform: scale(1);
+}
+
+//for overall posts page
+.posts {
+    font-size: 1.6rem;
+    &__container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    &__modal-cover {
+        color: #4983ff;
+        z-index: 69420;
+        position: fixed;
+        height: 100vh;
+        width: 100vw;
+        top: 0;
+        left: 0;
+        transition: all .5s ease;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(2px);
+        visibility: hidden;
+        transform: scale(0);
+    }
+    &__modal-main {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 50rem;
+        height: 30rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: white;
+    }
+    &__buttons {
+        margin-top: 2rem;
+        display: flex;
+        width: 60%;
+        justify-content: space-between;
+    }
+    &__yes {
+        background-color: $background-color;
+        width: 6rem;
+        height: 3rem;
+        font-size: 1.6rem;
+        border: none;
+        border-radius: 10px;
+    }
+    &__no {
+        background-color: $light-grey;
+        width: 6rem;
+        height: 3rem;
+        font-size: 1.6rem;
+        border: none;
+        border-radius: 10px;
+    }
+}
+
+//for each specific post
+.post {
+    width: 60%;
+    border-radius: $form-border-radius;
+    background-image: linear-gradient(to top left, $primary-orange, $primary-yellow);
+    margin-top: 3rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 2rem 4rem rgba(0, 0, 0, .3);
+    z-index: 1;
+    &::after {
+        background-repeat: no-repeat;
+        position: absolute;
+        content: "";
+        z-index: 0;
+        width: 99%;
+        height: 99%;
+        top: .5%;
+        left: .5%;
+        border-radius: $form-border-radius;
+        background-color: $primary-white;
+    }
+    &__header-container {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 2rem 1rem 0rem;
+    }
+    &__edit {
+        margin-top: -.5rem;
+        margin-left: -.5rem;
+        &-icon {
+            &::before {
+                content: '\2807';
+                font-size: 3rem;
+                margin-top: -2rem;
+            }
+            &:hover+.post__dropdown {
+                visibility: visible;
+                height: fit-content;
+            }
+        }
+    }
+    &__dropdown {
+        border: 1px solid $light-grey;
+        background-color: white;
+        box-shadow: 0rem 1rem 1rem rgba(0, 0, 0, .2);
+        visibility: hidden;
+        height: 0;
+        position: absolute;
+        &:hover {
+            visibility: visible;
+            height: fit-content;
+        }
+        &-item {
+            padding: .5rem .5rem;
+            margin-bottom: 0;
+            color: black;
+            &:not(:last-child) {
+                border-bottom: 1px solid $light-grey;
+            }
+        }
+    }
+    &__user-fields {
+        display: flex;
+        align-items: center;
+    }
+    &__content-container {
+        text-align: center;
+        overflow: hidden;
+        overflow-y: scroll;
+    }
+    &__title {
+        text-align: start;
+    }
+    &__avatar {
+        border-radius: 50%;
+        height: 5rem;
+        width: 5rem;
+        margin-left: 1rem;
+    }
+    &__main {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        max-height: 50vh;
+        position: relative;
+        z-index: 1;
+        padding: 0 2rem;
+    }
+    &__show-more {
+        width: 100%;
+        background: transparent;
+        border: none;
+        grid-column: 1/4;
+        position: relative;
+        display: block;
+        z-index: 4;
+        cursor: pointer;
+    }
+    &__interactions {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 5fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        padding: 0rem 2rem 1rem 2rem;
+        position: relative;
+        z-index: 1;
+    }
+    &__likes {
+        height: 3rem;
+        width: 3rem;
+        fill: $background-color-dark;
+        grid-column: 1/2;
+    }
+    &__comments {
+        grid-column: 3/4;
+        display: flex;
+        justify-content: flex-end;
+    }
+}
+
+[data-status='overflown'] .post__show-more {
+    visibility: visible;
+    backdrop-filter: blur(2px);
+}
+
+[data-status='notoverflown'] .post__show-more {
+    visibility: hidden;
+}
+
+.editPost {
+    &__modal-cover {
+        color: #4983ff;
+        z-index: 69420;
+        position: fixed;
+        height: 100vh;
+        width: 100vw;
+        top: 0;
+        left: 0;
+        transition: all .5s ease;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(2px);
+        visibility: hidden;
+        transform: scale(0);
+    }
+    &__modal-main {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 50rem;
+        height: 40rem;
+        display: flex;
+        flex-direction: column;
+    }
+    &__title {
+        width: 100%;
+        position: relative;
+        font-size: 3rem;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        padding-left: 2rem;
+        padding-right: 5rem;
+        height: 5rem;
+        &:focus+label,
+        &:valid+label {
+            visibility: hidden;
+        }
+    }
+    &__label {
+        position: absolute;
+        top: 0;
+        left: 0;
+        color: $background-color;
+        font-size: 3rem;
+        padding-left: 2rem;
+        pointer-events: none;
+    }
+    &__content {
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+        height: 45rem;
+        font-size: 2rem;
+        padding: 2rem 2rem;
+    }
+    &__icon {
+        height: 4rem;
+        width: 4rem;
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        z-index: 70000;
+    }
+    &__icon-wrapper {
+        position: absolute;
+        right: -2rem;
+        top: -2rem;
+        z-index: 70001;
+        height: 7rem;
+        width: 7rem;
+        background-image: radial-gradient( $background-color-lighter, $background-color);
+        border-radius: 100px;
+        box-shadow: 0rem .5rem 1rem rgba(0, 0, 0, .3);
+        transition: all 0s ease .3s;
+        &:hover {
+            animation: submitPulse .3s ease-out;
+            animation-fill-mode: forwards;
+        }
+    }
+    &__submit {
+        visibility: hidden;
+    }
+    &__submit-wrapper {
+        position: relative;
+        height: 0;
+    }
+}

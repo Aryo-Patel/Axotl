@@ -19,7 +19,7 @@ const passport = require('passport')
 // Action   Register the sponsor
 // PUBLIC
 
-router.post('/register', [check('name', 'Name is required').not().isEmpty(), check('email', 'Not a valid email').isEmail(), check('password', 'Please enter a password with six or more characters').isLength({ min: 6 })], async(req, res) => {
+router.post('/register', [check('name', 'Name is required').not().isEmpty(), check('email', 'Not a valid email').isEmail(), check('password', 'Please enter a password with six or more characters').isLength({ min: 6 })], async (req, res) => {
     req.session.tries = 0;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -58,7 +58,7 @@ router.post('/register', [check('name', 'Name is required').not().isEmpty(), che
         const salt = await bcrypt.genSalt(10)
         newSponsor.password = await bcrypt.hash(password, salt)
         console.log("Password: " + newSponsor.password)
-            //Saving the Sponsor to the Sponsors collection
+        //Saving the Sponsor to the Sponsors collection
         await newSponsor.save()
 
 
@@ -124,23 +124,23 @@ router.post('/find', (req, res) => {
         console.log("THING: " + req.body[item]);
     })
     console.log("Finding sponsor with handle: " + req.body.handle)
-    SponsorProfile.findOne({handle: req.body.handle})
-    .then(profile => {
-        Sponsor.findOne({_id: profile.sponsor})
-        .then(sponsor => 
-            res.json(sponsor)
-        )
-    })
-    .catch(err => {
-        res.json({error: "Recipient not found"});
-        console.log("Sponsor not found");
-    })
+    SponsorProfile.findOne({ handle: req.body.handle })
+        .then(profile => {
+            Sponsor.findOne({ _id: profile.sponsor })
+                .then(sponsor =>
+                    res.json(sponsor)
+                )
+        })
+        .catch(err => {
+            res.json({ error: "Recipient not found" });
+            console.log("Sponsor not found");
+        })
 })
 
 //POST api/sponsors/confirmemail
 // Action confirm user's email
 //PUBLIC
-router.put('/confirmemail/:jwt', async(req, res) => {
+router.put('/confirmemail/:jwt', async (req, res) => {
     try {
         console.log('backend confirm email reached')
         const email = await jwt.verify(req.params.jwt, config.get('JWTSecret')).email
@@ -197,7 +197,7 @@ router.post('/login', passport.authenticate('local', { failureRedirect: 'http://
 //DELETE api/sponsors/
 // Action Delete profile and user
 // PRIVATE
-router.delete('/', async(req, res) => {
+router.delete('/', async (req, res) => {
     try {
         await SponsorProfile.deleteOne({ sponsor: req.user._id })
         await Sponsor.deleteOne({ _id: req.user._id })
@@ -212,7 +212,7 @@ router.delete('/', async(req, res) => {
 //GET /api/sponsors/forgotpassword
 //Action request password change
 // PUBLIC
-router.get('/forgotpassword/:email', async(req, res) => {
+router.get('/forgotpassword/:email', async (req, res) => {
     const transporter = createTransport({
         host: 'smtp.axotl.com',
         port: 587,
@@ -245,7 +245,7 @@ router.get('/forgotpassword/:email', async(req, res) => {
 //POST /api/sponsors/resetpassword/:jwt
 //Action send reset password
 // PUBLIC (ish, no authentication)
-router.post('/resetpassword/:jwt', async(req, res) => {
+router.post('/resetpassword/:jwt', async (req, res) => {
     try {
         const email = await jwt.verify(req.params.jwt, config.get('JWTSecret'))
         const user = await Sponsor.findOne({ email: email })

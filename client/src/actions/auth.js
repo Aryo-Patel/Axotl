@@ -24,14 +24,14 @@ export const sendLogin = (formData) => async dispatch => {
         })
     } catch (err) {
         console.error(err.message)
-        //DISPATCH ALERTS FOR ERRORS
+            //DISPATCH ALERTS FOR ERRORS
         dispatch({
             type: LOGIN_FAIL
         })
     }
 }
 
-export const registerUser = (userData, history) => async (dispatch) => {
+export const registerUser = (userData, history) => async(dispatch) => {
     let config = {
         headers: {
             'Content-Type': 'application/json'
@@ -54,7 +54,7 @@ export const registerUser = (userData, history) => async (dispatch) => {
     }
 }
 
-export const registerSponsor = (userData, history) => async (dispatch) => {
+export const registerSponsor = (userData, history) => async(dispatch) => {
     let config = {
         headers: {
             'Content-Type': 'application/json'
@@ -150,11 +150,11 @@ export const forPass = (email, history) => async dispatch => {
 export const resPass = (formData, jwt, history) => async dispatch => {
     console.log('respass hit')
     const config = {
-        headers: {
-            'Content-Type': 'application/json'
+            headers: {
+                'Content-Type': 'application/json'
+            }
         }
-    }
-    //CHECK PASSWORDS?
+        //CHECK PASSWORDS?
     const password = formData.pass1
     const body = JSON.stringify({ password })
 
@@ -171,11 +171,11 @@ export const resPass = (formData, jwt, history) => async dispatch => {
 
 export const changePass = (formData, history) => async dispatch => {
     const config = {
-        headers: {
-            'Content-Type': 'application/json'
+            headers: {
+                'Content-Type': 'application/json'
+            }
         }
-    }
-    //CHECK PASSWORDS?
+        //CHECK PASSWORDS?
 
     const password = formData.currPass;
     const newPassword = formData.newPass;
@@ -193,14 +193,21 @@ export const changePass = (formData, history) => async dispatch => {
 }
 
 export const editAccount = (formData) => async dispatch => {
+    console.log('I EXIST')
     const config = {
         headers: {
             'Content-Type': 'application/json'
         }
     }
+    Object.keys(formData).forEach(key => {
+        console.log(formData[key])
+    })
     const body = JSON.stringify(formData);
+    console.log(body)
     try {
-        const res = await axios.post('/api/auth/edit-account', body, config);
+        console.log('editAccount trycatch hit')
+        const res = await axios.post('/api/auth/edit', body, config);
+        console.log(res)
         dispatch({
             type: EDIT_ACCOUNT,
             payload: res.data

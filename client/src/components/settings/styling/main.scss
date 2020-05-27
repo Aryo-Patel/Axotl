@@ -2,7 +2,9 @@ $primary-green: #87ffa7;
 $light-grey: #a5a5a5;
 $background-color: lighten(rgb(47, 114, 255), 5%);
 $primary-orange: lighten(rgb(255, 102, 71), 5%);
+$background-color-dark: #003ea3;
 $background-color-light: #2d3142;
+$background-color-lighter: #5093ff;
 $primary-white: #eee;
 .heading {
     font-size: 4rem;
@@ -17,7 +19,7 @@ $primary-white: #eee;
     margin-bottom: 1rem;
     color: $background-color;
     font-weight: 300;
-    text-align: center
+    text-align: center;
 }
 
 .button {
@@ -107,6 +109,23 @@ $primary-white: #eee;
         justify-content: center;
         position: relative;
         margin: 2rem 0rem;
+        // &::after {
+        //     content: "";
+        //     display: inline-block;
+        //     background-image: linear-gradient(to right bottom, $background-color, $background-color-lighter);
+        //     width: 3rem;
+        //     height: 3rem;
+        //     border-radius: 50%;
+        //     position: absolute;
+        //     top: 1.75rem;
+        //     left: 36rem;
+        //     z-index: -1;
+        //     transform: scale(0.1);
+        //     transition: all 0.4s;
+        //      :hover {
+        //         transform: scale(1);
+        //     }
+        // }
     }
     &__input {
         border: none;
@@ -117,15 +136,31 @@ $primary-white: #eee;
         text-align: center;
         width: 35rem;
     }
+    &__button-background {
+        background-image: linear-gradient(to right bottom, $background-color, $background-color-lighter);
+        width: 3rem;
+        height: 3rem;
+        position: absolute;
+        left: 41rem;
+        top: 1.75rem;
+        border-radius: 50%;
+        transform: scale(0.1);
+        transition: .2s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+        z-index: -1;
+    }
     &__edit {
         width: 3.5rem;
         height: 3.5rem;
         position: absolute;
         top: 1.5rem;
-        margin-left: 20rem;
+        margin-left: 25rem;
         padding: .5rem .5rem;
         border: 2px solid $light-grey;
         border-radius: 50%;
+        display: block;
+        //  :hover+.forms__button-background {
+        //     transform: scale(1);
+        // }
     }
     &__forgot-password {
         font-size: 2rem;

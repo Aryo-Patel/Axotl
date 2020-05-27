@@ -14,6 +14,12 @@ class LocationInput extends React.Component {
     let className = this.props.className;
   }
 
+  componentDidMount(){
+    if(this.props.location){
+      this.setState({address:this.props.location})
+    }
+  }
+
   handleChange = address => {
     this.setState({ address });
   };

@@ -6,6 +6,14 @@ const PostSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'user'
     },
+    name: {
+        type: String,
+        required: true
+    },
+    avatar: {
+        type: String,
+        required: true
+    },
     title: {
         type: String,
         required: true
@@ -16,6 +24,7 @@ const PostSchema = new Schema({
     },
     attachment: {
         type: String,
+        default: ''
     },
     comments: [{
         text: {

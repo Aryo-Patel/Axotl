@@ -291,6 +291,11 @@
   -webkit-animation: fadeIn 1.5s forwards;
           animation: fadeIn 1.5s forwards;
   margin-top: 4rem;
+  padding-top: 2rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  overflow: hidden;
 }
 
 .login__container .form-group:last-of-type {
@@ -311,10 +316,10 @@
   font-size: 2rem;
   position: absolute;
   margin: 0;
-  margin-left: 1rem;
+  margin-left: 4rem;
   width: 100%;
   left: 0rem;
-  top: -.5rem;
+  top: 2.5rem;
   pointer-events: none;
   color: #566068;
   -webkit-transition: 0.3s;
@@ -338,7 +343,8 @@
   border-radius: 0px;
   width: 100%;
   display: inline-block;
-  padding-left: 1rem;
+  padding-left: 4rem;
+  background-color: none;
   padding-bottom: .5rem;
 }
 
@@ -354,7 +360,7 @@
 }
 
 .login__container .form-input:focus + label {
-  top: -2rem;
+  top: 0rem;
   font-size: 1rem;
 }
 
@@ -365,7 +371,7 @@
 }
 
 .login__container .form-input:valid + label {
-  top: -2rem;
+  top: 0rem;
   font-size: 1rem;
 }
 
@@ -389,12 +395,70 @@
 }
 
 .login__container .login__icon {
-  width: 2rem;
-  height: 2rem;
+  width: 3rem;
+  height: 3rem;
   font-size: 2rem;
   position: absolute;
-  left: -2rem;
+  left: .5rem;
+  top: 2.5rem;
+  fill: #7ca6ff;
+}
+
+.login__container .login__view {
+  width: 3rem;
+  height: 3rem;
   top: .5rem;
+  right: .5rem;
+  position: absolute;
+}
+
+.login__container .login__view-1 {
+  visibility: visible;
+}
+
+.login__container .login__view-2 {
+  visibility: hidden;
+}
+
+.login__container .login__eyes {
+  position: relative;
+  width: 3rem;
+  text-align: center;
+  border-bottom: 2px solid #566068;
+  -webkit-transition: -webkit-transform .75s ease;
+  transition: -webkit-transform .75s ease;
+  transition: transform .75s ease;
+  transition: transform .75s ease, -webkit-transform .75s ease;
+}
+
+.login__container .login__eyes::after {
+  content: "";
+  width: 3rem;
+  height: 3rem;
+  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: inline-block;
+  margin: 0 auto;
+  border-radius: 50%;
+  background-color: #eee;
+  bottom: 0;
+  -webkit-transition: -webkit-transform .75s ease;
+  transition: -webkit-transform .75s ease;
+  transition: transform .75s ease;
+  transition: transform .75s ease, -webkit-transform .75s ease;
+  z-index: -1;
+}
+
+[data-status='text'] .login__eyes::after {
+  background-color: #2d3142;
+  -webkit-transform: translateY(-50%) scale(40);
+          transform: translateY(-50%) scale(40);
+}
+
+[data-status='text'] .form-input {
+  color: #eee;
 }
 
 .forgotPassword {

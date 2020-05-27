@@ -26,9 +26,14 @@ class CreateChat extends Component {
         this.confirmSponsor = this.confirmSponsor.bind(this);
         this.confirmFinal = this.confirmFinal.bind(this);
         this.closeModal = this.closeModal.bind(this);
+        this.setCurrentUserParticipant = this.setCurrentUserParticipant.bind(this);
     }
 
     componentDidMount() {
+        this.setCurrentUserParticipant();
+    }
+
+    setCurrentUserParticipant(){
         if (this.props.user.sponsor) {
             this.state.sponsors.push(this.props.user)
         }
@@ -110,10 +115,22 @@ class CreateChat extends Component {
     }
 
     confirmFinal(e) {
+        let recipientInfo = this.state.recipients.map((item) => {
+            return {
+                userID: item,
+                numUnread: 0,
+            }
+        })
+        let sponsorInfo = this.state.sponsors.map((item) => {
+            return {
+                userID: item,
+                numUnread: 0,
+            }
+        })
         let info = {
             name: this.state.chatName,
-            recipients: this.state.recipients,
-            sponsors: this.state.sponsors,
+            recipients: recipientInfo,
+            sponsors: sponsorInfo,
             messages: [],
 
         }

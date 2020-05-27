@@ -4,6 +4,10 @@ import { connect } from 'react-redux';
 import { getUserHackathons } from '../../actions/hackathonActions';
 
 import RecipientHackathon from './RecipientHackathon';
+
+//import the styling
+import '../discover/styling/hackathons.css';
+
 //spinner
 import Spinner from '../common/Spinner';
 const MyHackathons = ({ getUserHackathons, id, hackathons, loading }) => {
