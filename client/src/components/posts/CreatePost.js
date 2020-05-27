@@ -24,6 +24,12 @@ const CreatePost = ({ createPost }) => {
     $(`#innerModal`).click((e) => {
         e.stopPropagation();
     })
+    $("#createpostsubmit")
+    .unbind()
+    .click((e) => {
+      createPost(formData);
+      modalToggle("closed");
+    });
   
   return (
     <div className="createPost__wrapper" data-status={modal}>

@@ -20,10 +20,12 @@ export default class Messages extends Component {
     render() {
         let displayMessages = this.props.messages.map(item =>
             <div>
-                <div style={{ backgroundColor: 'lightblue' }} className={item.user.toString() === this.props.yourID.toString() ? "your-message" : "they-message"}>
-                    <div>{item.user.toString() === this.props.yourID.toString() ? <p><big>You:</big></p> : <p><big>{item.name}:</big></p>}</div>
-                    <p><b>{item.message}</b></p>
-                    <p><small>(<Moment format="HH:mm DD/MM/YY">{item.date}</Moment>)</small></p>
+                <div className={item.user.toString() === this.props.yourID.toString() ? "your-message" : "they-message"}>
+                    <div className="message-contents">
+                        <div>{item.user.toString() === this.props.yourID.toString() ? <p><big>You:</big></p> : <p><big>{item.name}:</big></p>}</div>
+                        <p><b>{item.message}</b></p>
+                        <p><small>(<Moment format="HH:mm DD/MM/YY">{item.date}</Moment>)</small></p>
+                    </div>
                 </div>
                 <br></br>
             </div>
@@ -35,12 +37,15 @@ export default class Messages extends Component {
                         {displayMessages}
                         <div ref={(el) => { this.newestMessages = el }}></div>
                     </div>
-                    <form onSubmit={this.props.onSubmit}>
-                        <input  className="text-field" type="text" onChange={this.props.onChange} value={this.props.newMessageValue} name="newMessage" />
-                        <button className="button" type="submit">Send</button>
-                    </form>
                 </div>
-                
+                <div className="chat-div">
+                    <form onSubmit={this.props.onSubmit}>
+                        <div className="chat-form">
+                        <input className="text-field" type="text" onChange={this.props.onChange} value={this.props.newMessageValue} name="newMessage" />
+                        <button className="button-send" type="submit">Send</button>
+                        </div>
+                    </form>
+                </div>    
             </div>
         )
     }
