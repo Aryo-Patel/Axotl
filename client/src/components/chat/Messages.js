@@ -40,7 +40,6 @@ export default class Messages extends Component {
                         <button className="button" type="submit">Send</button>
                     </form>
                 </div>
-                
             </div>
         )
     }
