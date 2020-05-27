@@ -9,12 +9,12 @@ const Sponsor = require("../../models/Sponsor");
 //GET      /api/posts/
 //Action    get all posts
 //PRIVATE   need to be signed in (recipient or sponsor to access route)
-router.get("/", async(req, res) => {
+router.get("/:pageNumber", async(req, res) => {
     if (!req.user) {
         return res.status(401).json({ msg: "Unauthorized" });
     }
     try {
-        const posts = await Post.find().sort({ Date: -1 });
+        const posts = await Post.find().limit(req.params.pageNumber * 10).sort({ Date: -1 });
         res.json({ posts });
     } catch (err) {
         console.error(err.message);
@@ -95,7 +95,7 @@ router.put("/:id", async(req, res) => {
     const { title, content, attachment } = req.body;
     try {
         const newPost = await Post.findOneAndUpdate({ _id: req.params.id }, { $set: { title, content, attachment } }, { new: true });
-        const posts = await Post.find();
+        const posts = await Post.find().sort({ Date: -1 });
         //was attempting to minimize size of server response
         // for (let i = 0; i < posts.length; i++) {
         //     if (posts[i]._id.toString() == req.params.id.toString()) {
@@ -103,9 +103,11 @@ router.put("/:id", async(req, res) => {
         //         break;
         //     }
         // }
+        console.log('did we make it?')
+        newPost.save();
         res.json({ posts });
     } catch (err) {
-        console.error(err.message);
+        console.error(err);
         res.status(500).send("Server Error");
     }
 });
@@ -127,7 +129,7 @@ router.delete("/:id", async(req, res) => {
             (await Sponsor.findById(req.user._id));
         user.myPosts.filter((post) => post.toString() != req.params.id.toString());
         await post.deleteOne();
-        res.json({ msg: "Post deleted" });
+        res.json({ post: req.params.id });
     } catch (err) {
         console.error(err.message);
         res.status(500).send("Server Error");
@@ -148,7 +150,7 @@ router.put("/comment/:post_id", async(req, res) => {
         const user =
             (await Recipient.findById(req.user._id)) ||
             (await Sponsor.findById(req.user._id));
-        await post.comments.unshift({ text, user: req.user._id });
+        await post.comments.unshift({ text, user: req.user._id, name: user.name, avatar: user.avatar });
         await post.save();
         user.myComments.unshift({ post: req.params.post_id, comment: post.comments[0]._id })
         await user.save()
@@ -168,12 +170,13 @@ router.put("/comment/:post_id/:comment_id", async(req, res) => {
     }
     try {
         const post = await Post.findById(req.params.post_id);
-        if (!await post.comments.findById(req.params.comment_id).user.toString == req.user._id) {
+        if (!await post.comments.filter(comment => req.params.comment_id.toString() == comment._id.toString())[0].user.toString() == req.user._id.toString()) {
             return res.status(401).json({ msg: "Unauthorized" });
         }
         const { text } = req.body;
         let comments = post.comments;
-        comments = await comments.findOneAndUpdate({ _id: req.params.comment_id }, { $set: { text } }, { new: true });
+        comment = await post.comments.filter(comment => req.params.comment_id.toString() == comment._id.toString())[0];
+        comment.text = text;
 
         await Post.findOneAndUpdate({ _id: req.params.post_id }, { $set: { comments } }, { new: true });
         res.json({ post });
@@ -193,24 +196,35 @@ router.delete("/comment/:post_id/:comment_id", async(req, res) => {
 
     try {
         const post = await Post.findById(req.params.post_id);
-        const { text } = req.body;
         const user =
             (await Recipient.findById(req.user._id)) ||
             (await Sponsor.findById(req.user._id));
-        await post.comments.filter(
-            (comment) => comment._id.toString() != req.params.comment_id
+        const sponsor = user.sponsor;
+        console.log(post.comments.filter(
+            (comment) => comment._id.toString() != req.params.comment_id.toString()
+        ))
+        const comments = post.comments.filter(
+            (comment) => comment._id.toString() != req.params.comment_id.toString()
         );
-        user.myComments.filter(comment => comment.comment._id != req.params.comment_id);
-        await user.save();
-        res.json({ post });
+        // console.log(post.comments)
+        const myComments = user.myComments.filter(comment => comment.comment._id != req.params.comment_id);
+        if (sponsor) {
+            await Sponsor.findOneAndUpdate({ _id: req.user._id }, { $set: { myComments } }, { new: true });
+
+        } else {
+            await Recipient.findOneAndUpdate({ _id: req.user._id }, { $set: { myComments } }, { new: true });
+        }
+        await Post.findOneAndUpdate({ _id: req.params.post_id }, { $set: { comments } }, { new: true });
+        const newPost = await Post.findById(req.params.post_id)
+        res.json(newPost);
     } catch (err) {
-        console.error(err.message);
+        console.error(err);
         res.status(500).send("Server Error");
     }
 });
 
 //PUT      /api/posts/like/:post_id
-//Action    add a like
+//Action    add or remove a like
 //PRIVATE   need to be signed in (recipient or sponsor to access route)
 router.put("/like/:post_id/", async(req, res) => {
     if (!req.user) {
@@ -218,57 +232,40 @@ router.put("/like/:post_id/", async(req, res) => {
     }
 
     try {
-        const post = await Post.findById(req.params.post_id);
-        const user =
+        let post = await Post.findById(req.params.post_id);
+        let user =
             (await Recipient.findById(req.user._id)) ||
             (await Sponsor.findById(req.user._id));
+        const sponsor = user.sponsor;
         if (
             post.likes.filter(
-                (like) => like._id.toString() == req.user._id.toString()
-            ).length != 0
+                like => like.user.toString() == req.user._id.toString()
+            ).length > 0
         ) {
-            return res.status(400).json({ msg: "You can only like a post once!" });
+            const likes = post.likes.filter(
+                like => like.user.toString() != req.user._id.toString()
+            )
+
+            const myLiked = user.myLiked.filter(like => like.toString() != req.params.post_id.toString());
+            //updating myLiked for the user if filtered array
+            if (sponsor) {
+                user = await Sponsor.findOneAndUpdate({ _id: req.user._id }, { $set: { myLiked } }, { new: true });
+
+            } else {
+                user = await Recipient.findOneAndUpdate({ _id: req.user._id }, { $set: { myLiked } }, { new: true });
+            }
+
+            post = await Post.findOneAndUpdate({ _id: req.params.post_id }, { $set: { likes } }, { new: true });
+        } else {
+            await post.likes.unshift({ user: req.user._id });
+            user.myLiked.unshift(req.params.post_id);
+
+            //saving new user and post objects if arrays were modified
+            await user.save();
+            await post.save();
         }
-        await post.likes.unshift({ user: req.user._id });
-        user.myLiked.unshift(req.params.post_id);
-        await post.save();
-        await user.save();
         const likes = post.likes
-        res.json({ likes, user });
-    } catch (err) {
-        console.error(err.message);
-        res.status(500).send("Server Error");
-    }
-});
-
-//PUT       /api/posts/unlike/:post_id/
-//Action    remove a like
-//PRIVATE   need to be signed in (recipient or sponsor to access route)
-router.put("/unlike/:post_id/", async(req, res) => {
-    if (!req.user) {
-        return res.status(401).json({ msg: "Unauthorized" });
-    }
-
-
-    try {
-        const post = await Post.findById(req.params.post_id);
-        const user =
-            (await Recipient.findById(req.user._id)) ||
-            (await Sponsor.findById(req.user._id));
-        if (
-            post.likes.filter(
-                (like) => like._id.toString() == req.user._id.toString()
-            ).length == 0
-        ) {
-            return res.status(400).json({ msg: "You haven't liked this post yet!" });
-        }
-        await post.likes.filter(
-            (like) => like._id.toString() != req.user._id.toString()
-        );
-        user.myLiked.filter(likedPost => likedPost.toString() != req.params.post_id.toString())
-        await post.save();
-        await user.save();
-        res.json({ post });
+        res.json({ post: req.params.post_id, likes, user });
     } catch (err) {
         console.error(err.message);
         res.status(500).send("Server Error");
@@ -326,7 +323,7 @@ router.put("/reply/:post_id/:comment_id", async(req, res) => {
         const comment = await post.comments.findById(req.params.comment_id);
         const { text } = req.body;
 
-        await post.comments.replies.unshift({ text, user: req.user._id });
+        await post.comments.replies.unshift({ text, user: req.user._id, name: user.name, avatar: user.avatar });
         user.myReplies.unshift({ post: req.params.post_id, comment: req.params.comment_id, reply: post.comments.replies[0]._id });
         await user.save();
         await post.save();

@@ -8,7 +8,7 @@ $background-color-lighter: #5093ff;
 $primary-white: #eee;
 $primary-yellow: rgb(255, 255, 0);
 //border-radius value for the form containers on login, forgot password, reset password, change password, and register
-$form-border-radius: 20px;
+$form-border-radius: 10px;
 $bp-largest: 100em;
 $bp-large: 75em;
 $bp-medium: 56.25em;
@@ -23,10 +23,6 @@ $bp-small: 37.5em;
     100% {
         transform: scale(1.1) translateY(-2px);
     }
-}
-
-.posts {
-    font-size: 1.6rem;
 }
 
 .createPost {
@@ -117,7 +113,546 @@ $bp-small: 37.5em;
     }
 }
 
-[data-status='open'] .createPost__modal-cover {
+//modal controller
+[data-status='open'] .createPost__modal-cover,
+[data-status='open'] .editPost__modal-cover,
+[data-status='open'] .posts__modal-cover,
+[data-status='open'] .editComment__modal-cover {
     visibility: visible;
     transform: scale(1);
+}
+
+//for overall posts page
+.posts {
+    font-size: 1.6rem;
+    &__container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    &__modal-cover {
+        color: #4983ff;
+        z-index: 69420;
+        position: fixed;
+        height: 100vh;
+        width: 100vw;
+        top: 0;
+        left: 0;
+        transition: all .5s ease;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(2px);
+        visibility: hidden;
+        transform: scale(0);
+    }
+    &__modal-main {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 50rem;
+        height: 30rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: white;
+    }
+    &__buttons {
+        margin-top: 2rem;
+        display: flex;
+        width: 60%;
+        justify-content: space-between;
+    }
+    &__yes {
+        background-color: $background-color;
+        width: 6rem;
+        height: 3rem;
+        font-size: 1.6rem;
+        border: none;
+        border-radius: 10px;
+    }
+    &__no {
+        background-color: $light-grey;
+        width: 6rem;
+        height: 3rem;
+        font-size: 1.6rem;
+        border: none;
+        border-radius: 10px;
+    }
+}
+
+//for each specific post
+.post {
+    color: black;
+    width: 60%;
+    border-radius: $form-border-radius;
+    background-image: linear-gradient(to top left, $primary-orange, $primary-yellow);
+    margin-top: 3rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 2rem 4rem rgba(0, 0, 0, .3);
+    z-index: 1;
+    height: fit-content;
+    &::after {
+        background-repeat: no-repeat;
+        position: absolute;
+        content: "";
+        z-index: 0;
+        width: 99%;
+        height: 99%;
+        top: .5%;
+        left: .5%;
+        border-radius: $form-border-radius;
+        background-color: $primary-white;
+    }
+    &__header-container {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 2rem 1rem 0rem;
+    }
+    //for the triple dot for the dropdown
+    &__edit {
+        margin-top: -.5rem;
+        margin-left: -.5rem;
+        &:hover {
+            cursor: pointer;
+        }
+        &-icon {
+            &::before {
+                content: '\2807';
+                font-size: 3rem;
+                margin-top: -2rem;
+            }
+            &:hover+.post__dropdown {
+                visibility: visible;
+                height: fit-content;
+            }
+        }
+    }
+    //for the "edit" and "delete" dropdown 
+    &__dropdown {
+        border: 1px solid $light-grey;
+        background-color: white;
+        box-shadow: 0rem 1rem 1rem rgba(0, 0, 0, .2);
+        visibility: hidden;
+        height: 0;
+        position: absolute;
+        &:hover {
+            visibility: visible;
+            height: fit-content;
+            cursor: pointer;
+        }
+        &-item {
+            padding: .5rem .5rem;
+            margin-bottom: 0;
+            color: black;
+            &:not(:last-child) {
+                border-bottom: 1px solid $light-grey;
+            }
+            &:hover {
+                background-color: darken(white, 10%);
+            }
+        }
+    }
+    //for the name and avatar of the user
+    &__user-fields {
+        display: flex;
+        align-items: center;
+    }
+    //for the title and body of the post
+    &__content-container {
+        text-align: center;
+    }
+    //for the title
+    &__title {
+        text-align: start;
+    }
+    //for the avatar
+    &__avatar {
+        border-radius: 50%;
+        height: 5rem;
+        width: 5rem;
+        margin-left: 1rem;
+    }
+    //for the main body of the post
+    &__main {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        max-height: fit-content;
+        position: relative;
+        z-index: 1;
+        padding: 3rem;
+        padding-bottom: 1rem;
+    }
+    //for the "show more" button
+    &__read-more {
+        font-size: 1.6rem;
+        color: $background-color;
+        font-weight: 400;
+        &:hover {
+            cursor: pointer;
+            color: darken($background-color, 10%);
+        }
+    }
+    //for the bar containing the comment and like options
+    &__interactions {
+        width: 95%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        // grid-template-columns: 1fr 2fr 2fr 1fr;
+        // grid-template-rows: 1fr 1fr;
+        padding: 2rem 2rem 2rem 2rem;
+        position: relative;
+        z-index: 1;
+        border-bottom: 2px solid $light-grey;
+        border-top: 2px solid $light-grey;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+    //for the like icon
+    &__likes {
+        fill: $background-color-dark;
+        // grid-column: 2/3;
+        display: flex;
+        align-items: center;
+        p {
+            margin-left: 1rem;
+        }
+        svg {
+            width: 3rem;
+            height: 3rem;
+        }
+    }
+    //for the comment icon
+    &__comments {
+        fill: $background-color-dark;
+        // grid-column: 3/4;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        p {
+            margin-left: 1rem;
+        }
+        svg {
+            width: 3rem;
+            height: 3rem;
+        }
+    }
+    //container for comments and comment form
+    &__comment-section {
+        width: 100%;
+        max-height: 45vh;
+        z-index: 100000;
+    }
+    //form to add a comment
+    &__create-comment {
+        width: 90%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    //input to add a comment
+    &__comment-input {
+        flex-basis: 80%;
+        border: 2px solid $light-grey;
+        border-radius: $form-border-radius;
+        padding: 0rem 1rem;
+        &:focus {
+            border: 2px solid $background-color-lighter;
+        }
+    }
+    //submit button for create comment form
+    &__send-comment {
+        flex-basis: 20%;
+        border: 2px solid $light-grey;
+        border-radius: $form-border-radius;
+    }
+    &__comment-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-height: 40vh;
+        overflow: hidden;
+        overflow-y: scroll;
+    }
+    .comment {
+        // max-height: 15rem;
+        border: 2px solid $background-color-light;
+        border-radius: 5px;
+        width: 90%;
+        background-color: lighten($background-color-lighter, 25%);
+        padding: 2rem;
+        margin: 1rem 0rem;
+        &__user {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        &__avatar {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 100px;
+            margin-right: 1rem;
+        }
+        &__text {
+            width: 100%;
+            border: none;
+            background: transparent;
+            &::placeholder {
+                color: black;
+                width: 100%;
+            }
+        }
+        &__read-more {
+            font-size: 1.6rem;
+            color: $background-color;
+            font-weight: 400;
+            &:hover {
+                cursor: pointer;
+                color: darken($background-color, 10%);
+            }
+        }
+        &__like {
+            width: 2rem;
+            height: 2rem;
+            display: block;
+        }
+        &__top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        &__bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            form {
+                flex-basis: 90%;
+            }
+        }
+        &__edit {
+            margin-top: -.5rem;
+            margin-left: -.5rem;
+            &-icon {
+                &::before {
+                    content: '\2807';
+                    font-size: 3rem;
+                    margin-top: -2rem;
+                }
+                &:hover+.comment__dropdown {
+                    visibility: visible;
+                    height: fit-content;
+                }
+            }
+        }
+        //for the "edit" and "delete" dropdown 
+        &__dropdown {
+            border: 1px solid $light-grey;
+            background-color: white;
+            box-shadow: 0rem 1rem 1rem rgba(0, 0, 0, .2);
+            visibility: hidden;
+            height: 0;
+            position: absolute;
+            &:hover {
+                visibility: visible;
+                height: fit-content;
+            }
+            &-item {
+                padding: .5rem .5rem;
+                margin-bottom: 0;
+                color: black;
+                &:not(:last-child) {
+                    border-bottom: 1px solid $light-grey;
+                }
+            }
+        }
+    }
+}
+
+[data-status=true] svg {
+    background-color: $background-color;
+    clip-path: url(#likeSVG)
+}
+
+.editPost {
+    &__modal-cover {
+        color: #4983ff;
+        z-index: 69420;
+        position: fixed;
+        height: 100vh;
+        width: 100vw;
+        top: 0;
+        left: 0;
+        transition: all .5s ease;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(2px);
+        visibility: hidden;
+        transform: scale(0);
+    }
+    &__modal-main {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 50rem;
+        height: 40rem;
+        display: flex;
+        flex-direction: column;
+    }
+    &__title {
+        width: 100%;
+        position: relative;
+        font-size: 3rem;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        padding-left: 2rem;
+        padding-right: 5rem;
+        height: 5rem;
+        &:focus+label,
+        &:valid+label {
+            visibility: hidden;
+        }
+    }
+    &__label {
+        position: absolute;
+        top: 0;
+        left: 0;
+        color: $background-color;
+        font-size: 3rem;
+        padding-left: 2rem;
+        pointer-events: none;
+    }
+    &__content {
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+        height: 45rem;
+        font-size: 2rem;
+        padding: 2rem 2rem;
+    }
+    &__icon {
+        height: 4rem;
+        width: 4rem;
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        z-index: 70000;
+    }
+    &__icon-wrapper {
+        position: absolute;
+        right: -2rem;
+        top: -2rem;
+        z-index: 70001;
+        height: 7rem;
+        width: 7rem;
+        background-image: radial-gradient( $background-color-lighter, $background-color);
+        border-radius: 100px;
+        box-shadow: 0rem .5rem 1rem rgba(0, 0, 0, .3);
+        transition: all 0s ease .3s;
+        &:hover {
+            animation: submitPulse .3s ease-out;
+            animation-fill-mode: forwards;
+        }
+    }
+    &__submit {
+        visibility: hidden;
+    }
+    &__submit-wrapper {
+        position: relative;
+        height: 0;
+    }
+}
+
+//styling for the edit comment modal
+.editComment {
+    &__modal-cover {
+        color: #4983ff;
+        z-index: 69420;
+        position: fixed;
+        height: 100vh;
+        width: 100vw;
+        top: 0;
+        left: 0;
+        transition: all .5s ease;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(2px);
+        visibility: hidden;
+        transform: scale(0);
+    }
+    &__modal-main {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 50rem;
+        height: 40rem;
+        display: flex;
+        flex-direction: column;
+    }
+    &__title {
+        width: 100%;
+        position: relative;
+        font-size: 3rem;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        padding-left: 2rem;
+        padding-right: 5rem;
+        height: 5rem;
+        &:focus+label,
+        &:valid+label {
+            visibility: hidden;
+        }
+    }
+    &__label {
+        position: absolute;
+        top: 0;
+        left: 0;
+        color: $background-color;
+        font-size: 3rem;
+        padding-left: 2rem;
+        pointer-events: none;
+    }
+    &__text {
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+        height: 45rem;
+        font-size: 2rem;
+        padding: 2rem 2rem;
+    }
+    &__icon {
+        height: 4rem;
+        width: 4rem;
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        z-index: 70000;
+    }
+    &__icon-wrapper {
+        position: absolute;
+        right: -2rem;
+        top: -2rem;
+        z-index: 69999;
+        height: 7rem;
+        width: 7rem;
+        background-image: radial-gradient( $background-color-lighter, $background-color);
+        border-radius: 100px;
+        box-shadow: 0rem .5rem 1rem rgba(0, 0, 0, .3);
+        transition: all 0s ease .3s;
+        &:hover {
+            animation: submitPulse .3s ease-out;
+            animation-fill-mode: forwards;
+        }
+    }
+    &__submit {
+        visibility: hidden;
+    }
+    &__submit-wrapper {
+        position: relative;
+        height: 0;
+    }
 }

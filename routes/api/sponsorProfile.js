@@ -159,10 +159,14 @@ router.get('/search/locations', async(req, res) => {
         console.log(url)
         const response = await axios.get(url)
         for (let i = 0; i < profiles.length; i++) {
-            console.log(`Profile : ${profiles[i]}`)
+            // console.log(`Profile : ${profiles[i]}`)
+            console.log(response.data.rows[0].elements[i])
+            console.log(profiles[i].location)
             const locs = response.data.rows[0].elements
+                // console.log(JSON.stringify(locs[i]))
+            console.log(i)
             profiles[i].distanceFromUser = locs[i].distance.text;
-            console.log(`Profile after : ${profiles[i]}`)
+            // console.log(`Profile after : ${profiles[i]}`)
         }
         console.log(`profiles : ${profiles}`)
         res.json(profiles)

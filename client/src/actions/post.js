@@ -16,7 +16,7 @@ export const createPost = (formData) => async dispatch => {
             payload: res.data.newPost
         })
         const payload = {
-            user: res.data.user,
+            user: { user: res.data.user },
             sponsor: res.data.user.sponsor
         }
         dispatch({
@@ -25,9 +25,9 @@ export const createPost = (formData) => async dispatch => {
         })
     } catch (err) {
         console.error(err.message);
-        dispatch({
-            type: POST_FAIL
-        })
+        //dispatch({
+        //            type: POST_FAIL
+        //        })
     }
 }
 
@@ -47,30 +47,32 @@ export const editPost = (formData, post_id) => async dispatch => {
 
     } catch (err) {
         console.error(err.message);
-        dispatch({
-            type: POST_FAIL
-        })
+        //dispatch({
+        //            type: POST_FAIL
+        //        })
     }
 }
 
 export const deletePost = (post_id) => async dispatch => {
     try {
         const res = await axios.delete(`/api/posts/${post_id}`);
+        console.log(res.data)
         dispatch({
             type: DELETE_POST,
             payload: res.data
         })
+
     } catch (err) {
         console.error(err.message);
-        dispatch({
-            type: POST_FAIL
-        })
+        //dispatch({
+        //            type: POST_FAIL
+        //        })
     }
 }
 
-export const getPosts = () => async dispatch => {
+export const getPosts = (pageNumber) => async dispatch => {
     try {
-        const res = await axios.get('/api/posts');
+        const res = await axios.get(`/api/posts/${pageNumber}`);
         dispatch({
             type: GET_POSTS,
             payload: res.data
@@ -92,9 +94,9 @@ export const getPost = (id) => async dispatch => {
         })
     } catch (err) {
         console.error(err.message);
-        dispatch({
-            type: POST_FAIL
-        })
+        //dispatch({
+        //            type: POST_FAIL
+        //        })
     }
 }
 
@@ -110,9 +112,9 @@ export const getMyPosts = () => async dispatch => {
         })
     } catch (err) {
         console.error(err.message);
-        dispatch({
-            type: POST_FAIL
-        })
+        //dispatch({
+        //            type: POST_FAIL
+        //        })
     }
 }
 
@@ -125,42 +127,50 @@ export const addComment = (formData, post_id) => async dispatch => {
     }
     const body = JSON.stringify(formData)
     try {
-        const res = await axios.post(`/api/posts/comment/${post_id}`, body, config);
+        const res = await axios.put(`/api/posts/comment/${post_id}`, body, config);
         dispatch({
             type: ADD_COMMENT,
-            payload: res.data
+            payload: res.data.post
+        })
+        dispatch({
+            type: USER_LOADED,
+            payload: {
+                user: { user: res.data.user },
+                sponsor: res.data.user.sponsor
+            }
         })
     } catch (err) {
         console.error(err.message);
-        dispatch({
-            type: POST_FAIL
-        })
+        //dispatch({
+        //            type: POST_FAIL
+        //        })
     }
 }
 
-export const editComment = (formData, post_id, comment_id) => async dispatch => {
+export const editComment = (text, post_id, comment_id) => async dispatch => {
     const config = {
         headers: {
             'Content-Type': 'application/json'
         }
     }
-    const body = JSON.stringify(formData)
+    const body = JSON.stringify({ text })
     try {
-        const res = await axios.post(`/api/posts/comment/${post_id}/${comment_id}`, body, config);
+        const res = await axios.put(`/api/posts/comment/${post_id}/${comment_id}`, body, config);
         dispatch({
             type: EDIT_COMMENT,
-            payload: res.data
+            payload: res.data.post
         })
     } catch (err) {
         console.error(err.message);
-        dispatch({
-            type: POST_FAIL
-        })
+        //dispatch({
+        //            type: POST_FAIL
+        //        })
     }
 }
 
 export const deleteComment = (post_id, comment_id) => async dispatch => {
     try {
+        console.log(post_id, comment_id)
         const res = await axios.delete(`/api/posts/comment/${post_id}/${comment_id}`);
         dispatch({
             type: DELETE_COMMENT,
@@ -168,9 +178,9 @@ export const deleteComment = (post_id, comment_id) => async dispatch => {
         })
     } catch (err) {
         console.error(err.message);
-        dispatch({
-            type: POST_FAIL
-        })
+        //dispatch({
+        //            type: POST_FAIL
+        //        })
     }
 }
 
@@ -189,9 +199,9 @@ export const addReply = (formData, post_id, comment_id) => async dispatch => {
         })
     } catch (err) {
         console.error(err.message);
-        dispatch({
-            type: POST_FAIL
-        })
+        //dispatch({
+        //            type: POST_FAIL
+        //        })
     }
 }
 
@@ -210,9 +220,9 @@ export const editReply = (formData, post_id, comment_id, reply_id) => async disp
         })
     } catch (err) {
         console.error(err.message);
-        dispatch({
-            type: POST_FAIL
-        })
+        //dispatch({
+        //            type: POST_FAIL
+        //        })
     }
 }
 
@@ -225,9 +235,9 @@ export const deleteReply = (post_id, comment_id, reply_id) => async dispatch => 
         })
     } catch (err) {
         console.error(err.message);
-        dispatch({
-            type: POST_FAIL
-        })
+        //dispatch({
+        //            type: POST_FAIL
+        //        })
     }
 }
 
@@ -236,30 +246,24 @@ export const addLike = (post_id) => async dispatch => {
         const res = await axios.put(`/api/posts/like/${post_id}`);
         dispatch({
             type: ADD_LIKE,
-            payload: res.data
+            payload: {
+                likes: res.data.likes,
+                post: res.data.post
+            }
+        })
+        console.log(res.data.user)
+        dispatch({
+            type: USER_LOADED,
+            payload: { user: { user: res.data.user } }
         })
     } catch (err) {
         console.error(err.message);
-        dispatch({
-            type: POST_FAIL
-        })
+        //dispatch({
+        //            type: POST_FAIL
+        //        })
     }
 }
 
-export const removeLike = (post_id) => async dispatch => {
-    try {
-        const res = await axios.put(`/api/posts/unlike/${post_id}`);
-        dispatch({
-            type: REMOVE_LIKE,
-            payload: res.data
-        })
-    } catch (err) {
-        console.error(err.message);
-        dispatch({
-            type: POST_FAIL
-        })
-    }
-}
 
 export const likeComment = (post_id, comment_id) => async dispatch => {
     try {
@@ -270,9 +274,9 @@ export const likeComment = (post_id, comment_id) => async dispatch => {
         })
     } catch (err) {
         console.error(err.message);
-        dispatch({
-            type: POST_FAIL
-        })
+        //dispatch({
+        //            type: POST_FAIL
+        //        })
     }
 }
 
@@ -285,8 +289,8 @@ export const likeReply = (post_id, comment_id, reply_id) => async dispatch => {
         })
     } catch (err) {
         console.error(err.message);
-        dispatch({
-            type: POST_FAIL
-        })
+        //dispatch({
+        //            type: POST_FAIL
+        //        })
     }
 }
