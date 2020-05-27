@@ -195,7 +195,7 @@
   background: white;
   width: 80%;
   overflow-y: scroll;
-  background-position: 0, 0;
+  background-position: 0, 0;
 }
 
 .modal-main input {
@@ -580,5 +580,11 @@
 
 .active {
   background: darkgrey !important;
+}
+
+.top-banner h1 {
+  padding-top: 80px;
+  text-align: center;
+  margin-bottom: 10px;
 }
 /*# sourceMappingURL=hackathons.css.map */
