@@ -6,7 +6,6 @@ $background-color-light: #2d3142;
 $background-color-lighter: #5093ff;
 $primary-white: #eee;
 $primary-yellow: rgb(255, 255, 0);
-$axo-yellow: rgb(254, 181, 68);
 //border-radius value for the form containers on login, forgot password, reset password, change password, and register
 $form-border-radius: 5px;
 $bp-largest: 100em;
@@ -40,20 +39,11 @@ $translateAmount: 100px;
     }
 }
 
-
-//Styles for logo on login page
-.login__logo {
-    width: 30rem;
-    height: 30rem;
-}
-
 //Styles for the login page
 .login__background {
     width: 100%;
     height: 150vh;
-    //background-image:  linear-gradient(to top left, $primary-orange, $axo-yellow);
-    background-color: $axo-yellow;
-    //$primary-orange;
+    background-color: $primary-orange;
     overflow: hidden;
     .login__block {
         //border-radius: $form-border-radius;
@@ -66,48 +56,162 @@ $translateAmount: 100px;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        padding: 10rem 10rem;
+        padding: 10rem 15rem;
         width: 60%;
         z-index: 10;
-
-        background-color: white;
-
-        width: 100%;
-        height: 100%;
-
-        
-        
-        
-        @media(min-width: 40em) {//not phone
+        //box-shadow: 0 2rem 4rem rgba(0, 0, 0, .3);
+        &::after {
+            //background-repeat: no-repeat;
+            content: "";
+            position: absolute;
+            z-index: -100;
+            width: 100%;
+            height: 100%;
+            top: .5%;
+            left: .5%;
             border-radius: $form-border-radius;
             background-color: white;
-            
-            padding: 5rem 5rem 15rem;
-            width: 40rem;
-            height:75%;
+        }
+        @media(max-width: $bp-largest) and (min-height: 1400px) {//largest screen
+            margin-top:22rem;
+            padding: 20rem 5rem;
+            //width: 30%;
+            //background-color: red;
             .login__logo {
-                padding: 0 0;
-                //width: 20rem;
-                height: 15rem;
+                width: 20rem;
+                height: 20rem;
+            }
+            a {
+                fill: $primary-white;
             }
         }
-        @media(min-width: 56.31em) {//not mobile
-            border-radius: $form-border-radius;
-            background-color: white;
+        @media (max-width: $bp-large) and (min-height: 1400px) {
+            padding: 7.5rem 5rem;
+            width: 75%;
+        }
+        // @media (max-width: $bp-medium) {
+        //     padding: 8rem 7.5rem;
+        //     width: 75%;
+        // }
+        @media (max-width: $bp-small) and (min-height: 1400px) {
+            padding: 5rem 4rem;
+            width: 100%;
+            background-image: none;
+            color: $primary-white;
+            box-shadow: none;
+            margin-top: -5rem;
+            .login__logo {
+                width: 15rem;
+                height: 15rem;
+            }
+            a {
+                fill: $primary-white;
+            }
+            .form-group {
+                color: $primary-white;
+                label {
+                    color: $primary-white;
+                }
+                .form-input {
+                    border-color: $primary-white;
+                }
+            }
+            &::after {
+                background-color: transparent;
+            }
+        }
+        //shorter viewport
+        @media (max-height: 1400px) and (min-width: 100em) {
+            padding: 1rem 5rem;
+        }
+        @media (max-height: 1100px) and(min-width: 100em) {
+            padding: 0.5rem 5rem;
+            .login__logo {
+                padding: 0 0;
+                width: 20rem;
+                height: 20rem;
+            }
+        }
+        @media (max-height: 1100px) and(min-width: 75em) {
+            margin-top:20rem;
+            padding: 10rem 10rem;
+            width:50%;
+            .login__logo {
+                padding: 0 0;
+                width: 15rem;
+                height: 15rem;
+            }
             
-            padding: 5rem 5rem 15rem;
-            width: 40rem;
+        }
+        @media (max-height: 1100px) and(min-width: 100em) {
+            padding: 3rem 10rem;
+            .login__logo {
+                padding: 0 0;
+                width: 10rem;
+                height: 10rem;
+            }
+        }
+        @media (max-height: 1400px) and(max-width: 75em) {
+            padding: 15rem 5rem;
+            width: 75%;
             height:80%;
             .login__logo {
                 padding: 0 0;
-                //width: 20rem;
-                height: 10rem;
+                width: 20rem;
+                height: 20rem;
+            }
+        }
+        @media (max-height: 1100px) and(max-width: 75em) {
+            padding: 10rem 10rem;
+            .login__logo {
+                padding: 0 0;
+                width: 20rem;
+                height: 20rem;
+            }
+        }
+        @media (max-height: 950px) and(max-width: 75em) {
+            padding: 5rem 10rem;
+            .login__logo {
+                padding: 0 0;
+                width: 20rem;
+                height: 20rem;
+            }
+        }
+        @media (max-height: 550px) {
+            margin-top: 12.5rem;
+            padding: 5rem 4rem;
+            width: 100%;
+            background-image: none;
+            color: $primary-white;
+            box-shadow: none;
+            .login__logo {
+                width: 15rem;
+                height: 15rem;
+            }
+            a {
+                fill: $primary-white;
+            }
+            .form-group {
+                color: $primary-white;
+                label {
+                    color: $primary-white;
+                }
+                .form-input {
+                    border-color: $primary-white;
+                }
+            }
+            &::after {
+                background-color: transparent;
             }
         }
     }
 }
 
-
+//Styles for logo on login page
+.login__logo {
+    width: 30rem;
+    height: 30rem;
+}
 
 //styles for internals on login page
 .login__container {
@@ -124,7 +228,7 @@ $translateAmount: 100px;
         opacity: 0;
         position: relative;
         animation: fadeIn 1.5s forwards;
-        margin-top: 1rem;
+        margin-top: 4rem;
         padding-top: 2rem;
         display: flex;
         overflow: hidden;
@@ -137,15 +241,11 @@ $translateAmount: 100px;
         &:nth-child(2) {
             animation-delay: 1s;
         }
-        
     }
     .form-group>label {
         font-size: 2rem;
         @media (max-width: $bp-largest) {
-            font-size: 1.5rem;//mobile not phome
-        }
-        @media (max-width: 40em) {
-            font-size: 2rem;//phome
+            font-size: 1.5rem;
         }
         position: absolute;
         margin: 0;
@@ -161,10 +261,7 @@ $translateAmount: 100px;
         flex: 1;
         font-size: 2rem;
         @media (max-width: $bp-largest) {
-            font-size: 1.5rem;//HERE
-        }
-        @media (max-width: 40em) {
-            font-size: 2rem;//phome
+            font-size: 1.5rem;
         }
         // margin-bottom: 15px;
         background: none;
@@ -178,7 +275,7 @@ $translateAmount: 100px;
         padding-bottom: .5rem;
         &:focus {
             border: none;
-            border-bottom: 2px solid $background-color
+            border-bottom: 2px solid $text-color;
         }
         &:focus+label {
             top: 0rem;
@@ -186,37 +283,17 @@ $translateAmount: 100px;
             @media (max-width: $bp-largest) {
                 font-size: 1.2rem;
             }
-            
         }
         &:valid+label {
             top: 0rem;
             font-size: 1rem;
-            @media (max-width: $bp-largest) {
-                font-size: 1.2rem;
-            }
         }
-        //&:invalid{
-        //    border:green;
-        //}
-        
     }
     .login-button {
-        background:none;
-        color:$background-color;
-        border:none;
-        
-        font-size: 3rem;
-        font-family: 'Oxygen', sans-serif;
-
         width: 100%;
-        margin-bottom: 1rem;
         transform: scale(0);
         display: inline-block;
         animation: popUp 1s 1.5s forwards;
-
-        &:hover{
-            color:$axo-yellow;
-        }
     }
     .forgot-password {
         display: inline-block;
@@ -226,8 +303,8 @@ $translateAmount: 100px;
         color: $background-color;
     }
     .login__icon {
-        width: 2rem;
-        height: 2rem;
+        width: 3rem;
+        height: 3rem;
         font-size: 2rem;
         position: absolute;
         left: .5rem;
@@ -237,12 +314,8 @@ $translateAmount: 100px;
     .login__view {
         width: 3rem;
         height: 3rem;
-
-        fill:darken($text-color,5%);
-        
-
-        top:.8rem;
-        left:1.25rem;
+        top: .5rem;
+        right: .5rem;
         position: absolute;
         &-1 {
             visibility: visible;
@@ -253,7 +326,7 @@ $translateAmount: 100px;
     }
     .login__eyes {
         position: relative;
-        width: 4rem;
+        width: 3rem;
         text-align: center;
         border-bottom: 2px solid $text-color;
         transition: transform .75s ease;
@@ -263,37 +336,26 @@ $translateAmount: 100px;
             height: 3rem;
             position: relative;
             top: 0;
-            right:0;
+            left: 0;
+            right: 0;
             display: inline-block;
             margin: 0 auto;
             border-radius: 50%;
-
-            background-color: $primary-orange;
-            //background-image:  linear-gradient(to top left, $primary-white, white);
-
+            background-color: $primary-white;
             bottom: 0;
-            //transition: background-color 1s;
-            //transition: background-image 1s;
             transition: transform .75s ease;
-            
             z-index: -1;
         }
     }
 }
 
 [data-status='text'] .login__eyes::after {
-    
+    background-color: $background-color-light;
     transform: translateY(-50%) scale(40);
-
 }
 
-[data-status='text'] .form-input{
-    &.pass{
+[data-status='text'] .form-input {
     color: $primary-white;
-    }
-    label{
-        color: $primary-white;
-    }
 }
 
 //forgot password page styling
