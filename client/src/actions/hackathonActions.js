@@ -65,10 +65,12 @@ export const createHackathon = (hackathonData) => async dispatch => {
 //get one hackathon's profile for display
 export const getHackathon = (id) => async dispatch => {
     try {
+        //5ec034aab98fe24fe80b5904
+
         const res = await axios.get(`/api/hackathons/${id}`)
         dispatch({
             type: GET_HACKATHON,
-            payload: res.data
+            payload: res.data[0]
         })
     } catch (err) {
         dispatch({
@@ -81,7 +83,7 @@ export const getHackathon = (id) => async dispatch => {
 //get all hackathons a user has created
 export const getUserHackathons = userId => async dispatch => {
     try {
-        let userHackathons = await axios.get(`/api/hackathons/${userId}`);
+        let userHackathons = await axios.get(`/api/hackathons/user/${userId}`);
         dispatch({
             type: GET_USER_HACKATHONS,
             payload: userHackathons.data

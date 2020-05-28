@@ -502,9 +502,26 @@ router.get('/', async (req, res, next) => {
 });
 
 //GET       /api/hackathons
-//Action    returns all the hackathons
+//Action    returns one hackathon
 //PUBLIC    no authorization required to view all the hackathons
 router.get('/:id', async (req, res, next) => {
+    try {
+        console.log('got inside here');
+        console.log(req.params.id);
+        //grabs all the hackathons
+        let hackathon = await Hackathon.find({ _id: req.params.id });
+
+        return res.status(200).json(hackathon);
+    } catch (err) {
+        console.error(err);
+        return res.status(500).send('server error bad syntax');
+    }
+});
+
+//GET       /api/hackathons/user/:id
+//Action    returns all hackathons a user has created
+//PUBLIC    no authorization required to view all the hackathons
+router.get('/user/:id', async (req, res, next) => {
     try {
         console.log('got inside here');
         console.log(req.params.id);

@@ -84,7 +84,7 @@ const mapStateToProps = state => ({
 MyHackathons.propTypes = {
     getUserHackathons: PropTypes.func.isRequired,
     id: PropTypes.string.isRequired,
-    hackathons: PropTypes.object.isRequired,
+    hackathons: PropTypes.array.isRequired,
     loading: PropTypes.bool.isRequired
 }
 
