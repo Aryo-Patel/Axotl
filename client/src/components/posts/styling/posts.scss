@@ -235,6 +235,7 @@ $bp-small: 37.5em;
     }
     //for the "edit" and "delete" dropdown 
     &__dropdown {
+        overflow: auto;
         border: 1px solid $light-grey;
         background-color: white;
         box-shadow: 0rem 1rem 1rem rgba(0, 0, 0, .2);
@@ -321,6 +322,7 @@ $bp-small: 37.5em;
         // grid-column: 2/3;
         display: flex;
         align-items: center;
+        cursor: pointer;
         p {
             margin-left: 1rem;
         }
@@ -336,6 +338,7 @@ $bp-small: 37.5em;
         display: flex;
         justify-content: flex-end;
         align-items: center;
+        cursor: pointer;
         p {
             margin-left: 1rem;
         }
@@ -385,10 +388,15 @@ $bp-small: 37.5em;
         // max-height: 15rem;
         border: 2px solid $background-color-light;
         border-radius: 5px;
-        width: 90%;
+        width: 100%;
         background-color: lighten($background-color-lighter, 25%);
         padding: 2rem;
         margin: 1rem 0rem;
+        &__section {
+            width: 90%;
+            padding: 2rem;
+            margin: 1rem 0rem;
+        }
         &__user {
             display: flex;
             justify-content: center;
@@ -418,10 +426,66 @@ $bp-small: 37.5em;
                 color: darken($background-color, 10%);
             }
         }
+        &__like-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        &__like-counter {
+            position: absolute;
+            left: -1.5rem;
+        }
         &__like {
             width: 2rem;
             height: 2rem;
             display: block;
+            cursor: pointer;
+        }
+        //styling for reply toggle container
+        &__replies {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        //styling for replies counter
+        &__reply-counter {
+            position: absolute;
+            left: -1.5rem;
+        }
+        //styling for reply icon on comment
+        &__reply {
+            width: 2rem;
+            height: 2rem;
+            display: block;
+            cursor: pointer;
+        }
+        //styling for form to add a new reply
+        &__reply-form {
+            display: flex;
+            align-items: center;
+        }
+        //styling for input to add a new reply
+        &__reply-input {
+            flex-basis: 80%;
+            border: 2px solid $light-grey;
+            border-radius: $form-border-radius;
+            padding: 0rem 1rem;
+            &:focus {
+                border: 2px solid $background-color-lighter;
+            }
+        }
+        //styling for button to send a reply
+        &__reply-send {
+            flex-basis: 20%;
+            border: 2px solid $light-grey;
+            border-radius: $form-border-radius;
+        }
+        //styling for replies section (form and each reply)
+        &__replies-section {
+            width: 90%;
+            float: right;
+            visibility: hidden;
+            height: 0;
         }
         &__top {
             display: flex;
@@ -453,6 +517,7 @@ $bp-small: 37.5em;
         }
         //for the "edit" and "delete" dropdown 
         &__dropdown {
+            overflow: auto;
             border: 1px solid $light-grey;
             background-color: white;
             box-shadow: 0rem 1rem 1rem rgba(0, 0, 0, .2);
@@ -473,11 +538,76 @@ $bp-small: 37.5em;
             }
         }
     }
+    .reply {
+        // max-height: 15rem;
+        border: 2px solid $background-color-light;
+        border-radius: 5px;
+        width: 100%;
+        background-color: lighten($background-color-lighter, 25%);
+        padding: 2rem;
+        margin: 1rem 0rem;
+        &__section {
+            width: 90%;
+            padding: 2rem;
+            margin: 1rem 0rem;
+        }
+        &__user {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        &__avatar {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 100px;
+            margin-right: 1rem;
+        }
+        &__text {
+            width: 100%;
+            border: none;
+            background: transparent;
+            &::placeholder {
+                color: black;
+                width: 100%;
+            }
+        }
+        &__read-more {
+            font-size: 1.6rem;
+            color: $background-color;
+            font-weight: 400;
+            &:hover {
+                cursor: pointer;
+                color: darken($background-color, 10%);
+            }
+        }
+        &__like-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        &__like-counter {
+            position: absolute;
+            left: -1.5rem;
+        }
+        &__like {
+            width: 2rem;
+            height: 2rem;
+            display: block;
+            cursor: pointer;
+        }
+    }
 }
 
+//to color the like button if a post has been liked
 [data-status=true] svg {
     background-color: $background-color;
     clip-path: url(#likeSVG)
+}
+
+//to drop down the replies section when clicked
+[data-status='dropped'] {
+    height: fit-content!important;
+    visibility: visible!important;
 }
 
 .editPost {

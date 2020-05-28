@@ -26,6 +26,7 @@ const initialState = {
 
 export default function(state = initialState, action) {
     const { type, payload } = action;
+    let posts = []
     switch (type) {
         case CREATE_POST:
             // console.log(payload);
@@ -81,20 +82,60 @@ export default function(state = initialState, action) {
                 loading: false,
             };
         case ADD_LIKE:
+            posts = state.posts.posts.map((post) => {
+                if (post._id.toString() == payload.post.toString()) {
+                    post.likes = payload.likes;
+                    return {
+                        ...post
+                    };
+                } else {
+                    return post;
+                }
+            })
             return {
                 ...state,
                 posts: {
-                    posts: state.posts.posts.map((post) => {
-                        if (post._id.toString() == payload.post.toString()) {
-                            post.likes = payload.likes;
-                            return post;
-                        } else {
-                            return post;
-                        }
-                    }),
+                    posts: posts
                 },
-                loading: false,
+                loading: false
             };
+        case LIKE_COMMENT:
+            posts = state.posts.posts.map((post) => {
+                if (post._id.toString() == payload.post_id.toString()) {
+                    post.comments.filter(comment => comment._id.toString() == payload.comment_id.toString())[0].likes = payload.likes.slice(0, payload.likes.length)
+                    const newPost = {
+                        ...post,
+                        comments: post.comments,
+
+                    }
+                    return newPost;
+                } else {
+                    return post;
+                }
+            })
+
+            return {
+                ...state,
+                posts: { posts: posts },
+                loading: false
+            };
+        case ADD_REPLY:
+            posts = state.posts.posts.map(post => {
+                if (post._id.toString() == payload.post_id.toString()) {
+                    const comment = post.comments.filter(comment => comment._id.toString() == payload.comment_id.toString())
+                    comment[0].replies = payload.replies;
+                    return {
+                        ...post,
+                        comments: post.comments
+                    }
+                }
+                return post;
+            })
+            return {
+                ...state,
+                posts: { posts: posts },
+                loading: false
+            }
         case POST_FAIL:
             return {
                 ...state,

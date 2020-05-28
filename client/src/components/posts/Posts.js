@@ -1,18 +1,19 @@
 import React, {useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
-import {createPost, editPost, getPosts, deletePost, addComment, addLike, addReply, deleteComment, deleteReply, editComment} from '../../actions/post';
+import {createPost, editPost, getPosts, deletePost, addComment, addLike, addReply, deleteComment, deleteReply, editComment, likeComment, likeReply, editReply} from '../../actions/post';
 import {connect} from 'react-redux'
 import {Redirect, Link, withRouter} from 'react-router-dom';
 import CreatePost from './CreatePost'
 import EditPost from './EditPost'
 import ConfirmationModal from '../common/ConfirmationModal'
 import EditComment from './EditComment'
+import EditReply from './EditReply'
 import Post from './Post'
 import Spinner from '../common/Spinner'
 
 import './styling/posts.css'
 
-const Posts = ({getPosts, createPost, editPost, deletePost, posts, loading, addComment, addLike, addReply, deleteComment, deleteReply, editComment}) => {
+const Posts = ({getPosts, createPost, editPost, deletePost, posts, loading, addComment, addLike, addReply, deleteComment, deleteReply, editComment, likeComment, likeReply, editReply}) => {
     useEffect(() => {
         //getting the first ten posts for display
         getPosts(pageNumber);
@@ -42,6 +43,10 @@ const Posts = ({getPosts, createPost, editPost, deletePost, posts, loading, addC
     const [editingComment, setEditingComment] = useState({});
     //value for editing comment modal
     const [editCommentModal, setEditCommentModal] = useState('closed')
+    //data for editing reply modal
+    const [editingReply, setEditingReply] = useState({});
+    //value for editing reply modal
+    const [editReplyModal, setEditReplyModal] = useState('closed')
     return (
         <div className = 'posts'>
             <h3 className="heading">Posts</h3>
@@ -57,13 +62,15 @@ const Posts = ({getPosts, createPost, editPost, deletePost, posts, loading, addC
             <ConfirmationModal setConfirmationModal = {setConfirmationModal} confirmationModalToggle={setConfirmationModal} modal = {confirmationModal} setModal = {setConfirmationModal} text = 'Are you sure you want to do this?' parentClassName='posts' confirmationModal={confirmationModal} confirmationPost = {confirmationPost} deletePost = {deletePost}/>
             {/**modal to edit a comment */}
             <EditComment editingComment = {editingComment} setEditCommentModal = {setEditCommentModal} editCommentModal = {editCommentModal} postState = {post} editComment = {editComment} />
+            <EditReply editingReply = {editingReply} setEditReplyModal = {setEditReplyModal} editReplyModal = {editReplyModal} postState = {post} editReply = {editReply} />
             <div className="posts__container">
                 {loading ? <Spinner /> : posts.filter(post => {
                     console.log(post.title.substring(0,search.length).toUpperCase() == search.toUpperCase() || post.name.substring(0,search.length).toUpperCase() == search.toUpperCase())
                     return post.title.substring(0,search.length).toUpperCase() == search.toUpperCase() || post.name.substring(0,search.length).toUpperCase() == search.toUpperCase()
-                }).map((post, index) => (
-                    <Post thisPostState = {post} setPost = {setPost} modal = {modal} key = {index} post={post} editPost = {editPost} deletePost={deletePost} modalToggle = {modalToggle} confirmationModalToggle= {setConfirmationModal} confirmationModal={confirmationModal} setConfirmationPost = {setConfirmationPost} confirmationPost = {confirmationPost} addComment = {addComment} addReply = {addReply} addLike = {addLike} deleteComment = {deleteComment} deleteReply = {deleteReply} setEditingComment = {setEditingComment} setEditCommentModal = {setEditCommentModal}/>
-                ))}
+                }).map((post, index) => { 
+                return (
+                    <Post setPost = {setPost} modal = {modal} key = {index} post={post} editPost = {editPost} deletePost={deletePost} modalToggle = {modalToggle} confirmationModalToggle= {setConfirmationModal} confirmationModal={confirmationModal} setConfirmationPost = {setConfirmationPost} confirmationPost = {confirmationPost} addComment = {addComment} addReply = {addReply} addLike = {addLike} deleteComment = {deleteComment} deleteReply = {deleteReply} setEditingComment = {setEditingComment} setEditCommentModal = {setEditCommentModal} likeComment = {likeComment} likeReply={likeReply} editReply = {editReply} setEditingReply = {setEditingReply} setEditReplyModal = {setEditReplyModal}/>
+                )})}
             </div>
             <button className="posts__see-more button" onClick = {e => paginate(e)}>See More Posts</button>
         </div>
@@ -74,6 +81,13 @@ Posts.propTypes = {
     getPosts : PropTypes.func.isRequired,
     createPost : PropTypes.func.isRequired,
     editPost : PropTypes.func.isRequired,
+    addComment : PropTypes.func.isRequired,
+    addLike : PropTypes.func.isRequired,
+    addReply : PropTypes.func.isRequired,
+    editComment : PropTypes.func.isRequired,
+    deletePost : PropTypes.func.isRequired,
+    deleteComment : PropTypes.func.isRequired,
+    deleteReply : PropTypes.func.isRequired,
     posts : PropTypes.array
 }
 
@@ -82,4 +96,4 @@ const mapStateToProps = state => ({
     loading : state.post.loading
 })
 
-export default connect(mapStateToProps, {getPosts, createPost, editPost, deletePost, addComment, addLike, addReply, deleteComment, deleteReply, editComment})(withRouter(Posts))
+export default connect(mapStateToProps, {getPosts, createPost, editPost, deletePost, addComment, addLike, addReply, deleteComment, deleteReply, editComment, likeComment, likeReply, editReply})(withRouter(Posts))

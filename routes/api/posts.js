@@ -281,26 +281,33 @@ router.put("/comment/like/:post_id/:comment_id", async(req, res) => {
     }
 
     try {
-        const post = await Post.findById(req.params.post_id);
-        const comment = await post.comments.findById(req.params.comment_id);
+        let post = await Post.findById(req.params.post_id);
+        const comments = post.comments;
+        const comment = await comments.filter(comment => req.params.comment_id.toString() == comment._id.toString())[0];
         const user =
             (await Recipient.findById(req.user._id)) ||
             (await Sponsor.findById(req.user._id));
+        console.log(comment.likes.filter(
+            (like) => like.user.toString() == req.user._id.toString()
+        ).length != 0)
+        console.log(comment.likes.filter(
+            (like) => like.user.toString() != req.user._id.toString()
+        ))
         if (
             comment.likes.filter(
                 (like) => like.user.toString() == req.user._id.toString()
             ).length != 0
         ) {
-            comment.likes.filter(
+            comment.likes = comment.likes.filter(
                 (like) => like.user.toString() != req.user._id.toString()
             )
-            await post.save();
-            return res.json({ post })
+            post = await Post.findOneAndUpdate({ _id: req.params.post_id }, { $set: { comments } }, { new: true });
+            return res.json({ likes: comment.likes, post_id: req.params.post_id, comment_id: req.params.comment_id })
         } else {
             await comment.likes.unshift({ user: req.user._id });
             await post.save();
             const likes = comment.likes
-            res.json({ post });
+            res.json({ likes, post_id: req.params.post_id, comment_id: req.params.comment_id });
         }
     } catch (err) {
         console.error(err.message);
@@ -316,20 +323,27 @@ router.put("/reply/:post_id/:comment_id", async(req, res) => {
         return res.status(401).json({ msg: "Unauthorized" });
     }
     try {
+        //extract the user to update myReplies
         const user =
             (await Recipient.findById(req.user._id)) ||
             (await Sponsor.findById(req.user._id));
+        //extract the post
         const post = await Post.findById(req.params.post_id);
-        const comment = await post.comments.findById(req.params.comment_id);
+        //find the comment referenced
+        const comment = await post.comments.filter(comment => req.params.comment_id.toString() == comment._id.toString())[0];
         const { text } = req.body;
-
-        await post.comments.replies.unshift({ text, user: req.user._id, name: user.name, avatar: user.avatar });
+        //add the reply to the comment's replies
+        await comment.replies.unshift({ text, user: req.user._id, name: user.name, avatar: user.avatar });
+        /** currently no "myReplies" section
+        //add the reply reference to "myreplies"
         user.myReplies.unshift({ post: req.params.post_id, comment: req.params.comment_id, reply: post.comments.replies[0]._id });
+        //save the new documents
         await user.save();
+        */
         await post.save();
-        res.json({ post });
+        res.json({ replies: comment.replies, post_id: req.params.post_id, comment_id: req.params.comment_id });
     } catch (err) {
-        console.error(err.message);
+        console.error(err);
         res.status(500).send("Server Error");
     }
 });

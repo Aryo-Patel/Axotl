@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { USER_LOADED, CREATE_POST, POST_FAIL, EDIT_POST, GET_POSTS, GET_POST, GET_MY_POSTS, ADD_COMMENT, EDIT_COMMENT, ADD_REPLY, EDIT_REPLY, DELETE_POST, DELETE_COMMENT, DELETE_REPLY, ADD_LIKE, REMOVE_LIKE, LIKE_COMMENT, LIKE_REPLY } from './Types.js'
+import { USER_LOADED, CREATE_POST, POST_FAIL, EDIT_POST, GET_POSTS, GET_POST, GET_MY_POSTS, ADD_COMMENT, EDIT_COMMENT, ADD_REPLY, EDIT_REPLY, DELETE_POST, DELETE_COMMENT, DELETE_REPLY, ADD_LIKE, REMOVE_LIKE, LIKE_COMMENT, LIKE_REPLY, SET_LOADING } from './Types.js'
 
 export const createPost = (formData) => async dispatch => {
     const config = {
@@ -184,13 +184,13 @@ export const deleteComment = (post_id, comment_id) => async dispatch => {
     }
 }
 
-export const addReply = (formData, post_id, comment_id) => async dispatch => {
+export const addReply = (text, post_id, comment_id) => async dispatch => {
     const config = {
         headers: {
             'Content-Type': 'application/json'
         }
     }
-    const body = JSON.stringify(formData)
+    const body = JSON.stringify({ text })
     try {
         const res = await axios.put(`/api/posts/reply/${post_id}/${comment_id}`, body, config);
         dispatch({

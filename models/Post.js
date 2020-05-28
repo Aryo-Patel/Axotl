@@ -62,6 +62,14 @@ const PostSchema = new Schema({
                 type: Schema.Types.ObjectId,
                 required: true
             },
+            name: {
+                type: String,
+                required: true
+            },
+            avatar: {
+                type: String,
+                required: true
+            },
             Date: {
                 type: Date,
                 default: Date.now,

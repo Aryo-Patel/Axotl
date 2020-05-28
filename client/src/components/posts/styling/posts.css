@@ -302,6 +302,7 @@
 }
 
 .post__dropdown {
+  overflow: auto;
   border: 1px solid #a5a5a5;
   background-color: white;
   -webkit-box-shadow: 0rem 1rem 1rem rgba(0, 0, 0, 0.2);
@@ -413,6 +414,7 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  cursor: pointer;
 }
 
 .post__likes p {
@@ -435,6 +437,7 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  cursor: pointer;
 }
 
 .post__comments p {
@@ -502,8 +505,14 @@
 .post .comment {
   border: 2px solid #2d3142;
   border-radius: 5px;
-  width: 90%;
+  width: 100%;
   background-color: #d0e2ff;
+  padding: 2rem;
+  margin: 1rem 0rem;
+}
+
+.post .comment__section {
+  width: 90%;
   padding: 2rem;
   margin: 1rem 0rem;
 }
@@ -564,10 +573,83 @@
   color: #4983ff;
 }
 
+.post .comment__like-container {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.post .comment__like-counter {
+  position: absolute;
+  left: -1.5rem;
+}
+
 .post .comment__like {
   width: 2rem;
   height: 2rem;
   display: block;
+  cursor: pointer;
+}
+
+.post .comment__replies {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.post .comment__reply-counter {
+  position: absolute;
+  left: -1.5rem;
+}
+
+.post .comment__reply {
+  width: 2rem;
+  height: 2rem;
+  display: block;
+  cursor: pointer;
+}
+
+.post .comment__reply-form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.post .comment__reply-input {
+  -ms-flex-preferred-size: 80%;
+      flex-basis: 80%;
+  border: 2px solid #a5a5a5;
+  border-radius: 10px;
+  padding: 0rem 1rem;
+}
+
+.post .comment__reply-input:focus {
+  border: 2px solid #5093ff;
+}
+
+.post .comment__reply-send {
+  -ms-flex-preferred-size: 20%;
+      flex-basis: 20%;
+  border: 2px solid #a5a5a5;
+  border-radius: 10px;
+}
+
+.post .comment__replies-section {
+  width: 90%;
+  float: right;
+  visibility: hidden;
+  height: 0;
 }
 
 .post .comment__top {
@@ -618,6 +700,7 @@
 }
 
 .post .comment__dropdown {
+  overflow: auto;
   border: 1px solid #a5a5a5;
   background-color: white;
   -webkit-box-shadow: 0rem 1rem 1rem rgba(0, 0, 0, 0.2);
@@ -644,10 +727,110 @@
   border-bottom: 1px solid #a5a5a5;
 }
 
+.post .reply {
+  border: 2px solid #2d3142;
+  border-radius: 5px;
+  width: 100%;
+  background-color: #d0e2ff;
+  padding: 2rem;
+  margin: 1rem 0rem;
+}
+
+.post .reply__section {
+  width: 90%;
+  padding: 2rem;
+  margin: 1rem 0rem;
+}
+
+.post .reply__user {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.post .reply__avatar {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 100px;
+  margin-right: 1rem;
+}
+
+.post .reply__text {
+  width: 100%;
+  border: none;
+  background: transparent;
+}
+
+.post .reply__text::-webkit-input-placeholder {
+  color: black;
+  width: 100%;
+}
+
+.post .reply__text:-ms-input-placeholder {
+  color: black;
+  width: 100%;
+}
+
+.post .reply__text::-ms-input-placeholder {
+  color: black;
+  width: 100%;
+}
+
+.post .reply__text::placeholder {
+  color: black;
+  width: 100%;
+}
+
+.post .reply__read-more {
+  font-size: 1.6rem;
+  color: #7ca6ff;
+  font-weight: 400;
+}
+
+.post .reply__read-more:hover {
+  cursor: pointer;
+  color: #4983ff;
+}
+
+.post .reply__like-container {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.post .reply__like-counter {
+  position: absolute;
+  left: -1.5rem;
+}
+
+.post .reply__like {
+  width: 2rem;
+  height: 2rem;
+  display: block;
+  cursor: pointer;
+}
+
 [data-status=true] svg {
   background-color: #7ca6ff;
   -webkit-clip-path: url(#likeSVG);
           clip-path: url(#likeSVG);
+}
+
+[data-status='dropped'] {
+  height: -webkit-fit-content !important;
+  height: -moz-fit-content !important;
+  height: fit-content !important;
+  visibility: visible !important;
 }
 
 .editPost__modal-cover {
