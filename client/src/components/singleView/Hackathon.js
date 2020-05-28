@@ -1,14 +1,17 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getHackathon } from "../../actions/hackathonActions";
 import Moment from 'react-moment'
+
+import './DonateToHackathonModal';
 
 import "./styling/single-view-styling.css";
 
 
 //jquery import
 import $ from 'jquery';
+import DonateToHackathonModal from "./DonateToHackathonModal";
 
 const Hackathon = ({
   match,
@@ -36,9 +39,16 @@ const Hackathon = ({
   $(document).ready(function () {
     window.scrollTo(0, 0);
   })
+
+  function updateModalDisplay() {
+    toggleModal(!modalView);
+  }
+
+  const [modalView, toggleModal] = useState(false);
   let key = 0; //key to give each element that's iterated through a unique id
   return (
     <Fragment>
+      <DonateToHackathonModal donations={donations} turnOn={modalView} updateView={updateModalDisplay} />
       <div className="compHeader">
         <div className="info-left">
           <h1 className="title">{title}</h1>
@@ -146,7 +156,7 @@ const Hackathon = ({
         </div>
       </div>
       <div className='donate-now-container'>
-        <button className='donate-now'>
+        <button className='donate-now' onClick={e => toggleModal(!modalView)}>
           Donate to this Hackaton
       </button>
       </div>

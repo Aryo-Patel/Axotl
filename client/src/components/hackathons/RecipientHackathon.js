@@ -8,7 +8,7 @@ import { Redirect, Link } from 'react-router-dom'
 const RecipientHackathon = ({ hackathon }) => {
     let i = 0;
     const onClick = (e) => {
-        return <Redirect to={`/hackathon/${hackathon._id}`} />
+        return <Redirect to={`/my-hackathon/${hackathon._id}`} />
     }
     return (
         <div className='hackathon-holder'>
@@ -37,7 +37,7 @@ const RecipientHackathon = ({ hackathon }) => {
                     <p>Start Date: <Moment format='MM/DD/YYYY'>{hackathon.startDate}</Moment></p>
 
                     <p>End Date: <Moment format='MM/DD/YYYY'>{hackathon.endDate}</Moment></p>
-                    <Link to={`/hackathon/${hackathon._id}`} className="btn btn-primary">
+                    <Link to={`/my-hackathons/${hackathon._id}`} className="btn btn-primary">
                         View Hackathon
                 </Link>
                 </div>
