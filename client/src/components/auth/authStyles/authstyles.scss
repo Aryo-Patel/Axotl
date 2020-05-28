@@ -40,6 +40,13 @@ $translateAmount: 100px;
     }
 }
 
+
+//Styles for logo on login page
+.login__logo {
+    width: 30rem;
+    height: 30rem;
+}
+
 //Styles for the login page
 .login__background {
     width: 100%;
@@ -59,7 +66,7 @@ $translateAmount: 100px;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        padding: 10rem 12rem;
+        padding: 10rem 10rem;
         width: 60%;
         z-index: 10;
 
@@ -71,27 +78,36 @@ $translateAmount: 100px;
         
         
         
-        @media(min-width: 40em) {//not mobile
+        @media(min-width: 40em) {//not phone
             border-radius: $form-border-radius;
             background-color: white;
             
-            padding: 15rem 5rem;
+            padding: 5rem 5rem 15rem;
+            width: 40rem;
+            height:75%;
+            .login__logo {
+                padding: 0 0;
+                //width: 20rem;
+                height: 15rem;
+            }
+        }
+        @media(min-width: 56.31em) {//not mobile
+            border-radius: $form-border-radius;
+            background-color: white;
+            
+            padding: 5rem 5rem 15rem;
             width: 40rem;
             height:80%;
             .login__logo {
                 padding: 0 0;
-                width: 20rem;
-                height: 20rem;
+                //width: 20rem;
+                height: 10rem;
             }
         }
     }
 }
 
-//Styles for logo on login page
-.login__logo {
-    width: 30rem;
-    height: 30rem;
-}
+
 
 //styles for internals on login page
 .login__container {
@@ -121,11 +137,15 @@ $translateAmount: 100px;
         &:nth-child(2) {
             animation-delay: 1s;
         }
+        
     }
     .form-group>label {
         font-size: 2rem;
         @media (max-width: $bp-largest) {
-            font-size: 1.5rem;//mobile
+            font-size: 1.5rem;//mobile not phome
+        }
+        @media (max-width: 40em) {
+            font-size: 2rem;//phome
         }
         position: absolute;
         margin: 0;
@@ -142,6 +162,9 @@ $translateAmount: 100px;
         font-size: 2rem;
         @media (max-width: $bp-largest) {
             font-size: 1.5rem;//HERE
+        }
+        @media (max-width: 40em) {
+            font-size: 2rem;//phome
         }
         // margin-bottom: 15px;
         background: none;
@@ -163,6 +186,7 @@ $translateAmount: 100px;
             @media (max-width: $bp-largest) {
                 font-size: 1.2rem;
             }
+            
         }
         &:valid+label {
             top: 0rem;
@@ -213,11 +237,12 @@ $translateAmount: 100px;
     .login__view {
         width: 3rem;
         height: 3rem;
-        //top: 8px;
-        //left: 10px;
+
+        fill:darken($text-color,5%);
+        
 
         top:.8rem;
-        left:1.2rem;
+        left:1.25rem;
         position: absolute;
         &-1 {
             visibility: visible;
@@ -262,8 +287,13 @@ $translateAmount: 100px;
 
 }
 
-[data-status='text'] .form-input .pass{
+[data-status='text'] .form-input{
+    &.pass{
     color: $primary-white;
+    }
+    label{
+        color: $primary-white;
+    }
 }
 
 //forgot password page styling
