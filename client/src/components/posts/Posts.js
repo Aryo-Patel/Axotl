@@ -62,14 +62,14 @@ const Posts = ({getPosts, createPost, editPost, deletePost, posts, loading, addC
             <ConfirmationModal setConfirmationModal = {setConfirmationModal} confirmationModalToggle={setConfirmationModal} modal = {confirmationModal} setModal = {setConfirmationModal} text = 'Are you sure you want to do this?' parentClassName='posts' confirmationModal={confirmationModal} confirmationPost = {confirmationPost} deletePost = {deletePost}/>
             {/**modal to edit a comment */}
             <EditComment editingComment = {editingComment} setEditCommentModal = {setEditCommentModal} editCommentModal = {editCommentModal} postState = {post} editComment = {editComment} />
-            <EditReply editingReply = {editingReply} setEditReplyModal = {setEditReplyModal} editReplyModal = {editReplyModal} postState = {post} editReply = {editReply} />
+            <EditReply editingReply = {editingReply} setEditReplyModal = {setEditReplyModal} editReplyModal = {editReplyModal} postState = {post} editReply = {editReply} editingComment = {editingComment}/>
             <div className="posts__container">
                 {loading ? <Spinner /> : posts.filter(post => {
                     console.log(post.title.substring(0,search.length).toUpperCase() == search.toUpperCase() || post.name.substring(0,search.length).toUpperCase() == search.toUpperCase())
                     return post.title.substring(0,search.length).toUpperCase() == search.toUpperCase() || post.name.substring(0,search.length).toUpperCase() == search.toUpperCase()
                 }).map((post, index) => { 
                 return (
-                    <Post setPost = {setPost} modal = {modal} key = {index} post={post} editPost = {editPost} deletePost={deletePost} modalToggle = {modalToggle} confirmationModalToggle= {setConfirmationModal} confirmationModal={confirmationModal} setConfirmationPost = {setConfirmationPost} confirmationPost = {confirmationPost} addComment = {addComment} addReply = {addReply} addLike = {addLike} deleteComment = {deleteComment} deleteReply = {deleteReply} setEditingComment = {setEditingComment} setEditCommentModal = {setEditCommentModal} likeComment = {likeComment} likeReply={likeReply} editReply = {editReply} setEditingReply = {setEditingReply} setEditReplyModal = {setEditReplyModal}/>
+                    <Post index = {index} setPost = {setPost} modal = {modal} key = {index} post={post} editPost = {editPost} deletePost={deletePost} modalToggle = {modalToggle} confirmationModalToggle= {setConfirmationModal} confirmationModal={confirmationModal} setConfirmationPost = {setConfirmationPost} confirmationPost = {confirmationPost} addComment = {addComment} addReply = {addReply} addLike = {addLike} deleteComment = {deleteComment} deleteReply = {deleteReply} setEditingComment = {setEditingComment} setEditCommentModal = {setEditCommentModal} likeComment = {likeComment} likeReply={likeReply} editReply = {editReply} setEditingReply = {setEditingReply} setEditReplyModal = {setEditReplyModal}/>
                 )})}
             </div>
             <button className="posts__see-more button" onClick = {e => paginate(e)}>See More Posts</button>

@@ -205,15 +205,15 @@ export const addReply = (text, post_id, comment_id) => async dispatch => {
     }
 }
 
-export const editReply = (formData, post_id, comment_id, reply_id) => async dispatch => {
+export const editReply = (text, post_id, comment_id, reply_id) => async dispatch => {
     const config = {
         headers: {
             'Content-Type': 'application/json'
         }
     }
-    const body = JSON.stringify(formData)
+    const body = JSON.stringify({ text })
     try {
-        const res = await axios.put(`/api/posts/${post_id}/${comment_id}/${reply_id}`, body, config);
+        const res = await axios.put(`/api/posts/reply/${post_id}/${comment_id}/${reply_id}`, body, config);
         dispatch({
             type: EDIT_REPLY,
             payload: res.data
@@ -228,7 +228,7 @@ export const editReply = (formData, post_id, comment_id, reply_id) => async disp
 
 export const deleteReply = (post_id, comment_id, reply_id) => async dispatch => {
     try {
-        const res = await axios.delete(`/api/posts/${post_id}/${comment_id}/${reply_id}`);
+        const res = await axios.delete(`/api/posts/reply/${post_id}/${comment_id}/${reply_id}`);
         dispatch({
             type: DELETE_REPLY,
             payload: res.data

@@ -34,8 +34,15 @@ const Post = ({
   likeComment,
   likeReply,
   setEditingReply,
-  setEditReplyModal
+  setEditReplyModal,
+  index
 }) => {
+  useEffect(() => {
+    console.log(document.querySelectorAll('.post__comment-container')[index].scrollHeight)
+    console.log(window.innerHeight/10*4)
+    console.log(document.querySelectorAll('.post__comment-container')[index].clientHeight < document.querySelectorAll('.post__comment-container')[index].scrollHeight)
+    toggleSeeMore(document.querySelectorAll('.post__comment-container')[index].scrollHeight > .4*window.innerHeight || extendComments == 'extended' ? 'on' : 'off' )
+  })
   //state for creating comments
   const [text, updateText] = useState("");
   //state to check if a post is liked or not
@@ -43,6 +50,12 @@ const Post = ({
     post.likes.filter((like) => like.user.toString() == user._id.toString())
       .length > 0
   );
+
+  //COMMENTS SECTION 'SEE MORE'
+  const [seeMore, toggleSeeMore] = useState('on')
+  const [extendComments, toggleExtendComments] = useState('limited')
+
+
   return (
     <div className="post">
       <div className="post__main">
@@ -168,7 +181,7 @@ const Post = ({
         </div>
       </div>
       <div className="post__comment-section">
-        <div className="post__comment-container">
+        <div className="post__comment-container"  data-status={extendComments} data-number = {0}>
           {post.comments.map((comment, index) => (
             <div key={index} className="comment__section">
             <div  className="comment">
@@ -244,7 +257,8 @@ const Post = ({
                 <Moment className="post__date" format="hh:mm MM/DD/YYYY">
                   {comment.Date}
                 </Moment>
-                <div className="comment__like-container">
+                <div className="comment__like-container" data-status = {comment.likes.filter((like) => like.user.toString() == user._id.toString())
+      .length > 0}>
                   <label className="comment__like-counter">
                     {comment.likes.length > 0 ? comment.likes.length : " "}
                   </label>
@@ -268,8 +282,12 @@ const Post = ({
                      
                       if(e.target.parentNode.parentNode.parentNode.parentNode.childNodes[1].dataset.status=='dropped') {
                         e.target.parentNode.parentNode.parentNode.parentNode.childNodes[1].dataset.status='up'
+                        e.target.parentNode.parentNode.parentNode.parentNode.parentNode.dataset.number='0'
                       } else {
                       e.target.parentNode.parentNode.parentNode.parentNode.childNodes[1].dataset.status='dropped'
+                      console.log(comment.replies.length)
+                      console.log(e.target.parentNode.parentNode.parentNode.parentNode.parentNode)
+                      e.target.parentNode.parentNode.parentNode.parentNode.parentNode.dataset.number='' + (comment.replies.length == 0 ? -1 : comment.replies.length)
                       }
                     }}
                     className="comment__reply"
@@ -343,6 +361,7 @@ const Post = ({
                         className="reply__dropdown-item"
                         onClick={async (e) => {
                           //makes the comment editable
+                          setEditingReply(reply);
                           setEditingComment(comment);
                           setPost(post);
                           setEditReplyModal("open");
@@ -399,7 +418,8 @@ const Post = ({
                 <Moment className="reply__date" format="hh:mm MM/DD/YYYY">
                   {reply.Date}
                 </Moment>
-                <div className="reply__like-container">
+                <div className="reply__like-container"  data-status = {reply.likes.filter((like) => like.user.toString() == user._id.toString())
+      .length > 0}>
                   <label className="reply__like-counter">
                     {reply.likes.length > 0 ? reply.likes.length : " "}
                   </label>
@@ -430,6 +450,15 @@ const Post = ({
             </div>
           ))}
         </div>
+        <div className="comment__see-more" data-status={seeMore} onClick = {e => {
+          if(extendComments == 'limited') {
+            toggleExtendComments('extended')
+            e.target.innerHTML = 'See Fewer Comments'
+            } else {
+              toggleExtendComments('limited')
+              e.target.innerHTML = 'See More Comments'
+            }
+            }}>See More Comments</div>
         <form
           className="post__create-comment"
           onSubmit={(e) => {

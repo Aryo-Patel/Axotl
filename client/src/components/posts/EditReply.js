@@ -8,8 +8,10 @@ const EditReply = ({
   editingReply,
   editReply,
   postState,
+  editingComment
 }) => {
   useEffect(() => {
+      console.log(editingReply.text)
     setText(editingReply.text);
   }, [editingReply]);
   const [text, setText] = useState("");
@@ -22,11 +24,11 @@ const EditReply = ({
     e.stopPropagation();
   });
 
-  $("#editReplysubmit")
+  $("#editreplysubmit")
     .unbind()
     .click((e) => {
       console.log("HERE");
-      editReply(text, postState._id, editingReply._id);
+      editReply(text, postState._id, editingComment._id, editingReply._id);
       setEditReplyModal("closed");
     });
   return (
@@ -38,7 +40,7 @@ const EditReply = ({
         <form className="editReply__modal-main" id="innerModalEditReply">
           <div className="editReply__submit-wrapper">
             <div
-              id="editReplysubmit"
+              id="editreplysubmit"
               className="editPost__icon-wrapper"
               onClick={(e) => {
                 console.log("onclick");

@@ -355,21 +355,24 @@ router.put("/reply/:post_id/:comment_id/:reply_id", async(req, res) => {
     if (!req.user) {
         return res.status(401).json({ msg: "Unauthorized" });
     }
+    const { post_id, comment_id, reply_id } = req.params;
     try {
-        const post = await Post.findById(req.params.post_id);
-        if (!await post.comments.findById(req.params.comment_id).user.toString == req.user._id) {
+        const post = await Post.findById(post_id);
+        const comments = post.comments
+            //extracting individual comment
+        const comment = await comments.filter(comment => comment_id.toString() == comment._id.toString())[0]
+        const { text } = req.body;
+        let replies = comment.replies;
+        const reply = replies.filter(reply => reply._id.toString() == reply_id.toString())[0]
+            //checking if the user sending the edit request is the same as the one who authored the reply
+        if (!reply.user.toString == req.user._id) {
             return res.status(401).json({ msg: "Unauthorized" });
         }
-        const { text } = req.body;
-        let comments = post.comments;
-        let comment = await post.comments.findById(req.params.comment_id);
-        let replies = comment.replies;
-
-
-        replies = await replies.findOneAndUpdate({ _id: req.params.reply_id }, { $set: { text } }, { new: true });
-        // comments = await comments.findOneAndUpdate({ _id: req.params.comment_id }, { $set: { replies } }, { new: true });
-        // await Post.findOneAndUpdate({ _id: req.params.post_id }, { $set: { comments } }, { new: true });
-        res.json({ post });
+        //update the reply
+        reply.text = text;
+        await post.save()
+        console.log(replies)
+        res.json({ replies, post_id, comment_id });
     } catch (err) {
         console.error(err.message);
         res.status(500).send("Server Error");
@@ -383,18 +386,19 @@ router.put("/reply/like/:post_id/:comment_id/:reply_id", async(req, res) => {
     if (!req.user) {
         return res.status(401).json({ msg: "Unauthorized" });
     }
+    const { post_id, comment_id, reply_id } = req.params
     try {
-        const post = Post.findById(req.params.post_id);
+        const post = await Post.findById(post_id);
         let comments = post.comments;
-        let comment = await post.comments.findById(req.params.comment_id);
+        let comment = await comments.filter(comment => comment_id.toString() == comment._id.toString())[0];
         let replies = comment.replies;
-        let reply = await replies.findById(req.params.reply_id);
+        let reply = await replies.filter(reply => reply_id.toString() == reply._id.toString())[0];
         let likes = reply.likes;
         if (
             likes.filter((like) => like.user.toString() == req.user._id.toString())
             .length != 0
         ) {
-            likes = likes.filter(
+            reply.likes = likes.filter(
                 (like) => like.user.toString() != req.user._id.toString()
             );
         } else {
@@ -404,9 +408,9 @@ router.put("/reply/like/:post_id/:comment_id/:reply_id", async(req, res) => {
         // comments = await comments.findOneAndUpdate({ _id: req.params.comment_id }, { $set: { replies } }, { new: true });
         // await Post.findOneAndUpdate({ _id: req.params.post_id }, { $set: { comments } }, { new: true });
         await post.save();
-        res.json({ post });
+        res.json({ replies, post_id, comment_id });
     } catch (err) {
-        console.error(err.message);
+        console.error(err);
         res.status(500).send("Server Error");
     }
 });
@@ -418,19 +422,22 @@ router.delete("/reply/:post_id/:comment_id/:reply_id", async(req, res) => {
     if (!req.user) {
         return res.status(401).json({ msg: "Unauthorized" });
     }
+    const { post_id, comment_id, reply_id } = req.params
     try {
         const user =
             (await Recipient.findById(req.user._id)) ||
             (await Sponsor.findById(req.user._id));
-        const post = await Post.findById(req.params.post_id);
-        const comment = await post.comments.findById(req.params.comment_id);
-        await comment.replies.filter(
-            (reply) => reply._id.toString() != req.params.reply_id.toString()
+        const post = await Post.findById(post_id);
+        const comment = await post.comments.filter(comment => comment_id.toString() == comment._id.toString())[0];
+        let replies = comment.replies;
+        comment.replies = await replies.filter(
+            (reply) => reply._id.toString() != reply_id.toString()
         );
-        user.myReplies.filter(reply => reply.reply._id.toString() != req.params.reply_id);
+        replies = comment.replies
+        user.myReplies.filter(reply => reply.reply._id.toString() != reply_id.toString());
         await post.save();
         await user.save();
-        res.json({ post });
+        res.json({ replies, post_id, comment_id });
     } catch (err) {
         console.error(err.message);
         res.status(500).send("Server Error");

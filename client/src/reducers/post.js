@@ -120,13 +120,16 @@ export default function(state = initialState, action) {
                 loading: false
             };
         case ADD_REPLY:
+        case DELETE_REPLY:
+        case EDIT_REPLY:
+        case LIKE_REPLY:
             posts = state.posts.posts.map(post => {
                 if (post._id.toString() == payload.post_id.toString()) {
-                    const comment = post.comments.filter(comment => comment._id.toString() == payload.comment_id.toString())
-                    comment[0].replies = payload.replies;
+                    const comment = post.comments.filter(comment => comment._id.toString() == payload.comment_id.toString())[0]
+                    comment.replies = payload.replies;
                     return {
                         ...post,
-                        comments: post.comments
+                        comments: [...post.comments]
                     }
                 }
                 return post;
