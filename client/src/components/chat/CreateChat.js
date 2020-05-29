@@ -115,22 +115,22 @@ class CreateChat extends Component {
     }
 
     confirmFinal(e) {
-        let recipientInfo = this.state.recipients.map((item) => {
-            return {
-                userID: item,
-                numUnread: 0,
-            }
-        })
-        let sponsorInfo = this.state.sponsors.map((item) => {
-            return {
-                userID: item,
-                numUnread: 0,
-            }
-        })
+        // let recipientInfo = this.state.recipients.map((item) => {
+        //     return {
+        //         userID: item,
+        //         numUnread: 0,
+        //     }
+        // })
+        // let sponsorInfo = this.state.sponsors.map((item) => {
+        //     return {
+        //         userID: item,
+        //         numUnread: 0,
+        //     }
+        // })
         let info = {
             name: this.state.chatName,
-            recipients: recipientInfo,
-            sponsors: sponsorInfo,
+            recipients: this.state.recipients,
+            sponsors: this.state.sponsors,
             messages: [],
 
         }

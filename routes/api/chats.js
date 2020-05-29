@@ -2,23 +2,67 @@ const express = require('express');
 const router = express.Router();
 
 const Chat = require('../../models/Chat');
+const Recipient = require('../../models/Recipient');
+const Sponsor = require('../../models/Sponsor');
 
 //POST      api/chat/create
 //Action    create chat (like a group chat type of thing)
 //Private
 
-router.post('/create', (req, res) => {
+router.post('/create', async(req, res) => {
     let { name, recipients, sponsors } = req.body;
 
-    let chatParts = {
-        name: name,
-        recipients: recipients,
-        sponsors: sponsors,
-        messages: [],
+    let chatParts;
+    
+    //This will be used to automatically add the person creating the chat to the group chat.
+    let creator = {
+        userID: req.user._id,
+        numUnread: 0,   
     }
 
+    if(req.user.sponsor){
+    chatParts = {   
+        name: name,
+        owner: req.user._id,
+        invitedRecipients: recipients,
+        invitedSponsors: sponsors,
+        sponsors: [creator],
+        recipients: [],
+        messages: [],
+        }
+    } else {
+        chatParts = {
+            name: name,
+            owner: req.user._id,
+            invitedRecipients: recipients,
+            invitedSponsors: sponsors,
+            recipients: [creator],
+            sponsors: [],
+            messages: [], 
+        }
+    }
+    
+
     let chat = new Chat(chatParts)
-    chat.save()
+    await chat.save();
+    if(recipients){
+        for(let i = 0; i < recipients.length; i++){
+        Recipient.findOne({ _id: recipients[i]})
+        .then(recipient => {
+            recipient.chatInvitations.push(chat)
+            recipient.save();
+        })
+        }
+    }
+    if(sponsors){
+        for(let i = 0; i < sponsors.length; i++){
+        Sponsor.findOne({ _id: sponsors[i]})
+        .then(sponsor => {
+            sponsor.chatInvitations.push(chat)
+            sponsor.save();
+        })
+        }
+    }
     res.json(chat);
 })
 
@@ -32,18 +76,83 @@ router.post('/users/:id', (req, res) => {
     Chat.findOne({ id: req.params.id })
         .then(chat => {
             if (recipients != null) {
-                chat.recipients.unshift(recipients);
+                chat.invitedRecipients.unshift(recipients);
+                for(let i = 0; i < recipients.length; i++){
+                    Recipient.findOne({ _id: recipients[i]})
+                    .then(recipient => {
+                        recipient.chatInvitations.push(chat)
+                        recipient.save();
+                    })
+                }
             }
             if (sponsors != null) {
-                chat.sponsors.unshift(sponsors);
+                chat.invitedSponsors.unshift(sponsors);
+                for(let i = 0; i < sponsors.length; i++){
+                    Sponsor.findOne({ _id: sponsors[i]})
+                    .then(sponsor => {
+                        sponsor.chatInvitations.push(chat)
+                        sponsor.save();
+                    })
+                }
             }
             chat.save()
                 .then(res => {
-                    res.status(200).send("Yay updated the chat!")
+                    res.status(200).send(chat)
                 }).catch(err => {
                     res.status(500).send("oops! Something went wrong with saving!")
                     console.log(err)
                 })
+        })
+        .catch(err => {
+            res.status(500).send("Server Error")
+            console.log(err)
+        })
+})
+
+
+//POST      api/chat/accept/:id
+//Action    This will be the route we use to confirm/accept invites.
+//Private
+router.post('/accept/:id', (req, res) => {
+    let userInfo = {
+        userID: req.user._id,
+        numUnread: 0,
+    }
+
+    console.log(req.params.id);
+
+    Chat.findOne({ _id: req.params.id })
+        .then(chat => {
+            if(req.user.sponsor){
+                if(chat.invitedSponsors.filter(user => req.user._id.toString() == user).length > 0){
+                    chat.sponsors.unshift(userInfo);
+                    Sponsor.findOne({_id: req.user._id})
+                    .then(sponsor => {
+                        for(let i = 0; i < sponsor.chatInvitations.length; i++){
+                            if(sponsor.chatInvitations[i].toString() == req.params.id){
+                                sponsor.chatInvitations.splice(i, i + 1);
+                            }
+                        }
+                        sponsor.save();
+                    })
+                }
+            } else {
+                if(chat.invitedRecipients.filter(user => req.user._id.toString() == user).length > 0){
+                    console.log("passed");
+                    chat.recipients.unshift(userInfo);
+                    Recipient.findOne({_id: req.user._id})
+                    .then(recipient => {
+                        for(let i = 0; i < recipient.chatInvitations.length; i++){
+                            if(recipient.chatInvitations[i].toString() == req.params.id){
+                                recipient.chatInvitations.splice(i, i + 1);
+                            }
+                        }
+                        recipient.save();
+                    })
+                }
+            }
+            chat.save()
+            res.status(200).send(chat)
         })
         .catch(err => {
             res.status(500).send("Server Error")
@@ -132,6 +241,22 @@ router.get('/:id', async (req, res) => {
             })
         }
         chat.save()
+        res.json(chat);
+        
+    }
+    catch (err) {
+        console.error(err.messsage)
+        return res.status(500).send("Server Error")
+    }
+})
+
+//GET       api/chat/invite/:id
+//Action    Get us the chosen chat's information
+//Private
+router.get('/invite/:id', async (req, res) => {
+    try {
+        console.log(req.params.id);
+        let chat = await Chat.findOne({ _id: req.params.id })
         res.json(chat);
         
     }

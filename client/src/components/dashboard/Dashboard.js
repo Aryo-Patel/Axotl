@@ -3,7 +3,8 @@ import PropTypes from "prop-types";
 import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import Discover from "../discover/Discover";
-import './styling/main.css'
+import './styling/main.css';
+import ChatInvitations from './ChatInvitations'
 
 const Dashboard = ({ isRegistered }) => {
   return (
@@ -13,6 +14,7 @@ const Dashboard = ({ isRegistered }) => {
       ) : (
         <div className="dashboard">
             <a href="https://www.youtube.com/watch?v=J9qrO_-NLjc">monke</a>
+            <ChatInvitations />
         </div>
       )}
     </Fragment>
