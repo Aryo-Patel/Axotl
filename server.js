@@ -6,6 +6,7 @@ const config = require("config");
 const MongoStore = require("connect-mongo")(session);
 const socket = require("socket.io");
 const helmet = require("helmet");
+const path = require('path')
 
 //routers
 const recipients = require("./routes/api/recipients");
@@ -70,10 +71,6 @@ app.use(
     })
 );
 
-//session test route
-app.get("/", function(req, res) {
-    res.json(req.session);
-});
 
 //initializing passport, passport strategies, and passport session
 console.log("initializing passport");
@@ -103,9 +100,11 @@ passport.deserializeUser(async(id, done) => {
 
 //production static serving from client side
 if (process.env.NODE_ENV === "production") {
+    console.log("SERVING STATIC FROM CLIENT/BUILD")
     app.use(express.static("client/build"));
-
-    app.get("*", (req, res) => {
+    console.log(path.resolve(__dirname, "client", "build", "index.html"))
+    app.get("/", (req, res) => {
+        console.log('sending file')
         res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
     });
 }
