@@ -25,6 +25,23 @@ const RecipientSchema = new Schema({
         type: Boolean,
         default: false
     },
+    notifications: [{
+        category: {
+            type: String,
+            required: true
+        },
+        payload: {
+            type: {
+                type: String
+            },
+            quantity: {
+                type: String
+            },
+            description: {
+                type: String
+            }
+        }
+    }],
     myPosts: [Schema.Types.ObjectId],
     myComments: [{
         post: { type: Schema.Types.ObjectId },

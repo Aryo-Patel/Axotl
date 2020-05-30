@@ -43,7 +43,7 @@ router.post('/register', [check('name', 'Name is required').not().isEmpty(), che
             d: 'mm',
         })
 
-
+        const notifications = [];
 
         //Creating the recipient using req values
         const newRecipient = new Recipient({
@@ -51,6 +51,7 @@ router.post('/register', [check('name', 'Name is required').not().isEmpty(), che
             email,
             password,
             avatar,
+            notifications
         });
         const salt = await bcrypt.genSalt(10)
         newRecipient.password = await bcrypt.hash(password, salt)
@@ -223,4 +224,73 @@ router.get('/logout', (req, res) => {
 })
 
 
+
+//PUT       api/users/update-notifications
+//Action    adds an empty notifications array to all users
+//PUBLIC    (Sorta, we don't auth it but it'll be private)
+router.put('/update-notifications', async (req, res, next) => {
+    try {
+        let recipientsArray = await Recipient.find();
+        let returnArray = [];
+
+        recipientsArray.forEach(async (recipient) => {
+            if (recipient.notifications.length > 0) {
+                console.log(recipient.name);
+                console.log(recipient.notifications);
+            }
+            else {
+                let updatedRecipientArray = {
+                    ...recipient,
+                    notifications: []
+                }
+                returnArray.push(updatedRecipientArray);
+                console.log(updatedRecipientArray);
+                await Recipient.update({ _id: recipient._id }, { $set: { notifications: [] } })
+            }
+        })
+        return res.status(200).send(returnArray);
+    }
+    catch (err) {
+        console.error(err);
+        return res.status(500).send("server error");
+    }
+});
+
+
+//PUT       api/users/add-notification
+//Action    adds a notification with its payload to a user
+//PRIVATE   
+router.put('/add-notification/:id', async (req, res, next) => {
+    try {
+        console.log(req.params.id);
+        let recipient = await Recipient.update({ _id: req.params.id }, { $push: { notifications: req.body } });
+        return res.status(200).json(recipient);
+    } catch (err) {
+        console.error(err);
+        return res.status(500).send('server error');
+    }
+});
+
+//DELETE       api/users/delete-notification
+//Action    removes a notification from a user's notification array
+//PRIVATE  
+router.delete('/delete-notification/:recipId/:notifID', async (req, res, next) => {
+    try {
+        let recipient = await Recipient.findOne({ _id: req.params.recipId });
+        let recipNotifications = recipient.notifications;
+
+        recipNotifications.forEach((notification, index) => {
+            if (notification._id + "" === req.params.notifID + "") {
+                recipNotifications.splice(index, 1);
+            }
+        });
+
+        let updatedChat = await Recipient.update({ _id: req.params.recipId }, { $set: { notifications: recipNotifications } });
+        res.status(200).json(updatedChat);
+    } catch (err) {
+        console.error(err);
+        return res.status(500).send('server err')
+    }
+
+})
 module.exports = router;

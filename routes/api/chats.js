@@ -23,9 +23,38 @@ router.post('/create', (req, res) => {
 })
 
 //POST      api/chat/users/:id
-//Action    This will be to add recipients or sponsors
+//Action    Add people to a preexisting group chat
 //Private
 router.post('/users/:id', (req, res) => {
+    let recipients = req.body.recipients;
+    let sponsors = req.body.sponsors;
+
+    Chat.findOne({ id: req.params.id })
+        .then(chat => {
+            if (recipients != null) {
+                chat.recipients.unshift(recipients);
+            }
+            if (sponsors != null) {
+                chat.sponsors.unshift(sponsors);
+            }
+            chat.save()
+                .then(res => {
+                    res.status(200).send("Yay updated the chat!")
+                }).catch(err => {
+                    res.status(500).send("oops! Something went wrong with saving!")
+                    console.log(err)
+                })
+        })
+        .catch(err => {
+            res.status(500).send("Server Error")
+            console.log(err)
+        })
+})
+
+//POST      api/chat/confirm/:id            id is GC id
+//Action    Accept yourself into a group chat
+//Private
+router.post('/confirm/:id', (req, res) => {
     let recipients = req.body.recipients;
     let sponsors = req.body.sponsors;
 
@@ -118,22 +147,22 @@ router.get('/:id', async (req, res) => {
     try {
         console.log(req.params.id);
         let chat = await Chat.findOne({ _id: req.params.id })
-        if(req.user.sponsor){
+        if (req.user.sponsor) {
             chat.sponsors.forEach(sponsor => {
-                if(sponsor.userID.toString() === req.user._id.toString()){
+                if (sponsor.userID.toString() === req.user._id.toString()) {
                     sponsor['numUnread'] = 0;
                 }
             })
-        } else if(!req.user.sponsor){
+        } else if (!req.user.sponsor) {
             chat.recipients.forEach(recipient => {
-                if(recipient.userID.toString() === req.user._id.toString()){
+                if (recipient.userID.toString() === req.user._id.toString()) {
                     recipient['numUnread'] = 0;
                 }
             })
         }
         chat.save()
         res.json(chat);
-        
+
     }
     catch (err) {
         console.error(err.messsage)

@@ -1,7 +1,7 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
+import axios from 'axios';
 import $ from 'jquery';
 
 const DonateToHackathonModal = props => {
@@ -9,6 +9,7 @@ const DonateToHackathonModal = props => {
         window.scrollTo(0, 0);
     });
     let show = props.turnOn ? 'show' : 'no-display'
+
 
     $('.modal-background').click(function (e) {
         if (e.target.classList[0] === 'modal-positioner') {
@@ -18,27 +19,27 @@ const DonateToHackathonModal = props => {
     })
     let donationStatus;
     if (props.donations) {
-        console.log('component rerendered');
         donationStatus = new Array(props.donations.length);
         for (let i = 0; i < donationStatus.length; i++) {
             donationStatus[i] = 'false';
         }
     }
+    const [userInputs, updateInputs] = useState({
+
+    });
 
     function containsValue(array, term) {
         console.log(array);
         for (let i = 0; i < array.length; i++) {
-            console.log('in the for loop');
             if (array[i] === term) {
                 return true;
             }
         }
-        console.log('got here');
         return false;
     }
 
     //this controls the grey bar that comes in as well as the fade in of the input
-    $('.donation-option').click(function (e) {
+    $('.donation-option').unbind().click(function (e) {
         if (e.target.nodeName === 'INPUT') {
 
         }
@@ -46,7 +47,7 @@ const DonateToHackathonModal = props => {
             if ($(this).attr('data-status') === 'false') {
                 let index = $(this).attr('data-number');
                 donationStatus[index] = 'true';
-                console.log(donationStatus[index]);
+                $(this).attr('data-status', 'true');
                 $(this).find(`.growing-background`).css({ 'width': '100%' });
                 $(this).find('.donation-amount').css({ 'opacity': '100%' });
                 $(this).find('.donation-amount').css({ 'visibility': 'visible' });
@@ -56,24 +57,37 @@ const DonateToHackathonModal = props => {
                 $(this).attr('data-status', 'false');
                 let index = $(this).attr('data-number');
                 donationStatus[index] = 'false';
-                console.log(donationStatus[index]);
                 $(this).find('.growing-background').css({ 'width': '0%' });
                 $(this).find('.donation-amount').css({ 'opacity': '0%' });
                 $(this).find('.donation-amount').css({ 'visibility': 'hidden' });
+                let resetName = $(this).find('.donation-amount').attr('name');
+                updateInputs({
+                    ...userInputs,
+                    [resetName]: ""
+                });
             }
         }
     });
 
 
     $('.submit-button').unbind().click(function (e) {
-        console.log(donationStatus);
         if (containsValue(donationStatus, 'true')) {
             console.log('checker is working');
         }
         else {
             alert('Please choose at least one item to donate');
         }
-    })
+    });
+    function updateValue(e) {
+        updateInputs({
+            ...userInputs,
+            [e.target.name]: e.target.value
+        });
+
+    }
+    function processDonation() {
+        console.log(userInputs);
+    }
     let incrementor = 0;
     return (
         <Fragment>
@@ -88,16 +102,17 @@ const DonateToHackathonModal = props => {
                             {props.donations && props.donations.map((donation, index) => (
                                 <div key={incrementor++} className="donation-option" data-number={index} data-status='false' tabIndex='0'>
                                     <div className='growing-background'></div>
-                                    <p key={incrementor++} onClick={e => console.log('pls bubble')}>{donation.type}{'\t'}</p>
-                                    <p key={incrementor++} onClick={e => console.log('pls bubble')}>({donation.quantity})</p>
+                                    <p key={incrementor++}>{donation.type}{'\t'}</p>
+                                    <p key={incrementor++}>({donation.quantity})</p>
                                     <div className='input-holder' onClick={e => e.stopPropagation()}>
-                                        <input key={incrementor++} className='donation-amount' placeholder="Quantity" onClick={e => e.stopPropagation()} />
+                                        <input key={incrementor++} className='donation-amount' name={donation.type} value={userInputs[donation.type] ? userInputs[donation.type] : ""}
+                                            onChange={e => updateValue(e)} placeholder="Quantity" onClick={e => e.stopPropagation()} />
                                     </div>
                                 </div>
                             ))}
                         </div>
                         <div className='button-centerer'>
-                            <button className='submit-button'>Send a donation request</button>
+                            <button className='submit-button' onClick={e => processDonation()}>Send a donation request</button>
                         </div>
                     </div>
                 </div>
