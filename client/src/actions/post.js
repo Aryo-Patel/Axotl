@@ -25,9 +25,9 @@ export const createPost = (formData) => async dispatch => {
         })
     } catch (err) {
         console.error(err.message);
-        //dispatch({
-        //            type: POST_FAIL
-        //        })
+        dispatch({
+            type: POST_FAIL
+        })
     }
 }
 
@@ -47,9 +47,9 @@ export const editPost = (formData, post_id) => async dispatch => {
 
     } catch (err) {
         console.error(err.message);
-        //dispatch({
-        //            type: POST_FAIL
-        //        })
+        dispatch({
+            type: POST_FAIL
+        })
     }
 }
 
@@ -64,9 +64,9 @@ export const deletePost = (post_id) => async dispatch => {
 
     } catch (err) {
         console.error(err.message);
-        //dispatch({
-        //            type: POST_FAIL
-        //        })
+        dispatch({
+            type: POST_FAIL
+        })
     }
 }
 
@@ -94,27 +94,25 @@ export const getPost = (id) => async dispatch => {
         })
     } catch (err) {
         console.error(err.message);
-        //dispatch({
-        //            type: POST_FAIL
-        //        })
+        dispatch({
+            type: POST_FAIL
+        })
     }
 }
 
-export const getMyPosts = () => async dispatch => {
-
-    //BACKEND IMPLEMENTATION NOT DONE
-    //@TODO
+export const getMyPosts = (pageNumber) => async dispatch => {
     try {
-        const res = await axios.get('/api/posts');
+        const res = await axios.get(`/api/posts/my-posts/${pageNumber}`);
+        console.log(res.data)
         dispatch({
-            type: GET_POSTS,
+            type: GET_MY_POSTS,
             payload: res.data
         })
     } catch (err) {
         console.error(err.message);
-        //dispatch({
-        //            type: POST_FAIL
-        //        })
+        dispatch({
+            type: POST_FAIL
+        })
     }
 }
 
@@ -141,9 +139,9 @@ export const addComment = (formData, post_id) => async dispatch => {
         })
     } catch (err) {
         console.error(err.message);
-        //dispatch({
-        //            type: POST_FAIL
-        //        })
+        dispatch({
+            type: POST_FAIL
+        })
     }
 }
 
@@ -162,9 +160,9 @@ export const editComment = (text, post_id, comment_id) => async dispatch => {
         })
     } catch (err) {
         console.error(err.message);
-        //dispatch({
-        //            type: POST_FAIL
-        //        })
+        dispatch({
+            type: POST_FAIL
+        })
     }
 }
 
@@ -178,9 +176,9 @@ export const deleteComment = (post_id, comment_id) => async dispatch => {
         })
     } catch (err) {
         console.error(err.message);
-        //dispatch({
-        //            type: POST_FAIL
-        //        })
+        dispatch({
+            type: POST_FAIL
+        })
     }
 }
 
@@ -199,9 +197,9 @@ export const addReply = (text, post_id, comment_id) => async dispatch => {
         })
     } catch (err) {
         console.error(err.message);
-        //dispatch({
-        //            type: POST_FAIL
-        //        })
+        dispatch({
+            type: POST_FAIL
+        })
     }
 }
 
@@ -220,9 +218,9 @@ export const editReply = (text, post_id, comment_id, reply_id) => async dispatch
         })
     } catch (err) {
         console.error(err.message);
-        //dispatch({
-        //            type: POST_FAIL
-        //        })
+        dispatch({
+            type: POST_FAIL
+        })
     }
 }
 
@@ -235,9 +233,9 @@ export const deleteReply = (post_id, comment_id, reply_id) => async dispatch => 
         })
     } catch (err) {
         console.error(err.message);
-        //dispatch({
-        //            type: POST_FAIL
-        //        })
+        dispatch({
+            type: POST_FAIL
+        })
     }
 }
 
@@ -258,9 +256,9 @@ export const addLike = (post_id) => async dispatch => {
         })
     } catch (err) {
         console.error(err.message);
-        //dispatch({
-        //            type: POST_FAIL
-        //        })
+        dispatch({
+            type: POST_FAIL
+        })
     }
 }
 
@@ -274,9 +272,9 @@ export const likeComment = (post_id, comment_id) => async dispatch => {
         })
     } catch (err) {
         console.error(err.message);
-        //dispatch({
-        //            type: POST_FAIL
-        //        })
+        dispatch({
+            type: POST_FAIL
+        })
     }
 }
 
@@ -289,8 +287,8 @@ export const likeReply = (post_id, comment_id, reply_id) => async dispatch => {
         })
     } catch (err) {
         console.error(err.message);
-        //dispatch({
-        //            type: POST_FAIL
-        //        })
+        dispatch({
+            type: POST_FAIL
+        })
     }
 }

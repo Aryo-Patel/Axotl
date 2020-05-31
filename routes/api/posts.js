@@ -15,7 +15,8 @@ router.get("/:pageNumber", async(req, res) => {
     }
     try {
         const posts = await Post.find().limit(req.params.pageNumber * 10).sort({ Date: -1 });
-        res.json({ posts });
+        const num = await Post.countDocuments()
+        res.json({ posts, num });
     } catch (err) {
         console.error(err.message);
         res.status(500).send("Server Error");
@@ -54,6 +55,28 @@ router.get("/single-view/:id", async(req, res) => {
     }
 });
 
+//GET      /api/posts/single-view/:id
+//Action    get all of a user's posts
+//PRIVATE   need to be signed in (recipient or sponsor to access route)
+router.get("/my-posts/:pageNumber", async(req, res) => {
+    if (!req.user) {
+        return res.status(401).json({ msg: "Unauthorized" });
+    }
+    try {
+        let counter = 0;
+        const myPosts = [];
+        for (counter; counter < req.params.pageNumber * 10 && counter < req.user.myPosts.length; counter++) {
+            let newPost = await Post.findById(req.user.myPosts[counter])
+            myPosts.push(newPost)
+        }
+        console.log('have arrived')
+        res.json({ myPosts, num: req.user.myPosts.length });
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server Error");
+    }
+});
+
 //POST      /api/posts/
 //Action    Create a post
 //PRIVATE   need to be signed in (recipient or sponsor to access route)
@@ -78,6 +101,7 @@ router.post("/", async(req, res) => {
         }
         await newPost.save();
         user.myPosts.unshift(newPost._id);
+        await user.save();
         res.json({ newPost, user });
     } catch (err) {
         console.error(err.message);
@@ -127,7 +151,8 @@ router.delete("/:id", async(req, res) => {
         const user =
             (await Recipient.findById(req.user._id)) ||
             (await Sponsor.findById(req.user._id));
-        user.myPosts.filter((post) => post.toString() != req.params.id.toString());
+        user.myPosts = user.myPosts.filter((post) => post.toString() != req.params.id.toString());
+        await user.save();
         await post.deleteOne();
         res.json({ post: req.params.id });
     } catch (err) {

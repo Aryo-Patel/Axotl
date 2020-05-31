@@ -2,13 +2,13 @@ import React, {useState} from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getCurrentProfile } from "../../actions/ProfileActions";
-import { deleteAccount } from "../../actions/auth";
 import { setAuthFalse } from "../../actions/auth";
 import Axios from "axios";
 import "./styling/main.css";
 import $ from 'jquery';
 import {Link} from 'react-router-dom';
-import {editAccount} from '../../actions/auth';
+import {editAccount, deleteAccount} from '../../actions/auth';
+import ConfirmationModal from '../common/ConfirmationModal';
 
 const Settings = ({
   sponsor,
@@ -17,24 +17,13 @@ const Settings = ({
   getCurrentProfile,
   setAuthFalse,
   editAccount,
+  deleteAccount,
   user,
 }) => {
   const [formData, setFormData] = useState({
     name: user.name,
     email: user.email
   })
-
-  const deleteAccount = async () => {
-    if (sponsor) {
-      await Axios.delete("/api/sponsors").then((res) => {
-        this.props.setAuthFalse();
-      });
-    } else {
-      await Axios.delete("/api/users").then((res) => {
-        this.props.setAuthFalse();
-      });
-    }
-  };
 
   const [read, setRead] = useState(false)
   //Making user information editable upon clicking the edit button
@@ -81,7 +70,8 @@ const Settings = ({
   const onChange = (e) => {
     setFormData({...formData, [e.target.name] : e.target.value})
   }
-
+//value of whether confirm deletion modal is open
+const [confirmationModal, setConfirmationModal] = useState('closed');
   return (
     <div className="settings">
         <h3 className = 'heading'>Settings</h3>
@@ -127,9 +117,12 @@ const Settings = ({
         <Link to='/changepassword'className = 'forms__forgot-password'>Change Password &rarr;</Link>
         <button type='submit' className = 'forms__submission button'>Submit My Changes</button>
       </form>
-      <button className="deleteButton" onClick={(e) => deleteAccount()}>
+      <ConfirmationModal setConfirmationModal = {setConfirmationModal} confirmationModal = {confirmationModal} text = 'Are you sure you want to do this?' parentClassName='settings' confirmationPost = {null} deletePost = {deleteAccount}/>
+      <div className="deleteContainer">
+      <button className="deleteButton" onClick={(e) => setConfirmationModal('open')}>
         Delete Profile and Account
       </button>
+      </div>
     </div>
   );
 };
@@ -139,6 +132,7 @@ Settings.propTypes = {
   user: PropTypes.object.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
   sponsor: PropTypes.bool.isRequired,
+  deleteAccount : PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -148,6 +142,6 @@ const mapStateToProps = (state) => ({
   sponsor: state.auth.user.user.sponsor,
 });
 
-export default connect(mapStateToProps, { getCurrentProfile, setAuthFalse, editAccount })(
+export default connect(mapStateToProps, { getCurrentProfile, editAccount, deleteAccount })(
   Settings
 );

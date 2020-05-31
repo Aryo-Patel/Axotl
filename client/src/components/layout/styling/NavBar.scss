@@ -85,8 +85,7 @@ $bp-small: 37.5em;
                 */
                 color: $background-color;
                 background-color: none !important;
-                transition: color 0.2s,
-                background-color 0.2s;
+                transition: color 0.2s, background-color 0.2s;
                 text-decoration: none;
             }
             label {
@@ -121,12 +120,10 @@ $bp-small: 37.5em;
             &:hover {
                 a {
                     color: $axo-yellow;
-                    
                 }
                 label {
                     color: $axo-yellow;
                 }
-                
             }
         }
     }
@@ -142,7 +139,6 @@ $bp-small: 37.5em;
         }
         h3 {
             font-family: 'Oxygen', sans-serif;
-            
             color: $background-color;
         }
     }
@@ -221,7 +217,6 @@ $bp-small: 37.5em;
             color: $background-color;
             animation: dropdown-text;
             animation-duration: 0.7s;
-            
         }
         div {
             display: inline-block;
@@ -242,7 +237,7 @@ $bp-small: 37.5em;
             a:active,
             a:link {
                 //font-size: 3rem;
-                color:purple;
+                color: purple;
                 @media (max-width: $bp-largest) {
                     /*font-size: 2.5rem;*/
                 }
@@ -287,7 +282,6 @@ $bp-small: 37.5em;
             &:hover {
                 a {
                     color: $axo-yellow;
-                    
                 }
                 label {
                     color: $axo-yellow;
@@ -371,7 +365,7 @@ $bp-small: 37.5em;
     &__item {
         color: $primary-white;
         display: flex;
-        width:auto;
+        width: auto;
         background-color: $background-color;
         text-align: right;
         font-size: .9em;
@@ -392,7 +386,8 @@ $bp-small: 37.5em;
             border-bottom-left-radius: 20px;
         }
     }
-    &__toggle {//for account specific dropdown (far right)
+    &__toggle {
+        //for account specific dropdown (far right)
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
         color: $primary-white;
         display: table;
@@ -404,8 +399,7 @@ $bp-small: 37.5em;
             margin-right: 1.5rem;
         }
         padding: 0.5rem 2rem;
-        transition: visibility .5s ease,
-        //background-color .2s,
+        transition: visibility .5s ease, //background-color .2s,
         opacity .5s ease;
         position: relative;
         z-index: 100;
@@ -482,7 +476,8 @@ $bp-small: 37.5em;
     color: rgb(47, 114, 255);
 }
 
-.navbar-toggler {//for mobile dropdown
+.navbar-toggler {
+    //for mobile dropdown
     @media (max-width: $bp-large) {
         margin-left: 2rem;
     }
