@@ -130,6 +130,7 @@ $bp-small: 37.5em;
         display: flex;
         flex-direction: column;
         align-items: center;
+        padding-bottom: 5rem;
     }
     &__modal-cover {
         color: #4983ff;
@@ -203,10 +204,10 @@ $bp-small: 37.5em;
         z-index: 0;
         width: 99%;
         height: 99%;
-        top: .5%;
+        top: .25%;
         left: .5%;
         border-radius: $form-border-radius;
-        background-color: $primary-white;
+        background-color: white;
     }
     &__header-container {
         width: 100%;
@@ -358,20 +359,32 @@ $bp-small: 37.5em;
     }
     //form to add a comment
     &__create-comment {
-        width: 90%;
+        width: 100%;
+        margin-top: .5%;
         display: flex;
-        margin: 0rem 3rem 0rem 3rem;
         justify-content: space-around;
         align-items: center;
         position: absolute;
-        bottom: 1rem;
         z-index: 100000000;
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+    }
+    &__create-comments {
+        background-color: transparent;
+        width: 100%;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        position: relative;
+        z-index: 999999999;
+        height: 3rem;
+        display: flex;
+        align-items: center;
     }
     //input to add a comment
     &__comment-input {
         flex-basis: 80%;
         border: 2px solid $light-grey;
-        border-radius: $form-border-radius;
+        border-bottom-left-radius: $form-border-radius;
         padding: 0rem 1rem;
         &:focus {
             border: 2px solid $background-color-lighter;
@@ -381,7 +394,7 @@ $bp-small: 37.5em;
     &__send-comment {
         flex-basis: 20%;
         border: 2px solid $light-grey;
-        border-radius: $form-border-radius;
+        border-bottom-right-radius: $form-border-radius;
     }
     //styling for container of comments
     &__comment-container {
@@ -397,9 +410,10 @@ $bp-small: 37.5em;
     //styling for each comment
     .comment {
         // max-height: 15rem;
-        border: 2px solid $background-color-light;
+        // border: 2px solid $background-color-light;
         border-radius: 5px;
         width: 100%;
+        box-shadow: 0 1rem 1rem rgba(0, 0, 0, .2);
         background-color: lighten($background-color-lighter, 25%);
         padding: 2rem;
         margin: 1rem 0rem;
@@ -512,16 +526,20 @@ $bp-small: 37.5em;
         }
         &__see-more {
             position: absolute;
-            backdrop-filter: blur(3px);
+            background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, .5));
+            backdrop-filter: blur(1px);
             width: 100%;
             bottom: 0;
-            padding-top: 2rem;
+            padding-top: 4rem;
             text-align: center;
             font-size: 2rem;
             visibility: hidden;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
             height: 0;
-            color: $background-color;
+            color: $primary-yellow;
             cursor: pointer;
+            font-weight: 700;
         }
         &__edit {
             margin-top: -.5rem;
@@ -721,7 +739,7 @@ $bp-small: 37.5em;
 //to extend the comments section
 [data-status='on'] {
     visibility: visible!important;
-    height: 10rem!important;
+    height: 12rem!important;
 }
 
 //to color the like button if a post has been liked

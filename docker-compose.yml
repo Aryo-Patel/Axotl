@@ -1,4 +1,4 @@
-version: '2'
+version: '3.4'
 
 services:
     axotl:
@@ -6,3 +6,9 @@ services:
             context: .
             dockerfile: Dockerfile
         ports: 80:3000
+        healthcheck:
+            test: ["CMD", "curl", "-f", "http://localhost"]
+            interval: 1m30s
+            timeout: 1m30s
+            retries: 3
+            start_period: 1m

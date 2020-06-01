@@ -1,5 +1,8 @@
 FROM node:10
 
+HEALTHCHECK --interval=30s --timeout=3s \
+    CMD curl -f http://localhost/ || exit 1
+
 ARG NODE_ENV="production"
 ENV NODE_ENV $NODE_ENV
 
