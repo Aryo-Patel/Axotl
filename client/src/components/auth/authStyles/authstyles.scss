@@ -40,7 +40,6 @@ $translateAmount: 100px;
     }
 }
 
-
 //Styles for logo on login page
 .login__logo {
     width: 30rem;
@@ -69,35 +68,29 @@ $translateAmount: 100px;
         padding: 10rem 10rem;
         width: 60%;
         z-index: 10;
-
         background-color: white;
-
         width: 100%;
         height: 100%;
-
-        
-        
-        
-        @media(min-width: 40em) {//not phone
+        @media(min-width: 40em) {
+            //not phone
             border-radius: $form-border-radius;
             background-color: white;
-            
             padding: 5rem 5rem 15rem;
             width: 40rem;
-            height:75%;
+            height: 75%;
             .login__logo {
                 padding: 0 0;
                 //width: 20rem;
                 height: 15rem;
             }
         }
-        @media(min-width: 56.31em) {//not mobile
+        @media(min-width: 56.31em) {
+            //not mobile
             border-radius: $form-border-radius;
             background-color: white;
-            
             padding: 5rem 5rem 15rem;
             width: 40rem;
-            height:80%;
+            height: 80%;
             .login__logo {
                 padding: 0 0;
                 //width: 20rem;
@@ -106,8 +99,6 @@ $translateAmount: 100px;
         }
     }
 }
-
-
 
 //styles for internals on login page
 .login__container {
@@ -137,15 +128,14 @@ $translateAmount: 100px;
         &:nth-child(2) {
             animation-delay: 1s;
         }
-        
     }
     .form-group>label {
         font-size: 2rem;
         @media (max-width: $bp-largest) {
-            font-size: 1.5rem;//mobile not phome
+            font-size: 1.5rem; //mobile not phome
         }
         @media (max-width: 40em) {
-            font-size: 2rem;//phome
+            font-size: 2rem; //phome
         }
         position: absolute;
         margin: 0;
@@ -161,10 +151,10 @@ $translateAmount: 100px;
         flex: 1;
         font-size: 2rem;
         @media (max-width: $bp-largest) {
-            font-size: 1.5rem;//HERE
+            font-size: 1.5rem; //HERE
         }
         @media (max-width: 40em) {
-            font-size: 2rem;//phome
+            font-size: 2rem; //phome
         }
         // margin-bottom: 15px;
         background: none;
@@ -186,7 +176,6 @@ $translateAmount: 100px;
             @media (max-width: $bp-largest) {
                 font-size: 1.2rem;
             }
-            
         }
         &:valid+label {
             top: 0rem;
@@ -198,24 +187,20 @@ $translateAmount: 100px;
         //&:invalid{
         //    border:green;
         //}
-        
     }
     .login-button {
-        background:none;
-        color:$background-color;
-        border:none;
-        
+        background: none;
+        color: $background-color;
+        border: none;
         font-size: 3rem;
         font-family: 'Oxygen', sans-serif;
-
         width: 100%;
         margin-bottom: 1rem;
         transform: scale(0);
         display: inline-block;
         animation: popUp 1s 1.5s forwards;
-
-        &:hover{
-            color:$axo-yellow;
+        &:hover {
+            color: $axo-yellow;
         }
     }
     .forgot-password {
@@ -237,12 +222,9 @@ $translateAmount: 100px;
     .login__view {
         width: 3rem;
         height: 3rem;
-
-        fill:darken($text-color,5%);
-        
-
-        top:.8rem;
-        left:1.25rem;
+        fill: darken($text-color, 5%);
+        top: .8rem;
+        left: 1.25rem;
         position: absolute;
         &-1 {
             visibility: visible;
@@ -263,35 +245,30 @@ $translateAmount: 100px;
             height: 3rem;
             position: relative;
             top: 0;
-            right:0;
+            right: 0;
             display: inline-block;
             margin: 0 auto;
             border-radius: 50%;
-
             background-color: $primary-orange;
             //background-image:  linear-gradient(to top left, $primary-white, white);
-
             bottom: 0;
             //transition: background-color 1s;
             //transition: background-image 1s;
             transition: transform .75s ease;
-            
             z-index: -1;
         }
     }
 }
 
 [data-status='text'] .login__eyes::after {
-    
     transform: translateY(-50%) scale(40);
-
 }
 
-[data-status='text'] .form-input{
-    &.pass{
-    color: $primary-white;
+[data-status='text'] .form-input {
+    &.pass {
+        color: $primary-white;
     }
-    label{
+    label {
         color: $primary-white;
     }
 }
@@ -1037,9 +1014,10 @@ $translateAmount: 100px;
         position: relative;
     }
     &__sponsor-toggle-label--1 {
+        text-align: center;
         position: absolute;
         top: 1rem;
-        left: 9rem;
+        left: 7rem;
         width: 20rem;
         text-decoration: none;
         text-transform: uppercase;
@@ -1049,14 +1027,21 @@ $translateAmount: 100px;
         @media (max-width: $bp-medium) {
             font-size: 1.6rem;
             width: 30rem;
-            left: 10rem;
+            left: 5rem;
             top: .5rem;
+        }
+        @media (max-width: 43.75em) {
+            font-size: 1.6rem;
+            width: 12rem;
+            left: 9rem;
+            top: -2rem;
         }
     }
     &__sponsor-toggle-label--2 {
+        text-align: center;
         position: absolute;
         top: 1rem;
-        left: -17.5rem;
+        left: -20.5rem;
         width: 20rem;
         text-decoration: none;
         text-transform: uppercase;
@@ -1066,8 +1051,14 @@ $translateAmount: 100px;
         @media (max-width: $bp-medium) {
             font-size: 1.6rem;
             width: 30rem;
-            left: -27.5rem;
+            left: -29.5rem;
             top: .5rem;
+        }
+        @media (max-width: 43.75em) {
+            font-size: 1.6rem;
+            width: 12rem;
+            left: -16.5rem;
+            top: -2rem;
         }
     }
     &__selected {

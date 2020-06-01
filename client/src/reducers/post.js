@@ -21,7 +21,11 @@ import {
 const initialState = {
     posts: [],
     post: null,
+    myPosts: [],
     loading: true,
+    myPostsLoading: true,
+    numPosts: 0,
+    numMyPosts: 0
 };
 
 export default function(state = initialState, action) {
@@ -58,7 +62,8 @@ export default function(state = initialState, action) {
         case GET_POSTS:
             return {
                 ...state,
-                posts: payload,
+                posts: { posts: payload.posts },
+                numPosts: payload.num,
                 loading: false,
             };
         case GET_POST:
@@ -138,6 +143,13 @@ export default function(state = initialState, action) {
                 ...state,
                 posts: { posts: posts },
                 loading: false
+            }
+        case GET_MY_POSTS:
+            return {
+                ...state,
+                myPosts: payload.myPosts,
+                numMyPosts: payload.num,
+                myPostsLoading: false
             }
         case POST_FAIL:
             return {

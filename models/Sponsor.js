@@ -45,6 +45,12 @@ const SponsorSchema = new Schema({
         reply: { type: Schema.Types.ObjectId }
     }],
     myLiked: [Schema.Types.ObjectId],
+    chatInvitations: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'chats'
+        }
+    ],
     Date: {
         type: Date,
         default: Date.now,

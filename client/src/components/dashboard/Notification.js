@@ -10,7 +10,7 @@ const Notification = ({ header, data, sender, id, userId, updateNotifications })
     return (
         <div className="notification-wrapper">
             <div className="notification-header">
-                <h3>New {header} from {sender}!</h3>
+                <h3>New {header} from {sender} to !</h3>
             </div>
             <div className="notification-body">
                 {header === 'DONATION OFFER' &&

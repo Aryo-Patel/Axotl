@@ -218,3 +218,18 @@ export const editAccount = (formData) => async dispatch => {
     }
 
 }
+
+export const deleteAccount = (sponsor) => async dispatch => {
+    try {
+        if (sponsor) {
+            const res = await axios.delete('/api/sponsors');
+        }
+        dispatch({
+            type: ACCOUNT_DELETED
+        })
+    } catch (err) {
+        console.error(err.message);
+        //dispatch alert?
+    }
+
+}

@@ -92,6 +92,92 @@
           justify-content: center;
 }
 
+.settings__modal-cover {
+  color: #4983ff;
+  z-index: 69420;
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  -webkit-transition: all .5s ease;
+  transition: all .5s ease;
+  background: rgba(0, 0, 0, 0.6);
+  -webkit-backdrop-filter: blur(2px);
+          backdrop-filter: blur(2px);
+  visibility: hidden;
+  -webkit-transform: scale(0);
+          transform: scale(0);
+}
+
+.settings__modal-main {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 50rem;
+  height: 30rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: white;
+}
+
+.settings__buttons {
+  margin-top: 2rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 60%;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.settings__yes {
+  background-color: #4983ff;
+  width: 6rem;
+  height: 3rem;
+  font-size: 1.6rem;
+  border: none;
+  border-radius: 10px;
+}
+
+.settings__no {
+  background-color: #a5a5a5;
+  width: 6rem;
+  height: 3rem;
+  font-size: 1.6rem;
+  border: none;
+  border-radius: 10px;
+}
+
+[data-status='open'] .settings__modal-cover {
+  visibility: visible;
+  -webkit-transform: scale(1);
+          transform: scale(1);
+}
+
+.deleteContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
 .deleteButton {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -114,6 +200,7 @@
   -webkit-transition: all .2s ease;
   transition: all .2s ease;
   text-transform: uppercase;
+  width: 30%;
 }
 
 .deleteButton:hover {
@@ -142,7 +229,7 @@
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  margin: 6rem 0rem;
+  margin: 3rem 0rem;
 }
 
 .forms__container {
@@ -202,13 +289,16 @@
 }
 
 .forms__submission {
-  margin: 3rem;
   visibility: none;
+  height: 0;
+  padding: 0;
+  margin: 0;
   opacity: 0;
 }
 
 .forms .visible {
   visibility: visible;
   opacity: 1;
+  margin: 3rem;
 }
 /*# sourceMappingURL=main.css.map */

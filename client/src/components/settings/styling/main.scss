@@ -73,6 +73,65 @@ $primary-white: #eee;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    &__modal-cover {
+        color: #4983ff;
+        z-index: 69420;
+        position: fixed;
+        height: 100vh;
+        width: 100vw;
+        top: 0;
+        left: 0;
+        transition: all .5s ease;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(2px);
+        visibility: hidden;
+        transform: scale(0);
+    }
+    &__modal-main {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 50rem;
+        height: 30rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: white;
+    }
+    &__buttons {
+        margin-top: 2rem;
+        display: flex;
+        width: 60%;
+        justify-content: space-between;
+    }
+    &__yes {
+        background-color: $background-color;
+        width: 6rem;
+        height: 3rem;
+        font-size: 1.6rem;
+        border: none;
+        border-radius: 10px;
+    }
+    &__no {
+        background-color: $light-grey;
+        width: 6rem;
+        height: 3rem;
+        font-size: 1.6rem;
+        border: none;
+        border-radius: 10px;
+    }
+}
+
+[data-status='open'] .settings__modal-cover {
+    visibility: visible;
+    transform: scale(1);
+}
+
+.deleteContainer {
+    display: flex;
+    justify-content: center;
 }
 
 .deleteButton {
@@ -89,6 +148,7 @@ $primary-white: #eee;
     border-radius: 100px;
     transition: all .2s ease;
     text-transform: uppercase;
+    width: 30%;
     &:hover {
         transform: translate(-3px);
         box-shadow: 0rem .5rem 1rem rgba(0, 0, 0, 0.15)
@@ -103,7 +163,7 @@ $primary-white: #eee;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 6rem 0rem;
+    margin: 3rem 0rem;
     &__container {
         display: flex;
         justify-content: center;
@@ -169,12 +229,15 @@ $primary-white: #eee;
         margin: 3rem;
     }
     &__submission {
-        margin: 3rem;
         visibility: none;
+        height: 0;
+        padding: 0;
+        margin: 0;
         opacity: 0;
     }
     .visible {
         visibility: visible;
         opacity: 1;
+        margin: 3rem;
     }
 }

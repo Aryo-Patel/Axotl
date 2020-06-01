@@ -6,6 +6,7 @@ import Discover from "../discover/Discover";
 import Notification from './Notification';
 import axios from 'axios';
 import './styling/main.css';
+import ChatInvitations from './ChatInvitations'
 
 const Dashboard = ({ isRegistered, id }) => {
   const [notifications, updateNotifications] = useState([]);
@@ -70,7 +71,8 @@ const Dashboard = ({ isRegistered, id }) => {
             <a id="monke" href="https://www.youtube.com/watch?v=J9qrO_-NLjc">monke</a>
             <div className="notification-center">
               <div className='chat-notifications-wrapper'>
-                {chatNotifications.length > 0 ? <p>flesh out the chats MONKE</p> : <p>You have no new chats!</p>}
+                {/* {chatNotifications.length > 0 ? <p>flesh out the chats MONKE</p> : <p>You have no new chats!</p>} */}
+                <ChatInvitations />
               </div>
               <div className="donation-notifications-wrapper">
 
@@ -86,6 +88,7 @@ const Dashboard = ({ isRegistered, id }) => {
 
           </div>
         )}
+      )}
     </Fragment>
   );
 };

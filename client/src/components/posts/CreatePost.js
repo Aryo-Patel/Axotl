@@ -48,13 +48,16 @@ const CreatePost = ({ createPost }) => {
             
             {/* <input id = 'createpostsubmit' type="submit" className="createPost__submit"></input> */}
                 <div id = 'createpostsubmit' className="createPost__icon-wrapper" onClick = {e => {
-                    console.log(JSON.stringify(formData))
+                    if(formData.content && formData.title) {
                      createPost(formData);
                      setFormData({
                         content: "",
                         title: ""
                      })
                      modalToggle('closed')
+                    } else {
+                      //dispatch an alert?
+                    }
                 }}>
                     <label htmlFor='#createpostsubmit'>
               <svg
@@ -76,6 +79,7 @@ const CreatePost = ({ createPost }) => {
             required={true}
             disabled={false}
             placeholder="Compose a title..."
+            required
           />
           <textarea
             name="content"
@@ -84,6 +88,7 @@ const CreatePost = ({ createPost }) => {
             placeholder = 'Write the content of your post here...'
             value={content}
             onChange={(e) => onChange(e)}
+            required
           />
         </form>
       </div>

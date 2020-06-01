@@ -5,15 +5,12 @@ const ChatSchema = new Schema({
     name: {
         type: String,
     },
-    // read: [{
-    //     user: {
-    //         type: String,
-    //     },
-    //     read: {
-    //         type: Boolean,
-    //     }
-
-    // }],
+    owner: {
+        type: Schema.Types.ObjectId,
+    },
+    //These invitations will only be the ObjectIDs
+    invitedRecipients: [Schema.Types.ObjectId],
+    invitedSponsors: [Schema.Types.ObjectId],  
     recipients: [
         {
         userID: {

@@ -5,9 +5,7 @@ import { forPass } from "../../actions/auth";
 import {withRouter} from 'react-router-dom';
 
 const ForgotPassword = ({ forPass, history }) => {
-  const [email, setEmail] = useState({
-    email: "",
-  });
+  const [email, setEmail] = useState("");
   return (
     <Fragment>
       <div className="forgotPassword__background">
@@ -28,6 +26,7 @@ const ForgotPassword = ({ forPass, history }) => {
             id= 'forgot-password-email'
             className="forgotPassword__email"
             onChange={(e) => setEmail(e.target.value)}
+            value={email}
             required/>
 <label className = 'forgotPassword__label' htmlFor="#forgot-password-email">Email Address</label>
           <button type="submit" className="forgotPassword__submit button">

@@ -19,7 +19,7 @@ const passport = require('passport')
 // Action   Register the sponsor
 // PUBLIC
 
-router.post('/register', [check('name', 'Name is required').not().isEmpty(), check('email', 'Not a valid email').isEmail(), check('password', 'Please enter a password with six or more characters').isLength({ min: 6 })], async (req, res) => {
+router.post('/register', [check('name', 'Name is required').not().isEmpty(), check('email', 'Not a valid email').isEmail(), check('password', 'Please enter a password with six or more characters').isLength({ min: 6 })], async(req, res) => {
     req.session.tries = 0;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -58,7 +58,7 @@ router.post('/register', [check('name', 'Name is required').not().isEmpty(), che
         const salt = await bcrypt.genSalt(10)
         newSponsor.password = await bcrypt.hash(password, salt)
         console.log("Password: " + newSponsor.password)
-        //Saving the Sponsor to the Sponsors collection
+            //Saving the Sponsor to the Sponsors collection
         await newSponsor.save()
 
 
@@ -90,6 +90,68 @@ router.post('/register', [check('name', 'Name is required').not().isEmpty(), che
         //         to: email,
         //         subject: "Confirm Email",
         //         text: `Hello ${newSponsor.name},\n\nThank you for registering for Axotl. With brilliant individuals like you, we hope to foster the next generation of tech innovators. In order to verify your account, please confirm your email (expires in 3 hours):\n\n${resetLink}\n\n\nIf you did not request this, please notify us at http://axotl.com/support\n\nThanks!\n-Axotl Support`
+        //          html: `<html>
+        // <head>
+        // <meta charset="utf-8">
+        //       </head>
+
+        //       <body syle = "font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+        //       display: flex;
+        //       flex-direction: column;
+        //       align-items: center;">
+        //           <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        //<tr>
+        //<td style="text-align: center;">
+        //               <table border="0" cellspacing="0" cellpadding="0" width="100%">
+        // <tr>
+        // <td align="center">
+        //             <div style = "border-bottom: 2px solid grey;">
+        //                 <img style="display:inline; vertical-align:middle;"  src="https://i.imgur.com/yrfLbAI.jpg" alt="Welcome" width="100" height="100" class='logo'>
+        //                 </img>
+        //                 <h3 style = "font-size: 30px; display: inline; padding: 10px 0; vertical-align:middle;
+        //                 font-family: 'Raleway', sans-serif;color: rgb(47, 114, 255);">Axotl</h3>
+        //             </div>
+        //             </td>
+        //             </tr>
+        //                         </table>
+        //               <div style = " padding: 1rem;">
+        //                   <p style = "text-decoration: none;
+        //                   color: rgb(24, 24, 24);
+        //                   font-weight: 400;
+        //                   letter-spacing: .2px;">Hello ${newRecipient.name},</p>
+        // <p style = "text-decoration: none;
+        //                   color: rgb(24, 24, 24);
+        //                   font-weight: 400;
+        //                   letter-spacing: .2px;">Thank you for registering for Axotl. With brilliant individuals like you, we hope to foster the next generation of tech innovators.</p>
+        //                   <p style = "text-decoration: none;
+        //                   color: rgb(24, 24, 24);
+        //                   font-weight: 400;
+        //                   letter-spacing: .2px;">In order to verify your account, please confirm your email below (expires in 3 hours):</p>
+        //                   <a style = "text-decoration: none;
+        //                   font-weight: 700;
+        //                   color: rgb(47, 114, 255);" href=${resetLink}>Forgot Password</a>
+        //                   <p  style = "text-decoration: none;
+        //                   color: rgb(24, 24, 24);
+        //                   font-weight: 400;
+        //                   letter-spacing: .2px;">Thanks!</p>
+        //                   <p  style = "text-decoration: none;
+        //                   color: rgb(24, 24, 24);
+        //                   font-weight: 400;
+        //                   letter-spacing: .2px;">Axotl Support</p>
+        //                   <div style = " background-color: rgb(247, 247, 247);
+        //                   padding: 1rem;">
+        //                       <img className='footerImg' src="https://i.imgur.com/yrfLbAI.jpg" alt="Welcome" width="50" height="50" class='logo'>
+        //                       </img>
+        //                       <p>This email was sent to ${user.email}</p>
+        //                       <p>
+        //                           If you did not request this email, please <span><a class = 'link' href='http://axotl.com/support'>contact us</a></span></p>
+        //                   </div>
+        //               </div>
+        //     </td>
+        // </tr>
+        //           </table>
+        //       </body>
+        //   </html>`
         //     }
 
         //     console.log(`reset link here 2 : ${resetLink}`)
@@ -140,7 +202,7 @@ router.post('/find', (req, res) => {
 //POST api/sponsors/confirmemail
 // Action confirm user's email
 //PUBLIC
-router.put('/confirmemail/:jwt', async (req, res) => {
+router.put('/confirmemail/:jwt', async(req, res) => {
     try {
         console.log('backend confirm email reached')
         const email = await jwt.verify(req.params.jwt, config.get('JWTSecret')).email
@@ -197,7 +259,7 @@ router.post('/login', passport.authenticate('local', { failureRedirect: 'http://
 //DELETE api/sponsors/
 // Action Delete profile and user
 // PRIVATE
-router.delete('/', async (req, res) => {
+router.delete('/', async(req, res) => {
     try {
         await SponsorProfile.deleteOne({ sponsor: req.user._id })
         await Sponsor.deleteOne({ _id: req.user._id })
@@ -212,7 +274,7 @@ router.delete('/', async (req, res) => {
 //GET /api/sponsors/forgotpassword
 //Action request password change
 // PUBLIC
-router.get('/forgotpassword/:email', async (req, res) => {
+router.get('/forgotpassword/:email', async(req, res) => {
     const transporter = createTransport({
         host: 'smtp.axotl.com',
         port: 587,
@@ -245,7 +307,7 @@ router.get('/forgotpassword/:email', async (req, res) => {
 //POST /api/sponsors/resetpassword/:jwt
 //Action send reset password
 // PUBLIC (ish, no authentication)
-router.post('/resetpassword/:jwt', async (req, res) => {
+router.post('/resetpassword/:jwt', async(req, res) => {
     try {
         const email = await jwt.verify(req.params.jwt, config.get('JWTSecret'))
         const user = await Sponsor.findOne({ email: email })
