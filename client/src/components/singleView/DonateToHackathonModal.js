@@ -28,14 +28,11 @@ const DonateToHackathonModal = props => {
 
     });
 
-    function containsValue(array, term) {
-        console.log(array);
-        for (let i = 0; i < array.length; i++) {
-            if (array[i] === term) {
-                return true;
-            }
+    function badInput() {
+        if (userInputs.length === 0) {
+            return false;
         }
-        return false;
+        return Object.values(userInputs).every(input => input.length == 0);
     }
 
     //this controls the grey bar that comes in as well as the fade in of the input
@@ -70,23 +67,48 @@ const DonateToHackathonModal = props => {
     });
 
 
-    $('.submit-button').unbind().click(function (e) {
-        if (containsValue(donationStatus, 'true')) {
-            console.log('checker is working');
+    $('.submit-button').unbind().click(async function (e) {
+        if (!badInput()) {
+            console.log(userInputs);
+            const payload = [];
+            for (let item in userInputs) {
+                if (item !== 'description') {
+                    payload.push({
+                        type: item,
+                        quantity: userInputs[item],
+                        description: userInputs.description
+                    });
+                }
+            }
+            const bodyData = {
+                category: "DONATION OFFER",
+                payload: payload,
+                sender: props.name,
+                title: props.title
+            };
+            //sets up the data for the axios request
+            const body = bodyData;
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+            //grabs the user associated with a hackathon
+            let id = props.recipientId;
+            console.log(id);
+            await axios.put(`/api/users/add-notification/${id}`, body, config);
+            console.log('completed');
         }
         else {
             alert('Please choose at least one item to donate');
         }
     });
+
     function updateValue(e) {
         updateInputs({
             ...userInputs,
             [e.target.name]: e.target.value
         });
-
-    }
-    function processDonation() {
-        console.log(userInputs);
     }
     let incrementor = 0;
     return (
@@ -106,13 +128,17 @@ const DonateToHackathonModal = props => {
                                     <p key={incrementor++}>({donation.quantity})</p>
                                     <div className='input-holder' onClick={e => e.stopPropagation()}>
                                         <input key={incrementor++} className='donation-amount' name={donation.type} value={userInputs[donation.type] ? userInputs[donation.type] : ""}
-                                            onChange={e => updateValue(e)} placeholder="Quantity" onClick={e => e.stopPropagation()} />
+                                            onChange={e => updateValue(e)} type='number' min="0" placeholder="Quantity" onClick={e => e.stopPropagation()} />
                                     </div>
                                 </div>
                             ))}
+                            <div className="description-container">
+                                <h3>Optionally, add a quick description about your donation</h3>
+                                <textarea name="description" value={userInputs['description'] ? userInputs['description'] : ""} placeholder="Description..." onChange={e => updateValue(e)}></textarea>
+                            </div>
                         </div>
                         <div className='button-centerer'>
-                            <button className='submit-button' onClick={e => processDonation()}>Send a donation request</button>
+                            <button className='submit-button'>Send a donation request</button>
                         </div>
                     </div>
                 </div>
@@ -121,4 +147,13 @@ const DonateToHackathonModal = props => {
     )
 }
 
-export default DonateToHackathonModal;
+DonateToHackathonModal.propTypes = {
+    recipientId: PropTypes.string.isRequired,
+}
+
+const mapStateToProps = state => ({
+    recipientId: state.hackathons.hackathon.recipient,
+    name: state.auth.user.user.name,
+    title: state.hackathons.hackathon.title
+});
+export default connect(mapStateToProps, {})(DonateToHackathonModal);

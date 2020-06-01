@@ -5,7 +5,58 @@ $primary-orange: rgb(255, 102, 71);
 $background-color-light: #2d3142;
 $primary-white: #eee;
 .dashboard {
-    padding-top: 10rem;
-    font-size: 1.6rem;
-    color: $background-color;
+  padding-top: 10rem;
+  font-size: 1.6rem;
+  color: $background-color;
+
+  #monke {
+    color: white;
+    text-decoration: none;
+  }
+
+  .notification-center {
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 80%;
+  }
+
+  .notifications {
+    margin-bottom: 10px;
+    .notification-wrapper {
+      background-color: $background-color;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border-radius: 10%;
+
+      .notification-header {
+        margin: 10px;
+        width: 80%;
+        h3 {
+          text-align: center;
+        }
+      }
+      .notification-body {
+        margin: 10px;
+        width: 80%;
+        .item {
+          border-bottom: 1px solid white;
+        }
+      }
+
+      .user-action {
+        display: flex;
+        justify-content: space-evenly;
+
+        .action {
+          margin: 5px;
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
 }

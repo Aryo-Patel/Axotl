@@ -30,7 +30,10 @@ const RecipientSchema = new Schema({
             type: String,
             required: true
         },
-        payload: {
+        sender: {
+            type: String
+        },
+        payload: [{
             type: {
                 type: String
             },
@@ -40,7 +43,7 @@ const RecipientSchema = new Schema({
             description: {
                 type: String
             }
-        }
+        }]
     }],
     myPosts: [Schema.Types.ObjectId],
     myComments: [{

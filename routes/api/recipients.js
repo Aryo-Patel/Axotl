@@ -257,12 +257,27 @@ router.put('/update-notifications', async (req, res, next) => {
 });
 
 
+//GET       api/users/notifications/:id
+//Action    gets all of a user's notifications
+//PRIVATE  
+router.get('/notifications/:id', async (req, res, next) => {
+    try {
+        let recipient = await Recipient.findOne({ _id: req.params.id });
+        return res.status(200).json(recipient.notifications);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('server error');
+    }
+
+
+});
+
 //PUT       api/users/add-notification
 //Action    adds a notification with its payload to a user
 //PRIVATE   
 router.put('/add-notification/:id', async (req, res, next) => {
     try {
-        console.log(req.params.id);
+        console.log(req.body);
         let recipient = await Recipient.update({ _id: req.params.id }, { $push: { notifications: req.body } });
         return res.status(200).json(recipient);
     } catch (err) {
