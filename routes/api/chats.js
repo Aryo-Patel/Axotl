@@ -67,7 +67,7 @@ router.post('/create', async(req, res) => {
 })
 
 //POST      api/chat/users/:id
-//Action    This will be to add recipients or sponsors
+//Action    Add people to a preexisting group chat
 //Private
 router.post('/users/:id', (req, res) => {
     let recipients = req.body.recipients;
@@ -143,7 +143,7 @@ router.post('/accept/:id', (req, res) => {
                     Recipient.findOne({_id: req.user._id})
                     .then(recipient => {
                         for(let i = 0; i < recipient.chatInvitations.length; i++){
-                            if(recipient.chatInvitations[i].toString() == req.params.id){
+                            if(recipient.chatInvitations[i].toString() == req.params.id.toString()){
                                 recipient.chatInvitations.splice(i, i + 1);
                             }
                         }
@@ -227,22 +227,22 @@ router.get('/:id', async (req, res) => {
     try {
         console.log(req.params.id);
         let chat = await Chat.findOne({ _id: req.params.id })
-        if(req.user.sponsor){
+        if (req.user.sponsor) {
             chat.sponsors.forEach(sponsor => {
-                if(sponsor.userID.toString() === req.user._id.toString()){
+                if (sponsor.userID.toString() === req.user._id.toString()) {
                     sponsor['numUnread'] = 0;
                 }
             })
-        } else if(!req.user.sponsor){
+        } else if (!req.user.sponsor) {
             chat.recipients.forEach(recipient => {
-                if(recipient.userID.toString() === req.user._id.toString()){
+                if (recipient.userID.toString() === req.user._id.toString()) {
                     recipient['numUnread'] = 0;
                 }
             })
         }
         chat.save()
         res.json(chat);
-        
+
     }
     catch (err) {
         console.error(err.messsage)

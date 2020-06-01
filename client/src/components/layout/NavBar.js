@@ -44,8 +44,8 @@ const NavBar = ({ isAuthenticated, auth }) => {
         </Link>
       </li>
       <li className="nav-item active mx-4 text-center">
-        <Link to="/my-hackathons" className="nav-link nav__btn">
-          My Hackathons
+        <Link to="/hackathons" className="nav-link nav__btn">
+          Hackathons
         </Link>
       </li>
       <li className="nav-item active mx-4 text-center">

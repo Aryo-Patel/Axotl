@@ -25,6 +25,15 @@ const SponsorSchema = new Schema({
         type: Boolean,
         default: false
     },
+    notifications: [{
+        category: {
+            type: String,
+            required: true
+        },
+        payload: {
+            type: Object
+        }
+    }],
     myPosts: [Schema.Types.ObjectId],
     myComments: [{
         post: { type: Schema.Types.ObjectId },

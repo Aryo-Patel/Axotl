@@ -13,7 +13,7 @@ import Spinner from '../common/Spinner'
 
 import './styling/posts.css'
 
-const Posts = ({getPosts, createPost, editPost, deletePost, posts, loading, addComment, addLike, addReply, deleteComment, deleteReply, editComment, likeComment, likeReply, editReply}) => {
+const Posts = ({numPosts, getPosts, createPost, editPost, deletePost, posts, loading, addComment, addLike, addReply, deleteComment, deleteReply, editComment, likeComment, likeReply, editReply}) => {
     useEffect(() => {
         //getting the first ten posts for display
         getPosts(pageNumber);
@@ -59,7 +59,7 @@ const Posts = ({getPosts, createPost, editPost, deletePost, posts, loading, addC
             {/**modal to edit a post */}
             <EditPost postState = {post} editPost = {editPost} modal = {modal} modalToggle = {modalToggle}/>
             {/**modal to confirm deletion of a post */}
-            <ConfirmationModal setConfirmationModal = {setConfirmationModal} confirmationModalToggle={setConfirmationModal} modal = {confirmationModal} setModal = {setConfirmationModal} text = 'Are you sure you want to do this?' parentClassName='posts' confirmationModal={confirmationModal} confirmationPost = {confirmationPost} deletePost = {deletePost}/>
+            <ConfirmationModal setConfirmationModal = {setConfirmationModal} text = 'Are you sure you want to do this?' parentClassName='posts' confirmationModal={confirmationModal} confirmationPost = {confirmationPost} deletePost = {deletePost}/>
             {/**modal to edit a comment */}
             <EditComment editingComment = {editingComment} setEditCommentModal = {setEditCommentModal} editCommentModal = {editCommentModal} postState = {post} editComment = {editComment} />
             <EditReply editingReply = {editingReply} setEditReplyModal = {setEditReplyModal} editReplyModal = {editReplyModal} postState = {post} editReply = {editReply} editingComment = {editingComment}/>
@@ -72,7 +72,7 @@ const Posts = ({getPosts, createPost, editPost, deletePost, posts, loading, addC
                     <Post index = {index} setPost = {setPost} modal = {modal} key = {index} post={post} editPost = {editPost} deletePost={deletePost} modalToggle = {modalToggle} confirmationModalToggle= {setConfirmationModal} confirmationModal={confirmationModal} setConfirmationPost = {setConfirmationPost} confirmationPost = {confirmationPost} addComment = {addComment} addReply = {addReply} addLike = {addLike} deleteComment = {deleteComment} deleteReply = {deleteReply} setEditingComment = {setEditingComment} setEditCommentModal = {setEditCommentModal} likeComment = {likeComment} likeReply={likeReply} editReply = {editReply} setEditingReply = {setEditingReply} setEditReplyModal = {setEditReplyModal}/>
                 )})}
             </div>
-            <button className="posts__see-more button" onClick = {e => paginate(e)}>See More Posts</button>
+            {numPosts > pageNumber * 10 ? (<button className="posts__see-more button" onClick = {e => paginate(e)}>See More Posts</button>) : null}
         </div>
     )
 }
@@ -93,6 +93,7 @@ Posts.propTypes = {
 
 const mapStateToProps = state => ({
     posts : state.post.posts.posts,
+    numPosts : state.post.numPosts,
     loading : state.post.loading
 })
 
