@@ -1,6 +1,7 @@
 import React, { useState, Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import LocationInput from '../profile/LocationInput';
 
 import $ from 'jquery';
 //importing create hackathon action
@@ -52,6 +53,15 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
             [e.target.name]: e.target.value
         })
     }
+
+    //This is to handle the location data
+    function locationSelect(e){
+        setFormData({
+            ...formData,
+            location: e
+        })
+    }
+    
     //the function that will check if the hackathon can be created. If it can, the window will close
     function submitData(e) {
         e.preventDefault();
@@ -435,7 +445,7 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
                                     </div>
 
                                     <div className="form-group">
-                                        <input type="text" placeholder="Where will your hackathon be held?" name="location" value={formData.location} onChange={e => onInput(e)} required />
+                                        <LocationInput placeholder="Where will your hackathon be held?" onChange={(e) => locationSelect(e)} required/>
                                     </div>
 
                                     <div className="form-group">
