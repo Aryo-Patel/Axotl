@@ -122,7 +122,8 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
                 type.appendChild(typeInput);
 
                 //adds quantity input
-                quantityInput.type = 'text';
+                quantityInput.type = 'number';
+                quantityInput.min = '0';
                 quantityInput.placeholder = 'Quantity';
                 quantityInput.value = formData.donations[newIndex].quantity;
                 quantityInput.addEventListener('keyup', e => {
@@ -529,7 +530,7 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
                                             <tbody>
                                                 <tr>
                                                     <td><input type="text" placeholder="Type" name="row-0-type" value={formData.donations[0] ? formData.donations[0].type : ''} onChange={e => addText(e)} /></td>
-                                                    <td><input type="text" placeholder="Quantity" value={formData.donations[0] ? formData.donations[0].quantity : ''} name="row-0-quantity" onChange={e => addText(e)} /></td>
+                                                    <td><input type="number" min="0" placeholder="Quantity" value={formData.donations[0] ? formData.donations[0].quantity : ''} name="row-0-quantity" onChange={e => addText(e)} /></td>
                                                     <td><input type="text" placeholder="Description" value={formData.donations[0] ? formData.donations[0].description : ''} name="row-0-description" onChange={e => addText(e)} /></td>
                                                     <td><span className="donations delete-request" onClick={e => deleteTableRow(e)}>X</span></td>
                                                 </tr>

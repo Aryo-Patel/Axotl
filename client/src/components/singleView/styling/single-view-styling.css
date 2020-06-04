@@ -622,6 +622,36 @@
   cursor: pointer;
 }
 
+.modal-background .modal-positioner .modal-container .body .description-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.modal-background .modal-positioner .modal-container .body .description-container h3 {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.modal-background .modal-positioner .modal-container .body .description-container textarea {
+  margin-top: 10px;
+  padding: 2px;
+  border: 1px solid grey;
+  width: 100%;
+  min-height: 50px;
+  max-height: 100px;
+}
+
 .modal-background .modal-positioner .modal-container .button-centerer {
   display: -webkit-box;
   display: -ms-flexbox;
