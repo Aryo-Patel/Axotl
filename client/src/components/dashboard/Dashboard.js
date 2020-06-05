@@ -23,7 +23,6 @@ const Dashboard = ({ isRegistered, id }) => {
   }, [notifications]);
 
   useEffect(() => {
-    console.log(donationNotifications);
   }, [donationNotifications]);
 
   function donationNotificationsChanged(id) {
@@ -31,9 +30,9 @@ const Dashboard = ({ isRegistered, id }) => {
     let returnArray = donationNotArray.filter((donationNot) => {
       return donationNot._id + "" !== id + "";
     });
-    console.log(returnArray);
     updateDonationNotifications(returnArray);
   }
+
   async function fetchData() {
     let tempNotifications = await axios.get(`/api/users/notifications/${id}`);
     tempNotifications = tempNotifications.data;
@@ -76,13 +75,17 @@ const Dashboard = ({ isRegistered, id }) => {
               </div>
               <div className="donation-notifications-wrapper">
 
-                {donationNotifications.length > 0 ? donationNotifications.map((donation, index) => (
-                  <div key={incrementor++} className="notifications donation-notifications">
-                    {console.log('rerendered')}
-                    <Notification className='notification' key={incrementor++} header={donation.category} data={donation.payload}
-                      id={donation._id} userId={id} sender={donation.sender} updateNotifications={donationNotificationsChanged} />
-                  </div>
-                )) : <p>No new donation notifications!</p>}
+                {donationNotifications.length > 0 ? donationNotifications.map((donation, index) => {
+                  console.log(donation.donId);
+                  return (
+                    <div key={incrementor++} className="notifications donation-notifications">
+                      <Notification className='notification' key={incrementor++} header={donation.category} data={donation.payload}
+                        id={donation._id} userId={id} sender={donation.sender} updateNotifications={donationNotificationsChanged} title={donation.title}
+                        senderId={donation.senderId} hackathonId={donation.hackathonId}
+                      />
+                    </div>
+                  )
+                }) : <p>No new donation notifications!</p>}
               </div>
             </div>
 

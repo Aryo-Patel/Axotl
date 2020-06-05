@@ -306,6 +306,12 @@ router.put('/edit/add-donations-received/:hackathonId/:donationId', async (req, 
             //pushes the sponsor that donated to one of the hackathon's request to the received array
             if ((donation._id + '') === (donationId + '')) {
                 donation.received.push(req.body);
+                console.log(parseInt(donation.quantity));
+                let newDonQuant = parseInt(donation.quantity) - parseInt(req.body.quantity);
+                if (newDonQuant < 0) {
+                    newDonQuant = 0;
+                }
+                donation.quantity = newDonQuant;
             }
         })
 
