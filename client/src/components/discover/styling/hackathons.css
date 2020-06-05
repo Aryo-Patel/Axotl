@@ -134,11 +134,11 @@
   position: absolute;
   z-index: -100;
   width: 99%;
-  height: 99%;
-  top: 0.5%;
+  height: 98%;
+  top: 1%;
   left: 0.5%;
   border-radius: 5px;
-  background-color: #eee;
+  background-color: white;
 }
 
 .hackathon-holder .hackathon-item h1 {
@@ -177,6 +177,8 @@
 
 .animation-wrapper {
   height: 100vh;
+  position: relative;
+  z-index: -100;
   -webkit-animation: scaleTranslateModal 1s;
           animation: scaleTranslateModal 1s;
 }
@@ -195,7 +197,7 @@
   background: white;
   width: 80%;
   overflow-y: scroll;
-  background-position: 0, 0;
+  background-position: 0, 0;
 }
 
 .modal-main input {

@@ -1,4 +1,84 @@
 .my-hackathons {
   font-size: 1.6rem;
 }
+
+.emptyMessage {
+  margin-top: 15rem;
+  text-align: center;
+}
+
+.emptyMessage a {
+  font-size: 2rem;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+
+.hackathon__edit {
+  background-color: white;
+  border: none;
+}
+
+.hackathon__edit::before {
+  content: '\2807';
+  font-size: 3rem;
+  margin-top: -2rem;
+}
+
+.hackathon__edit:hover + .hackathon__dropdown {
+  visibility: visible;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+
+.hackathon__dropdown {
+  z-index: 1000000;
+  position: relative;
+  overflow: auto;
+  border: 1px solid #a5a5a5;
+  background-color: white;
+  -webkit-box-shadow: 0rem 1rem 1rem rgba(0, 0, 0, 0.2);
+          box-shadow: 0rem 1rem 1rem rgba(0, 0, 0, 0.2);
+  visibility: hidden;
+  height: 0;
+  position: absolute;
+}
+
+.hackathon__dropdown:hover {
+  visibility: visible;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  cursor: pointer;
+}
+
+.hackathon__dropdown-item {
+  padding: .5rem .5rem;
+  margin-bottom: 0;
+  font-size: 1.6rem;
+  color: black;
+}
+
+.hackathon__dropdown-item:not(:last-child) {
+  border-bottom: 1px solid #a5a5a5;
+}
+
+.hackathon__dropdown-item:hover {
+  background-color: #e6e6e6;
+}
+
+.hackathon__toggle {
+  position: relative;
+  margin: 1rem 1rem;
+}
+
+.hack-modal {
+  height: 0;
+  visibility: hidden;
+}
+
+[data-status='open'] {
+  height: 100vh;
+  visibility: visible;
+}
 /*# sourceMappingURL=main.css.map */
