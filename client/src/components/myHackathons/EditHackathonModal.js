@@ -1,26 +1,12 @@
 import React, { useState, Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import LocationInput from '../profile/LocationInput';
 
 import $ from 'jquery';
-//importing create hackathon action
-import { createHackathon } from '../../actions/hackathonActions';
 
-const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
+const EditHackathonModal = ({ editHackathonModal, toggleEditHackathonModal, editingHackathon, editHackathon }) => {
     //in charge of changing what page is displayed
     const [pageNumber, changePageNumber] = useState(1);
-
-    //every time pageNumber updates, fire find current page
-    useEffect(() => {
-        findCurrentPage();
-    }, [pageNumber]);
-
-
-    //display is set to none if the modal is not toggled
-    let showHideClassName = show ? "hack-modal display-block" : "hack-modal display-none";
-
-
     const [formData, setFormData] = useState({
         title: '',
         description: '',
@@ -46,6 +32,29 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
         endDate: '',
 
     })
+    //every time pageNumber updates, fire find current page
+    useEffect(() => {
+        findCurrentPage();
+        console.log('HERRRREEEE')
+        setFormData({
+            title: editingHackathon.title,
+            description: editingHackathon.description,
+            prizes: editingHackathon.prizes,
+            requirements: editingHackathon.requirements,
+            criteria: editingHackathon.criteria,
+            location: editingHackathon.location,
+            forms: editingHackathon.forms,
+            judges: editingHackathon.judges,
+            website: editingHackathon.website,
+            donations: editingHackathon.donations,
+            startDate: editingHackathon.startDate,
+            endDate:editingHackathon.endDate,
+        })
+    }, [pageNumber, editingHackathon]);
+
+
+    console.log(editingHackathon.title)
+    console.log(formData.title)
 
     function onInput(e) {
         setFormData({
@@ -53,22 +62,13 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
             [e.target.name]: e.target.value
         })
     }
-
-    //This is to handle the location data
-    function locationSelect(e){
-        setFormData({
-            ...formData,
-            location: e
-        })
-    }
-    
     //the function that will check if the hackathon can be created. If it can, the window will close
     function submitData(e) {
         e.preventDefault();
 
-        createHackathon(formData);
+        editHackathon(formData);
 
-        handleClose();
+        toggleEditHackathonModal('closed')
 
         window.location.reload(false);
         return false;
@@ -386,14 +386,6 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
 
     }
 
-    const close = e => {
-        if (e.target.classList.contains('hack-modal')) {
-            e.target.parentNode.childNodes[0].checked = false;
-
-            handleClose();
-        }
-
-    }
 
 
     function incrementPage() {
@@ -426,10 +418,18 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
     function choosePage(n) {
         changePageNumber(n);
     }
+    $(`#editHackathonWrapper`).click((e) => {
+        e.stopPropagation();
+    })
+    // $('#editHackathonWrapper').click((e) => {
+    //     if(e.stopPropagation){e.stopPropogation();}
+    //     toggleEditHackathonModal('closed')
+    // })
     return (
-        <div onClick={e => close(e)} className={showHideClassName}>
-            <div className="animation-wrapper">
-                <section className="modal-main">
+        <div onClick={e => {
+            toggleEditHackathonModal('closed')}} className='hack-modal' data-status = {editHackathonModal}>
+            <div className="animation-wrapper" id='editHackathonAnimationWrapper' onClick = {e => toggleEditHackathonModal('closed')}>
+                <section className="modal-main"  id='editHackathonWrapper'>
                     <div className="left-arrow arrow" onClick={e => decrementPage()}>
                         <h1>&#10094;</h1>
                     </div>
@@ -445,7 +445,7 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
                                     </div>
 
                                     <div className="form-group">
-                                        <LocationInput placeholder="Where will your hackathon be held?" onChange={(e) => locationSelect(e)} required/>
+                                        <input type="text" placeholder="Where will your hackathon be held?" name="location" value={formData.location} onChange={e => onInput(e)} required />
                                     </div>
 
                                     <div className="form-group">
@@ -595,10 +595,10 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
     )
 }
 
-CreateHackathonModal.propTypes = {
-    createHackathon: PropTypes.func.isRequired,
+EditHackathonModal.propTypes = {
+    editHackathon: PropTypes.func.isRequired,
     show: PropTypes.bool.isRequired,
     handleClose: PropTypes.func.isRequired
 }
 
-export default connect(null, { createHackathon })(CreateHackathonModal);
+export default connect(null, {})(EditHackathonModal);

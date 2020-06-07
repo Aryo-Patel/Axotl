@@ -14,6 +14,14 @@ const Notification = ({ header, data, sender, id, userId, updateNotifications, t
             data.map(async (donation) => {
                 if (donation.type + "" === $(this).find('.type').attr('class').split(" ")[1] + "") {
                     console.log(donation.donId);
+                    const config = {
+                        headers: {
+                            'content-type': 'application/json'
+                        }
+                    }
+                    const body = {
+
+                    }
                     await axios.put(`/api/hackathons/add-donations-received/${hackathonId}/${donation.donId}`);
                 }
             })

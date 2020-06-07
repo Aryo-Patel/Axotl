@@ -43,9 +43,9 @@ const NavBar = ({ isAuthenticated, auth }) => {
           Dashboard
         </Link>
       </li>
-      <li className="nav-item active mx-4 text-center">
-        <Link to="/hackathons" className="nav-link nav__btn">
-          Hackathons
+      <li className="nav-item active">
+        <Link to="/discover" className="nav-link nav__btn">
+          Discover
         </Link>
       </li>
       <li className="nav-item active mx-4 text-center">
@@ -492,7 +492,7 @@ const NavBar = ({ isAuthenticated, auth }) => {
                   <Link to="/profile" className="dropdown__item">
                     Your Profile
                   </Link>
-                  {!auth.loading && !auth.sponsor && (
+                  {!auth.loading && !auth.user.user.sponsor && (
                     <Link to="/my-hackathons" className="dropdown__item">
                       My Hackathons
                     </Link>
@@ -853,7 +853,7 @@ const NavBar = ({ isAuthenticated, auth }) => {
               </h3>
               </Link>
 
-              {!auth.loading && auth.user && (
+              {!auth.loading && auth.user.user && (
                 <div onClick={(e) => onClick(e)} className="dropdown__toggle">
                   <div className="dropdown__top">
                     <img
@@ -872,7 +872,7 @@ const NavBar = ({ isAuthenticated, auth }) => {
                     <Link to="/profile" className="dropdown__item">
                       Your Profile
                   </Link>
-                    {!auth.loading && !auth.sponsor && (
+                    {!auth.loading && !auth.user.user.sponsor && console.log(auth.user.user.sponsor) && (
                       <Link to="/my-hackathons" className="dropdown__item">
                         My Hackathons
                       </Link>

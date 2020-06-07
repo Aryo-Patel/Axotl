@@ -5,7 +5,9 @@ import {
     CREATE_HACKATHON_FAIL,
     GET_HACKATHON,
     GET_USER_HACKATHONS,
-    GET_USER_HACKATHONS_FAIL
+    GET_USER_HACKATHONS_FAIL,
+    USER_LOADED,
+    HACKATHON_DELETED
 } from './Types';
 
 import axios from 'axios';
@@ -45,12 +47,16 @@ export const createHackathon = (hackathonData) => async dispatch => {
             }
         }
 
-        let newHackathon = axios.post('/api/hackathons/create', body, config);
-        let submitData = newHackathon.data;
+        let res = axios.post('/api/hackathons/create', body, config);
+
 
         dispatch({
             type: CREATE_HACKATHON,
-            payload: submitData
+            payload: res.data.newHackathon
+        })
+        dispatch({
+            type: USER_LOADED,
+            payload: res.data.user
         })
 
     } catch (err) {
@@ -67,7 +73,7 @@ export const getHackathon = (id) => async dispatch => {
     try {
         //5ec034aab98fe24fe80b5904
 
-        const res = await axios.get(`/api/hackathons/${id}`)
+        const res = await axios.get(`/api/hackathons/hackathon/${id}`)
         dispatch({
             type: GET_HACKATHON,
             payload: res.data[0]
@@ -81,17 +87,50 @@ export const getHackathon = (id) => async dispatch => {
 
 
 //get all hackathons a user has created
-export const getUserHackathons = userId => async dispatch => {
+export const getUserHackathons = () => async dispatch => {
     try {
-        let userHackathons = await axios.get(`/api/hackathons/user/${userId}`);
+        let res = await axios.get(`/api/hackathons/my-hackathons`);
         dispatch({
             type: GET_USER_HACKATHONS,
-            payload: userHackathons.data
+            payload: res.data
         })
 
     } catch (err) {
         dispatch({
             type: GET_USER_HACKATHONS_FAIL
         })
+    }
+}
+
+//remove a hackathon
+export const deleteHackathon = hackathonId => async dispatch => {
+    try {
+        const res = await axios.delete(`/api/hackathons/delete-hackathon/${hackathonId}`)
+        dispatch({
+            type: HACKATHON_DELETED,
+            payload: { hackathonId }
+        })
+        dispatch({
+            type: USER_LOADED,
+            payload: res.data.user
+        })
+    } catch (err) {
+        console.error(err);
+        //dispatch??
+    }
+}
+
+export const editHackathon = (formData, id) => async dispatch => {
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+    const body = JSON.stringify(formData);
+    try {
+        const res = await axios.put(`/api/hackathons/edit-hackathon/${id}`, body, config)
+    } catch (err) {
+        //dispatch?
+        console.error(err)
     }
 }

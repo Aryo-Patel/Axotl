@@ -1,0 +1,15 @@
+.my-posts {
+  font-size: 1.6rem;
+}
+
+.emptyMessage {
+  margin-top: 15rem;
+  text-align: center;
+}
+
+.emptyMessage a {
+  font-size: 2rem;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+/*# sourceMappingURL=myPost.css.map */

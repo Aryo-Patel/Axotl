@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, Fragment} from 'react'
 import PropTypes from 'prop-types'
 import axios from 'axios'
 import {editPost, getPosts, deletePost, addComment, addLike, addReply, deleteComment, deleteReply, editComment, likeComment, likeReply, editReply} from '../../actions/post';
@@ -14,8 +14,9 @@ import Post from '../posts/Post'
 import Spinner from '../common/Spinner'
 
 import '../posts/styling/posts.css'
+import './styling/myPost.css'
 
-const MyPosts = ({getMyPosts, loading, myPosts, editPost, deletePost, addComment, addLike, addReply, deleteComment, deleteReply, editComment, likeComment, likeReply, editReply}) => {
+const MyPosts = ({getMyPosts, loading, myPosts, editPost, deletePost, addComment, addLike, addReply, deleteComment, deleteReply, editComment, likeComment, likeReply, editReply, user}) => {
     useEffect(() => {
        getMyPosts(pageNumber);
     }, [])
@@ -48,8 +49,11 @@ const MyPosts = ({getMyPosts, loading, myPosts, editPost, deletePost, addComment
     const [editingReply, setEditingReply] = useState({});
     //value for editing reply modal
     const [editReplyModal, setEditReplyModal] = useState('closed')
+    console.log(user.myPosts)
     return (
-        <div className = 'posts'>
+        <Fragment>
+        {!user.myPosts.length == 0 ?
+        (<div className = 'posts'>
             <h3 className="heading">Posts</h3>
             <form className="searchingContainer">
                 <input type="text" className="searchBar" placeholder='Search for a post...' onChange = {e => onChange(e)} value= {search}/>
@@ -74,7 +78,11 @@ const MyPosts = ({getMyPosts, loading, myPosts, editPost, deletePost, addComment
             {!loading && 
             <button className="posts__see-more button" onClick = {e => paginate(e)}>See More Posts</button>
 }
-        </div>
+        </div>) : (<div className = 'emptyMessage'>
+            <h3 className="heading">You haven't made any posts!</h3>
+            <Link to="/posts">Make one here &rarr;</Link>
+        </div>)}
+        </Fragment>
     )
 }
 
@@ -89,11 +97,13 @@ MyPosts.propTypes = {
     deleteReply : PropTypes.func.isRequired,
     getMyPosts: PropTypes.func.isRequired,
     myPosts : PropTypes.array,
+    user :  PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
     loading : state.post.myPostsLoading,
-    myPosts: state.post.myPosts
+    myPosts: state.post.myPosts,
+    user : state.auth.user.user
 })
 
 export default connect(mapStateToProps, { getMyPosts, editPost, deletePost, addComment, addLike, addReply, deleteComment, deleteReply, editComment, likeComment, likeReply, editReply})(withRouter(MyPosts))

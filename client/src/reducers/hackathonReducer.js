@@ -5,7 +5,8 @@ import {
     CREATE_HACKATHON_FAIL,
     GET_HACKATHON,
     GET_USER_HACKATHONS,
-    GET_USER_HACKATHONS_FAIL
+    GET_USER_HACKATHONS_FAIL,
+    HACKATHON_DELETED
 } from '../actions/Types';
 
 const initialState = {
@@ -14,7 +15,7 @@ const initialState = {
     loading: true
 }
 
-export default function (state = initialState, action) {
+export default function(state = initialState, action) {
     const { type, payload } = action;
 
     switch (type) {
@@ -22,7 +23,7 @@ export default function (state = initialState, action) {
         case GET_USER_HACKATHONS:
             return {
                 ...state,
-                hackathonList: payload,
+                hackathonList: payload.hackathons,
                 loading: false
             };
         case CREATE_HACKATHON:
@@ -43,6 +44,13 @@ export default function (state = initialState, action) {
                 ...state,
                 loading: false,
                 hackathon: payload
+            }
+        case HACKATHON_DELETED:
+            const hackathons = state.hackathons.hackathonList.filter(hackathon => hackathon._id.toString() == payload.hackathonId.toString())
+            return {
+                ...state,
+                hackathonList: hackathons,
+                loading: false
             }
         default:
             return {

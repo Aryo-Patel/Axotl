@@ -459,6 +459,7 @@ const Post = ({
               e.target.innerHTML = 'See More Comments'
             }
             }}>See More Comments</div>
+            <div className="post__create-comments">
         <form
           className="post__create-comment"
           onSubmit={(e) => {
@@ -477,6 +478,7 @@ const Post = ({
           />
           <button className="post__send-comment">Send</button>
         </form>
+        </div>
       </div>
     </div>
   );
