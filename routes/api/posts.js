@@ -94,11 +94,13 @@ router.post("/", async(req, res) => {
             title,
             content,
             name: user.name,
-            avatar: user.avatar
+            avatar: user.avatar,
+            sponsor: req.user.sponsor
         });
         if (attachment) {
             newPost.attachment = attachment;
         }
+        console.log(newPost)
         await newPost.save();
         user.myPosts.unshift(newPost._id);
         await user.save();
@@ -175,7 +177,7 @@ router.put("/comment/:post_id", async(req, res) => {
         const user =
             (await Recipient.findById(req.user._id)) ||
             (await Sponsor.findById(req.user._id));
-        await post.comments.unshift({ text, user: req.user._id, name: user.name, avatar: user.avatar });
+        await post.comments.unshift({ text, user: req.user._id, name: user.name, avatar: user.avatar, sponsor: req.user.sponsor });
         await post.save();
         user.myComments.unshift({ post: req.params.post_id, comment: post.comments[0]._id })
         await user.save()
@@ -358,7 +360,7 @@ router.put("/reply/:post_id/:comment_id", async(req, res) => {
         const comment = await post.comments.filter(comment => req.params.comment_id.toString() == comment._id.toString())[0];
         const { text } = req.body;
         //add the reply to the comment's replies
-        await comment.replies.unshift({ text, user: req.user._id, name: user.name, avatar: user.avatar });
+        await comment.replies.unshift({ text, user: req.user._id, name: user.name, avatar: user.avatar, sponsor: req.user.sponsor });
         /** currently no "myReplies" section
         //add the reply reference to "myreplies"
         user.myReplies.unshift({ post: req.params.post_id, comment: req.params.comment_id, reply: post.comments.replies[0]._id });

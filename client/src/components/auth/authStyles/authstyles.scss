@@ -75,7 +75,7 @@ $translateAmount: 100px;
             //not phone
             border-radius: $form-border-radius;
             background-color: white;
-            padding: 5rem 5rem 15rem;
+            padding: 5rem 5rem 15rem 15rem;
             width: 40rem;
             height: 75%;
             .login__logo {
@@ -88,7 +88,7 @@ $translateAmount: 100px;
             //not mobile
             border-radius: $form-border-radius;
             background-color: white;
-            padding: 5rem 5rem 15rem;
+            padding: 0rem 5rem;
             width: 40rem;
             height: 80%;
             .login__logo {
@@ -132,10 +132,10 @@ $translateAmount: 100px;
     .form-group>label {
         font-size: 2rem;
         @media (max-width: $bp-largest) {
-            font-size: 1.5rem; //mobile not phome
+            font-size: 1.5rem; //mobile not phone
         }
         @media (max-width: 40em) {
-            font-size: 2rem; //phome
+            font-size: 2rem; //phone
         }
         position: absolute;
         margin: 0;
@@ -172,7 +172,7 @@ $translateAmount: 100px;
         }
         &:focus+label {
             top: 0rem;
-            font-size: 1rem;
+            font-size: 1.2rem;
             @media (max-width: $bp-largest) {
                 font-size: 1.2rem;
             }
@@ -236,6 +236,8 @@ $translateAmount: 100px;
     .login__eyes {
         position: relative;
         width: 4rem;
+        font-size: 2rem;
+        // right: 4rem;
         text-align: center;
         border-bottom: 2px solid $text-color;
         transition: transform .75s ease;

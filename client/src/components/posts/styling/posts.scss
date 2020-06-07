@@ -267,6 +267,24 @@ $bp-small: 37.5em;
     &__user-fields {
         display: flex;
         align-items: center;
+        justify-content: center;
+    }
+    //for the name and title
+    &__userTitle {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: center;
+        h4 {
+            position: relative;
+            display: inline-block;
+            margin: 0;
+        }
+        p {
+            position: relative;
+            display: inline-block;
+            margin: 0;
+        }
     }
     //for the title and body of the post
     &__content-container {
@@ -744,8 +762,7 @@ $bp-small: 37.5em;
 
 //to color the like button if a post has been liked
 [data-status=true] svg {
-    background-color: $background-color;
-    clip-path: url(#likeSVG)
+    stroke: green;
 }
 
 //to drop down the replies section when clicked

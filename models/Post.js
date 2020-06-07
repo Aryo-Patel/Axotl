@@ -14,6 +14,10 @@ const PostSchema = new Schema({
         type: String,
         required: true
     },
+    sponsor: {
+        type: Boolean,
+        required: true
+    },
     title: {
         type: String,
         required: true
@@ -43,6 +47,10 @@ const PostSchema = new Schema({
             type: String,
             required: true
         },
+        sponsor: {
+            type: Boolean,
+            required: true
+        },
         Date: {
             type: Date,
             default: Date.now,
@@ -68,6 +76,10 @@ const PostSchema = new Schema({
             },
             avatar: {
                 type: String,
+                required: true
+            },
+            sponsor: {
+                type: Boolean,
                 required: true
             },
             Date: {

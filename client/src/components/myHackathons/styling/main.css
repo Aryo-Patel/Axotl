@@ -72,7 +72,7 @@
   margin: 1rem 1rem;
 }
 
-.hack-modal {
+.edit-hack-modal {
   height: 0;
   visibility: hidden;
 }
@@ -80,5 +80,9 @@
 [data-status='open'] {
   height: 100vh;
   visibility: visible;
+}
+
+.hackathon__form-group {
+  position: relative;
 }
 /*# sourceMappingURL=main.css.map */

@@ -14,22 +14,20 @@ import Spinner from '../common/Spinner'
 import './styling/posts.css'
 
 const Posts = ({numPosts, getPosts, createPost, editPost, deletePost, posts, loading, addComment, addLike, addReply, deleteComment, deleteReply, editComment, likeComment, likeReply, editReply}) => {
+    //number for how many results getPosts returns * 10
+    const [pageNumber, setPageNumber] = useState(1)
     useEffect(() => {
-        //getting the first ten posts for display
         getPosts(pageNumber);
-    }, [getPosts])
+    }, [getPosts, pageNumber])
     //value of search query
     const [search, setSearch] = useState('')
     //onchange for search
     const onChange = e => {
         setSearch(e.target.value);
     }
-    //number for how many results getPosts returns * 10
-    const [pageNumber, setPageNumber] = useState(1)
     //getting more posts when "show more" is clicked
-    const paginate = e => {
+    const paginate = async (e) => {
         setPageNumber(pageNumber+1);
-        getPosts(pageNumber);
     }
     //value for editing post modal to be open or closed
     const [modal, modalToggle] = useState('closed');

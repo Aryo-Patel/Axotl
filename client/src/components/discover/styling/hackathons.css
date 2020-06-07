@@ -77,7 +77,6 @@
   -ms-grid-row: 1;
   -ms-grid-column: 1;
   grid-area: filters;
-  position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -85,12 +84,13 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -webkit-box-align: stretch;
-      -ms-flex-align: stretch;
-          align-items: stretch;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   border-right: 2px solid #a5a5a5;
-  height: 120%;
-  padding-top: 0vh;
+  height: 100%;
+  top: 0;
+  padding-top: 10rem;
 }
 
 .hackathons__filters h2 {
@@ -155,8 +155,30 @@
 
 .hackathon-holder .hackathon-item .hackathon-content {
   width: 85%;
-  margin: 30px;
+  margin: 3rem;
   text-align: center;
+}
+
+.hackathons__content {
+  padding-bottom: 10rem;
+  position: relative;
+}
+
+.hackathons__see-more {
+  position: absolute;
+  bottom: 3rem;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  text-align: center;
+  z-index: 1000;
+}
+
+.hackathons__see-more:hover {
+  -webkit-transform: translateY(-3px) translateX(-50%) !important;
+          transform: translateY(-3px) translateX(-50%) !important;
+  -webkit-box-shadow: 0rem 1rem 2rem rgba(0, 0, 0, 0.15);
+          box-shadow: 0rem 1rem 2rem rgba(0, 0, 0, 0.15);
 }
 
 .hack-modal {
@@ -459,8 +481,9 @@
       -ms-flex-align: center;
           align-items: center;
   border-right: 2px solid #a5a5a5;
-  height: 120%;
-  padding-top: 27.5vh;
+  height: 100%;
+  position: absolute;
+  top: 0;
 }
 
 .companies__filters h2 {

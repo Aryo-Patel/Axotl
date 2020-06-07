@@ -1,48 +1,48 @@
 @import url('https://fonts.googleapis.com/css2?family=Karla:wght@700&family=Oxygen:wght@700&display=swap');
-$axo-yellow: rgb(254, 181, 68);
-$background-color:rgb(47, 114, 255);
-$primary-orange: rgb(255, 102, 71);
+$axo-yellow: rgb(254,
+181,
+68);
+$background-color:rgb(47,
+114,
+255);
+$primary-orange: rgb(255,
+102,
+71);
 $background-color-lighter: #5093ff;
 $primary-white: #eee;
-
-.message-main{
+.message-main {
     position: relative;
-    background:white;
-    top: 10rem;
+    background: white;
+    margin-top: 10rem;
     bottom: 0%;
     display: flex;
     flex-direction: column;
     @media (max-width: 68.75em) {
-       padding: 10rem .1rem;
+        padding: 10rem .1rem;
     }
 }
-
 
 .header {
     //color
     background-color: none;
-    color:$primary-orange;
-
-    h1{
+    color: $primary-orange;
+    h1 {
         font-family: 'Oxygen', sans-serif;
         font-size: 2.4em;
     }
-
     //width: 100%;
     padding: .5rem 0rem;
     position: relative;
     //height: 10vh;
     left: 50%;
     text-align: center;
-
     //animation stuff
-    transform: translate(-50%, -50%);
-
+    transform: translate(-50%,
+    -50%);
     //mobile view
     @media (max-width: 68.75em) {
-        margin-top:2rem;
-     }
-    
+        margin-top: 2rem;
+    }
 }
 
 .chatlogs {
@@ -62,101 +62,71 @@ $primary-white: #eee;
     background-color: white;
     overflow-y: auto;
     overflow-wrap: break-word;
-    
-    
-
     .your-message {
         text-align: right;
-
-        .message-contents{
+        .message-contents {
             background-color: $primary-orange;
             color: white;
             position: relative;
-        
-            width:80%;
-            left:15%;
-            margin-right:5%;
-
-            padding:1rem;
-
+            width: 80%;
+            left: 15%;
+            margin-right: 5%;
+            padding: 1rem;
             border-radius: 1rem 1rem 0 1rem;
-            }
+        }
     }
-    .they-message{
+    .they-message {
         text-align: left;
-
-        .message-contents{
+        .message-contents {
             background-color: $axo-yellow;
             color: white;
             position: relative;
-        
-            width:80%;
-            margin-left:5%;
-
-            padding:1rem;
-
+            width: 80%;
+            margin-left: 5%;
+            padding: 1rem;
             border-radius: 1rem 1rem 1rem 0;
-            }
-
+        }
     }
-
     // .chat-form{
     //     position: relative;
     //     bottom:0px;
     //     height:5rem;
     //     background:white;
     //     width:100%;
-
     //     .text-field {
     //         position: absolute;
     //         top:0;
     //         width: 80%;
     //         padding: 1rem 1rem;
     //         margin: 0 1rem 1rem;
-    
     //         display: inline-block;
-    
     //         border:none;
     //         border-bottom: 1px solid $primary-orange;
     //         box-sizing: border-box;
-    
-            
-    
     //         //mobile styling
     //         @media (max-width: 68.75em) {
     //            font-size: 1.4rem;
     //          }
     //     }
-
     //     .button-send {
     //         //send button style HERE
-    
     //         background-color: white;
     //         color:$primary-orange;
-    
     //         padding: 1rem 1rem;
     //         margin: 0 1rem 1rem;
-    
     //         position: absolute;
     //         right: 5%;
-            
-            
-    
     //         border: none;
     //         border-radius: 0em;
-    
     //         &:hover{
     //             color:$axo-yellow;
     //         }
-    
     //         //mobile styling
     //         @media (max-width: 68.75em) {
     //             font-size: 1.4rem;
     //           }
     //     }
     // }
-    
-
 }
 
 .chat-div {
@@ -165,79 +135,58 @@ $primary-white: #eee;
     float: left;
     height: 5vh;
     background-color: white;
-
-    .chat-form{
+    .chat-form {
         position: relative;
-        bottom:0px;
-        height:5rem;
-        background:white;
-        width:100%;
-
+        bottom: 0px;
+        height: 5rem;
+        background: white;
+        width: 100%;
         .text-field {
             position: absolute;
-            top:0;
+            top: 0;
             width: 80%;
             padding: 1rem 1rem;
             margin: 0 1rem 1rem;
-    
             display: inline-block;
-    
-            border:none;
+            border: none;
             border-bottom: 1px solid $primary-orange;
             box-sizing: border-box;
-    
-            
-    
-            //mobile styling
-            @media (max-width: 68.75em) {
-               font-size: 1.4rem;
-             }
-        }
-
-        .button-send {
-            //send button style HERE
-    
-            background-color: white;
-            color:$primary-orange;
-    
-            padding: 1rem 1rem;
-            margin: 0 1rem 1rem;
-    
-            position: absolute;
-            right: 5%;
-            
-            
-    
-            border: none;
-            border-radius: 0em;
-    
-            &:hover{
-                color:$axo-yellow;
-            }
-    
             //mobile styling
             @media (max-width: 68.75em) {
                 font-size: 1.4rem;
-              }
+            }
+        }
+        .button-send {
+            //send button style HERE
+            background-color: white;
+            color: $primary-orange;
+            padding: 1rem 1rem;
+            margin: 0 1rem 1rem;
+            position: absolute;
+            right: 5%;
+            border: none;
+            border-radius: 0em;
+            &:hover {
+                color: $axo-yellow;
+            }
+            //mobile styling
+            @media (max-width: 68.75em) {
+                font-size: 1.4rem;
+            }
         }
     }
 }
 
-
-.button-newChat{
-    width:100%;
+.button-newChat {
+    width: 100%;
     font-size: 1.6rem;
-    padding:1rem 1rem 0.5rem;
-
-    background-color:white;
-    color:$background-color;
-
+    padding: 1rem 1rem 0.5rem;
+    background-color: white;
+    color: $background-color;
     border: none;
     border-radius: 0em;
-    
-
-    &:hover{
-        color:$axo-yellow;
+    &:hover {
+        color: $axo-yellow;
     }
 }
 
@@ -283,24 +232,18 @@ $primary-white: #eee;
 
 .chat-tab {
     position: relative;
-
     background-color: $background-color;
-    color:white;
-
-    padding:1rem;
-    margin:.2rem 1rem;
-
+    color: white;
+    padding: 1rem;
+    margin: .2rem 1rem;
     text-align: center;
-    h5{
-        margin:0;
+    h5 {
+        margin: 0;
     }
     &:hover {
         color: $axo-yellow;
     }
 }
-
-
-
 
 .dot {
     height: 50%;

@@ -13,11 +13,22 @@ import Hackathon from './Hackathon';
 
 //jquery import
 import $ from 'jquery';
-const Hackathons = ({ getHackathons, hackathons: { hackathonList, loading } }) => {
+const Hackathons = ({ getHackathons, hackathons: { hackathonList, numHackathons, loading } }) => {
+    const [numFilter, setNumFilter] = useState(1);
     //calls the get hackathon page when loading
     useEffect(() => {
-        getHackathons()
-    }, [getHackathons])
+        console.log(numFilter)
+        getHackathons(numFilter)
+    }, [getHackathons, numFilter])
+
+    //getting more hackathons when "show more" is clicked
+    const paginate = async (e) => {
+
+        setNumFilter(numFilter+1);
+
+
+    }
+
     const [query, setQuery] = useState('')
 
     const [donTag, setDonTag] = useState([])
@@ -28,7 +39,6 @@ const Hackathons = ({ getHackathons, hackathons: { hackathonList, loading } }) =
 
     const onSubmit = e => {
         e.preventDefault();
-        console.log('submission');
     }
 
     const onChange = e => {
@@ -38,10 +48,10 @@ const Hackathons = ({ getHackathons, hackathons: { hackathonList, loading } }) =
     const addTag = e => {
         if (!e.target.classList.contains('pressedTag')) {
             e.target.classList.add('pressedTag')
-            console.log('first hit')
+ 
             setDonTag([...donTag, e.target.id])
         } else {
-            console.log('second hit')
+
             e.target.classList.remove('pressedTag')
             setDonTag(donTag.filter(tag => tag != e.target.id))
         }
@@ -122,7 +132,7 @@ const Hackathons = ({ getHackathons, hackathons: { hackathonList, loading } }) =
                 </div>
                 <div className="hackathons__content">
                     <form className="searchingContainer" onSubmit={e => onSubmit(e)}>
-                        <input type="text" className="searchBar" placeholder='Search for a sponsor...' onChange={e => onChange(e)} value={query} />
+                        <input type="text" className="searchBar" placeholder='Search for a hackathon...' onChange={e => onChange(e)} value={query} />
                         <input type='submit' className='search' value='Search' />
                     </form>
 
@@ -149,6 +159,10 @@ const Hackathons = ({ getHackathons, hackathons: { hackathonList, loading } }) =
                             ))
                             : <Spinner />}
                     </div>
+                    {numHackathons > numFilter * 10 ? (<button className="hackathons__see-more button" onClick = {e => {
+                    console.log(numHackathons)
+                    console.log(numFilter)
+                    paginate(e)}}>See More Hackathons</button>) : null}
                 </div>
             </div>
         </Fragment>
@@ -157,11 +171,12 @@ const Hackathons = ({ getHackathons, hackathons: { hackathonList, loading } }) =
 
 Hackathons.propTypes = {
     getHackathons: PropTypes.func.isRequired,
-    hackathons: PropTypes.object.isRequired
+    hackathons: PropTypes.object.isRequired,
+    numHackathons : PropTypes.number.isRequired,
 }
 
 const mapStateToProps = state => ({
-    hackathons: state.hackathons
+    hackathons: state.hackathons,
 })
 
 export default connect(mapStateToProps, { getHackathons })(Hackathons);

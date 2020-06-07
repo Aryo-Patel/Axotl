@@ -14,10 +14,17 @@ import "./styling/main.css";
 
 //spinner
 import Spinner from "../common/Spinner";
-const MyHackathons = ({ getUserHackathons, id, hackathons, loading, user, editHackathon }) => {
+const MyHackathons = ({ getUserHackathons, id, hackathons, loading, user, editHackathon, numHackathons }) => {
+    //number for how many results getPosts returns * 10
+    const [pageNumber, setPageNumber] = useState(1)
   useEffect(() => {
-    getUserHackathons();
+    getUserHackathons(pageNumber);
   }, [getUserHackathons]);
+
+  //getting more posts when "show more" is clicked
+  const paginate = async (e) => {
+    setPageNumber(pageNumber+1);
+}
 
   //a bit of jquery for animating the hackathons so they fade in
   $(document).ready(function () {
@@ -101,6 +108,7 @@ const MyHackathons = ({ getUserHackathons, id, hackathons, loading, user, editHa
             ) : (
               <Spinner />
             )}
+            {numHackathons > pageNumber * 10 ? (<button className="posts__see-more button" onClick = {e => paginate(e)}>See More Posts</button>) : null}
           </div>
         </Fragment>
       ) : (
@@ -120,6 +128,7 @@ const mapStateToProps = (state) => ({
   hackathons: state.hackathons.hackathonList,
   loading: state.hackathons.loading,
   user: state.auth.user.user,
+  numHackathons : state.hackathons.numHackathons
 });
 
 MyHackathons.propTypes = {
@@ -129,6 +138,7 @@ MyHackathons.propTypes = {
   loading: PropTypes.bool.isRequired,
   user: PropTypes.object.isRequired,
   editHackathon : PropTypes.func.isRequired,
+  numHackathons : PropTypes.bool.isRequired,
 };
 
 export default connect(mapStateToProps, { getUserHackathons, editHackathon })(MyHackathons);
