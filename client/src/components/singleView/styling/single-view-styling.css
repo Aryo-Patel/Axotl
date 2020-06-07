@@ -1,6 +1,6 @@
 .header-3 {
   font-size: 2rem;
-  color: #eee;
+  color: #2d3142;
   border-bottom: 1px solid #eee;
 }
 
@@ -45,7 +45,7 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background-color: #2d3142;
+  background-color: #ff7b61;
   margin-bottom: 0.5rem;
 }
 
@@ -118,6 +118,9 @@
 }
 
 .discoverWrapper .mainContent__donationTypes {
+  border: 4px solid #ff7b61;
+  -webkit-box-shadow: 0.5rem 0.5rem 0.5rem rgba(0, 0, 0, 0.1);
+          box-shadow: 0.5rem 0.5rem 0.5rem rgba(0, 0, 0, 0.1);
   padding-top: 2rem;
   -ms-flex-preferred-size: 20%;
       flex-basis: 20%;
@@ -134,16 +137,19 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background-color: #2d3142;
+  background-color: none;
   margin-right: 0.5rem;
 }
 
 .discoverWrapper .mainContent__donoType {
-  color: #eee;
+  color: #2d3142;
 }
 
 .discoverWrapper .mainContent__post {
-  background-color: #2d3142;
+  background-color: none;
+  border: 4px solid #ff7b61;
+  -webkit-box-shadow: 0.5rem 0.5rem 0.5rem rgba(0, 0, 0, 0.1);
+          box-shadow: 0.5rem 0.5rem 0.5rem rgba(0, 0, 0, 0.1);
   width: 100%;
   padding: 2rem 3rem;
   border-radius: 5px;
@@ -174,16 +180,20 @@
 .discoverWrapper .mainContent__posts .posts__header {
   width: 100%;
   border-radius: 5px;
-  background-color: #2d3142;
   text-align: center;
   margin-bottom: 0.5rem;
   border: none;
 }
 
 .discoverWrapper .mainContent__posts .posts__header-1 {
+  padding: .5rem;
   text-decoration: none;
   font-size: 2rem;
-  color: #eee;
+  background-color: none;
+  border: 4px solid #ff7b61;
+  -webkit-box-shadow: 0rem 0.5rem 0.5rem rgba(0, 0, 0, 0.1);
+          box-shadow: 0rem 0.5rem 0.5rem rgba(0, 0, 0, 0.1);
+  color: #2d3142;
 }
 
 @-webkit-keyframes leftTextAppear {
@@ -252,8 +262,6 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  background-image: -webkit-gradient(linear, left top, right bottom, from(#7ca6ff), to(#003ea3));
-  background-image: linear-gradient(to right bottom, #7ca6ff, #003ea3);
 }
 
 .compHeader .info-left {

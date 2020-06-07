@@ -74,7 +74,7 @@ $bp-small: 37.5em;
     }
 }
 
-.hack-modal {
+.edit-hack-modal {
     height: 0;
     visibility: hidden;
 }
@@ -82,4 +82,10 @@ $bp-small: 37.5em;
 [data-status='open'] {
     height: 100vh;
     visibility: visible;
+}
+
+.hackathon {
+    &__form-group {
+        position: relative;
+    }
 }

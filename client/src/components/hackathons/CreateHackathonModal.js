@@ -445,7 +445,7 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
                                     </div>
 
                                     <div className="form-group">
-                                        <LocationInput placeholder="Where will your hackathon be held?" onChange={(e) => locationSelect(e)} required/>
+                                        <LocationInput realPlaceholder="Where will your hackathon be held?" onChange={(e) => locationSelect(e)} required/>
                                     </div>
 
                                     <div className="form-group">

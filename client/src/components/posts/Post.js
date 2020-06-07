@@ -96,7 +96,10 @@ const Post = ({
           )}
 
           <div className="post__user-fields">
+            <div className="post__userTitle">
             <h4 className="post__name">{post.name}</h4>
+            <p><small>{post.sponsor ? 'Sponsor' : 'Organizer'}</small></p>
+            </div>
             <img src={post.avatar} alt="" className="post__avatar" />
           </div>
         </div>

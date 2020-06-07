@@ -27,7 +27,15 @@ const CreatePost = ({ createPost }) => {
     $("#createpostsubmit")
     .unbind()
     .click((e) => {
+      if(!formData.content) {
+        //dispatch alert
+        return;
+      }
       createPost(formData);
+      setFormData({
+        content: "",
+        title: ""
+      })
       modalToggle("closed");
     });
   

@@ -8,26 +8,33 @@ const Notification = ({ header, data, sender, id, userId, updateNotifications, t
         updateNotifications(id);
     }
     async function addDonation(e) {
-        $('.item').each(function () {
-            console.log(hackathonId);
-            //console.log($(this).find('.type').attr('class').split(" ")[1]);
+        let notificationBody = e.target.parentNode.parentNode.children[1];
+        let jqueryNotificationBody = $(notificationBody);
+
+        jqueryNotificationBody.find('.item').each(function () {
+            let fullClass = $(this).find('.type').attr('class').split(" ");
+            let classes = fullClass.slice(1).join(" ");
             data.map(async (donation) => {
-                if (donation.type + "" === $(this).find('.type').attr('class').split(" ")[1] + "") {
-                    console.log(donation.donId);
+                if (donation.type + "" === classes + "") {
                     const config = {
                         headers: {
                             'content-type': 'application/json'
                         }
                     }
                     const body = {
-
+                        sponsor: sender,
+                        quantity: donation.quantity,
+                        description: donation.description
                     }
-                    await axios.put(`/api/hackathons/add-donations-received/${hackathonId}/${donation.donId}`);
-                }
-            })
-        });
+                    console.log(`hackathon id: ${JSON.stringify(hackathonId)}`);
+                    console.log(`donation id: ${JSON.stringify(donation.donId)}`);
 
-        //updateNotifications(id);
+                    await axios.put(`/api/hackathons/edit/add-donations-received/${hackathonId}/${donation.donId}`, body, config);
+                }
+            });
+
+        })
+        updateNotifications(id);
     }
     return (
         <div className="notification-wrapper">

@@ -7,23 +7,20 @@ import {
     GET_USER_HACKATHONS,
     GET_USER_HACKATHONS_FAIL,
     USER_LOADED,
-    HACKATHON_DELETED
+    HACKATHON_DELETED,
+    HACKATHON_EDITED
 } from './Types';
 
 import axios from 'axios';
 
 //Return all the hackathons
-export const getHackathons = () => async dispatch => {
+export const getHackathons = (pageNumber) => async dispatch => {
     try {
-        const config = {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }
 
-        //gets the hackathons from the appropriate route in the server end
-        let hackathons = await axios.get('/api/hackathons', null, config);
-
+        console.log(pageNumber)
+            //gets the hackathons from the appropriate route in the server end
+        let hackathons = await axios.get(`/api/hackathons/${pageNumber}`);
+        console.log(hackathons.data.hackathons)
         dispatch({
             type: GET_HACKATHONS,
             payload: hackathons.data
@@ -87,9 +84,11 @@ export const getHackathon = (id) => async dispatch => {
 
 
 //get all hackathons a user has created
-export const getUserHackathons = () => async dispatch => {
+export const getUserHackathons = (pageNumber) => async dispatch => {
     try {
-        let res = await axios.get(`/api/hackathons/my-hackathons`);
+        console.log(pageNumber)
+        let res = await axios.get(`/api/hackathons/my-hackathons/${pageNumber}`);
+        console.log(res.data)
         dispatch({
             type: GET_USER_HACKATHONS,
             payload: res.data
@@ -128,7 +127,12 @@ export const editHackathon = (formData, id) => async dispatch => {
     }
     const body = JSON.stringify(formData);
     try {
-        const res = await axios.put(`/api/hackathons/edit-hackathon/${id}`, body, config)
+        const res = await axios.put(`/api/hackathons/edit-general/${id}`, body, config)
+        console.log(res);
+        dispatch({
+            type: HACKATHON_EDITED,
+            payload: res.data
+        })
     } catch (err) {
         //dispatch?
         console.error(err)

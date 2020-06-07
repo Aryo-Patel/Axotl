@@ -480,18 +480,19 @@ router.delete("/delete-hackathon/:hackathonId", async (req, res, next) => {
     res.json({ hackathonId, user });
 });
 
-//GET       /api/hackathons
+//GET       /api/hackathons/:pageNumber
 //Action    returns all the hackathons
 //PUBLIC    no authorization required to view all the hackathons
-router.get("/", async (req, res, next) => {
+router.get("/:pageNumber", async (req, res, next) => {
     if (!req.user) {
         return res.status(401).json({ msg: "Unauthorized" });
     }
     try {
         //grabs all the hackathons
-        let hackathons = await Hackathon.find().sort({ startDate: -1 });
-
-        return res.status(200).json(hackathons);
+        console.log(req.params.pageNumber)
+        let hackathons = await Hackathon.find().limit(req.params.pageNumber * 10).sort({ startDate: -1 });
+        const num = await Hackathon.countDocuments()
+        return res.status(200).json({ hackathons, num });
     } catch (err) {
         console.error(err);
         return res.status(500).send("server error bad syntax");
@@ -518,10 +519,10 @@ router.get("/hackathon/:id", async (req, res, next) => {
     }
 });
 
-//GET       /api/hackathons/my-hackathons
+//GET       /api/hackathons/my-hackathons/:pageNumber
 //Action    returns all hackathons a user has created
 //PRIVATE   
-router.get("/my-hackathons", async (req, res, next) => {
+router.get("/my-hackathons/:pageNumber", async (req, res, next) => {
     if (!req.user) {
         return res.status(401).json({ msg: "Unauthorized" });
     }
@@ -533,20 +534,15 @@ router.get("/my-hackathons", async (req, res, next) => {
         async function asyncForEach() {
             // console.log('first')
             // console.log(hackId)
-            for (const hackId of req.user.myHackathons) {
+            const myHacks = req.user.myHackathons.slice(0, req.params.pageNumber * 10);
+            for (const hackId of myHacks) {
                 let hack = await Hackathon.findById(hackId);
                 // console.log(`hackathon ${hack}`)
                 hackathons.unshift(hack);
-                console.log('hackathons 1')
-                console.log(hackathons)
             }
         }
         await asyncForEach();
-        console.log('hackathons 2')
-        console.log(hackathons)
-        res.status(200).json({ hackathons: hackathons });
-        console.log('hackathons 3')
-        console.log(hackathons)
+        res.status(200).json({ hackathons, num: req.user.myHackathons.length });
         return;
     } catch (err) {
         console.error(err);

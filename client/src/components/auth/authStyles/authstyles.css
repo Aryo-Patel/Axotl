@@ -91,7 +91,7 @@
   .login__background .login__block {
     border-radius: 5px;
     background-color: white;
-    padding: 5rem 5rem 15rem;
+    padding: 5rem 5rem 15rem 15rem;
     width: 40rem;
     height: 75%;
   }
@@ -105,7 +105,7 @@
   .login__background .login__block {
     border-radius: 5px;
     background-color: white;
-    padding: 5rem 5rem 15rem;
+    padding: 0rem 5rem;
     width: 40rem;
     height: 80%;
   }
@@ -226,7 +226,7 @@
 
 .login__container .form-input:focus + label {
   top: 0rem;
-  font-size: 1rem;
+  font-size: 1.2rem;
 }
 
 @media (max-width: 100em) {
@@ -305,6 +305,7 @@
 .login__container .login__eyes {
   position: relative;
   width: 4rem;
+  font-size: 2rem;
   text-align: center;
   border-bottom: 2px solid #566068;
   -webkit-transition: -webkit-transform .75s ease;

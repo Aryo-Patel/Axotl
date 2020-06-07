@@ -1,6 +1,7 @@
 import React, { useState, Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import LocationInput from '../profile/LocationInput';
 
 import $ from 'jquery';
 
@@ -32,10 +33,8 @@ const EditHackathonModal = ({ editHackathonModal, toggleEditHackathonModal, edit
         endDate: '',
 
     })
-    //every time pageNumber updates, fire find current page
+
     useEffect(() => {
-        findCurrentPage();
-        console.log('HERRRREEEE')
         setFormData({
             title: editingHackathon.title,
             description: editingHackathon.description,
@@ -50,13 +49,19 @@ const EditHackathonModal = ({ editHackathonModal, toggleEditHackathonModal, edit
             startDate: editingHackathon.startDate,
             endDate:editingHackathon.endDate,
         })
-    }, [pageNumber, editingHackathon]);
+    }, [editingHackathon])
+    //every time pageNumber updates, fire find current page
+    useEffect(() => {
+        findCurrentPage();
+        console.log(formData)
+    }, [pageNumber]);
 
 
     console.log(editingHackathon.title)
     console.log(formData.title)
 
     function onInput(e) {
+        console.log('also fired')
         setFormData({
             ...formData,
             [e.target.name]: e.target.value
@@ -64,14 +69,23 @@ const EditHackathonModal = ({ editHackathonModal, toggleEditHackathonModal, edit
     }
     //the function that will check if the hackathon can be created. If it can, the window will close
     function submitData(e) {
+        console.log('fired 2')
         e.preventDefault();
-
-        editHackathon(formData);
+        console.log(formData)
+        editHackathon(formData, editingHackathon._id);
 
         toggleEditHackathonModal('closed')
 
-        window.location.reload(false);
-        return false;
+        // window.location.reload(false);
+        // return false;
+    }
+    //This is to handle the location data
+    function locationSelect(e){
+        console.log(formData)
+        setFormData({
+            ...formData,
+            location: e
+        })
     }
 
     //add table row
@@ -389,7 +403,7 @@ const EditHackathonModal = ({ editHackathonModal, toggleEditHackathonModal, edit
 
 
     function incrementPage() {
-
+        console.log(pageNumber)
         if (pageNumber < 5) {
             let newPageNumber = pageNumber + 1;
             changePageNumber(newPageNumber);
@@ -425,19 +439,32 @@ const EditHackathonModal = ({ editHackathonModal, toggleEditHackathonModal, edit
     //     if(e.stopPropagation){e.stopPropogation();}
     //     toggleEditHackathonModal('closed')
     // })
+    $('.left-arrow').unbind().click((e) => {
+        decrementPage();
+    })
+    $('.right-arrow').unbind().click((e) => {
+        incrementPage();
+    })
+
+    console.log(formData.startDate)
     return (
         <div onClick={e => {
-            toggleEditHackathonModal('closed')}} className='hack-modal' data-status = {editHackathonModal}>
+            toggleEditHackathonModal('closed')}} className='edit-hack-modal hack-modal' data-status = {editHackathonModal}>
             <div className="animation-wrapper" id='editHackathonAnimationWrapper' onClick = {e => toggleEditHackathonModal('closed')}>
                 <section className="modal-main"  id='editHackathonWrapper'>
-                    <div className="left-arrow arrow" onClick={e => decrementPage()}>
+                    <div className="left-arrow arrow" onClick={e =>{ 
+                        console.log(e)
+                        console.log('clicking this does something')
+                        decrementPage()}}>
                         <h1>&#10094;</h1>
                     </div>
                     <div className="modal-text">
                         <h2 className="text-header">Fill in the information about your hackathon!</h2>
                         <small>* = required field</small>
 
-                        <form className="modal-form" onSubmit={e => submitData(e)}>
+                        <form className="modal-form" onSubmit={e =>{ 
+                            console.log('fired')
+                            submitData(e)}}>
                             {pageNumber === 1 && (
                                 <Fragment>
                                     <div className='form-group'>
@@ -445,7 +472,7 @@ const EditHackathonModal = ({ editHackathonModal, toggleEditHackathonModal, edit
                                     </div>
 
                                     <div className="form-group">
-                                        <input type="text" placeholder="Where will your hackathon be held?" name="location" value={formData.location} onChange={e => onInput(e)} required />
+                                    <LocationInput realPlaceholder="Where will your hackathon be held?" parentClassName='hackathon' onChange={(e) => locationSelect(e)} value = {formData.location} required/>
                                     </div>
 
                                     <div className="form-group">
@@ -586,7 +613,9 @@ const EditHackathonModal = ({ editHackathonModal, toggleEditHackathonModal, edit
                         </form>
                     </div>
 
-                    <div className="right-arrow arrow" onClick={e => incrementPage()}>
+                    <div className="right-arrow arrow" onClick={e => {
+                        console.log('clicking this does something')
+                        incrementPage()}}>
                         <h1>&#10095;</h1>
                     </div>
                 </section>

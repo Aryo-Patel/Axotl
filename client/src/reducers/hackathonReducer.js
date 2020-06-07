@@ -6,7 +6,8 @@ import {
     GET_HACKATHON,
     GET_USER_HACKATHONS,
     GET_USER_HACKATHONS_FAIL,
-    HACKATHON_DELETED
+    HACKATHON_DELETED,
+    HACKATHON_EDITED
 } from '../actions/Types';
 
 const initialState = {
@@ -24,6 +25,7 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 hackathonList: payload.hackathons,
+                numHackathons: payload.num,
                 loading: false
             };
         case CREATE_HACKATHON:
@@ -44,6 +46,20 @@ export default function(state = initialState, action) {
                 ...state,
                 loading: false,
                 hackathon: payload
+            }
+        case HACKATHON_EDITED:
+            let newHackathonList = state.hackathonList.map(hackathon => {
+                if (hackathon._id.toString() == payload._id.toString()) {
+                    return payload;
+                } else {
+                    return hackathon;
+                }
+            })
+
+            return {
+                ...state,
+                loading: false,
+                hackathonList: newHackathonList
             }
         case HACKATHON_DELETED:
             const hackathons = state.hackathons.hackathonList.filter(hackathon => hackathon._id.toString() == payload.hackathonId.toString())

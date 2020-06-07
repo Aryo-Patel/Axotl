@@ -59,13 +59,13 @@ $bp-small: 37.5em;
 
 .hackathons__filters {
     grid-area: filters;
-    position: relative;
     display: flex;
     flex-direction: column;
-    align-items: stretch;
+    align-items: center;
     border-right: 2px solid $light-grey;
-    height: 120%;
-    padding-top: 0vh;
+    height: 100%;
+    top: 0;
+    padding-top: 10rem;
     h2 {
         border-bottom: 2px solid $light-grey;
         width: 100%;
@@ -114,8 +114,27 @@ $bp-small: 37.5em;
         }
         .hackathon-content {
             width: 85%;
-            margin: 30px;
+            margin: 3rem;
             text-align: center;
+        }
+    }
+}
+
+.hackathons {
+    &__content {
+        padding-bottom: 10rem;
+        position: relative;
+    }
+    &__see-more {
+        position: absolute;
+        bottom: 3rem;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        z-index: 1000;
+        &:hover {
+            transform: translateY(-3px) translateX(-50%)!important;
+            box-shadow: 0rem 1rem 2rem rgba(0, 0, 0, 0.15);
         }
     }
 }
@@ -347,8 +366,9 @@ $bp-small: 37.5em;
         flex-direction: column;
         align-items: center;
         border-right: 2px solid $light-grey;
-        height: 120%;
-        padding-top: 27.5vh;
+        height: 100%;
+        position: absolute;
+        top: 0;
         h2 {
             border-bottom: 2px solid $light-grey;
             width: 100%;

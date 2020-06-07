@@ -121,7 +121,7 @@ const Hackathon = ({
               </h5>
               <ul>
                 {donations && donations.map(donation => (
-                  donation.received.length > 0 ? null :
+                  donation.quantity === 0 ? null :
                     <li key={key++}>
                       <p>Type: {donation.type}</p>
                       <p>Quantity: {donation.quantity}</p>
@@ -142,11 +142,15 @@ const Hackathon = ({
               <ul>
                 {donations && donations.map(donation => (
                   donation.received.length > 0 ?
-                    <li key={key++}>
-                      <p>Type: {donation.received.type}</p>
-                      <p>Quantity: {donation.received.quantity}</p>
-                      <p>Description: {donation.received.description}</p>
-                    </li>
+                    donation.received.map(received => (
+                      <li key={key++}>
+                        <p>Type: {donation.type}</p>
+                        <p>From: {received.sponsor}</p>
+                        <p>Quantity: {received.quantity}</p>
+                        <p>Description: {received.description}</p>
+                      </li>
+                    ))
+
                     :
                     null
                 ))}

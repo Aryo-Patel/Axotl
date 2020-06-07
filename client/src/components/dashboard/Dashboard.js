@@ -30,6 +30,7 @@ const Dashboard = ({ isRegistered, id }) => {
     let returnArray = donationNotArray.filter((donationNot) => {
       return donationNot._id + "" !== id + "";
     });
+    console.log('donation action processed');
     updateDonationNotifications(returnArray);
   }
 
@@ -76,7 +77,6 @@ const Dashboard = ({ isRegistered, id }) => {
               <div className="donation-notifications-wrapper">
 
                 {donationNotifications.length > 0 ? donationNotifications.map((donation, index) => {
-                  console.log(donation.donId);
                   return (
                     <div key={incrementor++} className="notifications donation-notifications">
                       <Notification className='notification' key={incrementor++} header={donation.category} data={donation.payload}

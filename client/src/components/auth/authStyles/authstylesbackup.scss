@@ -72,8 +72,9 @@ $translateAmount: 100px;
             border-radius: $form-border-radius;
             background-color: white;
         }
-        @media(max-width: $bp-largest) and (min-height: 1400px) {//largest screen
-            margin-top:22rem;
+        @media(max-width: $bp-largest) and (min-height: 1400px) {
+            //largest screen
+            margin-top: 22rem;
             padding: 20rem 5rem;
             //width: 30%;
             //background-color: red;
@@ -133,15 +134,14 @@ $translateAmount: 100px;
             }
         }
         @media (max-height: 1100px) and(min-width: 75em) {
-            margin-top:20rem;
+            margin-top: 20rem;
             padding: 10rem 10rem;
-            width:50%;
+            width: 50%;
             .login__logo {
                 padding: 0 0;
                 width: 15rem;
                 height: 15rem;
             }
-            
         }
         @media (max-height: 1100px) and(min-width: 100em) {
             padding: 3rem 10rem;
@@ -154,7 +154,7 @@ $translateAmount: 100px;
         @media (max-height: 1400px) and(max-width: 75em) {
             padding: 15rem 5rem;
             width: 75%;
-            height:80%;
+            height: 80%;
             .login__logo {
                 padding: 0 0;
                 width: 20rem;

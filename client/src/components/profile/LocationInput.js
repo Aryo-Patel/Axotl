@@ -39,13 +39,13 @@ class LocationInput extends React.Component {
         >
           {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
             <div className = {`${this.props.parentClassName}__form-group`}>
-              <input
+              <input 
                 {...getInputProps({
-                  placeholder: '',
+                  placeholder: this.props.realPlaceholder,
                   className: `location-search-input ${this.props.className}`,
                 })}
-              required/>
-              <label className={`${this.props.parentClassName}__locationLabel`}>Search Locations...</label>
+                 required/>
+              <label className={`${this.props.parentClassName}__locationLabel`}></label>
               <div className="autocomplete-dropdown-container">
                 {loading && <div>Loading...</div>}
                 {suggestions.map(suggestion => {
