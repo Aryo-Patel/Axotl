@@ -13,6 +13,7 @@ const Dashboard = ({ isRegistered, id }) => {
   const [chatNotifications, updateChatNotifications] = useState([]);
   const [donationNotifications, updateDonationNotifications] = useState([]);
   const [timeToReload, changeReloadStatus] = useState(false);
+  const [notificationDisplay, updateNotificationDisplay] = useState(0);
   useEffect(() => {
     fetchData();
 
@@ -69,29 +70,49 @@ const Dashboard = ({ isRegistered, id }) => {
       ) : (
           <div className="dashboard">
             <a id="monke" href="https://www.youtube.com/watch?v=J9qrO_-NLjc">monke</a>
-            <div className="notification-center">
-              <div className='chat-notifications-wrapper'>
-                {/* {chatNotifications.length > 0 ? <p>flesh out the chats MONKE</p> : <p>You have no new chats!</p>} */}
-                <ChatInvitations />
-              </div>
-              <div className="donation-notifications-wrapper">
 
-                {donationNotifications.length > 0 ? donationNotifications.map((donation, index) => {
-                  return (
-                    <div key={incrementor++} className="notifications donation-notifications">
-                      <Notification className='notification' key={incrementor++} header={donation.category} data={donation.payload}
-                        id={donation._id} userId={id} sender={donation.sender} updateNotifications={donationNotificationsChanged} title={donation.title}
-                        senderId={donation.senderId} hackathonId={donation.hackathonId}
-                      />
-                    </div>
-                  )
-                }) : <p>No new donation notifications!</p>}
+
+            <div className="center-display-wrapper">
+              <div className="display-selector">
+                <h1 onClick={e => updateNotificationDisplay(0)}>Chats</h1>
+                <h1 onClick={e => updateNotificationDisplay(1)}>Donation Notifications</h1>
+                <h1 onClick={e => updateNotificationDisplay(2)}>General/Updates</h1>
+              </div>
+              <div className="split-line">
+                <svg>
+                  <rect height="100%"></rect>
+                </svg>
+              </div>
+              <div className="notification-center">
+                {notificationDisplay === 0 &&
+                  <div className='chat-notifications-wrapper'>
+                    {/* {chatNotifications.length > 0 ? <p>flesh out the chats MONKE</p> : <p>You have no new chats!</p>} */}
+                    <ChatInvitations />
+                  </div>
+                }
+
+                {notificationDisplay === 1 &&
+                  <div className="donation-notifications-wrapper">
+                    {donationNotifications.length > 0 ? donationNotifications.map((donation, index) => {
+                      return (
+                        <div key={incrementor++} className="notifications donation-notifications">
+                          <Notification className='notification' key={incrementor++} header={donation.category} data={donation.payload}
+                            id={donation._id} userId={id} sender={donation.sender} updateNotifications={donationNotificationsChanged} title={donation.title}
+                            senderId={donation.senderId} hackathonId={donation.hackathonId}
+                          />
+                        </div>
+                      )
+                    }) : <p>No new donation notifications!</p>}
+                  </div>
+                }
+                {notificationDisplay === 2 &&
+                  <div className="general-notifications-wrapper">
+                    <p>General / updates to go here</p>
+                  </div>}
               </div>
             </div>
-
           </div>
         )}
-      )}
     </Fragment>
   );
 };
