@@ -3,7 +3,8 @@ import { GET_COMPANIES, GET_COMPANY, COMPANY_ERROR } from '../actions/Types'
 const initialState = {
     companyList: [],
     company: {},
-    loading: true
+    loading: true,
+    numCompanies: null
 }
 
 export default function(state = initialState, action) {
@@ -12,7 +13,8 @@ export default function(state = initialState, action) {
         case GET_COMPANIES:
             return {
                 ...state,
-                companyList: payload,
+                companyList: payload.profiles,
+                numCompanies: payload.num,
                 loading: false
             }
         case GET_COMPANY:

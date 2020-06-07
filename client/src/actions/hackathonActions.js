@@ -102,9 +102,11 @@ export const getUserHackathons = (pageNumber) => async dispatch => {
 }
 
 //remove a hackathon
-export const deleteHackathon = hackathonId => async dispatch => {
+export const deleteHackathon = (hackathonId) => async dispatch => {
     try {
+        console.log('also here bruh')
         const res = await axios.delete(`/api/hackathons/delete-hackathon/${hackathonId}`)
+        console.log('hello sir')
         dispatch({
             type: HACKATHON_DELETED,
             payload: { hackathonId }

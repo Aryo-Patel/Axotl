@@ -13,7 +13,7 @@ router.get("/", (req, res) => {
     // console.log("trying in api/auth");
     try {
         if (!req.user) {
-            return res.status(401);
+            return res.status(401).json({ msg: "Unauthorized" });
         }
         // const user = {}
         // for (key in req.user) {
@@ -25,7 +25,7 @@ router.get("/", (req, res) => {
         res.json({ user: req.user });
         // res.json({ user: req.user })
     } catch (err) {
-        console.error(err.message);
+        console.error(err);
         res.status(500).send("Server Error");
     }
 });
@@ -181,7 +181,7 @@ router.post("/resetpassword/:jwt", async(req, res) => {
         // console.log(user);
         res.json({ msg: "Password Changed" });
     } catch (err) {
-        console.error(err.message);
+        console.error(err);
         res.status(500).send("Server Error");
     }
 });
@@ -225,7 +225,7 @@ router.post("/changepassword", async(req, res) => {
         // console.log("we made it");
         res.json({ msg: "Password Changed" });
     } catch (err) {
-        console.error(err.message);
+        console.error(err);
         res.status(500).send("Server Error");
     }
 });
@@ -249,7 +249,7 @@ router.post("/edit", async(req, res) => {
         await user.save();
         res.json(user);
     } catch (err) {
-        console.error(err.message);
+        console.error(err);
         res.status(500).send("Server Error");
     }
 });

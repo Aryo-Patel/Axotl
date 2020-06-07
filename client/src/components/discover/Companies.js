@@ -5,14 +5,23 @@ import {getCompanies, getDistances} from '../../actions/companies'
 import Spinner from '../common/Spinner'
 import Company from './Company'
 
+import $ from 'jquery'
+
 //import css
 import './styling/hackathons.css'
 
-const Companies = ({companies : {loading, companyList}, getCompanies, getDistances}) => {
+const Companies = ({companies : {loading, companyList, numCompanies}, getCompanies, getDistances}) => {
+    const [numFilter, setNumFilter] = useState(1);
     useEffect(() => {
-        getDistances()
-    }, [getDistances])
+        console.log(numFilter);
+        getDistances(numFilter) || getCompanies(numFilter);
+    }, [getDistances, numFilter])
     
+    //getting more hackathons when "show more" is clicked
+    const paginate = async (e) => {
+        setNumFilter(numFilter+1);
+    }
+
     const [search, setSearch] = useState('')
 
     const [donTag, setDonTag] = useState([])
@@ -59,6 +68,45 @@ const Companies = ({companies : {loading, companyList}, getCompanies, getDistanc
 
     }
 
+    //a bit of jquery for animating the companies so they fade in
+    $(document).ready(function () {
+        let centerX = $(window).width() / 2;
+
+        $(".company-item").each(function () {
+            $(this).position().left > centerX ? $(this).css({ 'transform': 'translate(300px, 0px)' }) : $(this).css({ 'transform': 'translate(-300px, 0px)' });
+
+            $(this).hover(() => {
+                $(this).css({ 'transform': 'scale(1.05)' });
+            },
+                () => {
+                    $(this).css({ 'transform': 'scale(1)' });
+                })
+            if ($(this).position().top + $(this).height() - $(this).height() * 0.5 < $(window).scrollTop() + $(window).height()) {
+                $(this).css({ 'transition': '1s', 'transform': 'translate(0px, 0px)', 'opacity': '1' });
+            }
+        })
+        $(window).resize(function () {
+            centerX = $(window).width() / 2;
+        });
+        $(window).scroll(function (i) {
+            $(".company-item").each(function (i) {
+                let objectBottom = $(this).position().top + $(this).height() - $(this).height() * 0.5;
+                let windowBottom = $(window).scrollTop() + $(window).height();
+                let windowTop = $(window).scrollTop();
+                if (objectBottom < windowBottom) {
+                    $(this).css({ 'transition': '1s', 'transform': 'translate(0px, 0px)', 'opacity': '1' });
+                }
+                if (objectBottom > windowBottom || objectBottom < windowTop - 200) {
+                    $(this).position().left > centerX ? $(this).css({ 'transform': 'translate(300px, 0px)', 'opacity': '0' }) : $(this).css({ 'transform': 'translate(-300px, 0px)', 'opacity': '0' });
+                }
+                // if (objectBottom < windowTop) {
+                //     console.log('this ran');
+                //     $(this).position().left > centerX ? $(this).css({ 'transform': 'translate(300px, 0px)', 'opacity': '0' }) : $(this).css({ 'transform': 'translate(-300px, 0px)', 'opacity': '0' });
+                // }
+            })
+        })
+    })
+
     return (
         <Fragment>
             <div className="companies__wrapper">
@@ -104,6 +152,10 @@ const Companies = ({companies : {loading, companyList}, getCompanies, getDistanc
                 ))
                 : <Spinner />}
             </div>
+            {numCompanies > numFilter * 10 ? (<button className="companies__see-more button" onClick = {e => {
+                    console.log(numCompanies)
+                    console.log(numFilter)
+                    paginate(e)}}>See More Sponsors</button>) : null}
             </div>
             </div>
         </Fragment>

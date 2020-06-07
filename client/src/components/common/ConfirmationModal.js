@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 
-const ConfirmationModal = ({deletePost, confirmationModal, setConfirmationModal, parentClassName, text, confirmationPost}) => {
+const ConfirmationModal = ({deletePost, confirmationModal, setConfirmationModal, parentClassName, text, confirmationPost, user}) => {
     console.log(confirmationModal)
     return (
         <div className={`${parentClassName}__wrapper`} data-status={confirmationModal}>
@@ -17,7 +17,7 @@ const ConfirmationModal = ({deletePost, confirmationModal, setConfirmationModal,
                         if(confirmationPost) {
                         deletePost(confirmationPost)
                     } else {
-                      deletePost();
+                      deletePost(user.sponsor);
                     }}}>Yes</button>
                     <button className={`${parentClassName}__no`} onClick = {e => setConfirmationModal('closed')}>No</button>
                 </div>

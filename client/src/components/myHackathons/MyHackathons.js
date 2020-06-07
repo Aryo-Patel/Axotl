@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getUserHackathons, editHackathon } from "../../actions/hackathonActions";
+import { getUserHackathons, editHackathon, deleteHackathon } from "../../actions/hackathonActions";
 
 import RecipientHackathon from "./RecipientHackathon";
 import EditHackathonModal from "./EditHackathonModal";
@@ -14,7 +14,7 @@ import "./styling/main.css";
 
 //spinner
 import Spinner from "../common/Spinner";
-const MyHackathons = ({ getUserHackathons, id, hackathons, loading, user, editHackathon, numHackathons }) => {
+const MyHackathons = ({ getUserHackathons, id, hackathons, loading, user, editHackathon, numHackathons, deleteHackathon }) => {
     //number for how many results getPosts returns * 10
     const [pageNumber, setPageNumber] = useState(1)
   useEffect(() => {
@@ -103,6 +103,7 @@ const MyHackathons = ({ getUserHackathons, id, hackathons, loading, user, editHa
                   key={index}
                   setEditingHackathon={setEditingHackathon}
                   toggleEditHackathonModal={toggleEditHackathonModal}
+                  deleteHackathon = {deleteHackathon}
                 />
               ))
             ) : (
@@ -139,6 +140,7 @@ MyHackathons.propTypes = {
   user: PropTypes.object.isRequired,
   editHackathon : PropTypes.func.isRequired,
   numHackathons : PropTypes.bool.isRequired,
+  deleteHackathon: PropTypes.func.isRequired
 };
 
-export default connect(mapStateToProps, { getUserHackathons, editHackathon })(MyHackathons);
+export default connect(mapStateToProps, { getUserHackathons, editHackathon, deleteHackathon })(MyHackathons);

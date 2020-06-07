@@ -2,11 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Moment from 'react-moment';
 import { Redirect, Link } from 'react-router-dom'
-import { deleteHackathon } from '../../actions/hackathonActions';
 
 
-
-const RecipientHackathon = ({ hackathon, setEditingHackathon, toggleEditHackathonModal }) => {
+const RecipientHackathon = ({ hackathon, setEditingHackathon, toggleEditHackathonModal, deleteHackathon }) => {
     let i = 0;
     const onClick = (e) => {
         return <Redirect to={`/hackathon/${hackathon._id}`} />
@@ -23,7 +21,9 @@ const RecipientHackathon = ({ hackathon, setEditingHackathon, toggleEditHackatho
                             setEditingHackathon(hackathon);
                             toggleEditHackathonModal('open')
                             }}>Edit Hackathon</p>
-                        <p className="hackathon__dropdown-item" onClick = {e => deleteHackathon(hackathon._id)}>Delete Hackathon</p>
+                        <p className="hackathon__dropdown-item" onClick = {e => {
+                            console.log('i exist')
+                            deleteHackathon(hackathon._id)}}>Delete Hackathon</p>
                     </div>
                     </div> 
                 <div className="hackathon-content">

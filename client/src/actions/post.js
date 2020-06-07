@@ -24,7 +24,7 @@ export const createPost = (formData) => async dispatch => {
             payload
         })
     } catch (err) {
-        console.error(err.message);
+        console.error(err);
         dispatch({
             type: POST_FAIL
         })
@@ -46,7 +46,7 @@ export const editPost = (formData, post_id) => async dispatch => {
         })
 
     } catch (err) {
-        console.error(err.message);
+        console.error(err);
         dispatch({
             type: POST_FAIL
         })
@@ -63,7 +63,7 @@ export const deletePost = (post_id) => async dispatch => {
         })
 
     } catch (err) {
-        console.error(err.message);
+        console.error(err);
         dispatch({
             type: POST_FAIL
         })
@@ -78,7 +78,7 @@ export const getPosts = (pageNumber) => async dispatch => {
             payload: res.data
         })
     } catch (err) {
-        console.error(err.message);
+        console.error(err);
         // dispatch({
         //     type: POST_FAIL
         // })
@@ -93,7 +93,7 @@ export const getPost = (id) => async dispatch => {
             payload: res.data
         })
     } catch (err) {
-        console.error(err.message);
+        console.error(err);
         dispatch({
             type: POST_FAIL
         })
@@ -109,7 +109,7 @@ export const getMyPosts = (pageNumber) => async dispatch => {
             payload: res.data
         })
     } catch (err) {
-        console.error(err.message);
+        console.error(err);
         dispatch({
             type: POST_FAIL
         })
@@ -138,7 +138,7 @@ export const addComment = (formData, post_id) => async dispatch => {
             }
         })
     } catch (err) {
-        console.error(err.message);
+        console.error(err);
         dispatch({
             type: POST_FAIL
         })
@@ -159,7 +159,7 @@ export const editComment = (text, post_id, comment_id) => async dispatch => {
             payload: res.data.post
         })
     } catch (err) {
-        console.error(err.message);
+        console.error(err);
         dispatch({
             type: POST_FAIL
         })
@@ -175,7 +175,7 @@ export const deleteComment = (post_id, comment_id) => async dispatch => {
             payload: res.data
         })
     } catch (err) {
-        console.error(err.message);
+        console.error(err);
         dispatch({
             type: POST_FAIL
         })
@@ -196,7 +196,7 @@ export const addReply = (text, post_id, comment_id) => async dispatch => {
             payload: res.data
         })
     } catch (err) {
-        console.error(err.message);
+        console.error(err);
         dispatch({
             type: POST_FAIL
         })
@@ -217,7 +217,7 @@ export const editReply = (text, post_id, comment_id, reply_id) => async dispatch
             payload: res.data
         })
     } catch (err) {
-        console.error(err.message);
+        console.error(err);
         dispatch({
             type: POST_FAIL
         })
@@ -232,7 +232,7 @@ export const deleteReply = (post_id, comment_id, reply_id) => async dispatch => 
             payload: res.data
         })
     } catch (err) {
-        console.error(err.message);
+        console.error(err);
         dispatch({
             type: POST_FAIL
         })
@@ -255,7 +255,7 @@ export const addLike = (post_id) => async dispatch => {
             payload: { user: { user: res.data.user } }
         })
     } catch (err) {
-        console.error(err.message);
+        console.error(err);
         dispatch({
             type: POST_FAIL
         })
@@ -271,7 +271,7 @@ export const likeComment = (post_id, comment_id) => async dispatch => {
             payload: res.data
         })
     } catch (err) {
-        console.error(err.message);
+        console.error(err);
         dispatch({
             type: POST_FAIL
         })
@@ -286,7 +286,7 @@ export const likeReply = (post_id, comment_id, reply_id) => async dispatch => {
             payload: res.data
         })
     } catch (err) {
-        console.error(err.message);
+        console.error(err);
         dispatch({
             type: POST_FAIL
         })

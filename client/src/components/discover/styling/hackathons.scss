@@ -283,28 +283,47 @@ $bp-small: 37.5em;
 
 .company-holder {
     width: 80%;
-    display: grid;
     margin: 0 auto;
-    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
-    grid-gap: 5vw;
-    align-items: stretch;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    row-gap: 5vh;
+    column-gap: 3vw;
     .company-item {
+        transition: 1s;
+        opacity: 0;
+        position: relative;
         transition: 0.2s;
         border-radius: 4px;
-        background-image: url("../../images/hackathon-background.jpg");
-        background-size: 100% 100%;
-        background-repeat: no-repeat;
-        h1 {
-            font-size: 1.4em;
+        background-image: linear-gradient(to top left, #f77b61, yellow);
+        color: rgba(0, 0, 0, 0.95);
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.8);
+        z-index: 10;
+        overflow: hidden;
+        &::after {
+            background-repeat: no-repeat;
+            content: "";
+            position: absolute;
+            z-index: -100;
+            width: 99%;
+            height: 98%;
+            top: 1%;
+            left: 0.5%;
+            border-radius: 5px;
+            background-color: white;
         }
-        &:hover {
+        h1 {
+            font-size: $font-size;
+        }
+        &:hover,
+        &:hover::after {
             transition: 0.2s;
-            transform: rotate3d(1, 1, 0, 20deg);
+            transform: rotate3d(1, 1, 0, 10deg);
             cursor: pointer;
         }
         .company-content {
             width: 85%;
-            margin: 0 auto;
+            margin: 3rem;
+            text-align: center;
         }
     }
 }
@@ -359,6 +378,19 @@ $bp-small: 37.5em;
         grid-template-rows: 1fr;
         grid-template-areas: "filters content";
         align-items: center;
+        height: 100%;
+    }
+    &__see-more {
+        position: absolute;
+        left: 50%;
+        bottom: 3rem;
+        transform: translateX(-50%);
+        text-align: center;
+        z-index: 1000;
+        &:hover {
+            transform: translateY(-3px) translateX(-50%)!important;
+            box-shadow: 0rem 1rem 2rem rgba(0, 0, 0, 0.15);
+        }
     }
     &__filters {
         grid-area: filters;
@@ -367,7 +399,7 @@ $bp-small: 37.5em;
         align-items: center;
         border-right: 2px solid $light-grey;
         height: 100%;
-        position: absolute;
+        padding-top: 10rem;
         top: 0;
         h2 {
             border-bottom: 2px solid $light-grey;
@@ -376,11 +408,9 @@ $bp-small: 37.5em;
         }
     }
     &__content-wrapper {
+        padding-bottom: 10rem;
         grid-area: content;
-        margin-top: -50vh;
-        @media (max-width: 1320px) {
-            margin-top: -35vh;
-        }
+        position: relative;
     }
 }
 

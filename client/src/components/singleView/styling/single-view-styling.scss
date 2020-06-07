@@ -148,6 +148,7 @@ $primary-white: #eee;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-image: linear-gradient(to right bottom, #7ca6ff, #003ea3);
     flex-direction: row;
     .info-left {
         margin-bottom: -5%;

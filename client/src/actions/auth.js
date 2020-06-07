@@ -15,8 +15,7 @@ export const sendLogin = (formData) => async dispatch => {
         const res = await axios.post('/api/users/login', body, config)
         console.log(res.data)
         const payload = {
-            user: res.data,
-            sponsor: res.data.sponsor
+            user: res.data
         }
         dispatch({
             type: LOGIN_SUCCESS,
@@ -82,8 +81,7 @@ export const loadUser = () => async dispatch => {
     try {
         const res = await axios.get('/api/auth')
         const payload = {
-            user: res.data,
-            sponsor: res.data.sponsor
+            user: res.data
         }
         dispatch({
             type: USER_LOADED,
@@ -111,6 +109,7 @@ export const deleteRecipient = () => async dispatch => {
 export const logout = () => async dispatch => {
     try {
         await axios.get('/api/users/logout')
+        console.log('finished logging out the back end')
         dispatch({
             type: LOGOUT
         })
@@ -221,9 +220,13 @@ export const editAccount = (formData) => async dispatch => {
 
 export const deleteAccount = (sponsor) => async dispatch => {
     try {
+        let res = null;
         if (sponsor) {
-            const res = await axios.delete('/api/sponsors');
+            res = await axios.delete('/api/sponsors');
+        } else {
+            res = await axios.delete('/api/users')
         }
+        console.log(res);
         dispatch({
             type: ACCOUNT_DELETED
         })

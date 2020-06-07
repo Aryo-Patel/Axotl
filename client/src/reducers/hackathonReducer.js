@@ -13,7 +13,8 @@ import {
 const initialState = {
     hackathonList: [],
     hackathon: {},
-    loading: true
+    loading: true,
+    numHackathons: null
 }
 
 export default function(state = initialState, action) {
@@ -62,7 +63,7 @@ export default function(state = initialState, action) {
                 hackathonList: newHackathonList
             }
         case HACKATHON_DELETED:
-            const hackathons = state.hackathons.hackathonList.filter(hackathon => hackathon._id.toString() == payload.hackathonId.toString())
+            const hackathons = state.hackathonList.filter(hackathon => hackathon._id.toString() == payload.hackathonId.toString())
             return {
                 ...state,
                 hackathonList: hackathons,

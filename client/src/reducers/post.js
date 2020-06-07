@@ -19,7 +19,7 @@ import {
 } from "../actions/Types";
 
 const initialState = {
-    posts: [],
+    posts: { posts: [] },
     post: null,
     myPosts: [],
     loading: true,
@@ -31,6 +31,7 @@ const initialState = {
 export default function(state = initialState, action) {
     const { type, payload } = action;
     let posts = []
+    let newMyPosts = [];
     switch (type) {
         case CREATE_POST:
             // console.log(payload);
@@ -75,6 +76,14 @@ export default function(state = initialState, action) {
         case DELETE_COMMENT:
         case EDIT_COMMENT:
         case ADD_COMMENT:
+            console.log(state.posts.posts)
+            newMyPosts = state.myPosts.map(myPost => {
+                if (myPost._id.toString() == payload._id.toString()) {
+                    return payload;
+                } else {
+                    return myPost;
+                }
+            })
             return {
                 ...state,
                 posts: {
@@ -84,9 +93,17 @@ export default function(state = initialState, action) {
                             post;
                     }),
                 },
+                myPosts: newMyPosts,
                 loading: false,
             };
         case ADD_LIKE:
+            newMyPosts = state.myPosts.map(myPost => {
+                if (myPost._id.toString() == payload._id.toString()) {
+                    return payload;
+                } else {
+                    return myPost;
+                }
+            })
             posts = state.posts.posts.map((post) => {
                 if (post._id.toString() == payload.post.toString()) {
                     post.likes = payload.likes;
@@ -102,9 +119,17 @@ export default function(state = initialState, action) {
                 posts: {
                     posts: posts
                 },
+                myPosts: newMyPosts,
                 loading: false
             };
         case LIKE_COMMENT:
+            newMyPosts = state.myPosts.map(myPost => {
+                if (myPost._id.toString() == payload._id.toString()) {
+                    return payload;
+                } else {
+                    return myPost;
+                }
+            })
             posts = state.posts.posts.map((post) => {
                 if (post._id.toString() == payload.post_id.toString()) {
                     post.comments.filter(comment => comment._id.toString() == payload.comment_id.toString())[0].likes = payload.likes.slice(0, payload.likes.length)
@@ -122,12 +147,20 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 posts: { posts: posts },
+                myPosts: newMyPosts,
                 loading: false
             };
         case ADD_REPLY:
         case DELETE_REPLY:
         case EDIT_REPLY:
         case LIKE_REPLY:
+            newMyPosts = state.myPosts.map(myPost => {
+                if (myPost._id.toString() == payload._id.toString()) {
+                    return payload;
+                } else {
+                    return myPost;
+                }
+            })
             posts = state.posts.posts.map(post => {
                 if (post._id.toString() == payload.post_id.toString()) {
                     const comment = post.comments.filter(comment => comment._id.toString() == payload.comment_id.toString())[0]
@@ -142,6 +175,7 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 posts: { posts: posts },
+                myPosts: newMyPosts,
                 loading: false
             }
         case GET_MY_POSTS:
