@@ -96,7 +96,7 @@ class Chat extends Component {
             })
     }
 
-    readMessages(){
+    readMessages() {
         axios.post(`/api/chat/${this.state.currentChatId}`)
     }
 
@@ -113,7 +113,7 @@ class Chat extends Component {
                     <CreateChat show={this.state.show} onHide={this.hideModal} />
                     <div className="chatlogs">
                         <button onClick={this.showModal} className="btn button-newChat">+ Create a new chat</button>
-                        <Contact onChoose={this.onChoose} yourID={this.props.user._id} sponsor={this.props.user.sponsor}/>
+                        <Contact onChoose={this.onChoose} yourID={this.props.user._id} sponsor={this.props.user.sponsor} />
                     </div>
                     <Messages yourID={this.props.user._id} onChange={this.onChange} onSubmit={this.sendMessage} messages={this.state.messages} newMessageValue={this.state.newMessage} />
                     <div className="clear">
