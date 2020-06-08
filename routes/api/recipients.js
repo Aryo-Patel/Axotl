@@ -185,7 +185,11 @@ router.post('/find', (req, res) => {
         .then(profile => {
             Recipient.findOne({ _id: profile.recipient })
                 .then(recipient => {
-                    res.json(recipient)
+                    res.json({
+                        _id: recipient._id,
+                        name: recipient.name,
+                        avatar: recipient.avatar,
+                    })
                 })
         })
         .catch(err => {
