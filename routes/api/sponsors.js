@@ -190,7 +190,11 @@ router.post('/find', (req, res) => {
         .then(profile => {
             Sponsor.findOne({ _id: profile.sponsor })
                 .then(sponsor =>
-                    res.json(sponsor)
+                    res.json({
+                        _id: sponsor._id,
+                        name: sponsor.name,
+                        avatar: sponsor.avatar,
+                    })
                 )
         })
         .catch(err => {

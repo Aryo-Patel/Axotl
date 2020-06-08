@@ -59,6 +59,7 @@ const EditHackathonModal = ({ editHackathonModal, toggleEditHackathonModal, edit
 
     console.log(editingHackathon.title)
     console.log(formData.title)
+    console.log("THIS IS LOCATION: " + formData.location)
 
     function onInput(e) {
         console.log('also fired')
@@ -472,7 +473,7 @@ const EditHackathonModal = ({ editHackathonModal, toggleEditHackathonModal, edit
                                     </div>
 
                                     <div className="form-group">
-                                    <LocationInput realPlaceholder="Where will your hackathon be held?" parentClassName='hackathon' onChange={(e) => locationSelect(e)} value = {formData.location} required/>
+                                    <LocationInput realPlaceholder="Where will your hackathon be held?" parentClassName='hackathon' onChange={(e) => locationSelect(e)} location={formData.location} required/>
                                     </div>
 
                                     <div className="form-group">
