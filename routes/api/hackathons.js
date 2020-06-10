@@ -1,10 +1,13 @@
 //Require packages
 const express = require("express");
 const router = express.Router(); //allows us to use this file as a router
+const config = require('config');
+const axios = require('axios')
 
 //Require the hackathon profile
 const Hackathon = require("../../models/Hackathon");
 const Recipient = require('../../models/Recipient')
+const SponsorProfile = require('../../models/SponsorProfile')
 
 //POST      /api/hackathons/create
 //Action    create a hackathon
@@ -545,36 +548,50 @@ router.get("/my-hackathons/:pageNumber", async(req, res, next) => {
     }
 });
 
-router.get("/search/locations", async(req, res) => {
+//GET       /api/hackathons/search/locations/:pageNumber
+//Action    returns all hackathons with supplemented location data to the user requested
+//PRIVATE 
+router.get("/search/locations/:pageNumber", async(req, res) => {
     if (!req.user) {
         return res.status(404).json({ msg: "User not authorized" });
     }
     try {
-        let myLocation = await sponsorProfile.findOne({ sponsor: req.user._id });
+        let myLocation = await SponsorProfile.findOne({ sponsor: req.user._id });
         myLocation = myLocation.location;
-        let profiles = await Hackathon.find();
+        let hackathons = await Hackathon.find().limit(req.params.pageNumber * 10).sort({ Date: -1 });;
         let destinations = [];
-        profiles.forEach(async(profile) => {
-            if (profile.location) {
-                destinations.push(profile.location);
+        // console.log(`profiles length ${hackathons.length}`)
+        hackathons.forEach(async(hackathon, index) => {
+            if (hackathon.location) {
+                destinations.push(hackathon.location);
+            } else {
+                destinations.push('placeholdernotintendedtoreturn')
             }
         });
+        // console.log(destinations.length);
         destinations = destinations.join("|");
-        console.log(myLocation);
-        console.log(destinations);
+        // console.log(myLocation);
+        // console.log(destinations);
         const url = `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${myLocation}&destinations=${destinations}&key=${config.get(
       "distanceMatrixKey"
     )}`;
         console.log(url);
         const response = await axios.get(url);
-        for (let i = 0; i < profiles.length; i++) {
-            console.log(`Profile : ${profiles[i]}`);
-            const locs = response.data.rows[0].elements;
-            profiles[i].distanceFromUser = locs[i].distance.text;
-            console.log(`Profile after : ${profiles[i]}`);
+        // console.log(response.data);
+        for (let i = 0; i < hackathons.length; i++) {
+            // console.log(`Profile : ${hackathons[i]}`);
+            const locs = response.data.rows[0].elements
+                // console.log(locs.length);
+            if (locs[i].status === 'OK') {
+                hackathons[i].distanceFromUser = locs[i].distance.text;
+                // console.log(`Profile after : ${hackathons[i]}`);
+            } else {
+                hackathons[i].distanceFromUser = null;
+            }
         }
-        console.log(`profiles : ${profiles}`);
-        res.json(profiles);
+        const num = await Hackathon.countDocuments()
+            // console.log(`profiles : ${hackathons}`);
+        res.json({ hackathons, num });
     } catch (err) {
         console.log(err);
         res.status(500).send("Server Error");

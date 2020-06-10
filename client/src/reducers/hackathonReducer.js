@@ -7,7 +7,8 @@ import {
     GET_USER_HACKATHONS,
     GET_USER_HACKATHONS_FAIL,
     HACKATHON_DELETED,
-    HACKATHON_EDITED
+    HACKATHON_EDITED,
+    GET_HACKATHONS_LOCATIONS
 } from '../actions/Types';
 
 const initialState = {
@@ -23,6 +24,7 @@ export default function(state = initialState, action) {
     switch (type) {
         case GET_HACKATHONS:
         case GET_USER_HACKATHONS:
+        case GET_HACKATHONS_LOCATIONS:
             return {
                 ...state,
                 hackathonList: payload.hackathons,

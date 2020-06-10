@@ -86,6 +86,9 @@ const HackathonSchema = new mongoose.Schema({
         type: Date,
         required: true
     },
+    distanceFromUser: {
+        type: String
+    },
     winners: [{
         teamName: {
             type: String

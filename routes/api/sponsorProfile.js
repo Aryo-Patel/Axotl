@@ -166,32 +166,36 @@ router.get('/search/locations/:pageNumber', async(req, res) => {
     try {
         let myLocation = await RecipientProfile.findOne({ recipient: req.user._id })
         myLocation = myLocation.location
-        let profiles = await SponsorProfile.find().limit(req.params.pageNumber * 10).sort({ Date: -1 });;
+        let profiles = await SponsorProfile.find().limit(req.params.pageNumber * 10).sort({ Date: -1 });
         let destinations = [];
-
+        console.log(`profiles length ${profiles.length}`)
         profiles.forEach(async(profile) => {
             if (profile.location) {
-                destinations.push(profile.location)
+                destinations.push(profile.location);
+            } else {
+                destinations.push('placeholdernotintendedtoreturn')
             }
         })
         destinations = destinations.join('|')
-        console.log(myLocation)
-        console.log(destinations)
+            // console.log(myLocation)
+            // console.log(destinations)
         const url = `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${myLocation}&destinations=${destinations}&key=${config.get('distanceMatrixKey')}`
         console.log(url)
         const response = await axios.get(url)
         for (let i = 0; i < profiles.length; i++) {
             // console.log(`Profile : ${profiles[i]}`)
-            console.log(response.data.rows[0].elements[i])
-            console.log(profiles[i].location)
+            // console.log(response.data.rows[0].elements[i])
+            // console.log(profiles[i].location)
             const locs = response.data.rows[0].elements
-                // console.log(JSON.stringify(locs[i]))
-            console.log(i)
-            profiles[i].distanceFromUser = locs[i].distance.text;
-            // console.log(`Profile after : ${profiles[i]}`)
+            if (locs[i].status === 'OK') {
+                profiles[i].distanceFromUser = locs[i].distance.text;
+                // console.log(`Profile after : ${profiles[i]}`);
+            } else {
+                profiles[i].distanceFromUser = null;
+            }
         }
         const num = await SponsorProfile.countDocuments()
-        console.log(`profiles : ${profiles}`)
+            // console.log(`profiles : ${profiles}`)
         res.json({ profiles, num })
     } catch (err) {
         console.log(err);
