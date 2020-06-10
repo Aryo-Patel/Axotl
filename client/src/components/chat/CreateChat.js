@@ -132,8 +132,8 @@ class CreateChat extends Component {
             recipients: this.state.recipients,
             sponsors: this.state.sponsors,
             messages: [],
-
         }
+        
         axios.post('api/chat/create', info)
 
         this.setState({
