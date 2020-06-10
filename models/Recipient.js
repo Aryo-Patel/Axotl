@@ -37,11 +37,23 @@ const RecipientSchema = new Schema({
         sender: {
             type: String
         },
+        title: {
+            type: String
+        },
+        hackathonId: {
+            type: String
+        },
+        senderId: {
+            type: String
+        },
         payload: [{
             type: {
                 type: String
             },
             quantity: {
+                type: String
+            },
+            donId: {
                 type: String
             },
             description: {

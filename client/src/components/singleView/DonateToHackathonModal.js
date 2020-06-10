@@ -69,22 +69,32 @@ const DonateToHackathonModal = props => {
 
     $('.submit-button').unbind().click(async function (e) {
         if (!badInput()) {
-            console.log(userInputs);
             const payload = [];
             for (let item in userInputs) {
                 if (item !== 'description') {
+                    let donId = "";
+                    props.hackathonDonations.forEach(donation => {
+                        if (donation.type + "" === item + "") {
+                            donId = donation._id + "";
+                        }
+                    })
                     payload.push({
                         type: item,
                         quantity: userInputs[item],
-                        description: userInputs.description
+                        description: userInputs.description,
+                        donId: donId
                     });
                 }
             }
+            console.log(payload);
             const bodyData = {
                 category: "DONATION OFFER",
                 payload: payload,
                 sender: props.name,
-                title: props.title
+                title: props.title,
+                hackathonId: props.hackathonId,
+                senderId: props.senderId //for return notification purposes
+
             };
             //sets up the data for the axios request
             const body = bodyData;
@@ -95,9 +105,11 @@ const DonateToHackathonModal = props => {
             }
             //grabs the user associated with a hackathon
             let id = props.recipientId;
-            console.log(id);
+
             await axios.put(`/api/users/add-notification/${id}`, body, config);
-            console.log('completed');
+
+            props.updateView();
+
         }
         else {
             alert('Please choose at least one item to donate');
@@ -154,6 +166,9 @@ DonateToHackathonModal.propTypes = {
 const mapStateToProps = state => ({
     recipientId: state.hackathons.hackathon.recipient,
     name: state.auth.user.user.name,
-    title: state.hackathons.hackathon.title
+    senderId: state.auth.user.user._id,
+    title: state.hackathons.hackathon.title,
+    hackathonId: state.hackathons.hackathon._id,
+    hackathonDonations: state.hackathons.hackathon.donations
 });
 export default connect(mapStateToProps, {})(DonateToHackathonModal);

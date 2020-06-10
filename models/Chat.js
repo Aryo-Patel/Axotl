@@ -10,17 +10,17 @@ const ChatSchema = new Schema({
     },
     //These invitations will only be the ObjectIDs
     invitedRecipients: [Schema.Types.ObjectId],
-    invitedSponsors: [Schema.Types.ObjectId],  
+    invitedSponsors: [Schema.Types.ObjectId],
     recipients: [
         {
-        userID: {
-            type: Schema.Types.ObjectId,
-            ref: 'Recipients',
-        },
-        numUnread: {
-            type: Number,
+            userID: {
+                type: Schema.Types.ObjectId,
+                ref: 'Recipients',
+            },
+            numUnread: {
+                type: Number,
+            }
         }
-    }
     ],
     sponsors: [{
         userID: {

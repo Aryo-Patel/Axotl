@@ -186,7 +186,7 @@
 }
 
 .discoverWrapper .mainContent__posts .posts__header-1 {
-  padding: .5rem;
+  padding: 0.5rem;
   text-decoration: none;
   font-size: 2rem;
   background-color: none;
@@ -258,8 +258,6 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background-image: -webkit-gradient(linear, left top, right bottom, from(#7ca6ff), to(#003ea3));
-  background-image: linear-gradient(to right bottom, #7ca6ff, #003ea3);
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
       -ms-flex-direction: row;

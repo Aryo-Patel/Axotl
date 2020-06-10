@@ -16,7 +16,7 @@ class LocationInput extends React.Component {
 
   componentDidMount(){
     if(this.props.location){
-      this.setState({address:this.props.location})
+      this.setState({address: this.props.location})
     }
   }
 
@@ -30,6 +30,9 @@ class LocationInput extends React.Component {
   };
 
   render() {
+    if(this.props.location){
+      this.setState({address: this.props.location})
+    }
     return (
       <div>
         <PlacesAutocomplete

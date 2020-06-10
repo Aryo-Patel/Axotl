@@ -33,7 +33,7 @@ class CreateChat extends Component {
         this.setCurrentUserParticipant();
     }
 
-    setCurrentUserParticipant(){
+    setCurrentUserParticipant() {
         if (this.props.user.sponsor) {
             this.state.sponsors.push(this.props.user)
         }
@@ -127,6 +127,15 @@ class CreateChat extends Component {
         //         numUnread: 0,
         //     }
         // })
+
+
+        /*
+        recipients: {
+            _id,
+            name, 
+            avatar
+        }
+        */
         let info = {
             name: this.state.chatName,
             recipients: this.state.recipients,
@@ -134,6 +143,8 @@ class CreateChat extends Component {
             messages: [],
 
         }
+        console.log('info below:: ')
+        console.log(info);
         axios.post('api/chat/create', info)
 
         this.setState({

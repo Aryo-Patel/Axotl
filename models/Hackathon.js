@@ -64,10 +64,6 @@ const HackathonSchema = new mongoose.Schema({
         },
         received: [{
             sponsor: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'Sponsors'
-            },
-            type: {
                 type: String,
             },
             quantity: {

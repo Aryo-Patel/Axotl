@@ -2,6 +2,7 @@
   padding-top: 10rem;
   font-size: 1.6rem;
   color: #2f72ff;
+  /*donation notification styles */
 }
 
 .dashboard #monke {
@@ -9,17 +10,87 @@
   text-decoration: none;
 }
 
-.dashboard .notification-center {
+.dashboard .center-display-wrapper {
   margin: 0 auto;
+  width: 95%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.dashboard .center-display-wrapper .display-selector-wrapper {
+  position: relative;
+  width: 50%;
+}
+
+.dashboard .center-display-wrapper .display-selector-wrapper .display-selector {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  height: 60vh;
+  position: fixed;
+  left: 5%;
+  -webkit-transform: translateX(-5%);
+          transform: translateX(-5%);
+  padding: 20px;
+}
+
+.dashboard .center-display-wrapper .display-selector-wrapper .display-selector h1 {
+  font-size: 1.3eem;
+  text-align: center;
+}
+
+.dashboard .center-display-wrapper .display-selector-wrapper .display-selector h1:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.dashboard .center-display-wrapper .split-line {
+  margin-left: 5%;
+  width: 3px;
+  max-width: 1%;
+}
+
+.dashboard .center-display-wrapper .split-line svg rect {
+  width: 3px;
+  fill: #2f72ff;
+  stroke: #2f72ff;
+}
+
+.dashboard .center-display-wrapper .split-line svg {
+  width: 3px;
+  height: 100%;
+}
+
+.dashboard .center-display-wrapper .notification-center {
+  margin-left: 20px;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 1fr 1fr;
-      grid-template-columns: 1fr 1fr;
+  -ms-grid-columns: auto;
+      grid-template-columns: auto;
   width: 80%;
 }
 
+.dashboard .center-display-wrapper .notification-center .donation-notifications-wrapper {
+  display: -ms-grid;
+  display: grid;
+  row-gap: 20px;
+  -webkit-column-gap: 20px;
+          column-gap: 20px;
+  -ms-grid-columns: (minmax(400px, 1fr))[auto-fit];
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+}
+
 .dashboard .notifications {
-  margin-bottom: 10px;
+  margin: auto;
+  max-width: 450px;
 }
 
 .dashboard .notifications .notification-wrapper {

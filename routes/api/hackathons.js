@@ -273,33 +273,37 @@ router.put("/edit/add-donations/:id", async(req, res, next) => {
 //PUT       /api/hackathons/edit/add-donations-received/:id
 //Action    add donations that the group has recieved (automatic process)
 //PRIVATE   happens behind the scenes when a sponsor agrees to sponsor a hackathon
-router.put(
-    "/edit/add-donations-received/:hackathonId/:donationId",
-    async(req, res, next) => {
-        //grab the prameters from the request
-        let hackathonId = req.params.hackathonId;
-        let donationId = req.params.donationId;
-        try {
-            //finds the hackathon that needs to be updated
-            let hackathon = await Hackathon.findOne({ _id: hackathonId });
+router.put('/edit/add-donations-received/:hackathonId/:donationId', async(req, res, next) => {
 
-            //loop through the donations in the hackthon and find the one that has the same object id as donation id
-            Object.values(hackathon.donations).forEach((donation) => {
-                //pushes the sponsor that donated to one of the hackathon's request to the received array
-                if (donation._id + "" === donationId + "") {
-                    donation.received.push(req.body);
+    //grab the prameters from the request
+    let hackathonId = req.params.hackathonId;
+    let donationId = req.params.donationId;
+    try {
+        //finds the hackathon that needs to be updated
+        let hackathon = await Hackathon.findOne({ _id: hackathonId });
+
+        //loop through the donations in the hackthon and find the one that has the same object id as donation id
+        Object.values(hackathon.donations).forEach(donation => {
+            //pushes the sponsor that donated to one of the hackathon's request to the received array
+            if ((donation._id + '') === (donationId + '')) {
+                donation.received.push(req.body);
+                console.log(parseInt(donation.quantity));
+                let newDonQuant = parseInt(donation.quantity) - parseInt(req.body.quantity);
+                if (newDonQuant < 0) {
+                    newDonQuant = 0;
                 }
-            });
+                donation.quantity = newDonQuant;
+            }
+        })
 
-            await Hackathon.replaceOne({ _id: hackathonId }, hackathon);
+        await Hackathon.replaceOne({ _id: hackathonId }, hackathon);
 
-            return res.status(200).json(hackathon);
-        } catch (err) {
-            console.error(err);
-            res.status(500).send("Server error or hackathon invalid");
-        }
+        return res.status(200).json(hackathon);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Server error or hackathon invalid");
     }
-);
+});
 
 //DELETE    /api/hackathons/deleteDonation/:hackathonId/:donationId
 //Action    allows creator of hackathon to delete a donation criteria if they are no longer looking for that to be
@@ -573,8 +577,8 @@ router.get("/search/locations/:pageNumber", async(req, res) => {
         // console.log(myLocation);
         // console.log(destinations);
         const url = `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${myLocation}&destinations=${destinations}&key=${config.get(
-      "distanceMatrixKey"
-    )}`;
+            "distanceMatrixKey"
+        )}`;
         console.log(url);
         const response = await axios.get(url);
         // console.log(response.data);

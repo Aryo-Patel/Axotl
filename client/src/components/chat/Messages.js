@@ -41,11 +41,11 @@ export default class Messages extends Component {
                 <div className="chat-div">
                     <form onSubmit={this.props.onSubmit}>
                         <div className="chat-form">
-                        <input className="text-field" type="text" onChange={this.props.onChange} value={this.props.newMessageValue} name="newMessage" />
-                        <button className="button-send" type="submit">Send</button>
+                            <input className="text-field" type="text" onChange={this.props.onChange} value={this.props.newMessageValue} name="newMessage" />
+                            <button className="button-send" type="submit">Send</button>
                         </div>
                     </form>
-                </div>    
+                </div>
             </div>
         )
     }
