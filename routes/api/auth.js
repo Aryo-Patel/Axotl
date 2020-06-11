@@ -233,7 +233,7 @@ router.post("/changepassword", async(req, res) => {
 //POST /api/auth/edit
 //Action edit the user's account
 // PRIVATE
-router.post("/edit", async(req, res) => {
+router.patch("/edit", async(req, res) => {
     if (!req.user) {
         return res.status(401).json({ msg: "Unauthorized" });
     }

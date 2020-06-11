@@ -13,7 +13,7 @@ export const sendLogin = (formData) => async dispatch => {
     const body = JSON.stringify(formData)
     try {
         const res = await axios.post('/api/users/login', body, config)
-        console.log(res.data)
+            // console.log(res.data)
         const payload = {
             user: res.data
         }

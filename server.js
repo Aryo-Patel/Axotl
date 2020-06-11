@@ -103,13 +103,16 @@ if (process.env.NODE_ENV === "production") {
     console.log("SERVING STATIC FROM CLIENT/BUILD")
     app.use(express.static("client/build"));
     console.log(path.resolve(__dirname, "client", "build", "index.html"))
-    app.get("/", (req, res) => {
+    app.get("/*", (req, res) => {
         console.log('sending file')
-        res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+        try {
+            res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+        } catch (err) {
+            res.status(500).send('Server Error With Backup React Routing Fix')
+        }
     });
 }
 
-//Placeholder for socket initialization for chat
 
 //Use the routes
 app.use("/api/users", recipients);

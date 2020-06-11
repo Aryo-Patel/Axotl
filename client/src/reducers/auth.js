@@ -16,7 +16,7 @@ export default function(state = initialState, action) {
     switch (type) {
         case USER_LOADED:
         case LOGIN_SUCCESS:
-            console.log(payload.user)
+
             return {
                 ...state,
                 isAuthenticated: true,
@@ -40,6 +40,7 @@ export default function(state = initialState, action) {
                 ...state,
                 isAuthenticated: false,
                 isRegistered: false,
+                loading: false,
                 hasProfile: false,
                 sponsor: false,
                 user: null
