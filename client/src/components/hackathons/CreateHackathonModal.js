@@ -55,13 +55,13 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
     }
 
     //This is to handle the location data
-    function locationSelect(e){
+    function locationSelect(e) {
         setFormData({
             ...formData,
             location: e
         })
     }
-    
+
     //the function that will check if the hackathon can be created. If it can, the window will close
     function submitData(e) {
         e.preventDefault();
@@ -387,7 +387,9 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
     }
 
     const close = e => {
-        if (e.target.classList.contains('hack-modal')) {
+        console.log('got in here');
+        if (e.target.classList.contains('animation-wrapper')) {
+            console.log('got inside the hack modal');
             e.target.parentNode.childNodes[0].checked = false;
 
             handleClose();
@@ -445,7 +447,7 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
                                     </div>
 
                                     <div className="form-group">
-                                        <LocationInput realPlaceholder="Where will your hackathon be held?" onChange={(e) => locationSelect(e)} required/>
+                                        <LocationInput realPlaceholder="Where will your hackathon be held?" onChange={(e) => locationSelect(e)} required />
                                     </div>
 
                                     <div className="form-group">

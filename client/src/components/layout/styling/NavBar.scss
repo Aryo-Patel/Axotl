@@ -1,6 +1,6 @@
 $light-grey: #a5a5a5;
 $axo-yellow: rgb(254, 181, 68);
-$background-color:rgb(47, 114, 255);
+$background-color: rgb(47, 114, 255);
 $primary-orange: rgb(255, 102, 71);
 $background-color-lighter: #5093ff;
 $primary-white: #eee;
@@ -9,70 +9,69 @@ $bp-large: 75em;
 $bp-medium: 56.25em;
 $bp-small: 37.5em;
 .navContainer {
-    position: fixed;
-    color: $primary-white;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-size: 1.6rem;
-    display: flex;
-    width: 100%;
-    height: 6rem;
-    align-items: center;
-    background-color: white;
-    z-index: 1000000;
-    justify-content: space-between;
-    transition: color 0.2s, background-color 0.2s;
-    .navbar-brand {
-        margin-left: 3rem;
-        @media (max-width: $bp-large) {
-            margin-left: 2rem;
-        }
-        @media (max-width: 68.75em) {
-            margin-left: 1.5rem;
-        }
-        color: $background-color;
-        transition: color 0.2s,
-        background-color 0.2s;
-        display: flex;
-        align-items: center;
-        h3 {
-            font-size: 3rem;
-        }
-        .navbar__icon {
-            //ignore sass
-            width: 7rem;
-            height: 7rem;
-            display: inline;
-            margin-right: 1rem;
-        }
+  position: fixed;
+  color: $primary-white;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 1.6rem;
+  display: flex;
+  width: 100%;
+  height: 6rem;
+  align-items: center;
+  background-color: white;
+  z-index: 1000000;
+  justify-content: space-between;
+  transition: color 0.2s, background-color 0.2s;
+  .navbar-brand {
+    margin-left: 3rem;
+    @media (max-width: $bp-large) {
+      margin-left: 2rem;
     }
-    .auth-links {
-        color: $primary-white;
-        display: flex;
-        align-self: stretch;
-        align-items: center;
-        transition: color 0.2s, background-color 0.2s;
-        div {
-            display: inline-block;
-        }
-        .link-list {
-            min-height: 100%;
-            list-style-type: none;
-            background-color: transparent !important;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            align-items: stretch;
-            color: white;
-            transition: color 0.2s, background-color 0.2s;
-            .active {
-                background: none !important;
-            }
-            a:active,
-            a:link {
-                font-size: 1.5rem;
-                /*
+    @media (max-width: 68.75em) {
+      margin-left: 1.5rem;
+    }
+    color: $background-color;
+    transition: color 0.2s, background-color 0.2s;
+    display: flex;
+    align-items: center;
+    h3 {
+      font-size: 3rem;
+    }
+    .navbar__icon {
+      //ignore sass
+      width: 7rem;
+      height: 7rem;
+      display: inline;
+      margin-right: 1rem;
+    }
+  }
+  .auth-links {
+    color: $primary-white;
+    display: flex;
+    align-self: stretch;
+    align-items: center;
+    transition: color 0.2s, background-color 0.2s;
+    div {
+      display: inline-block;
+    }
+    .link-list {
+      min-height: 100%;
+      list-style-type: none;
+      background-color: transparent !important;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      align-items: stretch;
+      color: white;
+      transition: color 0.2s, background-color 0.2s;
+      .active {
+        background: none !important;
+      }
+      a:active,
+      a:link {
+        font-size: 1.5rem;
+        /*
                 @media (max-width: $bp-largest) {
                     font-size: 2.5rem;
                 }
@@ -83,16 +82,16 @@ $bp-small: 37.5em;
                     font-size: 1.5rem;
                 }
                 */
-                color: $background-color;
-                background-color: none !important;
-                transition: color 0.2s, background-color 0.2s;
-                text-decoration: none;
-            }
-            label {
-                color: $background-color;
-                transition: color 0.2s, background-color 0.2s;
-                font-size: 2rem;
-                /*
+        color: $background-color;
+        background-color: none !important;
+        transition: color 0.2s, background-color 0.2s;
+        text-decoration: none;
+      }
+      label {
+        color: $background-color;
+        transition: color 0.2s, background-color 0.2s;
+        font-size: 2rem;
+        /*
                 @media (max-width: $bp-largest) {
                     //font-size: 2.5rem;
                 }
@@ -103,385 +102,385 @@ $bp-small: 37.5em;
                     //font-size: 1.5rem;
                 }
                 */
-            }
-        }
-        .link-list li {
-            color: $background-color;
-            margin: 0 !important;
-            text-align: center;
-            padding: 0;
-            float: left;
-            list-style-type: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-            flex: 0 0 20%;
-            &:hover {
-                a {
-                    color: $axo-yellow;
-                }
-                label {
-                    color: $axo-yellow;
-                }
-            }
-        }
+      }
     }
-    .logout-link {
-        max-height: 4rem;
-        transition: color 0.2s, background-color 0.2s;
-    }
-    .dropdown__toggle {
-        &:hover {
-            h3 {
-                color: $primary-orange;
-            }
+    .link-list li {
+      color: $background-color;
+      margin: 0 !important;
+      text-align: center;
+      padding: 0;
+      float: left;
+      list-style-type: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      flex: 0 0 20%;
+      &:hover {
+        a {
+          color: $axo-yellow;
         }
-        h3 {
-            font-family: 'Oxygen', sans-serif;
-            color: $background-color;
+        label {
+          color: $axo-yellow;
         }
+      }
     }
+  }
+  .logout-link {
+    max-height: 4rem;
+    transition: color 0.2s, background-color 0.2s;
+  }
+  .dropdown__toggle {
+    &:hover {
+      h3 {
+        color: $primary-orange;
+      }
+    }
+    h3 {
+      font-family: "Oxygen", sans-serif;
+      color: $background-color;
+    }
+  }
 }
 
 .scrolled {
-    background-color: $background-color;
-    transition: background-color 200ms linear;
-    /*@media (max-width: $bp-small) {
+  background-color: $background-color;
+  transition: background-color 200ms linear;
+  /*@media (max-width: $bp-small) {
         //box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
     }*/
-    .link-list li {
-        color: $primary-white;
-        &:hover {
-            background-color: darken($background-color, 10%);
-            //can someone confirm, i don't think this does anything
-        }
+  .link-list li {
+    color: $primary-white;
+    &:hover {
+      background-color: darken($background-color, 10%);
+      //can someone confirm, i don't think this does anything
     }
-    .link-list a:active,
-    .link-list a:link,
-    .link-list .active,
-    .link-list a {
-        background-color: none !important;
-        color: $primary-white !important;
+  }
+  .link-list a:active,
+  .link-list a:link,
+  .link-list .active,
+  .link-list a {
+    background-color: none !important;
+    color: $primary-white !important;
+  }
+  .link-list a:hover {
+    background-color: none !important;
+    color: $axo-yellow !important;
+  }
+  .link-list label {
+    background-color: none !important;
+    color: $primary-white !important;
+  }
+  .navbar-brand {
+    background-color: none !important;
+    h3 {
+      color: $primary-white !important;
     }
-    .link-list a:hover {
-        background-color: none !important;
-        color: $axo-yellow !important;
+  }
+  .dropdown__toggle .dropdown__top {
+    h3 {
+      color: $primary-white;
     }
-    .link-list label {
-        background-color: none !important;
-        color: $primary-white !important;
-    }
-    .navbar-brand {
-        background-color: none !important;
-        h3 {
-            color: $primary-white !important;
-        }
-    }
-    .dropdown__toggle .dropdown__top {
-        h3 {
-            color: $primary-white;
-        }
-    }
+  }
 }
 
 .dropdown-background {
-    //background: $background-color;
-    background: red;
-    //alex what does this do, delete your redundant code
+  //background: $background-color;
+  background: red;
+  //alex what does this do, delete your redundant code
 }
 
 .dropdownReplacement {
-    position: fixed;
-    margin-top: 6rem;
-    height: 3rem;
-    width: 100%;
-    display: block;
-    background-color: white;
-    // border-top: 2px solid $primary-white;
-    animation: dropdown;
-    animation-duration: 0.7s;
+  position: fixed;
+  margin-top: 6rem;
+  height: 3rem;
+  width: 100%;
+  display: block;
+  background-color: white;
+  // border-top: 2px solid $primary-white;
+  animation: dropdown;
+  animation-duration: 0.7s;
+  color: $primary-white;
+  z-index: 10000;
+  .auth-links {
     color: $primary-white;
-    z-index: 10000;
-    .auth-links {
-        color: $primary-white;
-        background-color: white;
-        display: flex;
-        align-self: stretch;
-        align-items: center;
-        justify-content: center;
-        transition: color 0.2s, background-color 0.2s;
-        position: relative;
-        z-index: 5;
-        .nav-link {
-            color: $background-color;
-            animation: dropdown-text;
-            animation-duration: 0.7s;
-        }
-        div {
-            display: inline-block;
-        }
-        .link-list {
-            min-height: 100%;
-            list-style-type: none;
-            background-color: transparent !important;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            align-items: stretch;
-            color: white;
-            transition: color 0.2s, background-color 0.2s;
-            .active {
-                background: none !important;
-            }
-            a:active,
-            a:link {
-                //font-size: 3rem;
-                color: purple;
-                @media (max-width: $bp-largest) {
-                    /*font-size: 2.5rem;*/
-                }
-                @media (max-width: $bp-large) {
-                    /*font-size: 2rem;*/
-                }
-                @media (max-width: 68.75em) {
-                    font-size: 1.5rem;
-                }
-                color: $background-color;
-                background-color: none !important;
-                transition: color 0.2s,
-                background-color 0.2s;
-                text-decoration: none;
-            }
-            label {
-                color: $background-color;
-                transition: color 0.2s, background-color 0.2s;
-                @media (max-width: $bp-largest) {
-                    //font-size: 2.5rem;
-                }
-                @media (max-width: $bp-large) {
-                    //font-size: 2rem;
-                }
-                @media (max-width: 68.75em) {
-                    //font-size: 1.5rem;
-                }
-            }
-        }
-        .link-list li {
-            color: $background-color;
-            margin: 0 !important;
-            text-align: center;
-            padding: 0;
-            float: left;
-            list-style-type: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-            flex: 0 0 20%;
-            &:hover {
-                a {
-                    color: $axo-yellow;
-                }
-                label {
-                    color: $axo-yellow;
-                }
-                //background-color: $background-color !important;
-            }
-        }
+    background-color: white;
+    display: flex;
+    align-self: stretch;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s, background-color 0.2s;
+    position: relative;
+    z-index: 5;
+    .nav-link {
+      color: $background-color;
+      animation: dropdown-text;
+      animation-duration: 0.7s;
     }
+    div {
+      display: inline-block;
+    }
+    .link-list {
+      min-height: 100%;
+      list-style-type: none;
+      background-color: transparent !important;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      align-items: stretch;
+      color: white;
+      transition: color 0.2s, background-color 0.2s;
+      .active {
+        background: none !important;
+      }
+      a:active,
+      a:link {
+        //font-size: 3rem;
+        color: purple;
+        @media (max-width: $bp-largest) {
+          /*font-size: 2.5rem;*/
+        }
+        @media (max-width: $bp-large) {
+          /*font-size: 2rem;*/
+        }
+        @media (max-width: 68.75em) {
+          font-size: 1.5rem;
+        }
+        color: $background-color;
+        background-color: none !important;
+        transition: color 0.2s, background-color 0.2s;
+        text-decoration: none;
+      }
+      label {
+        color: $background-color;
+        transition: color 0.2s, background-color 0.2s;
+        @media (max-width: $bp-largest) {
+          //font-size: 2.5rem;
+        }
+        @media (max-width: $bp-large) {
+          //font-size: 2rem;
+        }
+        @media (max-width: 68.75em) {
+          //font-size: 1.5rem;
+        }
+      }
+    }
+    .link-list li {
+      color: $background-color;
+      margin: 0 !important;
+      text-align: center;
+      padding: 0;
+      float: left;
+      list-style-type: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      flex: 0 0 20%;
+      &:hover {
+        a {
+          color: $axo-yellow;
+        }
+        label {
+          color: $axo-yellow;
+        }
+        //background-color: $background-color !important;
+      }
+    }
+  }
 }
 
 .navCheckbox {
-    display: none;
+  display: none;
 }
 
-.navCheckbox:checked~.hack-modal .modal-main {
-    animation: scaleTranslateModal 1s;
-    transform: translate(-50%, -50%);
+.navCheckbox:checked ~ .hack-modal .animation-wrapper {
+  animation: scaleTranslateModal 1s;
+  transform: translate(-50%, -50%);
 }
 
 @keyframes scaleTranslateModal {
-    0% {
-        top: 50%;
-        left: 50%;
-        transform: scale(0.125) translate(-50%, -50%);
-    }
-    // 30% {
-    //     transform: scale(.250) translate(-150%, -150%);
-    // }
-    // 60% {
-    //     transform: scale(.5) translate(-75%, -75%);
-    // }
-    100% {
-        top: 50%;
-        left: 50%;
-        transform: scale(1) translate(-50%, -50%);
-    }
+  0% {
+    top: 50%;
+    left: 50%;
+    transform: scale(0.125) translate(-50%, -50%);
+  }
+  // 30% {
+  //     transform: scale(.250) translate(-150%, -150%);
+  // }
+  // 60% {
+  //     transform: scale(.5) translate(-75%, -75%);
+  // }
+  100% {
+    top: 50%;
+    left: 50%;
+    transform: scale(1) translate(-50%, -50%);
+  }
 }
 
 .modal-main {
-    z-index: 1000;
+  z-index: 1000;
 }
 
 @keyframes dropdown {
-    from {
-        height: 0px;
-        transform: translateY(-100%);
-    }
-    to {
-        height: 3rem;
-        transform: translateY(0);
-    }
+  from {
+    height: 0px;
+    transform: translateY(-100%);
+  }
+  to {
+    height: 3rem;
+    transform: translateY(0);
+  }
 }
 
 @keyframes dropdown-text {
-    from {
-        opacity: 0%;
-        transform: translateY(-100%);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  from {
+    opacity: 0%;
+    transform: translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .animation {
-    background-color: #444;
+  background-color: #444;
 }
 
 .dropdown {
-    opacity: 0;
-    visibility: none;
-    height: 0;
-    display: none;
-    top: 100%;
-    right: 0%;
-    width: 18rem;
-    position: absolute;
-    border-bottom: 1px solid transparent;
-    border-radius: 20px;
-    transition: visibility .3s ease, opacity .3s ease;
-    &__item {
-        color: $primary-white;
-        display: flex;
-        width: auto;
-        background-color: $background-color;
-        text-align: right;
-        font-size: .9em;
-        padding: .7rem 1rem;
-        //box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.1);
-        z-index: 2;
-        &:hover {
-            text-decoration: none;
-            color: $axo-yellow;
-            //background-color: darken($background-color, 10%);
-        }
-        &:not(:last-child) {
-            border-bottom: 2px solid lighten($background-color, 80%);
-        }
-        &:last-child {
-            padding: .7rem 1rem 1rem;
-            border-bottom-right-radius: 20px;
-            border-bottom-left-radius: 20px;
-        }
+  opacity: 0;
+  visibility: none;
+  height: 0;
+  display: none;
+  top: 100%;
+  right: 0%;
+  width: 18rem;
+  position: absolute;
+  border-bottom: 1px solid transparent;
+  border-radius: 20px;
+  transition: visibility 0.3s ease, opacity 0.3s ease;
+  &__item {
+    color: $primary-white;
+    display: flex;
+    width: auto;
+    background-color: $background-color;
+    text-align: right;
+    font-size: 0.9em;
+    padding: 0.7rem 1rem;
+    //box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.1);
+    z-index: 2;
+    &:hover {
+      text-decoration: none;
+      color: $axo-yellow;
+      //background-color: darken($background-color, 10%);
     }
-    &__toggle {
-        //for account specific dropdown (far right)
-        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-        color: $primary-white;
-        display: table;
-        margin-right: 3rem;
-        @media (max-width: $bp-large) {
-            margin-right: 2rem;
-        }
-        @media (max-width: 68.75em) {
-            margin-right: 1.5rem;
-        }
-        padding: 0.5rem 2rem;
-        transition: visibility .5s ease, //background-color .2s,
-        opacity .5s ease;
-        position: relative;
-        z-index: 100;
-        // .dropdown__top {
-        //     &:hover {
-        //         box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.1);
-        //         border-radius: 20px;
-        //         border-bottom-left-radius: 0px;
-        //         border-bottom-right-radius: 0px;
-        //         background-color: darken($background-color, 5%);
-        //         &~.dropdown {
-        //             visibility: visible;
-        //             opacity: 1;
-        //             background-color: red;
-        //         }
-        //     }
-        // }
-        &:hover {
-            // transform: translateY(-1px);
-            // box-shadow: 1px 3px 5px rgba(0, 0, 0, .1);
-            //box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.1);
-            //border-radius: 20px;
-            border-bottom-left-radius: 0px;
-            border-bottom-right-radius: 0px;
-            //background-color: darken($background-color, 5%);
-            .dropdown {
-                display: block;
-                height: 137px;
-                visibility: visible;
-                opacity: 1;
-            }
-        }
+    &:not(:last-child) {
+      border-bottom: 2px solid lighten($background-color, 80%);
     }
-    &__top {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: $axo-yellow;
-        padding: 0 1rem;
-        h3 {
-            color: $axo-yellow;
-        }
+    &:last-child {
+      padding: 0.7rem 1rem 1rem;
+      border-bottom-right-radius: 20px;
+      border-bottom-left-radius: 20px;
     }
-    &__img {
+  }
+  &__toggle {
+    //for account specific dropdown (far right)
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: $primary-white;
+    display: table;
+    margin-right: 3rem;
+    @media (max-width: $bp-large) {
+      margin-right: 2rem;
+    }
+    @media (max-width: 68.75em) {
+      margin-right: 1.5rem;
+    }
+    padding: 0.5rem 2rem;
+    transition: visibility 0.5s ease,
+      //background-color .2s,
+        opacity 0.5s ease;
+    position: relative;
+    z-index: 100;
+    // .dropdown__top {
+    //     &:hover {
+    //         box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.1);
+    //         border-radius: 20px;
+    //         border-bottom-left-radius: 0px;
+    //         border-bottom-right-radius: 0px;
+    //         background-color: darken($background-color, 5%);
+    //         &~.dropdown {
+    //             visibility: visible;
+    //             opacity: 1;
+    //             background-color: red;
+    //         }
+    //     }
+    // }
+    &:hover {
+      // transform: translateY(-1px);
+      // box-shadow: 1px 3px 5px rgba(0, 0, 0, .1);
+      //box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.1);
+      //border-radius: 20px;
+      border-bottom-left-radius: 0px;
+      border-bottom-right-radius: 0px;
+      //background-color: darken($background-color, 5%);
+      .dropdown {
         display: block;
-        width: 3rem;
-        height: 3rem;
-        border-radius: 50%;
-        float: left;
-        margin-right: 1rem;
+        height: 137px;
+        visibility: visible;
+        opacity: 1;
+      }
     }
-    &__name {
-        line-height: 0;
-        display: block;
-        text-align: center;
+  }
+  &__top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $axo-yellow;
+    padding: 0 1rem;
+    h3 {
+      color: $axo-yellow;
     }
-    &__icon {
-        width: 3rem;
-        height: 1.5rem;
-        color: rgb(47, 114, 255);
-    }
+  }
+  &__img {
+    display: block;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    float: left;
+    margin-right: 1rem;
+  }
+  &__name {
+    line-height: 0;
+    display: block;
+    text-align: center;
+  }
+  &__icon {
+    width: 3rem;
+    height: 1.5rem;
+    color: rgb(47, 114, 255);
+  }
 }
 
 .scrolledAuthLinks {
-    background-color: $background-color!important;
-    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
-    .link-list .nav-item .nav-link {
-        color: $primary-white;
-    }
+  background-color: $background-color !important;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+  .link-list .nav-item .nav-link {
+    color: $primary-white;
+  }
 }
 
 .hackModalToggler {
-    margin-top: 0.5rem;
-    color: rgb(47, 114, 255);
+  margin-top: 0.5rem;
+  color: rgb(47, 114, 255);
 }
 
 .navbar-toggler {
-    //for mobile dropdown
-    @media (max-width: $bp-large) {
-        margin-left: 2rem;
-    }
-    @media (max-width: 68.75em) {
-        margin-left: 1.5rem;
-    }
+  //for mobile dropdown
+  @media (max-width: $bp-large) {
+    margin-left: 2rem;
+  }
+  @media (max-width: 68.75em) {
+    margin-left: 1.5rem;
+  }
 }
