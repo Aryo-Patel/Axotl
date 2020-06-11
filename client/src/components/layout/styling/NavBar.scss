@@ -296,7 +296,6 @@ $bp-small: 37.5em;
 
 .navCheckbox:checked ~ .hack-modal .animation-wrapper {
   animation: scaleTranslateModal 1s;
-  transform: translate(-50%, -50%);
 }
 
 @keyframes scaleTranslateModal {
