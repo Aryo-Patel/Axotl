@@ -205,7 +205,7 @@ export const editAccount = (formData) => async dispatch => {
     console.log(body)
     try {
         console.log('editAccount trycatch hit')
-        const res = await axios.post('/api/auth/edit', body, config);
+        const res = await axios.patch('/api/auth/edit', body, config);
         console.log(res)
         dispatch({
             type: EDIT_ACCOUNT,

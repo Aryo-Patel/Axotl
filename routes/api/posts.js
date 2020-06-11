@@ -42,7 +42,7 @@ router.get("/:pageNumber", async(req, res) => {
 //GET      /api/posts/single-view/:id
 //Action    get a single post
 //PRIVATE   need to be signed in (recipient or sponsor to access route)
-router.get("/single-view/:id", async(req, res) => {
+router.get("/single/:id", async(req, res) => {
     if (!req.user) {
         return res.status(401).json({ msg: "Unauthorized" });
     }
@@ -58,7 +58,7 @@ router.get("/single-view/:id", async(req, res) => {
 //GET      /api/posts/single-view/:id
 //Action    get all of a user's posts
 //PRIVATE   need to be signed in (recipient or sponsor to access route)
-router.get("/my-posts/:pageNumber", async(req, res) => {
+router.get("/me/:pageNumber", async(req, res) => {
     if (!req.user) {
         return res.status(401).json({ msg: "Unauthorized" });
     }
@@ -166,7 +166,7 @@ router.delete("/:id", async(req, res) => {
 //PUT      /api/posts/comment/:post_id
 //Action    add a comment
 //PRIVATE   need to be signed in (recipient or sponsor to access route)
-router.put("/comment/:post_id", async(req, res) => {
+router.put("/:post_id/comment", async(req, res) => {
     if (!req.user) {
         return res.status(401).json({ msg: "Unauthorized" });
     }
@@ -191,7 +191,7 @@ router.put("/comment/:post_id", async(req, res) => {
 //PUT      /api/posts/comment/:post_id/:comment_id
 //Action    edit a comment
 //PRIVATE   need to be signed in (recipient or sponsor to access route)
-router.put("/comment/:post_id/:comment_id", async(req, res) => {
+router.patch("/:post_id/comment/:comment_id", async(req, res) => {
     if (!req.user) {
         return res.status(401).json({ msg: "Unauthorized" });
     }
@@ -216,7 +216,7 @@ router.put("/comment/:post_id/:comment_id", async(req, res) => {
 //delete      /api/posts/comment/:post_id/:comment_id
 //Action    delete a comment
 //PRIVATE   need to be signed in (recipient or sponsor to access route)
-router.delete("/comment/:post_id/:comment_id", async(req, res) => {
+router.delete("/:post_id/comment/:comment_id", async(req, res) => {
     if (!req.user) {
         return res.status(401).json({ msg: "Unauthorized" });
     }
@@ -253,7 +253,7 @@ router.delete("/comment/:post_id/:comment_id", async(req, res) => {
 //PUT      /api/posts/like/:post_id
 //Action    add or remove a like
 //PRIVATE   need to be signed in (recipient or sponsor to access route)
-router.put("/like/:post_id/", async(req, res) => {
+router.put("/:post_id/like", async(req, res) => {
     if (!req.user) {
         return res.status(401).json({ msg: "Unauthorized" });
     }
@@ -302,7 +302,7 @@ router.put("/like/:post_id/", async(req, res) => {
 //PUT      /api/posts/comment/like/:post_id/:comment_id
 //Action    add or remove a like to a comment
 //PRIVATE   need to be signed in (recipient or sponsor to access route)
-router.put("/comment/like/:post_id/:comment_id", async(req, res) => {
+router.put("/:post_id/comment/:comment_id/like", async(req, res) => {
     if (!req.user) {
         return res.status(401).json({ msg: "Unauthorized" });
     }
@@ -342,10 +342,10 @@ router.put("/comment/like/:post_id/:comment_id", async(req, res) => {
     }
 });
 
-//PUT      /api/posts/reply/:post_id/:comment_id
+//PUT      /api/posts/:post_id/comments/:comment_id/replies
 //Action    add a reply
 //PRIVATE   need to be signed in (recipient or sponsor to access route)
-router.put("/reply/:post_id/:comment_id", async(req, res) => {
+router.put("/:post_id/comments/:comment_id/replies", async(req, res) => {
     if (!req.user) {
         return res.status(401).json({ msg: "Unauthorized" });
     }
@@ -375,10 +375,10 @@ router.put("/reply/:post_id/:comment_id", async(req, res) => {
     }
 });
 
-//PUT       /api/posts/reply/:post_id/:comment_id/:reply_id
+//PUT       /api/posts/:post_id/comments/:comment_id/replies/:reply_id
 //Action    edit a reply to a comment
 //PRIVATE   need to be signed in (recipient or sponsor to access route)
-router.put("/reply/:post_id/:comment_id/:reply_id", async(req, res) => {
+router.patch("/:post_id/comments/:comment_id/replies/:reply_id", async(req, res) => {
     if (!req.user) {
         return res.status(401).json({ msg: "Unauthorized" });
     }
@@ -406,10 +406,10 @@ router.put("/reply/:post_id/:comment_id/:reply_id", async(req, res) => {
     }
 });
 
-//PUT       /api/posts/reply/like/:post_id/:comment_id/:reply_id
+//PUT       /api/posts/:post_id/comments/:comment_id/replies/:reply_id
 //Action    add a like to a reply
 //PRIVATE   need to be signed in (recipient or sponsor to access route)
-router.put("/reply/like/:post_id/:comment_id/:reply_id", async(req, res) => {
+router.put("/:post_id/comments/:comment_id/replies/:reply_id", async(req, res) => {
     if (!req.user) {
         return res.status(401).json({ msg: "Unauthorized" });
     }
@@ -442,10 +442,10 @@ router.put("/reply/like/:post_id/:comment_id/:reply_id", async(req, res) => {
     }
 });
 
-//DELETE /api/posts/reply/:post_id/:comment_id/:reply_id
+//DELETE /api/posts/:post_id/comments/:comment_id/replies
 //Action    delete a reply
 //PRIVATE   need to be signed in (recipient or sponsor to access route)
-router.delete("/reply/:post_id/:comment_id/:reply_id", async(req, res) => {
+router.delete("/:post_id/comments/:comment_id/replies/:reply_id", async(req, res) => {
     if (!req.user) {
         return res.status(401).json({ msg: "Unauthorized" });
     }
