@@ -20,7 +20,7 @@ $bp-small: 37.5em;
   height: 6rem;
   align-items: center;
   background-color: white;
-  z-index: 1000000;
+  z-index: 1000;
   justify-content: space-between;
   transition: color 0.2s, background-color 0.2s;
   .navbar-brand {
@@ -298,6 +298,10 @@ $bp-small: 37.5em;
   animation: scaleTranslateModal 1s;
 }
 
+.animation-wrapper {
+  z-index: 999999999999999999999 !important;
+}
+
 @keyframes scaleTranslateModal {
   0% {
     top: 50%;
@@ -470,6 +474,9 @@ $bp-small: 37.5em;
 }
 
 .hackModalToggler {
+  &:hover {
+    cursor: pointer;
+  }
   margin-top: 0.5rem;
   color: rgb(47, 114, 255);
 }

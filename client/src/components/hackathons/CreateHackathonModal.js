@@ -46,7 +46,9 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
         endDate: '',
 
     })
-
+    useEffect(() => {
+        console.log(formData);
+    }, [formData]);
     function onInput(e) {
         setFormData({
             ...formData,
@@ -82,13 +84,13 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
         //finds the table corresponding to the button
         let table = document.getElementById(`${category}-table`);
         //inserts a new row to the table
-        let newRow = table.insertRow();
+        let newRow = table.children[1].insertRow();
 
         //this is the number that should be assigned to each class element
         let newIndex = table.children[1].children.length - 1;
 
         //fixes cases where newIndex may be out of bounds
-        if (typeof (newIndex) !== 'number' || newIndex < 0) {
+        if (newIndex < 0) {
             newIndex = 0;
         }
 
@@ -270,11 +272,11 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
                 criterionDelete.appendChild(criterionDeleteSpan);
                 return;
             case 'judges':
-
                 //set formData
                 let judgesArray = formData.judges;
                 judgesArray.push('');
                 setFormData({
+                    ...formData,
                     judges: judgesArray
                 });
 
@@ -317,9 +319,9 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
 
         //grabs the category that it is from
         let category = e.target.parentNode.parentNode.parentNode.parentNode.id.split('-')[0]
-        console.log(category);
+
         let array = formData[category];
-        console.log(typeof (category));
+
 
         if (category !== 'requirements' && category !== 'judges' && category !== 'criteria') {
             array[donationIndex][donationName] = myInput;
@@ -328,7 +330,7 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
                 ...formData,
                 [`${category}`]: array
             });
-            console.log(formData);
+
         }
         else {
             array[donationIndex] = myInput;
@@ -353,7 +355,6 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
 
         //grabs the table name
         let category = e.target.classList[0];
-        console.log(category);
         let array = formData[`${category}`];
         array.splice(rowExtract, 1);
         setFormData({
@@ -361,7 +362,6 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
             [`${category}`]: array
         });
 
-        console.log(formData);
 
         //for every element inputted after the deleted element, decrement the number in the name by one.
         //finds the corresponding table so that the correct elements can be referenced
@@ -371,7 +371,6 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
             let tableRow = table.children[1].children[i];
 
             Array.from(tableRow.children).forEach(tableComponent => {
-                console.log(tableComponent);
                 Array.from(tableComponent.children).forEach(tableItem => {
                     let itemName = tableItem.name;
                     if (itemName) {
@@ -387,9 +386,8 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
     }
 
     const close = e => {
-        console.log('got in here');
+
         if (e.target.classList.contains('animation-wrapper')) {
-            console.log('got inside the hack modal');
             e.target.parentNode.childNodes[0].checked = false;
 
             handleClose();

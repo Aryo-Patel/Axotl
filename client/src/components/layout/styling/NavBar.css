@@ -15,7 +15,7 @@
       -ms-flex-align: center;
           align-items: center;
   background-color: white;
-  z-index: 1000000;
+  z-index: 1000;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
@@ -379,6 +379,10 @@
           animation: scaleTranslateModal 1s;
 }
 
+.animation-wrapper {
+  z-index: 999999999999999999999 !important;
+}
+
 @-webkit-keyframes scaleTranslateModal {
   0% {
     top: 50%;
@@ -600,6 +604,10 @@
 .hackModalToggler {
   margin-top: 0.5rem;
   color: #2f72ff;
+}
+
+.hackModalToggler:hover {
+  cursor: pointer;
 }
 
 @media (max-width: 75em) {
