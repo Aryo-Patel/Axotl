@@ -500,6 +500,9 @@ const NavBar = ({ isAuthenticated, auth }) => {
                   <Link to="/my-posts" className="dropdown__item">
                     My Posts
                   </Link>
+                  <Link to='/support' className="dropdown__item">
+                    Support
+                  </Link>
                   <Link to="/settings" className="dropdown__item">
                     Settings
                   </Link>
@@ -879,6 +882,9 @@ const NavBar = ({ isAuthenticated, auth }) => {
                     )}
                     <Link to="/my-posts" className="dropdown__item">
                       My Posts
+                  </Link>
+                  <Link to='/support' className="dropdown__item">
+                    Support
                   </Link>
                     <Link to="/settings" className="dropdown__item">
                       Settings
