@@ -4,6 +4,7 @@ const express = require("express");
 const router = express.Router();
 const config = require("config");
 const bcrypt = require("bcryptjs");
+const { validationResult, check } = require('express-validator')
 
 const Recipient = require("../../models/Recipient");
 const Sponsor = require("../../models/Sponsor");
@@ -230,12 +231,16 @@ router.post("/changepassword", async(req, res) => {
     }
 });
 
-//POST /api/auth/edit
+//PATCH /api/auth/edit
 //Action edit the user's account
 // PRIVATE
-router.patch("/edit", async(req, res) => {
+router.patch("/edit", [check('name', 'Name is required').not().isEmpty(), check('email', 'Not a valid email').isEmail()], async(req, res) => {
     if (!req.user) {
         return res.status(401).json({ msg: "Unauthorized" });
+    }
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() })
     }
     // console.log("edit account hit");
     const { email, name } = req.body;

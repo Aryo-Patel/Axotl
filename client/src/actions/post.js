@@ -72,7 +72,7 @@ export const deletePost = (post_id) => async dispatch => {
 
 export const getPosts = (pageNumber) => async dispatch => {
     try {
-        const res = await axios.get(`/api/posts/${pageNumber}`);
+        const res = await axios.get(`/api/posts/?pageNumber=${pageNumber}`);
         dispatch({
             type: GET_POSTS,
             payload: res.data
@@ -102,7 +102,7 @@ export const getPost = (id) => async dispatch => {
 
 export const getMyPosts = (pageNumber) => async dispatch => {
     try {
-        const res = await axios.get(`/api/posts/me/${pageNumber}`);
+        const res = await axios.get(`/api/posts/me/?pageNumber=${pageNumber}`);
         console.log(res.data)
         dispatch({
             type: GET_MY_POSTS,
@@ -125,7 +125,7 @@ export const addComment = (formData, post_id) => async dispatch => {
     }
     const body = JSON.stringify(formData)
     try {
-        const res = await axios.put(`/api/posts/${post_id}/comment`, body, config);
+        const res = await axios.put(`/api/posts/${post_id}/comments`, body, config);
         dispatch({
             type: ADD_COMMENT,
             payload: res.data.post
@@ -153,7 +153,7 @@ export const editComment = (text, post_id, comment_id) => async dispatch => {
     }
     const body = JSON.stringify({ text })
     try {
-        const res = await axios.put(`/api/posts/${post_id}/comment/${comment_id}`, body, config);
+        const res = await axios.put(`/api/posts/${post_id}/comments/${comment_id}`, body, config);
         dispatch({
             type: EDIT_COMMENT,
             payload: res.data.post
@@ -241,7 +241,7 @@ export const deleteReply = (post_id, comment_id, reply_id) => async dispatch => 
 
 export const addLike = (post_id) => async dispatch => {
     try {
-        const res = await axios.put(`/api/posts/${post_id}/like`);
+        const res = await axios.put(`/api/posts/${post_id}/likes`);
         dispatch({
             type: ADD_LIKE,
             payload: {
@@ -280,7 +280,7 @@ export const likeComment = (post_id, comment_id) => async dispatch => {
 
 export const likeReply = (post_id, comment_id, reply_id) => async dispatch => {
     try {
-        const res = await axios.put(`/api/posts//${post_id}/comments/${comment_id}/replies/${reply_id}/likes`);
+        const res = await axios.put(`/api/posts/${post_id}/comments/${comment_id}/replies/${reply_id}/likes`);
         dispatch({
             type: LIKE_REPLY,
             payload: res.data

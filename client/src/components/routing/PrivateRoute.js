@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Route, withRouter } from 'react-router-dom';
+import { Route, withRouter, Redirect } from 'react-router-dom';
 import Spinner from '../common/Spinner';
 
 const PrivateRoute = ({ component: Component, loading, history, isAuthenticated, ...rest }) => {
@@ -14,7 +14,7 @@ const PrivateRoute = ({ component: Component, loading, history, isAuthenticated,
         Route {...rest }
         render = {
             props =>
-            (loading ? < Spinner / > : <
+            (loading ? < Spinner / > : !isAuthenticated ? < Redirect to = '/login' / > : <
                 Component {...props }
                 />
             )

@@ -198,11 +198,7 @@ export const editAccount = (formData) => async dispatch => {
             'Content-Type': 'application/json'
         }
     }
-    Object.keys(formData).forEach(key => {
-        console.log(formData[key])
-    })
     const body = JSON.stringify(formData);
-    console.log(body)
     try {
         console.log('editAccount trycatch hit')
         const res = await axios.patch('/api/auth/edit', body, config);

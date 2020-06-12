@@ -310,6 +310,7 @@ $bp-small: 37.5em;
         position: relative;
         z-index: 1;
         padding: 3rem;
+        padding-top: 1rem;
         padding-bottom: 1rem;
     }
     //for the "show more" button
@@ -353,6 +354,12 @@ $bp-small: 37.5em;
             height: 3rem;
         }
     }
+    &__like-icon {
+        margin-bottom: 10%;
+    }
+    &__likes-counter {
+        padding: 1rem;
+    }
     //for the comment icon
     &__comments {
         fill: $background-color-dark;
@@ -369,6 +376,9 @@ $bp-small: 37.5em;
             height: 3rem;
         }
     }
+    &__comment-icon {
+        margin-bottom: 5%;
+    }
     //container for comments and comment form
     &__comment-section {
         width: 100%;
@@ -377,42 +387,61 @@ $bp-small: 37.5em;
     }
     //form to add a comment
     &__create-comment {
-        width: 100%;
+        width: 99%;
+        height: 80%;
+        overflow: hidden;
         margin-top: .5%;
+        margin-bottom: .4%;
         display: flex;
-        justify-content: space-around;
+        justify-content: center;
         align-items: center;
         position: absolute;
         z-index: 100000000;
-        border-bottom-left-radius: 20px;
-        border-bottom-right-radius: 20px;
+        border-bottom-left-radius: $form-border-radius;
+        border-bottom-right-radius: $form-border-radius;
         bottom: 0;
     }
     &__create-comments {
         background-color: transparent;
         width: 100%;
-        border-bottom-left-radius: 10px;
-        border-bottom-right-radius: 10px;
+        border-bottom-left-radius: $form-border-radius;
+        border-bottom-right-radius: $form-border-radius;
         position: relative;
         z-index: 999999999;
         height: 3rem;
         display: flex;
         align-items: center;
+        justify-content: center;
+        &::after {
+            background-repeat: no-repeat;
+            position: absolute;
+            content: "";
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(to top left, $primary-orange, $primary-yellow);
+            border-bottom-left-radius: $form-border-radius;
+            border-bottom-right-radius: $form-border-radius;
+        }
     }
     //input to add a comment
     &__comment-input {
         flex-basis: 80%;
-        border: 2px solid $light-grey;
+        width: 99%;
+        height: 99%;
+        border: none;
         border-bottom-left-radius: $form-border-radius;
         padding: 0rem 1rem;
-        &:focus {
-            border: 2px solid $background-color-lighter;
+        &:focus+.post__send-comment {
+            background-color: $background-color;
         }
     }
     //submit button for create comment form
     &__send-comment {
         flex-basis: 20%;
-        border: 2px solid $light-grey;
+        width: 99%;
+        height: 200%;
+        margin-bottom: 2px;
+        border: none;
         border-bottom-right-radius: $form-border-radius;
     }
     //styling for container of comments
@@ -763,7 +792,7 @@ $bp-small: 37.5em;
 
 //to color the like button if a post has been liked
 [data-status=true] svg {
-    stroke: green;
+    stroke: $primary-orange;
 }
 
 //to drop down the replies section when clicked

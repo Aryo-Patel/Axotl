@@ -33,7 +33,8 @@ const Settings = ({
     //   !$(`.forms__input`).attr("readOnly")
     // );
     // $('.forms__container::after').css('transform', 'scale(5)');
-    console.log(read)
+    console.log(e.target)
+    if(e.target.classList.contains('forms__edit')){
     if(read) {
       $(`.${e.target.classList[1]}`).next().css('transform', 'scale(.01)');
       setRead(false);
@@ -42,6 +43,16 @@ const Settings = ({
     $(`.${e.target.classList[1]}`).next().css('transform', 'scale(1)')
     setRead(true);
     console.log('otherhit')
+    }} else {
+      if(read) {
+        $(`.${e.target.parentNode.classList[1]}`).next().css('transform', 'scale(.01)');
+        setRead(false);
+        console.log('hit')
+      } else {
+      $(`.${e.target.parentNode.classList[1]}`).next().css('transform', 'scale(1)')
+      setRead(true);
+      console.log('otherhit')
+      }
     }
     if(!$('.forms__submission').hasClass('visible')) {
         $('.forms__submission').addClass('visible');
@@ -90,6 +101,7 @@ const [confirmationModal, setConfirmationModal] = useState('closed');
           <input
             type="text"
             name = 'name'
+            style = { read ? {borderBottom: "2px solid rgb(47, 114, 255)"} : null}
             readOnly={!read}
             value={formData.name}
             className="forms__input forms__input--1"
@@ -109,6 +121,7 @@ const [confirmationModal, setConfirmationModal] = useState('closed');
             type="text"
             name = 'email'
             readOnly={!read}
+            style = { read ? {borderBottom: "2px solid rgb(47, 114, 255)"} : null}
             value={formData.email}
             className="forms__input forms__input--2"
             onChange = {e => onChange(e)}

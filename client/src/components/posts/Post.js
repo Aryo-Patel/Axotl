@@ -125,8 +125,9 @@ const Post = ({
       </div>
       <div className="post__interactions">
         <div className="post__likes" data-status={liked}>
-          <p>{post.likes.length > 0 ? post.likes.length : null}</p>
+          <p className='post__likes-counter'>{post.likes.length > 0 ? post.likes.length : null}</p>
           <svg
+          className='post__like-icon'
             onClick={(e) => {
               addLike(post._id);
               !liked ? setLiked(true) : setLiked(false);
@@ -141,11 +142,25 @@ const Post = ({
           </svg>
           <p>Like</p>
         </div>
-        <div className="post__comments">
+        <div className="post__comments" onClick={(e) => {
+          if(e.target.classList.contains('post__comments')) {
+            e.target.parentNode.parentNode.childNodes[2].childNodes[2].childNodes[0].childNodes[0].focus();
+          }
+           else if(e.target.classList.contains('post__comment-icon')) {
+            e.target.parentNode.parentNode.parentNode.childNodes[2].childNodes[2].childNodes[0].childNodes[0].focus();
+          } 
+          // else if(e.target.classList.contains('post__comment-icon')) {
+          //     e.target.parentNode.parentNode)
+          // }
+          else if (e.target.classList.contains('post__comment-label')) {
+           e.target.parentNode.parentNode.parentNode.childNodes[2].childNodes[2].childNodes[0].childNodes[0].focus();
+          } else {
+            e.target.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[2].childNodes[2].childNodes[0].childNodes[0].focus();
+          }
+              // $('.post__comment-input').focus();
+            }}>
           <svg
-            onClick={(e) => {
-              e.target.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[2].childNodes[1].childNodes[0].focus();
-            }}
+          className='post__comment-icon'
             version="1.1"
             xmlns="http://www.w3.org/2000/svg"
             x="0px"
@@ -180,7 +195,7 @@ const Post = ({
             <g></g>
             <g></g>
           </svg>
-          <p>Comment</p>
+          <p className='post__comment-label'>Comment</p>
         </div>
       </div>
       <div className="post__comment-section">
