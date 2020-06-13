@@ -4,8 +4,9 @@ const passport = require("passport");
 const { validationResult, check } = require("express-validator");
 
 //importing models
-const RecipientProfile = require('../../models/RecipientProfile')
-const SponsorProfile = require('../../models/SponsorProfile')
+const RecipientProfile = require('../../models/RecipientProfile');
+const SponsorProfile = require('../../models/SponsorProfile');
+const Recipient = require('../../models/Recipient');
 
 // POST      api/profiles/recipient/
 // Action   Create or Update a recipient profile
@@ -13,6 +14,9 @@ const SponsorProfile = require('../../models/SponsorProfile')
 router.post(
     "/", [check("handle", "Handle is required").not().isEmpty()],
     async(req, res) => {
+        if (!req.user) {
+            return res.status(401).json({ msg: "Not Authorized" })
+        }
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             res.status(400).json({ errors: errors.array() });
@@ -44,24 +48,27 @@ router.post(
         if (social) profileParts.social = social;
 
         try {
-            let sameHandleR = await RecipientProfile.findOne({handle: handle})
-            let sameHandleS = await SponsorProfile.findOne({handle: handle})
+            let sameHandleR = await RecipientProfile.findOne({ handle: handle })
+            let sameHandleS = await SponsorProfile.findOne({ handle: handle })
             let profile = await RecipientProfile.findOne({ recipient: req.user._id })
             if (profile) {
-                if (((sameHandleR != null) && (profile._id.toString() != sameHandleR._id.toString())) || sameHandleS != null){
+                if (((sameHandleR != null) && (profile._id.toString() != sameHandleR._id.toString())) || sameHandleS != null) {
                     return res.status(400).send("Handle already in use (first)")
                 }
                 profile = await RecipientProfile.findOneAndUpdate({ recipient: req.user._id }, { $set: profileParts }, { new: true })
                 return res.json(profile)
             }
-            if (sameHandleR != null || sameHandleS != null){
+            if (sameHandleR != null || sameHandleS != null) {
                 return res.status(400).send("Handle already in use")
             }
             profile = new RecipientProfile(profileParts)
             await profile.save()
-            res.json(profile)
+            const user = await Recipient.findById(req.user._id);
+            user.hasProfile = true;
+            user.save();
+            res.json({ profile, user })
         } catch (err) {
-            console.error(err.message)
+            console.error(err)
             res.status(500).send("Server Error")
         }
     }
@@ -72,6 +79,9 @@ router.post(
 //Action    Add education to user's profile
 //Private 
 router.post('/education', [check("school", "School is required").not().isEmpty(), check("from", "From date is required").not().isEmpty(), check("current", "Current bool is required").not().isEmpty(), check("fieldOfStudy", "Field of study is required").not().isEmpty()], (req, res) => {
+    if (!req.user) {
+        return res.status(401).json({ msg: "Not Authorized" })
+    }
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         res.status(400).json({ errors: errors.array() });
@@ -110,6 +120,9 @@ router.post('/education', [check("school", "School is required").not().isEmpty()
 //Action    Add experience to user's profile
 //Private 
 router.post('/experience', [check("from", "From date is required").not().isEmpty(), check("current", "Current boolean is required").not().isEmpty(), check("description", "Description is required").not().isEmpty()], async(req, res) => {
+    if (!req.user) {
+        return res.status(401).json({ msg: "Not Authorized" })
+    }
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         res.status(400).json({ errors: errors.array() });
@@ -151,6 +164,9 @@ router.post('/experience', [check("from", "From date is required").not().isEmpty
 //Action    Add hackathon to user's profile
 //Private 
 router.post('/previous-hackathons', [check("date", "Date is required").not().isEmpty(), check("description", "Description is required").not().isEmpty(), check("name", "Name of hackathon is required").not().isEmpty()], (req, res) => {
+    if (!req.user) {
+        return res.status(401).json({ msg: "Not Authorized" })
+    }
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         res.status(400).json({ errors: errors.array() });
@@ -183,6 +199,9 @@ router.post('/previous-hackathons', [check("date", "Date is required").not().isE
 //Action    Delete hackathon from user's profile
 //Private 
 router.delete('/previous-hackathons/:id', (req, res) => {
+        if (!req.user) {
+            return res.status(401).json({ msg: "Not Authorized" })
+        }
         RecipientProfile.findOne({ recipient: req.user._id })
             .then(profile => {
                 const removeIndex = profile.previousHackathons.map(item => item.id).indexOf(req.params.id)
@@ -199,6 +218,9 @@ router.delete('/previous-hackathons/:id', (req, res) => {
     //Action    Delete education object from user's profile
     //Private 
 router.delete('/education/:id', (req, res) => {
+        if (!req.user) {
+            return res.status(401).json({ msg: "Not Authorized" })
+        }
         RecipientProfile.findOne({ recipient: req.user._id })
             .then(profile => {
                 const removeIndex = profile.education.map(item => item.id).indexOf(req.params.id)
@@ -215,6 +237,9 @@ router.delete('/education/:id', (req, res) => {
     //Action    Delete experience object from the user's profile
     //Private 
 router.delete('/experience/:id', (req, res) => {
+    if (!req.user) {
+        return res.status(401).json({ msg: "Not Authorized" })
+    }
     RecipientProfile.findOne({ recipient: req.user._id })
         .then(profile => {
             const removeIndex = profile.experience.map(item => item.id).indexOf(req.params.id)
@@ -232,6 +257,9 @@ router.delete('/experience/:id', (req, res) => {
 // Action   Return user's profile
 // PRIVATE
 router.get("/me", async(req, res) => {
+    if (!req.user) {
+        return res.status(401).json({ msg: "Not Authorized" })
+    }
     try {
         const profile = await RecipientProfile.findOne({ recipient: req.user._id }).populate("recipients", ["name", "avatar"])
         if (!profile) {
@@ -240,7 +268,7 @@ router.get("/me", async(req, res) => {
         res.json(profile)
 
     } catch (err) {
-        console.error(err.message);
+        console.error(err);
         res.status(500).send("Server Error")
     }
 })
@@ -249,11 +277,14 @@ router.get("/me", async(req, res) => {
 // Action   Return all recipient profiles
 // PRIVATE
 router.get("/", async(req, res) => {
+    if (!req.user) {
+        return res.status(401).json({ msg: "Not Authorized" })
+    }
     try {
         const profiles = await RecipientProfile.find();
         res.json(profiles)
     } catch (err) {
-        console.error(err.message);
+        console.error(err);
         res.status(500).send("Server Error")
     }
 })
@@ -262,6 +293,9 @@ router.get("/", async(req, res) => {
 // Action   Return user's profile
 // PRIVATE
 router.get("/:id", async(req, res) => {
+    if (!req.user) {
+        return res.status(401).json({ msg: "Not Authorized" })
+    }
     try {
         const profile = await RecipientProfile.findOne({ _id: req.params.id }).populate("recipients", ["name", "avatar"])
         if (!profile) {
@@ -270,7 +304,7 @@ router.get("/:id", async(req, res) => {
         res.json(profile)
 
     } catch (err) {
-        console.error(err.message);
+        console.error(err);
         res.status(500).send("Server Error")
     }
 })
@@ -281,11 +315,14 @@ router.get("/:id", async(req, res) => {
 // Action Delete the user's profile
 // PRIVATE
 router.delete('/me', async(req, res) => {
+    if (!req.user) {
+        return res.status(401).json({ msg: "Not Authorized" })
+    }
     try {
         await RecipientProfile.deleteOne({ recipient: req.user._id })
         res.json({ msg: "Profile Successfully Deleted" })
     } catch (err) {
-        console.error(err.message);
+        console.error(err);
         res.status(500).send("Server Error")
     }
 })

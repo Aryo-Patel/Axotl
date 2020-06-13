@@ -181,6 +181,9 @@ router.post('/register', [check('name', 'Name is required').not().isEmpty(), che
 //Action    Find a recipient by their handle
 //Private
 router.post('/find', (req, res) => {
+    if (!req.user) {
+        return res.status(401).json({ msg: "Not Authorized" })
+    }
     RecipientProfile.findOne({ handle: req.body.handle })
         .then(profile => {
             Recipient.findOne({ _id: profile.recipient })
@@ -217,7 +220,7 @@ router.put('/confirmemail/:jwt', async(req, res) => {
         console.log(user)
         res.json({ msg: "Email Confirmed" })
     } catch (err) {
-        console.error(err.message);
+        console.error(err);
         res.status(500).send("Server Error")
     }
 })
@@ -267,12 +270,16 @@ router.post('/login', passport.authenticate('local', { failureRedirect: 'http://
 // Action Delete profile and user
 // PRIVATE
 router.delete('/', async(req, res) => {
+    if (!req.user) {
+        return res.status(401).json({ msg: "Not Authorized" })
+    }
     try {
         await RecipientProfile.deleteOne({ recipient: req.user._id })
         await Recipient.deleteOne({ _id: req.user._id })
+        req.logout();
         res.json({ msg: "Account Deleted" })
     } catch (err) {
-        console.error(err.message);
+        console.error(err);
         res.status(400).send("Server Error")
     }
 })
@@ -280,7 +287,7 @@ router.delete('/', async(req, res) => {
 
 //GET       api/users/logout
 //Action    log the users out
-//PUBLIC    (Sorta, we don't auth it but it'll be private)
+//PRIVATE    
 router.get('/logout', (req, res) => {
     if (!req.user) {
         return res.status(401).json({ msg: "Not Authorized" })
@@ -324,7 +331,10 @@ router.put('/update-notifications', async(req, res, next) => {
 //GET       api/users/notifications/:id
 //Action    gets all of a user's notifications
 //PRIVATE  
-router.get('/notifications/:id', async (req, res, next) => {
+router.get('/notifications/:id', async(req, res, next) => {
+    if (!req.user) {
+        return res.status(401).json({ msg: "Not Authorized" })
+    }
     try {
         let recipient = await Recipient.findOne({ _id: req.params.id });
         return res.status(200).json(recipient.notifications);
@@ -340,6 +350,9 @@ router.get('/notifications/:id', async (req, res, next) => {
 //Action    adds a notification with its payload to a user
 //PRIVATE   
 router.put('/add-notification/:id', async(req, res, next) => {
+    if (!req.user) {
+        return res.status(401).json({ msg: "Not Authorized" })
+    }
     try {
         console.log(req.body);
         let recipient = await Recipient.update({ _id: req.params.id }, { $push: { notifications: req.body } });
@@ -354,6 +367,9 @@ router.put('/add-notification/:id', async(req, res, next) => {
 //Action    removes a notification from a user's notification array
 //PRIVATE  
 router.delete('/delete-notification/:recipId/:notifID', async(req, res, next) => {
+    if (!req.user) {
+        return res.status(401).json({ msg: "Not Authorized" })
+    }
     try {
         let recipient = await Recipient.findOne({ _id: req.params.recipId });
         let recipNotifications = recipient.notifications;

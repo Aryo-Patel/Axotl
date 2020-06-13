@@ -1,9 +1,9 @@
 import axios from 'axios'
 import { GET_COMPANIES, GET_COMPANY, COMPANY_ERROR } from './Types'
 
-export const getCompanies = () => async dispatch => {
+export const getCompanies = (pageNumber) => async dispatch => {
     try {
-        const res = await axios.get('/api/profiles/sponsor')
+        const res = await axios.get(`/api/profiles/sponsor/${pageNumber}`)
         dispatch({
             type: GET_COMPANIES,
             payload: res.data
@@ -34,9 +34,9 @@ export const getCompany = (id) => async dispatch => {
     }
 }
 
-export const getDistances = () => async(dispatch) => {
+export const getDistances = (pageNumber) => async(dispatch) => {
     try {
-        const response = await axios.get('/api/profiles/sponsor/search/locations')
+        const response = await axios.get(`/api/profiles/sponsor/search/locations/${pageNumber}`)
         dispatch({
             type: GET_COMPANIES,
             payload: response.data

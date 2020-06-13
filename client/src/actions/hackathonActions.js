@@ -8,7 +8,8 @@ import {
     GET_USER_HACKATHONS_FAIL,
     USER_LOADED,
     HACKATHON_DELETED,
-    HACKATHON_EDITED
+    HACKATHON_EDITED,
+    GET_HACKATHONS_LOCATIONS
 } from './Types';
 
 import axios from 'axios';
@@ -102,9 +103,11 @@ export const getUserHackathons = (pageNumber) => async dispatch => {
 }
 
 //remove a hackathon
-export const deleteHackathon = hackathonId => async dispatch => {
+export const deleteHackathon = (hackathonId) => async dispatch => {
     try {
+        console.log('also here bruh')
         const res = await axios.delete(`/api/hackathons/delete-hackathon/${hackathonId}`)
+        console.log('hello sir')
         dispatch({
             type: HACKATHON_DELETED,
             payload: { hackathonId }
@@ -119,6 +122,7 @@ export const deleteHackathon = hackathonId => async dispatch => {
     }
 }
 
+//edit a hackathon (except donations)
 export const editHackathon = (formData, id) => async dispatch => {
     const config = {
         headers: {
@@ -136,5 +140,21 @@ export const editHackathon = (formData, id) => async dispatch => {
     } catch (err) {
         //dispatch?
         console.error(err)
+    }
+}
+
+//get the distances from the current user for each hackathon
+export const getHackathonLocations = (pageNumber) => async dispatch => {
+    try {
+        console.log('doin something')
+        const res = await axios.get(`/api/hackathons/search/locations/${pageNumber}`);
+        console.log(res.data)
+        dispatch({
+            type: GET_HACKATHONS_LOCATIONS,
+            payload: res.data
+        })
+    } catch (err) {
+        console.log(err);
+        //don't dispatch anything because hopefully this will be replaced by the non-location get when it fails
     }
 }

@@ -10,6 +10,10 @@ const SponsorSchema = new Schema({
         type: Boolean,
         default: true,
     },
+    hasProfile: {
+        type: Boolean,
+        default: false
+    },
     email: {
         type: String,
         required: true,
@@ -45,12 +49,10 @@ const SponsorSchema = new Schema({
         reply: { type: Schema.Types.ObjectId }
     }],
     myLiked: [Schema.Types.ObjectId],
-    chatInvitations: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'chats'
-        }
-    ],
+    chatInvitations: [{
+        type: Schema.Types.ObjectId,
+        ref: 'chats'
+    }],
     Date: {
         type: Date,
         default: Date.now,

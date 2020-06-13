@@ -1,16 +1,19 @@
 //Require packages
 const express = require("express");
 const router = express.Router(); //allows us to use this file as a router
+const config = require('config');
+const axios = require('axios')
 
 //Require the hackathon profile
 const Hackathon = require("../../models/Hackathon");
 const Recipient = require('../../models/Recipient')
+const SponsorProfile = require('../../models/SponsorProfile')
 
 //POST      /api/hackathons/create
 //Action    create a hackathon
 //PRIVATE   need to be signed in (recipient or sponsor to access route)
 
-router.post("/create", async (req, res, next) => {
+router.post("/create", async(req, res, next) => {
     try {
         if (!req.user) {
             return res.status(401).json({
@@ -192,7 +195,7 @@ router.post("/create", async (req, res, next) => {
 //Action    edit existing data in a hacakthon that is not winner or donations
 //PRIVATE   need to have same userId as the hackathon's recipient value
 
-router.put("/edit-general/:id", async (req, res, next) => {
+router.put("/edit-general/:id", async(req, res, next) => {
     //gets the ID of the hackathon to be modified
     const hackathonId = req.params.id;
 
@@ -228,7 +231,7 @@ router.put("/edit-general/:id", async (req, res, next) => {
 //PUT       /api/hackathons/edit/add-donation/:id
 //Action    add donations that the group has recieved (automatic process)
 //PRIVATE   user must be the same user as the hackathon creator
-router.put("/edit/add-donations/:id", async (req, res, next) => {
+router.put("/edit/add-donations/:id", async(req, res, next) => {
     //get the hackathon id
     let hackathonId = req.params.id;
 
@@ -241,7 +244,7 @@ router.put("/edit/add-donations/:id", async (req, res, next) => {
             return res.status(401).json({
                 errors: [{
                     msg: "Cannot add donation category to hackathon that is not your own!",
-                },],
+                }, ],
             });
         }
 
@@ -270,7 +273,7 @@ router.put("/edit/add-donations/:id", async (req, res, next) => {
 //PUT       /api/hackathons/edit/add-donations-received/:id
 //Action    add donations that the group has recieved (automatic process)
 //PRIVATE   happens behind the scenes when a sponsor agrees to sponsor a hackathon
-router.put('/edit/add-donations-received/:hackathonId/:donationId', async (req, res, next) => {
+router.put('/edit/add-donations-received/:hackathonId/:donationId', async(req, res, next) => {
 
     //grab the prameters from the request
     let hackathonId = req.params.hackathonId;
@@ -300,15 +303,14 @@ router.put('/edit/add-donations-received/:hackathonId/:donationId', async (req, 
         console.error(err);
         res.status(500).send("Server error or hackathon invalid");
     }
-}
-);
+});
 
 //DELETE    /api/hackathons/deleteDonation/:hackathonId/:donationId
 //Action    allows creator of hackathon to delete a donation criteria if they are no longer looking for that to be
 //PRIVATE   needs to be owner of the hackathon
 router.delete(
     "/deleteDonation/:hackathonId/:donationId",
-    async (req, res, next) => {
+    async(req, res, next) => {
         //initializes variables to
         const hackathonId = req.params.hackathonId;
         const donationId = req.params.donationId;
@@ -352,7 +354,7 @@ router.delete(
 //PUT       /api/hackathons/add-winner/:hackathonId
 //Action    allows the creator of the hackathon to add winnners
 //PRIVATE   needs to be owner of the hackathon
-router.put("/add-winner/:hackathonId", async (req, res, next) => {
+router.put("/add-winner/:hackathonId", async(req, res, next) => {
     //grab the hackathon's id from the requeset's parameters
     let hackathonId = req.params.hackathonId;
 
@@ -382,7 +384,7 @@ router.put("/add-winner/:hackathonId", async (req, res, next) => {
             return res.status(400).json({
                 errors: [{
                     msg: "Incomplete response, make sure to include team name and award title",
-                },],
+                }, ],
             });
         }
 
@@ -403,7 +405,7 @@ router.put("/add-winner/:hackathonId", async (req, res, next) => {
 //PRIVATE   needs to be owner of the hackathon
 router.delete(
     "/delete-winner/:hackathonId/:winnerId",
-    async (req, res, next) => {
+    async(req, res, next) => {
         //pulls the parameters from the request
         const hackathonId = req.params.hackathonId;
         const winnerId = req.params.winnerId;
@@ -424,7 +426,7 @@ router.delete(
                 return res.status(401).json({
                     errors: [{
                         msg: "You cannot edit the winners of another person's hackathon",
-                    },],
+                    }, ],
                 });
             }
 
@@ -448,7 +450,7 @@ router.delete(
 //DELETE    api/hackathons/delete-hackathon/:hackathonId
 //Action    allows the hackathon user to delete a hackathon
 //PRIVATE   needs to be owner of the hackathon
-router.delete("/delete-hackathon/:hackathonId", async (req, res, next) => {
+router.delete("/delete-hackathon/:hackathonId", async(req, res, next) => {
 
     //save the variables from the request parameters
     let hackathonId = req.params.hackathonId;
@@ -483,7 +485,7 @@ router.delete("/delete-hackathon/:hackathonId", async (req, res, next) => {
 //GET       /api/hackathons/:pageNumber
 //Action    returns all the hackathons
 //PUBLIC    no authorization required to view all the hackathons
-router.get("/:pageNumber", async (req, res, next) => {
+router.get("/:pageNumber", async(req, res, next) => {
     if (!req.user) {
         return res.status(401).json({ msg: "Unauthorized" });
     }
@@ -502,7 +504,7 @@ router.get("/:pageNumber", async (req, res, next) => {
 //GET       /api/hackathons/hackathon/:id
 //Action    returns one hackathon
 //PRIVATE    
-router.get("/hackathon/:id", async (req, res, next) => {
+router.get("/hackathon/:id", async(req, res, next) => {
     if (!req.user) {
         return res.status(401).json({ msg: "Unauthorized" });
     }
@@ -522,7 +524,7 @@ router.get("/hackathon/:id", async (req, res, next) => {
 //GET       /api/hackathons/my-hackathons/:pageNumber
 //Action    returns all hackathons a user has created
 //PRIVATE   
-router.get("/my-hackathons/:pageNumber", async (req, res, next) => {
+router.get("/my-hackathons/:pageNumber", async(req, res, next) => {
     if (!req.user) {
         return res.status(401).json({ msg: "Unauthorized" });
     }
@@ -550,36 +552,50 @@ router.get("/my-hackathons/:pageNumber", async (req, res, next) => {
     }
 });
 
-router.get("/search/locations", async (req, res) => {
+//GET       /api/hackathons/search/locations/:pageNumber
+//Action    returns all hackathons with supplemented location data to the user requested
+//PRIVATE 
+router.get("/search/locations/:pageNumber", async(req, res) => {
     if (!req.user) {
         return res.status(404).json({ msg: "User not authorized" });
     }
     try {
-        let myLocation = await sponsorProfile.findOne({ sponsor: req.user._id });
+        let myLocation = await SponsorProfile.findOne({ sponsor: req.user._id });
         myLocation = myLocation.location;
-        let profiles = await Hackathon.find();
+        let hackathons = await Hackathon.find().limit(req.params.pageNumber * 10).sort({ Date: -1 });;
         let destinations = [];
-        profiles.forEach(async (profile) => {
-            if (profile.location) {
-                destinations.push(profile.location);
+        // console.log(`profiles length ${hackathons.length}`)
+        hackathons.forEach(async(hackathon, index) => {
+            if (hackathon.location) {
+                destinations.push(hackathon.location);
+            } else {
+                destinations.push('placeholdernotintendedtoreturn')
             }
         });
+        // console.log(destinations.length);
         destinations = destinations.join("|");
-        console.log(myLocation);
-        console.log(destinations);
+        // console.log(myLocation);
+        // console.log(destinations);
         const url = `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${myLocation}&destinations=${destinations}&key=${config.get(
             "distanceMatrixKey"
         )}`;
         console.log(url);
         const response = await axios.get(url);
-        for (let i = 0; i < profiles.length; i++) {
-            console.log(`Profile : ${profiles[i]}`);
-            const locs = response.data.rows[0].elements;
-            profiles[i].distanceFromUser = locs[i].distance.text;
-            console.log(`Profile after : ${profiles[i]}`);
+        // console.log(response.data);
+        for (let i = 0; i < hackathons.length; i++) {
+            // console.log(`Profile : ${hackathons[i]}`);
+            const locs = response.data.rows[0].elements
+                // console.log(locs.length);
+            if (locs[i].status === 'OK') {
+                hackathons[i].distanceFromUser = locs[i].distance.text;
+                // console.log(`Profile after : ${hackathons[i]}`);
+            } else {
+                hackathons[i].distanceFromUser = null;
+            }
         }
-        console.log(`profiles : ${profiles}`);
-        res.json(profiles);
+        const num = await Hackathon.countDocuments()
+            // console.log(`profiles : ${hackathons}`);
+        res.json({ hackathons, num });
     } catch (err) {
         console.log(err);
         res.status(500).send("Server Error");

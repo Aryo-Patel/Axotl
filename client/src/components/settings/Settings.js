@@ -117,7 +117,7 @@ const [confirmationModal, setConfirmationModal] = useState('closed');
         <Link to='/changepassword'className = 'forms__forgot-password'>Change Password &rarr;</Link>
         <button type='submit' className = 'forms__submission button'>Submit My Changes</button>
       </form>
-      <ConfirmationModal setConfirmationModal = {setConfirmationModal} confirmationModal = {confirmationModal} text = 'Are you sure you want to do this?' parentClassName='settings' confirmationPost = {null} deletePost = {deleteAccount}/>
+      <ConfirmationModal setConfirmationModal = {setConfirmationModal} confirmationModal = {confirmationModal} text = 'Are you sure you want to do this?' parentClassName='settings' confirmationPost = {null} deletePost = {deleteAccount} user = {user}/>
       <div className="deleteContainer">
       <button className="deleteButton" onClick={(e) => setConfirmationModal('open')}>
         Delete Profile and Account

@@ -3,9 +3,10 @@ import { LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, ACCOUNT_DELETED, REGISTER_SUCCESS, R
 const initialState = {
     user: null,
     isAuthenticated: false,
-    isRegistered: false,
     loading: true,
-    sponsor: false
+    isRegistered: false,
+    sponsor: false,
+    hasProfile: false
 };
 
 
@@ -15,12 +16,15 @@ export default function(state = initialState, action) {
     switch (type) {
         case USER_LOADED:
         case LOGIN_SUCCESS:
+            console.log(payload.user)
             return {
                 ...state,
                 isAuthenticated: true,
                 loading: false,
                 user: payload.user,
-                sponsor: payload.sponsor
+                sponsor: payload.user.user.sponsor,
+                hasProfile: payload.user.user.hasProfile,
+                isRegistered: true
             };
         case REGISTER_SUCCESS:
             return {
@@ -36,7 +40,9 @@ export default function(state = initialState, action) {
                 ...state,
                 isAuthenticated: false,
                 isRegistered: false,
-                user: null,
+                hasProfile: false,
+                sponsor: false,
+                user: null
             }
         case ACCOUNT_DELETED:
             return {
@@ -44,6 +50,8 @@ export default function(state = initialState, action) {
                 isAuthenticated: false,
                 loading: false,
                 user: null,
+                hasProfile: false,
+                isRegistered: false
             };
         case FORGOT_PASSWORD:
         case FORGOT_PASSWORD_FAIL:

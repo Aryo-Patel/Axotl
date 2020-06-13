@@ -7,7 +7,8 @@ import $ from 'jquery';
 
 //importing the css
 import "./authStyles/authstyles.css";
-const Login = ({ sendLogin, isAuthenticated, isRegistered }) => {
+import { getCurrentProfile } from "../../actions/ProfileActions";
+const Login = ({ sendLogin, isAuthenticated, hasProfile }) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -25,7 +26,9 @@ const Login = ({ sendLogin, isAuthenticated, isRegistered }) => {
   };
 
   if (isAuthenticated) {
-    if (isRegistered) {
+    console.log(hasProfile)
+    if (!hasProfile) {
+      console.log('redirecting to profile')
       return <Redirect to='/profile' />
     }
     return <Redirect to="/dashboard" />;
@@ -528,9 +531,11 @@ const Login = ({ sendLogin, isAuthenticated, isRegistered }) => {
 Login.propTypes = {
   sendLogin: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
+  hasProfile : PropTypes.bool
 };
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
+  hasProfile : state.auth.hasProfile
 });
 
 export default connect(mapStateToProps, { sendLogin })(Login);

@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import axios from 'axios';
 import $ from 'jquery';
-const Notification = ({ header, data, sender, id, userId, updateNotifications, title, hackathonId }) => {
+const Notification = ({ header, data, sender, id, userId, updateNotifications, title, hackathonId, senderId }) => {
     let incrementor = 0;
     async function deleteNotification(e) {
         await axios.delete(`/api/users/delete-notification/${userId}/${id}`);
@@ -36,6 +36,22 @@ const Notification = ({ header, data, sender, id, userId, updateNotifications, t
         })
         updateNotifications(id);
     }
+    async function chatWithSponsor(e) {
+        console.log(typeof (id));
+        const body = {
+            name: `Donations to ${title}`,
+            recipients: [userId],
+            sponsors: [senderId],
+            messages: []
+        }
+        console.log(body);
+        const config = {
+            headers: {
+                'content-type': 'application/json'
+            }
+        }
+        await axios.post('api/chat/create', body, config);
+    }
     return (
         <div className="notification-wrapper">
             <div className="notification-header">
@@ -53,7 +69,7 @@ const Notification = ({ header, data, sender, id, userId, updateNotifications, t
             </div>
             <div className='user-action'>
                 <i className="fas fa-check-square action" onClick={e => addDonation(e)}></i>
-                <span className='chat action'>Chat with the sponsor</span>
+                <span className='chat action' onClick={e => chatWithSponsor(e)}>Chat with the sponsor</span>
                 <i className="fas fa-times action" onClick={e => deleteNotification(e)}></i>
             </div>
         </div>

@@ -10,6 +10,10 @@ const RecipientSchema = new Schema({
         type: Boolean,
         default: false,
     },
+    hasProfile: {
+        type: Boolean,
+        default: false
+    },
     email: {
         type: String,
         required: true,
@@ -70,12 +74,10 @@ const RecipientSchema = new Schema({
     myChats: [Schema.Types.ObjectId],
     myLiked: [Schema.Types.ObjectId],
     myHackathons: [Schema.Types.ObjectId],
-    chatInvitations: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'chats'
-        }
-    ],
+    chatInvitations: [{
+        type: Schema.Types.ObjectId,
+        ref: 'chats'
+    }],
     Date: {
         type: Date,
         default: Date.now,

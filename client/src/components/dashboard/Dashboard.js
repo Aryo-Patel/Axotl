@@ -8,12 +8,16 @@ import axios from 'axios';
 import './styling/main.css';
 import ChatInvitations from './ChatInvitations'
 
-const Dashboard = ({ isRegistered, id }) => {
+
+import $ from 'jquery';
+
+const Dashboard = ({ isRegistered, id, hasProfile }) => {
   const [notifications, updateNotifications] = useState([]);
   const [chatNotifications, updateChatNotifications] = useState([]);
   const [donationNotifications, updateDonationNotifications] = useState([]);
   const [timeToReload, changeReloadStatus] = useState(false);
   const [notificationDisplay, updateNotificationDisplay] = useState(0);
+  const [collapseSidebar, alterCollapseState] = useState(false);
   useEffect(() => {
     fetchData();
 
@@ -22,7 +26,9 @@ const Dashboard = ({ isRegistered, id }) => {
     //notifications are grabbed
     splitNotifications(notifications);
   }, [notifications]);
-
+  useEffect(() => {
+    console.log(collapseSidebar);
+  }, [collapseSidebar]);
   useEffect(() => {
   }, [donationNotifications]);
 
@@ -63,9 +69,31 @@ const Dashboard = ({ isRegistered, id }) => {
     updateChatNotifications(tempChatNot);
   }
   let incrementor = 0;
+
+  $(document).ready(function () {
+    if ($(window).width() < 900) {
+      console.log('ran')
+      alterCollapseState(true);
+    }
+    else {
+      console.log('ran big');
+      alterCollapseState(false);
+    }
+  })
+  $(window).resize(function () {
+    if ($(window).width() < 900) {
+      console.log('width is small')
+      alterCollapseState(true);
+    }
+    if ($(window).width() > 900) {
+      console.log('width is big');
+      alterCollapseState(false);
+    }
+  });
+  $('.display-selector-wrapper').css({ 'width': `${$('.display-selector').width() + $(window).width() * 0.1}` });
   return (
     <Fragment>
-      {isRegistered ? (
+      {!hasProfile ? (
         <Redirect to="/profile" />
       ) : (
           <div className="dashboard">
@@ -73,10 +101,17 @@ const Dashboard = ({ isRegistered, id }) => {
 
 
             <div className="center-display-wrapper">
-              <div className="display-selector">
-                <h1 onClick={e => updateNotificationDisplay(0)}>Chats</h1>
-                <h1 onClick={e => updateNotificationDisplay(1)}>Donation Notifications</h1>
-                <h1 onClick={e => updateNotificationDisplay(2)}>General/Updates</h1>
+              <div className="display-selector-wrapper">
+                <div className="display-selector">
+                  {collapseSidebar === false ?
+                    <Fragment>
+                      <h1 onClick={e => updateNotificationDisplay(0)}>Chats</h1>
+                      <h1 onClick={e => updateNotificationDisplay(1)}>Donation Notifications</h1>
+                      <h1 onClick={e => updateNotificationDisplay(2)}>General/Updates</h1>
+                    </Fragment>
+                    :
+                    <i class="fas fa-angle-double-right"></i>}
+                </div>
               </div>
               <div className="split-line">
                 <svg>
@@ -119,11 +154,13 @@ const Dashboard = ({ isRegistered, id }) => {
 
 Dashboard.propTypes = {
   isRegistered: PropTypes.bool.isRequired,
+  hasProfile : PropTypes.bool.isRequired
 };
 
 const mapStateToProps = (state) => ({
   isRegistered: state.auth.isRegistered,
-  id: state.auth.user.user._id
+  id: state.auth.user.user._id,
+  hasProfile : state.auth.hasProfile
 });
 
 export default connect(mapStateToProps, {})(Dashboard);

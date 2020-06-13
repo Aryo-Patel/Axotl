@@ -182,6 +182,9 @@ router.post('/register', [check('name', 'Name is required').not().isEmpty(), che
 //Action    Find a sponsor by their handle
 //Private
 router.post('/find', (req, res) => {
+    if (!req.user) {
+        return res.status(401).json({ msg: "Not Authorized" })
+    }
     Object.keys(req.body).forEach((item) => {
         console.log("THING: " + req.body[item]);
     })
@@ -220,7 +223,7 @@ router.put('/confirmemail/:jwt', async(req, res) => {
         console.log(user)
         res.json({ msg: "Email Confirmed" })
     } catch (err) {
-        console.error(err.message);
+        console.error(err);
         res.status(500).send("Server Error")
     }
 })
@@ -232,30 +235,31 @@ router.put('/confirmemail/:jwt', async(req, res) => {
 
 router.post('/login', passport.authenticate('local', { failureRedirect: 'http://localhost:3000/sponsor/login' }), (req, res) => {
     req.session.tries = 0;
-    /**const email = req.body.email;
-    const password = req.body.password;
+    console.log(req.user)
+        /**const email = req.body.email;
+        const password = req.body.password;
 
-    //Find a sponsor that has the same email
-    Sponsor.findOne({email: email})
-        .then(sponsor =>{
-            //Checking for the sponsor
-            if(!sponsor){
-                return res.status(404).json({
-                    Error: "User not found :("
-                });
-            } else {
-                authentication stuff
-                if(password == sponsor.password){
-                    res.json({
-                        Success: "Log In Successful!"
-                    })
+        //Find a sponsor that has the same email
+        Sponsor.findOne({email: email})
+            .then(sponsor =>{
+                //Checking for the sponsor
+                if(!sponsor){
+                    return res.status(404).json({
+                        Error: "User not found :("
+                    });
                 } else {
-                    res.json({
-                        Failure: "Log In Failed."
-                    })
+                    authentication stuff
+                    if(password == sponsor.password){
+                        res.json({
+                            Success: "Log In Successful!"
+                        })
+                    } else {
+                        res.json({
+                            Failure: "Log In Failed."
+                        })
+                    }
                 }
-            }
-        }); */
+            }); */
 
     res.json({ user: req.user })
 });
@@ -264,12 +268,16 @@ router.post('/login', passport.authenticate('local', { failureRedirect: 'http://
 // Action Delete profile and user
 // PRIVATE
 router.delete('/', async(req, res) => {
+    if (!req.user) {
+        return res.status(401).json({ msg: "Not Authorized" })
+    }
     try {
-        await SponsorProfile.deleteOne({ sponsor: req.user._id })
-        await Sponsor.deleteOne({ _id: req.user._id })
+        const otherRes = await SponsorProfile.deleteOne({ sponsor: req.user._id })
+        const response = await Sponsor.deleteOne({ _id: req.user._id })
+        req.logout();
         res.json({ msg: "Account Deleted" })
     } catch (err) {
-        console.error(err.message);
+        console.error(err);
         res.status(400).send("Server Error")
     }
 })
@@ -303,7 +311,7 @@ router.get('/forgotpassword/:email', async(req, res) => {
         await transporter.verify()
         await sendEmail(mailOptions)
     } catch (err) {
-        console.error(err.message);
+        console.error(err);
         res.status(500).send("Server Error")
     }
 })
@@ -322,7 +330,7 @@ router.post('/resetpassword/:jwt', async(req, res) => {
         await user.save()
         res.json({ msg: "Password Changed" })
     } catch (err) {
-        console.error(err.message);
+        console.error(err);
         res.status(500).send("Server Error")
     }
 })

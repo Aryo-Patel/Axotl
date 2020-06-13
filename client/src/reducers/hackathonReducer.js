@@ -7,13 +7,15 @@ import {
     GET_USER_HACKATHONS,
     GET_USER_HACKATHONS_FAIL,
     HACKATHON_DELETED,
-    HACKATHON_EDITED
+    HACKATHON_EDITED,
+    GET_HACKATHONS_LOCATIONS
 } from '../actions/Types';
 
 const initialState = {
     hackathonList: [],
     hackathon: {},
-    loading: true
+    loading: true,
+    numHackathons: null
 }
 
 export default function(state = initialState, action) {
@@ -22,6 +24,7 @@ export default function(state = initialState, action) {
     switch (type) {
         case GET_HACKATHONS:
         case GET_USER_HACKATHONS:
+        case GET_HACKATHONS_LOCATIONS:
             return {
                 ...state,
                 hackathonList: payload.hackathons,
@@ -62,7 +65,7 @@ export default function(state = initialState, action) {
                 hackathonList: newHackathonList
             }
         case HACKATHON_DELETED:
-            const hackathons = state.hackathons.hackathonList.filter(hackathon => hackathon._id.toString() == payload.hackathonId.toString())
+            const hackathons = state.hackathonList.filter(hackathon => hackathon._id.toString() == payload.hackathonId.toString())
             return {
                 ...state,
                 hackathonList: hackathons,

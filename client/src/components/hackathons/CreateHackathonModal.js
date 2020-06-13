@@ -65,7 +65,7 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
     //the function that will check if the hackathon can be created. If it can, the window will close
     function submitData(e) {
         e.preventDefault();
-
+        console.log("whore");
         createHackathon(formData);
 
         handleClose();
@@ -437,7 +437,11 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
                         <h2 className="text-header">Fill in the information about your hackathon!</h2>
                         <small>* = required field</small>
 
-                        <form className="modal-form" onSubmit={e => submitData(e)}>
+                        <form className="modal-form" onSubmit={e => {
+                            e.preventDefault();
+                            console.log("second whore");
+                            submitData(e)
+                            }}>
                             {pageNumber === 1 && (
                                 <Fragment>
                                     <div className='form-group'>

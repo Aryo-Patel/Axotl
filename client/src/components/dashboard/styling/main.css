@@ -18,7 +18,12 @@
   display: flex;
 }
 
-.dashboard .center-display-wrapper .display-selector {
+.dashboard .center-display-wrapper .display-selector-wrapper {
+  position: relative;
+  width: 50%;
+}
+
+.dashboard .center-display-wrapper .display-selector-wrapper .display-selector {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -30,22 +35,25 @@
       -ms-flex-pack: justify;
           justify-content: space-between;
   height: 60vh;
-  font-size: 1.1rem;
-  position: -webkit-sticky;
-  position: sticky;
-  margin-right: 10px;
+  position: fixed;
+  left: 5%;
+  -webkit-transform: translateX(-5%);
+          transform: translateX(-5%);
+  padding: 20px;
 }
 
-.dashboard .center-display-wrapper .display-selector h1 {
+.dashboard .center-display-wrapper .display-selector-wrapper .display-selector h1 {
+  font-size: 1.3eem;
   text-align: center;
 }
 
-.dashboard .center-display-wrapper .display-selector h1:hover {
+.dashboard .center-display-wrapper .display-selector-wrapper .display-selector h1:hover {
   cursor: pointer;
   text-decoration: underline;
 }
 
 .dashboard .center-display-wrapper .split-line {
+  margin-left: 5%;
   width: 3px;
   max-width: 1%;
 }
@@ -65,13 +73,24 @@
   margin-left: 20px;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 1fr 1fr;
-      grid-template-columns: 1fr 1fr;
+  -ms-grid-columns: auto;
+      grid-template-columns: auto;
   width: 80%;
 }
 
+.dashboard .center-display-wrapper .notification-center .donation-notifications-wrapper {
+  display: -ms-grid;
+  display: grid;
+  row-gap: 20px;
+  -webkit-column-gap: 20px;
+          column-gap: 20px;
+  -ms-grid-columns: (minmax(400px, 1fr))[auto-fit];
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+}
+
 .dashboard .notifications {
-  margin-bottom: 10px;
+  margin: auto;
+  max-width: 450px;
 }
 
 .dashboard .notifications .notification-wrapper {

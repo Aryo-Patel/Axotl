@@ -64,7 +64,7 @@ const Posts = ({numPosts, getPosts, createPost, editPost, deletePost, posts, loa
             <div className="posts__container">
                 {loading ? <Spinner /> : posts.filter(post => {
                     console.log(post.title.substring(0,search.length).toUpperCase() == search.toUpperCase() || post.name.substring(0,search.length).toUpperCase() == search.toUpperCase())
-                    return post.title.substring(0,search.length).toUpperCase() == search.toUpperCase() || post.name.substring(0,search.length).toUpperCase() == search.toUpperCase()
+                    return post.title.toUpperCase().includes(search.toUpperCase()) || post.name.toUpperCase().includes(search.toUpperCase())
                 }).map((post, index) => { 
                 return (
                     <Post index = {index} setPost = {setPost} modal = {modal} key = {index} post={post} editPost = {editPost} deletePost={deletePost} modalToggle = {modalToggle} confirmationModalToggle= {setConfirmationModal} confirmationModal={confirmationModal} setConfirmationPost = {setConfirmationPost} confirmationPost = {confirmationPost} addComment = {addComment} addReply = {addReply} addLike = {addLike} deleteComment = {deleteComment} deleteReply = {deleteReply} setEditingComment = {setEditingComment} setEditCommentModal = {setEditCommentModal} likeComment = {likeComment} likeReply={likeReply} editReply = {editReply} setEditingReply = {setEditingReply} setEditReplyModal = {setEditReplyModal}/>
