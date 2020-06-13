@@ -88,7 +88,7 @@ const MyHackathons = ({ getUserHackathons, id, hackathons, loading, user, editHa
   const [editingHackathon, setEditingHackathon] = useState({ x: "x" });
   const [editHackathonModal, toggleEditHackathonModal] = useState("closed");
   return (
-    <Fragment>
+    <div className='my-hackathons__wrapper'>
       {user.myHackathons.length != 0 ? (
         <Fragment>
           <EditHackathonModal editingHackathon = {editingHackathon} editHackathonModal = {editHackathonModal} toggleEditHackathonModal = {toggleEditHackathonModal} editHackathon = {editHackathon} />
@@ -120,7 +120,7 @@ const MyHackathons = ({ getUserHackathons, id, hackathons, loading, user, editHa
           </a>
         </div>
       )}
-    </Fragment>
+    </div>
   );
 };
 

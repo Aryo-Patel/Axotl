@@ -15,7 +15,7 @@
       -ms-flex-align: center;
           align-items: center;
   background-color: white;
-  z-index: 1000000;
+  z-index: 1000;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
@@ -26,8 +26,8 @@
 .navContainer .navbar-brand {
   margin-left: 3rem;
   color: #2f72ff;
-  -webkit-transition: color 0.2s, background-color 0.2s;
-  transition: color 0.2s, background-color 0.2s;
+  -webkit-transition: color 0.2s, background-color 0.2s;
+  transition: color 0.2s, background-color 0.2s;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -179,7 +179,7 @@
 }
 
 .navContainer .dropdown__toggle h3 {
-  font-family: 'Oxygen', sans-serif;
+  font-family: "Oxygen", sans-serif;
   color: #2f72ff;
 }
 
@@ -307,8 +307,8 @@
   color: purple;
   color: #2f72ff;
   background-color: none !important;
-  -webkit-transition: color 0.2s, background-color 0.2s;
-  transition: color 0.2s, background-color 0.2s;
+  -webkit-transition: color 0.2s, background-color 0.2s;
+  transition: color 0.2s, background-color 0.2s;
   text-decoration: none;
 }
 
@@ -374,11 +374,13 @@
   display: none;
 }
 
-.navCheckbox:checked ~ .hack-modal .modal-main {
+.navCheckbox:checked ~ .hack-modal .animation-wrapper {
   -webkit-animation: scaleTranslateModal 1s;
           animation: scaleTranslateModal 1s;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+}
+
+.animation-wrapper {
+  z-index: 999999999999999999999 !important;
 }
 
 @-webkit-keyframes scaleTranslateModal {
@@ -482,8 +484,8 @@
   position: absolute;
   border-bottom: 1px solid transparent;
   border-radius: 20px;
-  -webkit-transition: visibility .3s ease, opacity .3s ease;
-  transition: visibility .3s ease, opacity .3s ease;
+  -webkit-transition: visibility 0.3s ease, opacity 0.3s ease;
+  transition: visibility 0.3s ease, opacity 0.3s ease;
 }
 
 .dropdown__item {
@@ -494,8 +496,8 @@
   width: auto;
   background-color: #2f72ff;
   text-align: right;
-  font-size: .9em;
-  padding: .7rem 1rem;
+  font-size: 0.9em;
+  padding: 0.7rem 1rem;
   z-index: 2;
 }
 
@@ -509,7 +511,7 @@
 }
 
 .dropdown__item:last-child {
-  padding: .7rem 1rem 1rem;
+  padding: 0.7rem 1rem 1rem;
   border-bottom-right-radius: 20px;
   border-bottom-left-radius: 20px;
 }
@@ -602,6 +604,10 @@
 .hackModalToggler {
   margin-top: 0.5rem;
   color: #2f72ff;
+}
+
+.hackModalToggler:hover {
+  cursor: pointer;
 }
 
 @media (max-width: 75em) {
