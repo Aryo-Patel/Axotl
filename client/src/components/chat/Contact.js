@@ -9,6 +9,9 @@ import { connect } from 'react-redux'
 class Contact extends Component {
     constructor(props) {
         super(props)
+        this.state = {
+            chatlogs: this.props.chatlogs,
+        }
 
         this.onClick = this.onClick.bind(this);
 
@@ -29,6 +32,7 @@ class Contact extends Component {
     render() {
         //This will render all the chat logs.
         let chatlogs;
+
         if (this.props.chatlogs != null) {
             chatlogs = this.props.chatlogs.map(item => {
                 return (

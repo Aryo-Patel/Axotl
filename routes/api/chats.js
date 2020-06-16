@@ -189,6 +189,7 @@ router.post('/messages/:id', async (req, res) => {
                 sponsor['numUnread'] += 1
             }
         })
+        chat['lastModified'] = Date.now()
         await chat.save()
         res.json({ msg: "Saved!" })
     }
@@ -202,19 +203,22 @@ router.post('/messages/:id', async (req, res) => {
 //Private
 router.get('/', async (req, res) => {
     try {
-        let chats = await Chat.find();
+        let chats = await Chat.find().sort({lastModified: -1});
         let yourChats = chats.filter(chat => {
             let x = false;
-            chat.recipients.forEach(recipient => {
-                if (recipient['userID'].toString() === req.user._id.toString()) {
-                    x = true;
-                }
-            })
-            chat.sponsors.forEach(sponsor => {
-                if (sponsor['userID'].toString() === req.user._id.toString()) {
-                    x = true;
-                }
-            })
+            if(!req.user.sponsor){
+                chat.recipients.forEach(recipient => {
+                    if (recipient['userID'].toString() === req.user._id.toString()) {
+                        x = true;
+                    }
+                })
+            } else {
+                chat.sponsors.forEach(sponsor => {
+                    if (sponsor['userID'].toString() === req.user._id.toString()) {
+                        x = true;
+                    }
+                })
+            }
             return x;
         })
         res.json(yourChats);

@@ -141,19 +141,11 @@ class CreateChat extends Component {
             recipients: this.state.recipients,
             sponsors: this.state.sponsors,
             messages: [],
-
         }
-        console.log('info below:: ')
-        console.log(info);
+        
         axios.post('api/chat/create', info)
 
-        this.setState({
-            chatName: '',
-            recipients: [],
-            sponsors: [],
-            sponsorSearch: '',
-            recipientSearch: '',
-        })
+        this.closeModal();
 
         this.props.getChatLogs();
     }
