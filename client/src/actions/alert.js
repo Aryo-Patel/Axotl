@@ -1,4 +1,4 @@
-import { CONFIRMATION, ERROR, REMOVE_ERROR, REMOVE_CONFIRMATION } from './Types'
+import { CONFIRMATION, ERROR, REMOVE_ERROR, REMOVE_CONFIRMATION, CLEAR_ALERTS } from './Types'
 
 export const setError = (message) => dispatch => {
     console.log('alert reached')
@@ -37,4 +37,10 @@ export const setConfirmation = (message) => dispatch => {
             }
         })
     }, 10000)
+}
+
+export const clearAlerts = () => dispatch => {
+    dispatch({
+        type: CLEAR_ALERTS
+    })
 }

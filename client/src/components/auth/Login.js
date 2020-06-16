@@ -16,15 +16,19 @@ const Login = ({ sendLogin, isAuthenticated, hasProfile }) => {
   //password read status 
   const [readable, setReadable] = useState('password');
 
+  //onchange for form
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  //onsubmit for form submitting the login information to the redux action
   const onSubmit = async (e) => {
     e.preventDefault();
     sendLogin(formData);
   };
 
+  //checking if the user is authenticated, and if they are, checking if they have a profile to 
+  //redirect between the dashboard or the profile creation screen
   if (isAuthenticated) {
     console.log(hasProfile)
     if (!hasProfile) {
@@ -35,7 +39,7 @@ const Login = ({ sendLogin, isAuthenticated, hasProfile }) => {
   }
 
 
-
+  //function utilizing jquery to create the password visibility effect (bubbling out)
   const setPasswordIcon = e => {
     if (readable == 'password') {
       setReadable('text')
@@ -51,6 +55,7 @@ const Login = ({ sendLogin, isAuthenticated, hasProfile }) => {
   return (
     <Fragment>
       <div className="login__background">
+        {/* actual block containing the login functionality */}
         <div className="login__block">
           <svg
             className="login__logo"
@@ -467,7 +472,7 @@ const Login = ({ sendLogin, isAuthenticated, hasProfile }) => {
               />
             </g>
           </svg>
-
+                {/* Block containing the form and functionality of the login page */}
           <div className="login__container" data-status={readable}>
             <form action="" className="" onSubmit={(e) => onSubmit(e)}>
               <div className="form-group">

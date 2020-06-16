@@ -1,4 +1,4 @@
-import { ERROR, CONFIRMATION, REMOVE_ERROR, REMOVE_CONFIRMATION } from '../actions/Types'
+import { ERROR, CONFIRMATION, REMOVE_ERROR, REMOVE_CONFIRMATION, CLEAR_ALERTS } from '../actions/Types'
 
 const initialState = {
     alerts: []
@@ -21,6 +21,10 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 alerts: state.alerts.filter(alert => alert.message !== payload.message)
+            }
+        case CLEAR_ALERTS:
+            return {
+                alerts: []
             }
         default:
             return state;

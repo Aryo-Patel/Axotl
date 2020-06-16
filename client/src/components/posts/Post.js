@@ -6,6 +6,7 @@ import $ from "jquery";
 import ConfirmationModal from "../common/ConfirmationModal";
 import auth from "../../reducers/auth";
 import Moment from "react-moment";
+import optimisticRendering from './utils/optimisticRendering'
 
 const Post = ({
   loading,
@@ -35,14 +36,20 @@ const Post = ({
   likeReply,
   setEditingReply,
   setEditReplyModal,
-  index
+  index,
 }) => {
   useEffect(() => {
     //console.log(document.querySelectorAll('.post__comment-container')[index].scrollHeight)
     //console.log(window.innerHeight/10*4)
     //console.log(document.querySelectorAll('.post__comment-container')[index].clientHeight < document.querySelectorAll('.post__comment-container')[index].scrollHeight)
-    toggleSeeMore(document.querySelectorAll('.post__comment-container')[index].scrollHeight > .4*window.innerHeight || extendComments == 'extended' ? 'on' : 'off' )
-  })
+    toggleSeeMore(
+      document.querySelectorAll(".post__comment-container")[index]
+        .scrollHeight >
+        0.4 * window.innerHeight || extendComments == "extended"
+        ? "on"
+        : "off"
+    );
+  });
   //state for creating comments
   const [text, updateText] = useState("");
   //state to check if a post is liked or not
@@ -52,9 +59,8 @@ const Post = ({
   );
 
   //COMMENTS SECTION 'SEE MORE'
-  const [seeMore, toggleSeeMore] = useState('on')
-  const [extendComments, toggleExtendComments] = useState('limited')
-
+  const [seeMore, toggleSeeMore] = useState("on");
+  const [extendComments, toggleExtendComments] = useState("limited");
 
   return (
     <div className="post">
@@ -97,8 +103,10 @@ const Post = ({
 
           <div className="post__user-fields">
             <div className="post__userTitle">
-            <h4 className="post__name">{post.name}</h4>
-            <p><small>{post.sponsor ? 'Sponsor' : 'Organizer'}</small></p>
+              <h4 className="post__name">{post.name}</h4>
+              <p>
+                <small>{post.sponsor ? "Sponsor" : "Organizer"}</small>
+              </p>
             </div>
             <img src={post.avatar} alt="" className="post__avatar" />
           </div>
@@ -125,18 +133,15 @@ const Post = ({
       </div>
       <div className="post__interactions">
         <div className="post__likes" data-status={liked}>
-          <p className='post__likes-counter'>{post.likes.length > 0 ? post.likes.length : `\u00a0`}</p>
-          
+          <p className="post__likes-counter">
+            {post.likes.length > 0 ? post.likes.length : `\u00a0`}
+          </p>
+
           <svg
-          className='post__like-icon'
+            className="post__like-icon"
             onClick={(e) => {
               addLike(post._id);
-              if(e.target.classList.contains('post__like-icon')) {
-                e.target.parentNode.childNodes[0].innerHtml = Number(e.target.parentNode.childNodes[0].innerHtml) + 1
-                console.log(e.target.parentNode.childNodes[0])
-              } else {
-                e.target.parentNode.parentNode.childNodes[0].innerHtml = Number(e.target.parentNode.parentNode.childNodes[0].innerHtml) + 1
-              }
+              optimisticRendering(e, liked);
               !liked ? setLiked(true) : setLiked(false);
             }}
             xmlns="http://www.w3.org/2000/svg"
@@ -149,25 +154,27 @@ const Post = ({
           </svg>
           <p>Like</p>
         </div>
-        <div className="post__comments" onClick={(e) => {
-          if(e.target.classList.contains('post__comments')) {
-            e.target.parentNode.parentNode.childNodes[2].childNodes[2].childNodes[0].childNodes[0].focus();
-          }
-           else if(e.target.classList.contains('post__comment-icon')) {
-            e.target.parentNode.parentNode.parentNode.childNodes[2].childNodes[2].childNodes[0].childNodes[0].focus();
-          } 
-          // else if(e.target.classList.contains('post__comment-icon')) {
-          //     e.target.parentNode.parentNode)
-          // }
-          else if (e.target.classList.contains('post__comment-label')) {
-           e.target.parentNode.parentNode.parentNode.childNodes[2].childNodes[2].childNodes[0].childNodes[0].focus();
-          } else {
-            e.target.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[2].childNodes[2].childNodes[0].childNodes[0].focus();
-          }
-              // $('.post__comment-input').focus();
-            }}>
+        <div
+          className="post__comments"
+          onClick={(e) => {
+            if (e.target.classList.contains("post__comments")) {
+              e.target.parentNode.parentNode.childNodes[2].childNodes[2].childNodes[0].childNodes[0].focus();
+            } else if (e.target.classList.contains("post__comment-icon")) {
+              e.target.parentNode.parentNode.parentNode.childNodes[2].childNodes[2].childNodes[0].childNodes[0].focus();
+            }
+            // else if(e.target.classList.contains('post__comment-icon')) {
+            //     e.target.parentNode.parentNode)
+            // }
+            else if (e.target.classList.contains("post__comment-label")) {
+              e.target.parentNode.parentNode.parentNode.childNodes[2].childNodes[2].childNodes[0].childNodes[0].focus();
+            } else {
+              e.target.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[2].childNodes[2].childNodes[0].childNodes[0].focus();
+            }
+            // $('.post__comment-input').focus();
+          }}
+        >
           <svg
-          className='post__comment-icon'
+            className="post__comment-icon"
             version="1.1"
             xmlns="http://www.w3.org/2000/svg"
             x="0px"
@@ -202,133 +209,155 @@ const Post = ({
             <g></g>
             <g></g>
           </svg>
-          <p className='post__comment-label'>Comment</p>
+          <p className="post__comment-label">Comment</p>
         </div>
       </div>
       <div className="post__comment-section">
-        <div className="post__comment-container"  data-status={extendComments} data-number = {0}>
+        <div
+          className="post__comment-container"
+          data-status={extendComments}
+          data-number={0}
+        >
           {post.comments.map((comment, index) => (
             <div key={index} className="comment__section">
-            <div  className="comment">
-              <div className="comment__top">
-                <div className="comment__user">
-                  <img
-                    src={comment.avatar}
-                    alt=""
-                    className="comment__avatar"
-                  />
-                  <h5 className="comment__name">{comment.name}</h5>
-                </div>
-                {!loading && user._id.toString() == comment.user.toString() ? (
-                  <div className="comment__edit">
-                    <div className="comment__edit-icon"></div>
-                    <div className="comment__dropdown">
-                      <p
-                        className="comment__dropdown-item"
-                        onClick={async (e) => {
-                          //makes the comment editable
-                          setEditingComment(comment);
-                          setPost(post);
-                          setEditCommentModal("open");
-                        }}
-                      >
-                        Edit Comment
-                      </p>
-                      <p
-                        className="comment__dropdown-item"
-                        onClick={(e) => {
-                          deleteComment(post._id, comment._id);
-                        }}
-                      >
-                        Delete This Comment
-                      </p>
-                    </div>
+              <div className="comment">
+                <div className="comment__top">
+                  <div className="comment__user">
+                    <img
+                      src={comment.avatar}
+                      alt=""
+                      className="comment__avatar"
+                    />
+                    <h5 className="comment__name">{comment.name}</h5>
                   </div>
-                ) : (
-                  <div></div>
-                )}
-              </div>
-              <div className="comment__middle">
-                <form
-                  action=""
-                  className="comment_text-form"
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    editComment(
-                      { text: e.target.value },
-                      post._id,
-                      comment._id
-                    );
-                    e.target.readOnly = true;
-                    setEditingComment("");
-                  }}
-                >
-                  <p className="comment__text">
-                    {comment.text.substring(0, 210)}
-                    {!(comment.text.length > 210) ? null : (
-                      <span
-                        className="comment__read-more"
-                        onClick={(e) => {
-                          e.target.parentNode.innerHTML = comment.text;
-                        }}
-                      >
-                        ... Read More
-                      </span>
-                    )}
-                  </p>
-                </form>
-              </div>
-              <div className="comment__bottom">
-                <Moment className="post__date" format="hh:mm MM/DD/YYYY">
-                  {comment.Date}
-                </Moment>
-                <div className="comment__like-container" data-status = {comment.likes.filter((like) => like.user.toString() == user._id.toString())
-      .length > 0}>
-                  <label className="comment__like-counter">
-                    {comment.likes.length > 0 ? comment.likes.length : " "}
-                  </label>
-                  <svg
-                    onClick={(e) => {
-                      likeComment(post._id, comment._id);
-                    }}
-                    className="comment__like"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 16 16"
-                  >
-                    <path d="M 6.46875 1 A 0.50005 0.50005 0 0 0 6 1.5 L 6 2.375 C 6 3.5782168 5.6709145 4.4589043 5.4082031 5 L 1 5 L 1 5.5 L 1 14 L 5.4648438 14 L 6 14 L 11.689453 14 C 12.401791 14 13.03169 13.512224 13.185547 12.818359 A 0.50005 0.50005 0 0 0 13.193359 12.775391 L 13.994141 6.7753906 L 13.986328 6.8183594 C 14.192606 5.8871169 13.445053 5 12.490234 5 L 9 5 L 9 3.25 C 9 2.1347222 8.3117537 1.4625874 7.6875 1.2089844 C 7.0632463 0.95538128 6.46875 1 6.46875 1 z M 7 2.0800781 C 7.1318795 2.0988741 7.1621385 2.0736786 7.3125 2.1347656 C 7.6882463 2.2874131 8 2.4902778 8 3.25 L 8 5.5 A 0.50005 0.50005 0 0 0 8.5 6 L 12.490234 6 C 12.849416 6 13.079487 6.2868068 13.009766 6.6015625 A 0.50005 0.50005 0 0 0 13.001953 6.6445312 L 12.207031 12.603516 C 12.155768 12.828253 11.94803 13 11.689453 13 L 6 13 L 6 6.0195312 C 6.2254734 5.6703684 7 4.3403823 7 2.375 L 7 2.0800781 z M 2 6 L 5 6 L 5 13 L 2 13 L 2 6 z M 3.5 11 A 0.5 0.5 0 0 0 3 11.5 A 0.5 0.5 0 0 0 3.5 12 A 0.5 0.5 0 0 0 4 11.5 A 0.5 0.5 0 0 0 3.5 11 z" />
-                  </svg>
+                  {!loading &&
+                  user._id.toString() == comment.user.toString() ? (
+                    <div className="comment__edit">
+                      <div className="comment__edit-icon"></div>
+                      <div className="comment__dropdown">
+                        <p
+                          className="comment__dropdown-item"
+                          onClick={async (e) => {
+                            //makes the comment editable
+                            setEditingComment(comment);
+                            setPost(post);
+                            setEditCommentModal("open");
+                          }}
+                        >
+                          Edit Comment
+                        </p>
+                        <p
+                          className="comment__dropdown-item"
+                          onClick={(e) => {
+                            deleteComment(post._id, comment._id);
+                          }}
+                        >
+                          Delete This Comment
+                        </p>
+                      </div>
+                    </div>
+                  ) : (
+                    <div></div>
+                  )}
                 </div>
-                <div className="comment__replies">
-                  <label className="comment__reply-counter">
-                    {comment.replies.length > 0 ? comment.replies.length : null}
-                  </label>
-                  <svg
-                    onClick={(e) => {
-                     
-                      if(e.target.parentNode.parentNode.parentNode.parentNode.childNodes[1].dataset.status=='dropped') {
-                        e.target.parentNode.parentNode.parentNode.parentNode.childNodes[1].dataset.status='up'
-                        e.target.parentNode.parentNode.parentNode.parentNode.parentNode.dataset.number='0'
-                      } else {
-                      e.target.parentNode.parentNode.parentNode.parentNode.childNodes[1].dataset.status='dropped'
-                      //console.log(comment.replies.length)
-                      //console.log(e.target.parentNode.parentNode.parentNode.parentNode.parentNode)
-                      e.target.parentNode.parentNode.parentNode.parentNode.parentNode.dataset.number='' + (comment.replies.length == 0 ? -1 : comment.replies.length)
-                      }
+                <div className="comment__middle">
+                  <form
+                    action=""
+                    className="comment_text-form"
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      editComment(
+                        { text: e.target.value },
+                        post._id,
+                        comment._id
+                      );
+                      e.target.readOnly = true;
+                      setEditingComment("");
                     }}
-                    className="comment__reply"
-                    version="1.1"
-                    id="Layer_1"
-                    xmlns="http://www.w3.org/2000/svg"
-                    x="0px"
-                    y="0px"
-                    viewBox="0 0 511.971 511.971"
-                    style={{ enableBackground: "new 0 0 511.971 511.971" }}
                   >
-                    <g>
+                    <p className="comment__text">
+                      {comment.text.substring(0, 210)}
+                      {!(comment.text.length > 210) ? null : (
+                        <span
+                          className="comment__read-more"
+                          onClick={(e) => {
+                            e.target.parentNode.innerHTML = comment.text;
+                          }}
+                        >
+                          ... Read More
+                        </span>
+                      )}
+                    </p>
+                  </form>
+                </div>
+                <div className="comment__bottom">
+                  <Moment className="post__date" format="hh:mm MM/DD/YYYY">
+                    {comment.Date}
+                  </Moment>
+                  <div
+                    className="comment__like-container"
+                    data-status={
+                      comment.likes.filter(
+                        (like) => like.user.toString() == user._id.toString()
+                      ).length > 0
+                    }
+                  >
+                    <label className="comment__like-counter">
+                      {comment.likes.length > 0 ? comment.likes.length : " "}
+                    </label>
+                    <svg
+                      onClick={(e) => {
+                        likeComment(post._id, comment._id);
+                      }}
+                      className="comment__like"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 16 16"
+                    >
+                      <path d="M 6.46875 1 A 0.50005 0.50005 0 0 0 6 1.5 L 6 2.375 C 6 3.5782168 5.6709145 4.4589043 5.4082031 5 L 1 5 L 1 5.5 L 1 14 L 5.4648438 14 L 6 14 L 11.689453 14 C 12.401791 14 13.03169 13.512224 13.185547 12.818359 A 0.50005 0.50005 0 0 0 13.193359 12.775391 L 13.994141 6.7753906 L 13.986328 6.8183594 C 14.192606 5.8871169 13.445053 5 12.490234 5 L 9 5 L 9 3.25 C 9 2.1347222 8.3117537 1.4625874 7.6875 1.2089844 C 7.0632463 0.95538128 6.46875 1 6.46875 1 z M 7 2.0800781 C 7.1318795 2.0988741 7.1621385 2.0736786 7.3125 2.1347656 C 7.6882463 2.2874131 8 2.4902778 8 3.25 L 8 5.5 A 0.50005 0.50005 0 0 0 8.5 6 L 12.490234 6 C 12.849416 6 13.079487 6.2868068 13.009766 6.6015625 A 0.50005 0.50005 0 0 0 13.001953 6.6445312 L 12.207031 12.603516 C 12.155768 12.828253 11.94803 13 11.689453 13 L 6 13 L 6 6.0195312 C 6.2254734 5.6703684 7 4.3403823 7 2.375 L 7 2.0800781 z M 2 6 L 5 6 L 5 13 L 2 13 L 2 6 z M 3.5 11 A 0.5 0.5 0 0 0 3 11.5 A 0.5 0.5 0 0 0 3.5 12 A 0.5 0.5 0 0 0 4 11.5 A 0.5 0.5 0 0 0 3.5 11 z" />
+                    </svg>
+                  </div>
+                  <div className="comment__replies">
+                    <label className="comment__reply-counter">
+                      {comment.replies.length > 0
+                        ? comment.replies.length
+                        : null}
+                    </label>
+                    <svg
+                      onClick={(e) => {
+                        if (
+                          e.target.parentNode.parentNode.parentNode.parentNode
+                            .childNodes[1].dataset.status == "dropped"
+                        ) {
+                          e.target.parentNode.parentNode.parentNode.parentNode.childNodes[1].dataset.status =
+                            "up";
+                          e.target.parentNode.parentNode.parentNode.parentNode.parentNode.dataset.number =
+                            "0";
+                        } else {
+                          e.target.parentNode.parentNode.parentNode.parentNode.childNodes[1].dataset.status =
+                            "dropped";
+                          //console.log(comment.replies.length)
+                          //console.log(e.target.parentNode.parentNode.parentNode.parentNode.parentNode)
+                          e.target.parentNode.parentNode.parentNode.parentNode.parentNode.dataset.number =
+                            "" +
+                            (comment.replies.length == 0
+                              ? -1
+                              : comment.replies.length);
+                        }
+                      }}
+                      className="comment__reply"
+                      version="1.1"
+                      id="Layer_1"
+                      xmlns="http://www.w3.org/2000/svg"
+                      x="0px"
+                      y="0px"
+                      viewBox="0 0 511.971 511.971"
+                      style={{ enableBackground: "new 0 0 511.971 511.971" }}
+                    >
                       <g>
                         <g>
-                          <path
-                            d="M444.771,235.493c-58.987-56.32-138.347-64-167.467-64.747V96.079c0-5.867-4.8-10.667-10.667-10.667
+                          <g>
+                            <path
+                              d="M444.771,235.493c-58.987-56.32-138.347-64-167.467-64.747V96.079c0-5.867-4.8-10.667-10.667-10.667
 				c-2.453,0-4.907,0.853-6.827,2.453L78.478,237.199c-4.587,3.733-5.227,10.453-1.493,15.04c0.427,0.533,0.96,0.96,1.493,1.493
 				l181.333,149.333c4.587,3.733,11.307,3.093,15.04-1.493c1.6-1.92,2.453-4.267,2.453-6.827v-77.44
 				c29.76-8.107,143.893-28.693,214.613,103.787c1.813,3.52,5.44,5.653,9.387,5.653c3.413,0,6.72-1.6,8.853-4.693
@@ -336,173 +365,207 @@ const Post = ({
 				c-35.52,0-60.48,8.533-61.12,8.853c-4.267,1.493-7.04,5.547-7.04,10.027v62.72l-153.92-126.72l153.92-126.72v62.72
 				c0,2.88,1.173,5.653,3.307,7.68c2.133,2.027,4.907,3.093,7.893,2.987c0.96,0,97.813-3.52,163.093,58.987
 				c32.107,30.72,51.52,72.32,58.027,124.16C436.665,305.679,371.171,290.533,324.131,290.533z"
-                          />
-                          <path
-                            d="M199.331,387.066c-0.213-0.107-0.32-0.32-0.533-0.427L27.385,245.413l171.413-141.12
+                            />
+                            <path
+                              d="M199.331,387.066c-0.213-0.107-0.32-0.32-0.533-0.427L27.385,245.413l171.413-141.12
 				c4.693-3.627,5.547-10.347,1.92-14.933c-3.627-4.587-10.347-5.547-14.933-1.92c-0.213,0.107-0.32,0.32-0.533,0.427L3.918,237.199
 				c-4.587,3.733-5.227,10.453-1.493,15.04c0.427,0.533,0.96,0.96,1.493,1.493l181.333,149.333c4.48,3.84,11.2,3.413,15.04-0.96
 				C204.131,397.626,203.705,390.906,199.331,387.066z"
-                          />
+                            />
+                          </g>
                         </g>
                       </g>
-                    </g>
-                    <g></g>
-                    <g></g>
-                    <g></g>
-                    <g></g>
-                    <g></g>
-                    <g></g>
-                    <g></g>
-                    <g></g>
-                    <g></g>
-                    <g></g>
-                    <g></g>
-                    <g></g>
-                    <g></g>
-                    <g></g>
-                    <g></g>
-                  </svg>
-                </div>
-              </div>
-            </div>
-            <div className="comment__replies-section" data-status='up'>
-                <div className="comment__reply-container">
-                    {!loading && comment.replies.map((reply, index) => (
-                      <div key = {index} className="reply">
-                        <div className="reply__top">
-                <div className="reply__user">
-                  <img
-                    src={reply.avatar}
-                    alt=""
-                    className="reply__avatar"
-                  />
-                  <h5 className="reply__name">{reply.name}</h5>
-                </div>
-                {!loading && user._id.toString() == reply.user.toString() ? (
-                  <div className="reply__edit">
-                    <div className="reply__edit-icon"></div>
-                    <div className="reply__dropdown">
-                      <p
-                        className="reply__dropdown-item"
-                        onClick={async (e) => {
-                          //makes the comment editable
-                          setEditingReply(reply);
-                          setEditingComment(comment);
-                          setPost(post);
-                          setEditReplyModal("open");
-                        }}
-                      >
-                        Edit Reply
-                      </p>
-                      <p
-                        className="reply__dropdown-item"
-                        onClick={(e) => {
-                          deleteReply(post._id, comment._id, reply._id);
-                        }}
-                      >
-                        Delete This Reply
-                      </p>
-                    </div>
+                      <g></g>
+                      <g></g>
+                      <g></g>
+                      <g></g>
+                      <g></g>
+                      <g></g>
+                      <g></g>
+                      <g></g>
+                      <g></g>
+                      <g></g>
+                      <g></g>
+                      <g></g>
+                      <g></g>
+                      <g></g>
+                      <g></g>
+                    </svg>
                   </div>
-                ) : (
-                  <div></div>
-                )}
-              </div>
-              <div className="reply__middle">
-                <form
-                  action=""
-                  className="reply_text-form"
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    editReply(
-                      { text: e.target.value },
-                      post._id,
-                      comment._id,
-                      reply._id
-                    );
-                    e.target.readOnly = true;
-                    setEditingReply("");
-                  }}
-                >
-                  <p className="reply__text">
-                    {reply.text.substring(0, 210)}
-                    {!(reply.text.length > 210) ? null : (
-                      <span
-                        className="reply__read-more"
-                        onClick={(e) => {
-                          e.target.parentNode.innerHTML = reply.text;
-                        }}
-                      >
-                        ... Read More
-                      </span>
-                    )}
-                  </p>
-                </form>
-              </div>
-              <div className="reply__bottom">
-                <Moment className="reply__date" format="hh:mm MM/DD/YYYY">
-                  {reply.Date}
-                </Moment>
-                <div className="reply__like-container"  data-status = {reply.likes.filter((like) => like.user.toString() == user._id.toString())
-      .length > 0}>
-                  <label className="reply__like-counter">
-                    {reply.likes.length > 0 ? reply.likes.length : " "}
-                  </label>
-                  <svg
-                    onClick={(e) => {
-                      likeReply(post._id, comment._id, reply._id);
-                    }}
-                    className="reply__like"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 16 16"
-                  >
-                    <path d="M 6.46875 1 A 0.50005 0.50005 0 0 0 6 1.5 L 6 2.375 C 6 3.5782168 5.6709145 4.4589043 5.4082031 5 L 1 5 L 1 5.5 L 1 14 L 5.4648438 14 L 6 14 L 11.689453 14 C 12.401791 14 13.03169 13.512224 13.185547 12.818359 A 0.50005 0.50005 0 0 0 13.193359 12.775391 L 13.994141 6.7753906 L 13.986328 6.8183594 C 14.192606 5.8871169 13.445053 5 12.490234 5 L 9 5 L 9 3.25 C 9 2.1347222 8.3117537 1.4625874 7.6875 1.2089844 C 7.0632463 0.95538128 6.46875 1 6.46875 1 z M 7 2.0800781 C 7.1318795 2.0988741 7.1621385 2.0736786 7.3125 2.1347656 C 7.6882463 2.2874131 8 2.4902778 8 3.25 L 8 5.5 A 0.50005 0.50005 0 0 0 8.5 6 L 12.490234 6 C 12.849416 6 13.079487 6.2868068 13.009766 6.6015625 A 0.50005 0.50005 0 0 0 13.001953 6.6445312 L 12.207031 12.603516 C 12.155768 12.828253 11.94803 13 11.689453 13 L 6 13 L 6 6.0195312 C 6.2254734 5.6703684 7 4.3403823 7 2.375 L 7 2.0800781 z M 2 6 L 5 6 L 5 13 L 2 13 L 2 6 z M 3.5 11 A 0.5 0.5 0 0 0 3 11.5 A 0.5 0.5 0 0 0 3.5 12 A 0.5 0.5 0 0 0 4 11.5 A 0.5 0.5 0 0 0 3.5 11 z" />
-                  </svg>
                 </div>
-                
               </div>
+              <div className="comment__replies-section" data-status="up">
+                <div className="comment__reply-container">
+                  {!loading &&
+                    comment.replies.map((reply, index) => (
+                      <div key={index} className="reply">
+                        <div className="reply__top">
+                          <div className="reply__user">
+                            <img
+                              src={reply.avatar}
+                              alt=""
+                              className="reply__avatar"
+                            />
+                            <h5 className="reply__name">{reply.name}</h5>
+                          </div>
+                          {!loading &&
+                          user._id.toString() == reply.user.toString() ? (
+                            <div className="reply__edit">
+                              <div className="reply__edit-icon"></div>
+                              <div className="reply__dropdown">
+                                <p
+                                  className="reply__dropdown-item"
+                                  onClick={async (e) => {
+                                    //makes the comment editable
+                                    setEditingReply(reply);
+                                    setEditingComment(comment);
+                                    setPost(post);
+                                    setEditReplyModal("open");
+                                  }}
+                                >
+                                  Edit Reply
+                                </p>
+                                <p
+                                  className="reply__dropdown-item"
+                                  onClick={(e) => {
+                                    deleteReply(
+                                      post._id,
+                                      comment._id,
+                                      reply._id
+                                    );
+                                  }}
+                                >
+                                  Delete This Reply
+                                </p>
+                              </div>
+                            </div>
+                          ) : (
+                            <div></div>
+                          )}
+                        </div>
+                        <div className="reply__middle">
+                          <form
+                            action=""
+                            className="reply_text-form"
+                            onSubmit={(e) => {
+                              e.preventDefault();
+                              editReply(
+                                { text: e.target.value },
+                                post._id,
+                                comment._id,
+                                reply._id
+                              );
+                              e.target.readOnly = true;
+                              setEditingReply("");
+                            }}
+                          >
+                            <p className="reply__text">
+                              {reply.text.substring(0, 210)}
+                              {!(reply.text.length > 210) ? null : (
+                                <span
+                                  className="reply__read-more"
+                                  onClick={(e) => {
+                                    e.target.parentNode.innerHTML = reply.text;
+                                  }}
+                                >
+                                  ... Read More
+                                </span>
+                              )}
+                            </p>
+                          </form>
+                        </div>
+                        <div className="reply__bottom">
+                          <Moment
+                            className="reply__date"
+                            format="hh:mm MM/DD/YYYY"
+                          >
+                            {reply.Date}
+                          </Moment>
+                          <div
+                            className="reply__like-container"
+                            data-status={
+                              reply.likes.filter(
+                                (like) =>
+                                  like.user.toString() == user._id.toString()
+                              ).length > 0
+                            }
+                          >
+                            <label className="reply__like-counter">
+                              {reply.likes.length > 0
+                                ? reply.likes.length
+                                : " "}
+                            </label>
+                            <svg
+                              onClick={(e) => {
+                                likeReply(post._id, comment._id, reply._id);
+                              }}
+                              className="reply__like"
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 16 16"
+                            >
+                              <path d="M 6.46875 1 A 0.50005 0.50005 0 0 0 6 1.5 L 6 2.375 C 6 3.5782168 5.6709145 4.4589043 5.4082031 5 L 1 5 L 1 5.5 L 1 14 L 5.4648438 14 L 6 14 L 11.689453 14 C 12.401791 14 13.03169 13.512224 13.185547 12.818359 A 0.50005 0.50005 0 0 0 13.193359 12.775391 L 13.994141 6.7753906 L 13.986328 6.8183594 C 14.192606 5.8871169 13.445053 5 12.490234 5 L 9 5 L 9 3.25 C 9 2.1347222 8.3117537 1.4625874 7.6875 1.2089844 C 7.0632463 0.95538128 6.46875 1 6.46875 1 z M 7 2.0800781 C 7.1318795 2.0988741 7.1621385 2.0736786 7.3125 2.1347656 C 7.6882463 2.2874131 8 2.4902778 8 3.25 L 8 5.5 A 0.50005 0.50005 0 0 0 8.5 6 L 12.490234 6 C 12.849416 6 13.079487 6.2868068 13.009766 6.6015625 A 0.50005 0.50005 0 0 0 13.001953 6.6445312 L 12.207031 12.603516 C 12.155768 12.828253 11.94803 13 11.689453 13 L 6 13 L 6 6.0195312 C 6.2254734 5.6703684 7 4.3403823 7 2.375 L 7 2.0800781 z M 2 6 L 5 6 L 5 13 L 2 13 L 2 6 z M 3.5 11 A 0.5 0.5 0 0 0 3 11.5 A 0.5 0.5 0 0 0 3.5 12 A 0.5 0.5 0 0 0 4 11.5 A 0.5 0.5 0 0 0 3.5 11 z" />
+                            </svg>
+                          </div>
+                        </div>
                       </div>
                     ))}
                 </div>
-                <form className="comment__reply-form" onSubmit = {e => {
-                  e.preventDefault();
-                  addReply(e.target.childNodes[0].value, post._id, comment._id)
-                }}>
-                    <input type="text" className="comment__reply-input" placeholder='Write a reply...' />
-                <button className="comment__reply-send">Send</button>
+                <form
+                  className="comment__reply-form"
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    addReply(
+                      e.target.childNodes[0].value,
+                      post._id,
+                      comment._id
+                    );
+                  }}
+                >
+                  <input
+                    type="text"
+                    className="comment__reply-input"
+                    placeholder="Write a reply..."
+                  />
+                  <button className="comment__reply-send">Send</button>
                 </form>
               </div>
             </div>
           ))}
         </div>
-        <div className="comment__see-more" data-status={seeMore} onClick = {e => {
-          if(extendComments == 'limited') {
-            toggleExtendComments('extended')
-            e.target.innerHTML = 'See Fewer Comments'
+        <div
+          className="comment__see-more"
+          data-status={seeMore}
+          onClick={(e) => {
+            if (extendComments == "limited") {
+              toggleExtendComments("extended");
+              e.target.innerHTML = "See Fewer Comments";
             } else {
-              toggleExtendComments('limited')
-              e.target.innerHTML = 'See More Comments'
+              toggleExtendComments("limited");
+              e.target.innerHTML = "See More Comments";
             }
-            }}>See More Comments</div>
-            <div className="post__create-comments">
-        <form
-          className="post__create-comment"
-          onSubmit={(e) => {
-            e.preventDefault();
-            addComment({ text }, post._id);
-            //console.log("passed addcomment");
-            updateText("");
           }}
         >
-          <input
-            type="text"
-            value={text}
-            className="post__comment-input"
-            placeholder="Write a comment..."
-            onChange={(e) => updateText(e.target.value)}
-          />
-          <button className="post__send-comment">Send</button>
-        </form>
+          See More Comments
+        </div>
+        <div className="post__create-comments">
+          <form
+            className="post__create-comment"
+            onSubmit={(e) => {
+              e.preventDefault();
+              addComment({ text }, post._id);
+              //console.log("passed addcomment");
+              updateText("");
+            }}
+          >
+            <input
+              type="text"
+              value={text}
+              className="post__comment-input"
+              placeholder="Write a comment..."
+              onChange={(e) => updateText(e.target.value)}
+            />
+            <button className="post__send-comment">Send</button>
+          </form>
         </div>
       </div>
     </div>
