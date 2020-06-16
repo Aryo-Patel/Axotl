@@ -2,6 +2,8 @@ import axios from 'axios'
 
 import { USER_LOADED, CREATE_POST, POST_FAIL, EDIT_POST, GET_POSTS, GET_POST, GET_MY_POSTS, ADD_COMMENT, EDIT_COMMENT, ADD_REPLY, EDIT_REPLY, DELETE_POST, DELETE_COMMENT, DELETE_REPLY, ADD_LIKE, REMOVE_LIKE, LIKE_COMMENT, LIKE_REPLY, SET_LOADING } from './Types.js'
 
+import { setConfirmation, setError } from './alert'
+
 export const createPost = (formData) => async dispatch => {
     const config = {
         headers: {
@@ -23,6 +25,7 @@ export const createPost = (formData) => async dispatch => {
             type: USER_LOADED,
             payload
         })
+        dispatch(setConfirmation('Post Created'))
     } catch (err) {
         console.error(err);
         dispatch({
@@ -195,6 +198,7 @@ export const addReply = (text, post_id, comment_id) => async dispatch => {
             type: ADD_REPLY,
             payload: res.data
         })
+
     } catch (err) {
         console.error(err);
         dispatch({

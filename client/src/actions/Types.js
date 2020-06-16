@@ -62,3 +62,9 @@ export const GET_SPONSORS = 'GET_SPONSORS';
 export const SET_LOADING = 'SET_LOADING';
 export const GET_CHATLOGS = 'GET_CHATLOGS';
 export const CLEAR_CHATLOG = 'CLEAR_CHATLOG';
+
+//alert actions
+export const ERROR = 'ERROR'
+export const CONFIRMATION = 'CONFIRMATION'
+export const REMOVE_ERROR = 'REMOVE_ERROR'
+export const REMOVE_CONFIRMATION = 'REMOVE_CONFIRMATION'

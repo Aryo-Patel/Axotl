@@ -12,6 +12,8 @@ import {
     GET_HACKATHONS_LOCATIONS
 } from './Types';
 
+import { setConfirmation, setError } from './alert'
+
 import axios from 'axios';
 
 //Return all the hackathons
@@ -56,7 +58,7 @@ export const createHackathon = (hackathonData) => async dispatch => {
             type: USER_LOADED,
             payload: res.data.user
         })
-
+        dispatch(setConfirmation('Hackathon Created'))
     } catch (err) {
         console.error(err);
         dispatch({

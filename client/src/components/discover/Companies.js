@@ -18,7 +18,8 @@ const Companies = ({
   const [numFilter, setNumFilter] = useState(1);
   useEffect(() => {
     console.log(numFilter);
-    getDistances(numFilter) || getCompanies(numFilter);
+    getCompanies(numFilter);
+    getDistances(numFilter);
   }, [getDistances, numFilter]);
 
   //getting more hackathons when "show more" is clicked

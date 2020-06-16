@@ -7,6 +7,7 @@ const MongoStore = require("connect-mongo")(session);
 const socket = require("socket.io");
 const helmet = require("helmet");
 const path = require('path')
+const flash = require('connect-flash');
 
 //routers
 const recipients = require("./routes/api/recipients");
@@ -76,6 +77,7 @@ app.use(
 console.log("initializing passport");
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
 local(passport);
 
 //serializes user and attaches cookies

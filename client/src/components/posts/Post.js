@@ -38,9 +38,9 @@ const Post = ({
   index
 }) => {
   useEffect(() => {
-    console.log(document.querySelectorAll('.post__comment-container')[index].scrollHeight)
-    console.log(window.innerHeight/10*4)
-    console.log(document.querySelectorAll('.post__comment-container')[index].clientHeight < document.querySelectorAll('.post__comment-container')[index].scrollHeight)
+    //console.log(document.querySelectorAll('.post__comment-container')[index].scrollHeight)
+    //console.log(window.innerHeight/10*4)
+    //console.log(document.querySelectorAll('.post__comment-container')[index].clientHeight < document.querySelectorAll('.post__comment-container')[index].scrollHeight)
     toggleSeeMore(document.querySelectorAll('.post__comment-container')[index].scrollHeight > .4*window.innerHeight || extendComments == 'extended' ? 'on' : 'off' )
   })
   //state for creating comments
@@ -68,10 +68,10 @@ const Post = ({
                   className="post__dropdown-item"
                   onClick={async (e) => {
                     setPost(post);
-                    console.log(JSON.stringify(thisPostState));
-                    console.log("opening modal");
+                    //console.log(JSON.stringify(thisPostState));
+                    //console.log("opening modal");
                     modalToggle("open");
-                    console.log(modal);
+                    //console.log(modal);
                   }}
                 >
                   Edit Post
@@ -80,11 +80,11 @@ const Post = ({
                   className="post__dropdown-item"
                   onClick={(e) => {
                     //TRIGGER SOME CONFIRMATION
-                    console.log("trying to delete post");
+                    //console.log("trying to delete post");
                     setConfirmationPost(post._id);
-                    console.log(confirmationPost);
+                    //console.log(confirmationPost);
                     confirmationModalToggle("open");
-                    console.log(confirmationModal);
+                    //console.log(confirmationModal);
                   }}
                 >
                   Delete This Post
@@ -125,11 +125,18 @@ const Post = ({
       </div>
       <div className="post__interactions">
         <div className="post__likes" data-status={liked}>
-          <p className='post__likes-counter'>{post.likes.length > 0 ? post.likes.length : null}</p>
+          <p className='post__likes-counter'>{post.likes.length > 0 ? post.likes.length : `\u00a0`}</p>
+          
           <svg
           className='post__like-icon'
             onClick={(e) => {
               addLike(post._id);
+              if(e.target.classList.contains('post__like-icon')) {
+                e.target.parentNode.childNodes[0].innerHtml = Number(e.target.parentNode.childNodes[0].innerHtml) + 1
+                console.log(e.target.parentNode.childNodes[0])
+              } else {
+                e.target.parentNode.parentNode.childNodes[0].innerHtml = Number(e.target.parentNode.parentNode.childNodes[0].innerHtml) + 1
+              }
               !liked ? setLiked(true) : setLiked(false);
             }}
             xmlns="http://www.w3.org/2000/svg"
@@ -303,8 +310,8 @@ const Post = ({
                         e.target.parentNode.parentNode.parentNode.parentNode.parentNode.dataset.number='0'
                       } else {
                       e.target.parentNode.parentNode.parentNode.parentNode.childNodes[1].dataset.status='dropped'
-                      console.log(comment.replies.length)
-                      console.log(e.target.parentNode.parentNode.parentNode.parentNode.parentNode)
+                      //console.log(comment.replies.length)
+                      //console.log(e.target.parentNode.parentNode.parentNode.parentNode.parentNode)
                       e.target.parentNode.parentNode.parentNode.parentNode.parentNode.dataset.number='' + (comment.replies.length == 0 ? -1 : comment.replies.length)
                       }
                     }}
@@ -483,7 +490,7 @@ const Post = ({
           onSubmit={(e) => {
             e.preventDefault();
             addComment({ text }, post._id);
-            console.log("passed addcomment");
+            //console.log("passed addcomment");
             updateText("");
           }}
         >

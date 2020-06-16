@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 import { LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, ACCOUNT_DELETED, RES_PASSWORD, REGISTER_SUCCESS, REGISTER_FAIL, USER_FAILED, USER_LOADED, FORGOT_PASSWORD_FAIL, FORGOT_PASSWORD, CHANGE_PASSWORD, EDIT_ACCOUNT, CLEAR_CHATLOG } from './Types'
-import bcrypt from 'bcryptjs';
+import { setError } from './alert'
 
 export const sendLogin = (formData) => async dispatch => {
     const config = {
@@ -22,8 +22,9 @@ export const sendLogin = (formData) => async dispatch => {
             payload
         })
     } catch (err) {
-        console.error(err.message)
-            //DISPATCH ALERTS FOR ERRORS
+        //DISPATCH ALERTS FOR ERRORS
+        console.log(err.response.data.msg)
+        dispatch(setError(err.response.data.msg.message));
         dispatch({
             type: LOGIN_FAIL
         })
@@ -45,11 +46,15 @@ export const registerUser = (userData, history) => async(dispatch) => {
                 registered: true
             }
         })
-    } catch (error) {
+    } catch (err) {
+        err.response.data.errors.forEach(error => {
+            console.log(error.msg)
+            dispatch(setError(error.msg))
+        })
         dispatch({
             type: REGISTER_FAIL
         })
-        console.error(error.message);
+        console.error(err.message);
     }
 }
 

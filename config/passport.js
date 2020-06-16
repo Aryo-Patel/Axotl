@@ -13,12 +13,13 @@ const Sponsor = require('../models/Sponsor')
 
 exports.local = (passport) => {
     console.log('breakpoint 1');
-    passport.use(new localStrategy({ usernameField: 'email', passReqToCallback: true }, async (req, email, password, done) => {
+    passport.use(new localStrategy({ usernameField: 'email', passReqToCallback: true }, async(req, email, password, done) => {
         if (!req.session.tries) {
             req.session.tries = 0;
         }
-        if (req.session.tries > 5) {
+        if (req.session.tries > 10) {
             console.log("ISSUE")
+            console.log(JSON.stringify(req.session))
             return done(null, false, { message: "You have used too many tries. Try again later" })
         }
         console.log(req.session.tries)
@@ -27,7 +28,7 @@ exports.local = (passport) => {
         const sponsor = await Sponsor.findOne({ email })
         if (!sponsor && !recipient) {
             req.session.tries += 1;
-            return done(null, false, { message: 'Incorrect Credentials' })
+            return done(null, false, { message: 'Incorrect Email or Password' })
         }
         const user = recipient || sponsor;
         try {
@@ -35,7 +36,7 @@ exports.local = (passport) => {
                 return done(null, user);
             } else {
                 req.session.tries += 1;
-                return done(null, false, { message: 'Incorrect Credentials' });
+                return done(null, false, { message: 'Incorrect Email or Password' });
             }
         } catch (err) {
             return done(err);
