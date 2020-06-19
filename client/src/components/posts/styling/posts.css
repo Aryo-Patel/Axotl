@@ -630,7 +630,7 @@
 
 .post .comment__section {
   width: 90%;
-  padding: 2rem;
+  padding: 2rem 2rem 5rem 2rem;
 }
 
 .post .comment__user {
@@ -1072,6 +1072,14 @@
   max-height: calc(40vh + 3*168px) !important;
 }
 
+[data-number='6'] {
+  max-height: calc(40vh + 3*168px) !important;
+}
+
+[data-number='7'] {
+  max-height: calc(40vh + 3*168px) !important;
+}
+
 [data-status='extended'] {
   height: -webkit-fit-content;
   height: -moz-fit-content;
@@ -1080,7 +1088,7 @@
 }
 
 [data-status='extended'] .comment__section:last-child {
-  margin-bottom: 4rem;
+  margin-bottom: 5rem;
 }
 
 [data-status='on'] {

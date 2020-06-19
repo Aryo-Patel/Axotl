@@ -25,12 +25,12 @@ const initialState = {
     loading: true,
     myPostsLoading: true,
     numPosts: 0,
-    numMyPosts: 0
+    numMyPosts: 0,
 };
 
 export default function(state = initialState, action) {
     const { type, payload } = action;
-    let posts = []
+    let posts = [];
     let newMyPosts = [];
     switch (type) {
         case CREATE_POST:
@@ -48,10 +48,12 @@ export default function(state = initialState, action) {
                 loading: false,
             };
         case DELETE_POST:
-            console.log(state.posts.posts.filter(
-                (post) => post._id.toString() != payload.post.toString()
-            ))
-            console.log("CORRECT")
+            console.log(
+                state.posts.posts.filter(
+                    (post) => post._id.toString() != payload.post.toString()
+                )
+            );
+            console.log("CORRECT");
             return {
                 ...state,
                 posts: {
@@ -76,14 +78,14 @@ export default function(state = initialState, action) {
         case DELETE_COMMENT:
         case EDIT_COMMENT:
         case ADD_COMMENT:
-            console.log(state.posts.posts)
-            newMyPosts = state.myPosts.map(myPost => {
+            console.log(state.posts.posts);
+            newMyPosts = state.myPosts.map((myPost) => {
                 if (myPost._id.toString() == payload._id.toString()) {
                     return payload;
                 } else {
                     return myPost;
                 }
-            })
+            });
             return {
                 ...state,
                 posts: {
@@ -97,94 +99,148 @@ export default function(state = initialState, action) {
                 loading: false,
             };
         case ADD_LIKE:
-            newMyPosts = state.myPosts.map(myPost => {
+            newMyPosts = state.myPosts.map((myPost) => {
                 if (myPost._id.toString() == payload._id.toString()) {
                     return payload;
                 } else {
                     return myPost;
                 }
-            })
+            });
             posts = state.posts.posts.map((post) => {
                 if (post._id.toString() == payload.post.toString()) {
                     post.likes = payload.likes;
                     return {
-                        ...post
+                        ...post,
                     };
                 } else {
                     return post;
                 }
-            })
+            });
             return {
                 ...state,
                 posts: {
-                    posts: posts
+                    posts: posts,
                 },
                 myPosts: newMyPosts,
-                loading: false
+                loading: false,
             };
         case LIKE_COMMENT:
-            newMyPosts = state.myPosts.map(myPost => {
-                if (myPost._id.toString() == payload._id.toString()) {
-                    return payload;
+            newMyPosts = state.myPosts.map((myPost) => {
+                if (myPost._id.toString() == payload.res._id.toString()) {
+                    return payload.res;
                 } else {
                     return myPost;
                 }
-            })
+            });
             posts = state.posts.posts.map((post) => {
-                if (post._id.toString() == payload.post_id.toString()) {
-                    post.comments.filter(comment => comment._id.toString() == payload.comment_id.toString())[0].likes = payload.likes.slice(0, payload.likes.length)
+                if (post._id.toString() == payload.res.post_id.toString()) {
+                    post.comments.filter(
+                        (comment) => comment._id.toString() == payload.res.comment_id.toString()
+                    )[0].likes = payload.res.likes.slice(0, payload.res.likes.length);
                     const newPost = {
                         ...post,
                         comments: post.comments,
-
-                    }
+                    };
                     return newPost;
                 } else {
                     return post;
                 }
-            })
-
-            return {
-                ...state,
-                posts: { posts: posts },
-                myPosts: newMyPosts,
-                loading: false
-            };
+            });
+            if (payload.counter === "1") {
+                return {
+                    ...state,
+                    posts: { posts: posts },
+                    myPosts: newMyPosts,
+                    loading: false,
+                }
+            } else {
+                return {
+                    ...state,
+                    posts: state.posts,
+                    myPosts: state.myPosts,
+                    loading: false,
+                }
+            }
         case ADD_REPLY:
         case DELETE_REPLY:
         case EDIT_REPLY:
-        case LIKE_REPLY:
-            newMyPosts = state.myPosts.map(myPost => {
+            console.log(payload);
+            newMyPosts = state.myPosts.map((myPost) => {
                 if (myPost._id.toString() == payload._id.toString()) {
                     return payload;
                 } else {
                     return myPost;
                 }
-            })
-            posts = state.posts.posts.map(post => {
+            });
+            posts = state.posts.posts.map((post) => {
                 if (post._id.toString() == payload.post_id.toString()) {
-                    const comment = post.comments.filter(comment => comment._id.toString() == payload.comment_id.toString())[0]
+                    const comment = post.comments.filter(
+                        (comment) =>
+                        comment._id.toString() == payload.comment_id.toString()
+                    )[0];
                     comment.replies = payload.replies;
                     return {
                         ...post,
-                        comments: [...post.comments]
-                    }
+                        comments: [...post.comments],
+                    };
                 }
                 return post;
-            })
+            });
             return {
                 ...state,
                 posts: { posts: posts },
                 myPosts: newMyPosts,
-                loading: false
+                loading: false,
+            };
+
+        case LIKE_REPLY:
+            console.log(payload.res);
+            newMyPosts = state.myPosts.map((myPost) => {
+                if (myPost._id.toString() == payload.res._id.toString()) {
+                    return payload.res;
+                } else {
+                    return myPost;
+                }
+            });
+            posts = state.posts.posts.map((post) => {
+                if (post._id.toString() == payload.res.post_id.toString()) {
+                    const comment = post.comments.filter(
+                        (comment) =>
+                        comment._id.toString() == payload.res.comment_id.toString()
+                    )[0];
+                    comment.replies = payload.res.replies;
+                    return {
+                        ...post,
+                        comments: [...post.comments],
+                    };
+                }
+                return post;
+            });
+            console.log(`reducer counter = ${payload.counter}`)
+            if (payload.counter === "1") {
+                console.log('updating the redux')
+                return {
+                    ...state,
+                    posts: { posts: posts },
+                    myPosts: newMyPosts,
+                    loading: false,
+                };
+            } else {
+                console.log('not updating the redux')
+                return {
+                    ...state,
+                    posts: state.posts,
+                    myPosts: state.myPosts,
+                    loading: false,
+                };
             }
         case GET_MY_POSTS:
             return {
                 ...state,
                 myPosts: payload.myPosts,
                 numMyPosts: payload.num,
-                myPostsLoading: false
-            }
+                myPostsLoading: false,
+            };
         case POST_FAIL:
             return {
                 ...state,

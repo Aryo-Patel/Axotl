@@ -314,38 +314,57 @@ export const addLike = (post_id) => async(dispatch) => {
     }
 };
 
-export const likeComment = (post_id, comment_id) => async(dispatch) => {
+export const likeComment = (post_id, comment_id, div) => async(dispatch) => {
     try {
         const res = await axios.put(
             `/api/posts/${post_id}/comments/${comment_id}/likes`
         );
+        if (div.dataset.requestcounter === "1") {
+            div.dataset.loading = "false";
+        }
+
         dispatch({
             type: LIKE_COMMENT,
-            payload: res.data,
+            payload: { res: res.data, counter: div.dataset.requestcounter },
         });
+        div.dataset.requestcounter = Number(div.dataset.requestcounter) - 1;
     } catch (err) {
+        if (div.dataset.requestcounter === "1") {
+            div.dataset.loading = "false";
+        }
+        div.dataset.requestcounter = Number(div.dataset.requestcounter) - 1;
         console.error(err);
-        dispatch({
-            type: POST_FAIL,
-        });
+        // dispatch({
+        //     type: POST_FAIL,
+        // });
     }
 };
 
-export const likeReply = (post_id, comment_id, reply_id) => async(
+export const likeReply = (post_id, comment_id, reply_id, div) => async(
     dispatch
 ) => {
+    console.log('likeReply action hit')
     try {
         const res = await axios.put(
             `/api/posts/${post_id}/comments/${comment_id}/replies/${reply_id}/likes`
         );
+        if (div.dataset.requestcounter === "1") {
+            div.dataset.loading = "false";
+        }
+        console.log(`counter = ${div.dataset.requestcounter}`)
         dispatch({
             type: LIKE_REPLY,
-            payload: res.data,
+            payload: { res: res.data, counter: div.dataset.requestcounter },
         });
+        div.dataset.requestcounter = Number(div.dataset.requestcounter) - 1;
     } catch (err) {
         console.error(err);
-        dispatch({
-            type: POST_FAIL,
-        });
+        if (div.dataset.requestcounter === "1") {
+            div.dataset.loading = "false";
+        }
+        div.dataset.requestcounter = Number(div.dataset.requestcounter) - 1;
+        // dispatch({
+        //     type: POST_FAIL,
+        // });
     }
 };

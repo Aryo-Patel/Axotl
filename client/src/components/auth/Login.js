@@ -481,6 +481,7 @@ const Login = ({ sendLogin, isAuthenticated, hasProfile }) => {
                 </svg>
                 <input
                   className="form-input"
+                  id="loginEmail"
                   type="text"
                   name="email"
                   onChange={(e) => onChange(e)}
@@ -497,6 +498,7 @@ const Login = ({ sendLogin, isAuthenticated, hasProfile }) => {
                 </svg>
                 <input
                   className="form-input pass"
+                  id="loginPassword"
                   type={readable}
                   name="password"
                   onChange={(e) => onChange(e)}
@@ -519,6 +521,7 @@ const Login = ({ sendLogin, isAuthenticated, hasProfile }) => {
               </div>
               <input
                 type="submit"
+                id="loginSubmit"
                 className=" login-button"
                 value="Login"
               ></input>

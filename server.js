@@ -32,112 +32,124 @@ const { local } = require("./config/passport");
 
 const PORT = process.env.PORT || 6969;
 
-const app = express();
 
-//initialize database
-connectDB();
+function initServer() {
+    const app = express();
 
-// helmet middleware
-app.use(helmet.xssFilter());
+    //initialize database
+    connectDB();
 
-//express json format body parsing middleware
-app.use(express.json({ extended: false }));
+    // helmet middleware
+    app.use(helmet.xssFilter());
 
-//initializing store for sessions
-// const store = new MongoStore({
-//     uri: config.get('mongoURI'),
-//     database: "SessionStorage",
-//     collection: 'mySessions'
-// }, (err) => {
-//     console.log("Database session connection error")
-//     console.error(error);
-//     process.exit(1);
-// });
+    //express json format body parsing middleware
+    app.use(express.json({ extended: false }));
 
-// Catch errors
-// store.on('error', function(error) {
-//     console.log("database session storage error")
-//     console.log(error);
-// });
+    //initializing store for sessions
+    // const store = new MongoStore({
+    //     uri: config.get('mongoURI'),
+    //     database: "SessionStorage",
+    //     collection: 'mySessions'
+    // }, (err) => {
+    //     console.log("Database session connection error")
+    //     console.error(error);
+    //     process.exit(1);
+    // });
 
-//initializing session
-console.log("initializing session");
-app.use(
-    session({
-        secret: config.get("sessionSecret"),
-        cookie: { maxAge: 10800000 },
-        store: new MongoStore({ url: config.get("mongoURI") }),
-        resave: true,
-        saveUninitialized: true,
-    })
-);
+    // Catch errors
+    // store.on('error', function(error) {
+    //     console.log("database session storage error")
+    //     console.log(error);
+    // });
+
+    //initializing session
+    console.log("initializing session");
+    app.use(
+        session({
+            secret: config.get("sessionSecret"),
+            cookie: { maxAge: 10800000 },
+            store: new MongoStore({ url: config.get("mongoURI") }),
+            resave: true,
+            saveUninitialized: true,
+        })
+    );
 
 
-//initializing passport, passport strategies, and passport session
-console.log("initializing passport");
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(flash());
-local(passport);
+    //initializing passport, passport strategies, and passport session
+    console.log("initializing passport");
+    app.use(passport.initialize());
+    app.use(passport.session());
+    app.use(flash());
+    local(passport);
 
-//serializes user and attaches cookies
-passport.serializeUser((user, done) => {
-    done(null, user._id);
-});
+    //serializes user and attaches cookies
+    passport.serializeUser((user, done) => {
+        done(null, user._id);
+    });
 
-// deserializes user and attaches user object to req.user from session
-passport.deserializeUser(async(id, done) => {
-    try {
-        console.log("hello");
-        console.log(`id : ${id}`);
-        const recipient = await Recipient.findById(id);
-        const sponsor = await Sponsor.findById(id);
-        const user = recipient || sponsor;
-        done(null, user);
-    } catch (err) {
-        console.log("deserialization error");
-        return done(err);
-    }
-});
-
-//production static serving from client side
-if (process.env.NODE_ENV === "production") {
-    console.log("SERVING STATIC FROM CLIENT/BUILD")
-    app.use(express.static("client/build"));
-    console.log(path.resolve(__dirname, "client", "build", "index.html"))
-    app.get("/*", (req, res) => {
-        console.log('sending file')
+    // deserializes user and attaches user object to req.user from session
+    passport.deserializeUser(async(id, done) => {
         try {
-            res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+            console.log("hello");
+            console.log(`id : ${id}`);
+            const recipient = await Recipient.findById(id);
+            const sponsor = await Sponsor.findById(id);
+            const user = recipient || sponsor;
+            done(null, user);
         } catch (err) {
-            res.status(500).send('Server Error With Backup React Routing Fix')
+            console.log("deserialization error");
+            return done(err);
         }
     });
+
+    //production static serving from client side
+    if (process.env.NODE_ENV === "production") {
+        console.log("SERVING STATIC FROM CLIENT/BUILD")
+        app.use(express.static("client/build"));
+        console.log(path.resolve(__dirname, "client", "build", "index.html"))
+        app.get("/*", (req, res) => {
+            console.log('sending file')
+            try {
+                res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+            } catch (err) {
+                res.status(500).send('Server Error With Backup React Routing Fix')
+            }
+        });
+    }
+
+
+    //Use the routes
+    app.use("/api/users", recipients);
+    app.use("/api/sponsors", sponsors);
+    app.use("/api/profiles/recipient", recipientProfile);
+    app.use("/api/profiles/sponsor", sponsorProfile);
+    app.use("/api/hackathons", hackathons);
+    app.use("/api/hackathons/hackathon", hackathonProfile);
+    app.use("/api/auth", auth);
+    app.use("/api/chat", chat);
+    app.use("/api/posts", posts);
+
+    //Server Initialization
+    let server = app.listen(PORT, () => {
+        console.log(`Server Initialized on port ${PORT}`);
+    });
+
+    let io = socket(server);
+
+    // io.on('connection', (socket) => {
+    //     console.log("Connection to socket made...")
+
+    //     socket.on('newMessage', (message) => {
+    //         io.sockets.emit('newMessage', (message))
+    //     })
+    // });
+    console.log('passes?')
+    return server;
+}
+const res = initServer();
+
+function closeServer(res) {
+    res.close()
 }
 
-
-//Use the routes
-app.use("/api/users", recipients);
-app.use("/api/sponsors", sponsors);
-app.use("/api/profiles/recipient", recipientProfile);
-app.use("/api/profiles/sponsor", sponsorProfile);
-app.use("/api/hackathons", hackathons);
-app.use("/api/hackathons/hackathon", hackathonProfile);
-app.use("/api/auth", auth);
-app.use("/api/chat", chat);
-app.use("/api/posts", posts);
-
-//Server Initialization
-let server = app.listen(PORT, () => {
-    console.log(`Server Initialized on port ${PORT}`);
-});
-
-let io = socket(server);
-
-// io.on('connection', (socket) => {
-//     console.log("Connection to socket made...")
-
-//     socket.on('newMessage', (message) => {
-//         io.sockets.emit('newMessage', (message))
-//     })
-// });
+module.exports = { initServer, closeServer }

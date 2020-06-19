@@ -1,4 +1,4 @@
-export default function optimisticRendering(e, liked) {
+export function optimisticRenderingPost(e, liked) {
     console.log("function hit");
     if (e.target.classList.contains("post__like-icon")) {
         console.log(liked);
@@ -54,6 +54,59 @@ export default function optimisticRendering(e, liked) {
                 e.target.parentNode.parentNode.childNodes[0].textContent =
                     Number(e.target.parentNode.parentNode.childNodes[0].textContent) + 1;
             }
+        }
+    }
+}
+
+export function optimisticRenderingComment(svg, label, liked) {
+    console.log(svg)
+    console.log(label)
+    console.log(liked)
+    if (label.textContent === "\u00a0") {
+        label.textContent = "1";
+        svg.style.stroke = '#ff7b61';
+    } else if (label.textContent === "1") {
+        if (liked) {
+            label.textContent = "\u00a0"
+            svg.style.stroke = 'none';
+        } else {
+            label.textContent = Number(label.textContent) + 1
+            svg.style.stroke = '#ff7b61';
+        }
+    } else {
+        if (liked) {
+            label.textContent = Number(label.textContent) - 1;
+            svg.style.stroke = 'none';
+        } else {
+            label.textContent = Number(label.textContent) + 1;
+            svg.style.stroke = '#ff7b61';
+        }
+    }
+
+}
+
+export function optimisticRenderingReply(svg, label, liked) {
+    console.log(svg)
+    console.log(label)
+    console.log(liked)
+    if (label.textContent === "\u00a0") {
+        label.textContent = "1";
+        svg.style.stroke = '#ff7b61';
+    } else if (label.textContent === "1") {
+        if (liked) {
+            label.textContent = "\u00a0"
+            svg.style.stroke = 'none';
+        } else {
+            label.textContent = Number(label.textContent) + 1
+            svg.style.stroke = '#ff7b61';
+        }
+    } else {
+        if (liked) {
+            label.textContent = Number(label.textContent) - 1;
+            svg.style.stroke = 'none';
+        } else {
+            label.textContent = Number(label.textContent) + 1;
+            svg.style.stroke = '#ff7b61';
         }
     }
 }

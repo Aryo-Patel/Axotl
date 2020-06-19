@@ -6,7 +6,11 @@ import $ from "jquery";
 import ConfirmationModal from "../common/ConfirmationModal";
 import auth from "../../reducers/auth";
 import Moment from "react-moment";
-import optimisticRendering from './utils/optimisticRendering'
+import {
+  optimisticRenderingPost,
+  optimisticRenderingComment,
+  optimisticRenderingReply,
+} from "./utils/optimisticRendering";
 
 const Post = ({
   loading,
@@ -61,7 +65,7 @@ const Post = ({
   //COMMENTS SECTION 'SEE MORE'
   const [seeMore, toggleSeeMore] = useState("on");
   const [extendComments, toggleExtendComments] = useState("limited");
-
+  console.log("breaking up console.log");
   return (
     <div className="post">
       <div className="post__main">
@@ -141,7 +145,7 @@ const Post = ({
             className="post__like-icon"
             onClick={(e) => {
               addLike(post._id);
-              optimisticRendering(e, liked);
+              optimisticRenderingPost(e, liked);
               !liked ? setLiked(true) : setLiked(false);
             }}
             xmlns="http://www.w3.org/2000/svg"
@@ -301,13 +305,96 @@ const Post = ({
                         (like) => like.user.toString() == user._id.toString()
                       ).length > 0
                     }
+                    data-loading="false"
+                    data-loadingtemp="false"
+                    data-requestcounter={0}
                   >
                     <label className="comment__like-counter">
-                      {comment.likes.length > 0 ? comment.likes.length : " "}
+                      {comment.likes.length > 0
+                        ? comment.likes.length
+                        : "\u00a0"}
                     </label>
                     <svg
                       onClick={(e) => {
-                        likeComment(post._id, comment._id);
+                        console.log("onclick hit");
+                        let div = null;
+                        let svg = null;
+                        let label = null;
+                        console.log(Boolean(e.target.parentNode.dataset.loading))
+                        if (!(e.target.parentNode.dataset.loading === "false")) {
+                          if (e.target.classList.contains("comment__like")) {
+                            //extracting variables
+                            div = e.target.parentNode;
+                            label = e.target.parentNode.childNodes[0];
+                            svg = e.target;
+                            console.log("first route hit");
+                            //setting data values on div for front end logic
+                            div.dataset.loading = "true";
+                            div.dataset.loadingtemp = div.dataset.status ==="false" ? "true" : "false";
+                            div.dataset.requestcounter = Number(div.dataset.requestcounter = div.dataset
+                              .requestcounter)+ 1;
+                            //calling action and optimistic rendering
+                            likeComment(post._id, comment._id, div);
+                            optimisticRenderingComment(
+                              svg,
+                              label,
+                              e.target.parentNode.dataset.status
+                            );
+                          } else {
+                            div = e.target.parentNode.parentNode;
+                            label =
+                              e.target.parentNode.parentNode.childNodes[0];
+                            svg = e.target.parentNode;
+                            console.log("second route hit");
+                            div.dataset.loading = "true";
+                            div.dataset.loadingtemp = div.dataset.status ==="false" ? "true" : "false";
+                            div.dataset.requestcounter = Number(div.dataset.requestcounter = div.dataset
+                              .requestcounter)+ 1;
+                            likeComment(post._id, comment._id, div);
+                            optimisticRenderingComment(
+                              svg,
+                              label,
+                              div.dataset.status
+                            );
+                          }
+                        } else {
+                          if (e.target.classList.contains("comment__like")) {
+                            div = e.target.parentNode;
+                            label = e.target.parentNode.childNodes[0];
+                            svg = e.target;
+                            div.dataset.loadingtemp = div.dataset.loadingtemp ==="false" ? "true" : "false";
+                            div.dataset.requestcounter = Number(div.dataset.requestcounter = div.dataset
+                              .requestcounter)+ 1;
+                            likeComment(
+                              post._id,
+                              comment._id,
+                              e.target.parentNode
+                            );
+                            optimisticRenderingComment(
+                              svg,
+                              label,
+                              div.dataset.loadingtemp
+                            );
+                          } else {
+                            div = e.target.parentNode.parentNode;
+                            label =
+                              e.target.parentNode.parentNode.childNodes[0];
+                            svg = e.target.parentNode;
+                            div.dataset.loadingtemp = div.dataset.loadingtemp ==="false" ? "true" : "false";
+                            div.dataset.requestcounter = Number(div.dataset.requestcounter = div.dataset
+                              .requestcounter)+ 1;
+                            likeComment(
+                              post._id,
+                              comment._id,
+                              e.target.parentNode.parentNode
+                            );
+                            optimisticRenderingComment(
+                              e.target.parentNode,
+                              e.target.parentNode.parentNode.childNodes[0],
+                              e.target.parentNode.parentNode.dataset.loadingtemp
+                            );
+                          }
+                        }
                       }}
                       className="comment__like"
                       xmlns="http://www.w3.org/2000/svg"
@@ -489,15 +576,122 @@ const Post = ({
                                   like.user.toString() == user._id.toString()
                               ).length > 0
                             }
+                            data-loading="false"
+                            data-loadingtemp="false"
+                            data-requestcounter={0}
                           >
                             <label className="reply__like-counter">
                               {reply.likes.length > 0
                                 ? reply.likes.length
-                                : " "}
+                                : "\u00a0"}
                             </label>
                             <svg
                               onClick={(e) => {
-                                likeReply(post._id, comment._id, reply._id);
+                                console.log("onclick hit");
+                                let div = null;
+                                let svg = null;
+                                let label = null;
+                                if (!(e.target.parentNode.dataset.loading === "false")) {
+                                  if (
+                                    e.target.classList.contains("reply__like")
+                                  ) {
+                                    //extracting variables
+                                    div = e.target.parentNode;
+                                    label = e.target.parentNode.childNodes[0];
+                                    svg = e.target;
+                                    console.log(div.dataset)
+                                    console.log("first route hit");
+                                    //setting data values on div for front end logic
+                                    div.dataset.loading = "true";
+                                    div.dataset.loadingtemp = div.dataset.status ==="false" ? "true" : "false";
+                                    div.dataset.requestcounter = Number(div.dataset
+                                      .requestcounter)+1;
+                                      console.log(div.dataset.requestcounter)
+                                    //calling action and optimistic rendering
+                                    likeReply(
+                                      post._id,
+                                      comment._id,
+                                      reply._id,
+                                      div
+                                    );
+                                    optimisticRenderingReply(
+                                      svg,
+                                      label,
+                                      div.dataset.status
+                                    );
+                                  } else {
+                                    div = e.target.parentNode.parentNode;
+                                    label =
+                                      e.target.parentNode.parentNode
+                                        .childNodes[0];
+                                    svg = e.target.parentNode;
+                                    console.log(div.dataset)
+                                    console.log("second route hit");
+                                    div.dataset.loading = "true";
+                                    div.dataset.loadingtemp = div.dataset.status ==="false" ? "true" : "false";
+                                    div.dataset.requestcounter = Number(div.dataset
+                                      .requestcounter)+1;
+                                      console.log(div.dataset.requestcounter)
+                                    likeReply(
+                                      post._id,
+                                      comment._id,
+                                      reply._id,
+                                      div
+                                    );
+                                    optimisticRenderingReply(
+                                      svg,
+                                      label,
+                                      div.dataset.status
+                                    );
+                                  }
+                                } else {
+                                  if (
+                                    e.target.classList.contains("reply__like")
+                                  ) {
+                                    div = e.target.parentNode;
+                                    label = e.target.parentNode.childNodes[0];
+                                    svg = e.target;
+                                    console.log(div.dataset)
+                                    div.dataset.loadingtemp = div.dataset.loadingtemp ==="false" ? "true" : "false";
+                                    div.dataset.requestcounter = Number(div.dataset
+                                      .requestcounter)+1;
+                                      console.log(div.dataset.requestcounter)
+                                    likeReply(
+                                      post._id,
+                                      comment._id,
+                                      reply._id,
+                                      div
+                                    );
+                                    optimisticRenderingReply(
+                                      svg,
+                                      label,
+                                      div.dataset.loadingtemp
+                                    );
+                                  } else {
+                                    div = e.target.parentNode.parentNode;
+                                    label =
+                                      e.target.parentNode.parentNode
+                                        .childNodes[0];
+                                    svg = e.target.parentNode;
+                                    console.log(div.dataset)
+                                    div.dataset.loadingtemp = div.dataset.loadingtemp ==="false" ? "true" : "false";
+                                    div.dataset.requestcounter = Number(div.dataset
+                                      .requestcounter)+1;
+                                      console.log(div.dataset.requestcounter)
+                                    likeReply(
+                                      post._id,
+                                      comment._id,
+                                      reply._id,
+                                      div
+                                    );
+                                    optimisticRenderingReply(
+                                      svg,
+                                      label,
+                                      div.dataset
+                                        .loadingtemp
+                                    );
+                                  }
+                                }
                               }}
                               className="reply__like"
                               xmlns="http://www.w3.org/2000/svg"
@@ -519,6 +713,8 @@ const Post = ({
                       post._id,
                       comment._id
                     );
+                    console.log(e.target);
+                    e.target.childNodes[0].value = "";
                   }}
                 >
                   <input
