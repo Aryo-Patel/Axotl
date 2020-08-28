@@ -3,7 +3,7 @@ A multifaceted social media platform facilitating relationships between sponsors
 empowering the next generation of young computer science enthusiasts. The project achieves this goal by spreading access and information to good computer science competitions for those who do not have the resources to host or participate in such events.
 
 ## Demo
-Currently the project is hosted at <a href='https://axotl.com'>axotl.com</a>.
+The project is unfortunately not hosted at the moment (usually at <a href='https://axotl.com'>axotl.com</a>).
 
 ## Features
 - Session based authentication
