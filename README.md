@@ -5,6 +5,13 @@ empowering the next generation of young computer science enthusiasts. The projec
 ## Demo
 The project is unfortunately not hosted at the moment (usually at <a href='https://axotl.com'>axotl.com</a>).
 
+## Planned Development
+- Styles update
+- Expanding to a greater variety of organizations
+- Allowing documents and pictures to be sent in direct messages
+- Adding a recommender system to "discover"
+- Adding video calling to direct messaging for meetings
+
 ## Features
 - Session based authentication
 - Algorithm that displays hackathons to sponsors and vice versa, filterable by distance and specific tags
