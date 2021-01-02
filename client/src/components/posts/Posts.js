@@ -52,8 +52,6 @@ const Posts = ({numPosts, getPosts, createPost, editPost, deletePost, posts, loa
                 <input type="text" className="searchBar" placeholder='Search for a post...' onChange = {e => onChange(e)} value= {search}/>
                 <input type='submit' className = 'search' value='Search'/>
             </form>
-            {/**modal to create a post */}
-            <CreatePost createPost = {createPost} />
             {/**modal to edit a post */}
             <EditPost postState = {post} editPost = {editPost} modal = {modal} modalToggle = {modalToggle}/>
             {/**modal to confirm deletion of a post */}
@@ -61,6 +59,9 @@ const Posts = ({numPosts, getPosts, createPost, editPost, deletePost, posts, loa
             {/**modal to edit a comment */}
             <EditComment editingComment = {editingComment} setEditCommentModal = {setEditCommentModal} editCommentModal = {editCommentModal} postState = {post} editComment = {editComment} />
             <EditReply editingReply = {editingReply} setEditReplyModal = {setEditReplyModal} editReplyModal = {editReplyModal} postState = {post} editReply = {editReply} editingComment = {editingComment}/>
+            <div className="posts__centered-content">
+            {/**modal to create a post */}
+            <CreatePost createPost = {createPost} />
             <div className="posts__container">
                 {loading ? <Spinner /> : posts.filter(post => {
                     
@@ -71,6 +72,7 @@ const Posts = ({numPosts, getPosts, createPost, editPost, deletePost, posts, loa
                 )})}
             </div>
             {numPosts > pageNumber * 10 ? (<button className="posts__see-more button" onClick = {e => paginate(e)}>See More Posts</button>) : null}
+            </div>
         </div>
     )
 }

@@ -21,12 +21,13 @@ const CreatePost = ({ createPost }) => {
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-    $(`#innerModal`).click((e) => {
+    $(`.createPost__modal-main`).on("click", (e) => {
+      console.log("CLICKED");
         e.stopPropagation();
     })
     $("#createpostsubmit")
-    .unbind()
-    .click((e) => {
+    .on("click", (e) => {
+      console.log("SUBMITTING");
       if(!formData.content) {
         //dispatch alert
         return;
