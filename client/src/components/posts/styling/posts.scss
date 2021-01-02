@@ -58,6 +58,7 @@ $bp-small: 37.5em;
         max-height: 40rem;
         display: flex;
         flex-direction: column;
+        z-index: 70000;
     }
     &__title {
         width: 100%;
@@ -135,10 +136,16 @@ $bp-small: 37.5em;
 //for overall posts page
 .posts {
     font-size: 1.6rem;
+    &__centered-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
     &__container {
         display: flex;
         flex-direction: column;
         align-items: center;
+        justify-content: space-around;
         padding-bottom: 5rem;
     }
     &__modal-cover {
@@ -197,27 +204,21 @@ $bp-small: 37.5em;
     color: black;
     width: 60%;
     border-radius: $form-border-radius;
-    // background-image: linear-gradient(to top left, $primary-orange, $primary-yellow);
-    margin-top: 3rem;
+    margin-top: 5rem;
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-    box-shadow: 0 2rem 4rem rgba(0, 0, 0, .3);
+    box-shadow: 0 2px 5px 1px rgba(64, 60, 67, .16);
     z-index: 1;
     height: fit-content;
     animation: .3s itemAppear ease;
-    &::after {
-        background-repeat: no-repeat;
-        position: absolute;
-        content: "";
-        z-index: 0;
-        width: 99%;
-        height: 99%;
-        top: .25%;
-        left: .5%;
-        border-radius: $form-border-radius;
-        background-color: white;
+    cursor: pointer;
+    transition-duration: .2s;
+    transition-property: transform, box-shadow;
+    &:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 1px 6px rgba(32, 33, 36, .28);
     }
     &__header-container {
         width: 100%;
@@ -241,7 +242,7 @@ $bp-small: 37.5em;
             }
             &:hover+.post__dropdown {
                 visibility: visible;
-                height: fit-content;
+                height: 6.95rem;
             }
         }
     }
@@ -249,16 +250,19 @@ $bp-small: 37.5em;
     &__dropdown {
         z-index: 1000000;
         position: relative;
-        overflow: auto;
+        overflow: hidden;
         border: 1px solid $light-grey;
         background-color: white;
-        box-shadow: 0rem 1rem 1rem rgba(0, 0, 0, .2);
+        box-shadow: 0rem .5rem .5rem rgba(32, 33, 36, .28);
         visibility: hidden;
         height: 0;
         position: absolute;
+        transition-property: height, box-shadow;
+        transition-duration: .3s;
+        right: 0;
         &:hover {
             visibility: visible;
-            height: fit-content;
+            height: 6.95rem;
             cursor: pointer;
         }
         &-item {
@@ -277,14 +281,27 @@ $bp-small: 37.5em;
     &__user-fields {
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: left;
+        width: 100%;
+    }
+    //wrapper of user fields 
+    &__fields-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        p {
+            margin-bottom: 0;
+            margin-left: 1rem;
+        }
     }
     //for the name and title
     &__userTitle {
+        font-size: 1rem;
         display: flex;
         flex-direction: column;
-        align-items: flex-end;
+        align-items: flex-start;
         justify-content: center;
+        margin-left: 1rem;
         h4 {
             position: relative;
             display: inline-block;
@@ -297,9 +314,7 @@ $bp-small: 37.5em;
         }
     }
     //for the title and body of the post
-    &__content-container {
-        text-align: center;
-    }
+    &__content-container {}
     //for the title
     &__title {
         text-align: start;
@@ -307,9 +322,11 @@ $bp-small: 37.5em;
     //for the avatar
     &__avatar {
         border-radius: 50%;
-        height: 5rem;
-        width: 5rem;
-        margin-left: 1rem;
+        height: 2.5rem;
+        width: 2.5rem;
+    }
+    &__title {
+        font-weight: 500;
     }
     //for the main body of the post
     &__main {
@@ -335,17 +352,14 @@ $bp-small: 37.5em;
     }
     //for the bar containing the comment and like options
     &__interactions {
-        width: 95%;
+        width: 90%;
         display: flex;
-        justify-content: space-around;
+        justify-content: flex-end;
         align-items: center;
-        // grid-template-columns: 1fr 2fr 2fr 1fr;
-        // grid-template-rows: 1fr 1fr;
-        padding: 2rem 2rem 2rem 2rem;
+        padding: .75rem 0rem .75rem 0rem;
         position: relative;
         z-index: 1;
-        border-bottom: 2px solid $light-grey;
-        border-top: 2px solid $light-grey;
+        border-top: 2px solid rgba(126, 126, 126, 0.4);
         margin-top: 1rem;
         margin-bottom: 1rem;
     }
@@ -355,20 +369,31 @@ $bp-small: 37.5em;
         // grid-column: 2/3;
         display: flex;
         align-items: center;
+        margin: 1rem;
+        margin-bottom: 0;
+        margin-top: 0;
         cursor: pointer;
-        p {
-            margin-left: 1rem;
-        }
+        position: relative;
         svg {
             width: 3rem;
             height: 3rem;
         }
     }
     &__like-icon {
-        margin-bottom: 10%;
+        margin-right: .75rem;
+        margin-left: .75rem;
+        cursor: pointer;
+        transition: color .25s ease-out;
+        z-index: 10;
     }
     &__likes-counter {
-        padding: 1rem;
+        font-size: 1rem;
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
     }
     //for the comment icon
     &__comments {
@@ -387,7 +412,10 @@ $bp-small: 37.5em;
         }
     }
     &__comment-icon {
-        margin-bottom: 5%;
+        margin: 0;
+        margin-right: .75rem;
+        margin-left: .75rem;
+        cursor: pointer;
     }
     //container for comments and comment form
     &__comment-section {
@@ -487,8 +515,8 @@ $bp-small: 37.5em;
             align-items: center;
         }
         &__avatar {
-            width: 3rem;
-            height: 3rem;
+            width: 1.5rem;
+            height: 1.5rem;
             border-radius: 100px;
             margin-right: 1rem;
         }
@@ -630,6 +658,7 @@ $bp-small: 37.5em;
             visibility: hidden;
             height: 0;
             position: absolute;
+            right: 0;
             &:hover {
                 visibility: visible;
                 height: fit-content;
