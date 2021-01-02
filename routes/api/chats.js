@@ -45,11 +45,8 @@ router.post('/create', async (req, res) => {
 
     let chat = new Chat(chatParts)
     await chat.save();
-    if (recipients) {
+    if (recipients != null) {
         for (let i = 0; i < recipients.length; i++) {
-            console.log('recipient id below');
-            console.log(recipients[i]);
-
             Recipient.findOne({ _id: recipients[i] })
                 .then(recipient => {
                     console.log(recipient.name);
@@ -58,7 +55,7 @@ router.post('/create', async (req, res) => {
                 })
         }
     }
-    if (sponsors) {
+    if (sponsors != null) {
         for (let i = 0; i < sponsors.length; i++) {
             Sponsor.findOne({ _id: sponsors[i] })
                 .then(sponsor => {
