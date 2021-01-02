@@ -197,7 +197,7 @@ $bp-small: 37.5em;
     color: black;
     width: 60%;
     border-radius: $form-border-radius;
-    background-image: linear-gradient(to top left, $primary-orange, $primary-yellow);
+    // background-image: linear-gradient(to top left, $primary-orange, $primary-yellow);
     margin-top: 3rem;
     position: relative;
     display: flex;
@@ -428,7 +428,7 @@ $bp-small: 37.5em;
             content: "";
             width: 100%;
             height: 100%;
-            background-image: linear-gradient(to top left, $primary-orange, $primary-yellow);
+            // background-image: linear-gradient(to top left, $primary-orange, $primary-yellow);
             border-bottom-left-radius: $form-border-radius;
             border-bottom-right-radius: $form-border-radius;
         }
