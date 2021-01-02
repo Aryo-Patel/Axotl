@@ -71,13 +71,13 @@ const Companies = ({
   };
 
   const prizeTypes = [
-    "merch",
-    "prizes",
-    "food",
-    "drinks",
-    "workshop Hosting",
-    "judging",
-    "other",
+    "Merch",
+    "Prizes",
+    "Food",
+    "Drinks",
+    "Workshop Hosting",
+    "Judging",
+    "Other",
   ];
 
   const locationRouting = async (e) => {
@@ -141,14 +141,14 @@ const Companies = ({
             opacity: "1",
           });
         }
-        if (objectBottom > windowBottom || objectBottom < windowTop - 200) {
-          $(this).position().left > centerX
-            ? $(this).css({ transform: "translate(300px, 0px)", opacity: "0" })
-            : $(this).css({
-                transform: "translate(-300px, 0px)",
-                opacity: "0",
-              });
-        }
+        // if (objectBottom > windowBottom || objectBottom < windowTop - 200) {
+        //   $(this).position().left > centerX
+        //     ? $(this).css({ transform: "translate(300px, 0px)", opacity: "0" })
+        //     : $(this).css({
+        //         transform: "translate(-300px, 0px)",
+        //         opacity: "0",
+        //       });
+        // }
         // if (objectBottom < windowTop) {
         //     console.log('this ran');
         //     $(this).position().left > centerX ? $(this).css({ 'transform': 'translate(300px, 0px)', 'opacity': '0' }) : $(this).css({ 'transform': 'translate(-300px, 0px)', 'opacity': '0' });
@@ -276,14 +276,18 @@ const Companies = ({
         </div>
         <div className="companies__content-wrapper">
           <form className="searchingContainer" onSubmit={(e) => onSubmit(e)}>
-            <input
-              type="text"
-              className="searchBar"
-              placeholder="Search for a sponsor..."
-              onChange={(e) => onChange(e)}
-              value={search}
-            />
-            <input type="submit" className="search" value="Search" />
+            <div className = "searchBarHolder">
+              <div className = "favicon-holder">
+                <i id = "faviconSearch" className="fas fa-search"></i>
+              </div>
+              <input
+                type="text"
+                className="searchBar"
+                placeholder="Search for a company..."
+                onChange={(e) => onChange(e)}
+                value={search}
+              />
+            </div>
           </form>
 
           <div className="company-holder">
