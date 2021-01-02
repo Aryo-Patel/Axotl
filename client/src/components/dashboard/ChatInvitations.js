@@ -41,6 +41,20 @@ class ChatInvitations extends Component {
         this.loadChatInfo();
     }
 
+    loadDisplay(){
+        let output = this.state.chatInvites.map((invite) => {
+            if(invite){
+                return(
+                    <div key={invite}>
+                        <h5>{invite["name"]}</h5>
+                        <button className="button" onClick={() => this.accept(invite._id)}>Accept Invite</button>
+                    </div>
+                )
+            }
+        })
+        return output;
+    }
+
     render() {
         
         //This will be the display for the invitations:
@@ -48,14 +62,7 @@ class ChatInvitations extends Component {
 
         //This will fill the displayInvitations variable.
         if(this.state.chatInvites.length > 0){
-            displayInvitations = this.state.chatInvites.map((invite) => {
-                return (
-                    <div key={invite}>
-                        <h5>{invite["name"]}</h5>
-                        <button className="button" onClick={() => this.accept(invite._id)}>Accept Invite</button>
-                    </div>
-                )
-            })
+            displayInvitations = this.loadDisplay();
         }
 
         return (
