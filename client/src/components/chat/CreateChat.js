@@ -173,7 +173,7 @@ class CreateChat extends Component {
         //This will be the list of sponsors currently added
         let sponsors = this.state.sponsors;
         //This is for the modal to show vs not show.
-        const showHideClassName = this.props.show ? "modal display-block" : "modal display-none";
+        const showHideClassName = this.props.show ? "display-block" : "display-none";
 
         //This will handle the recipient searching and the output associated with certain searches.
         let searchOutputR;
@@ -230,7 +230,7 @@ class CreateChat extends Component {
         return (
             <div className="center">
                 <div className={showHideClassName}>
-                    <div className='modal-main'>
+                    <div className='create_main'>
                         <h5>ChatName:</h5>
                         <TextField
                             type='text'
@@ -238,6 +238,7 @@ class CreateChat extends Component {
                             name='chatName'
                             value={this.state.chatName}
                             onChange={this.onChange}
+                            className='input'
                         />
                         <form onSubmit={this.searchRecipient}>
                             <h5>Add Recipients (by handle):</h5>
@@ -247,6 +248,7 @@ class CreateChat extends Component {
                                 name='recipientSearch'
                                 value={this.state.recipientSearch}
                                 onChange={this.fullRecipientSearchFunction}
+                                className='input'
                             />
                             <div>
                                 {searchOutputR}
@@ -260,6 +262,7 @@ class CreateChat extends Component {
                                 name='sponsorSearch'
                                 value={this.state.sponsorSearch}
                                 onChange={this.fullSponsorSearchFunction}
+                                className='input'
                             />
                             <div>
                                 {searchOutputS}
