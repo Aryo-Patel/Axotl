@@ -282,16 +282,17 @@
   -webkit-transition: 0.2s;
   transition: 0.2s;
   border-radius: 4px;
-  background-image: -webkit-gradient(linear, right bottom, left top, from(#f77b61), to(yellow));
-  background-image: linear-gradient(to top left, #f77b61, yellow);
+  /* background-image: -webkit-gradient(linear, right bottom, left top, from(#f77b61), to(yellow));
+  background-image: linear-gradient(to top left, #f77b61, yellow); */
+  background-color: #eee;
   color: rgba(0, 0, 0, 0.95);
-  -webkit-box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.8);
-          box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.8);
+  -webkit-box-shadow: 0 2px 5px 1px rgba(64,60,67,.16);
+          box-shadow: 0 2px 5px 1px rgba(64,60,67,.16);
   z-index: 10;
   overflow: hidden;
 }
 
-.hackathon-holder .hackathon-item::after {
+/* .hackathon-holder .hackathon-item::after {
   background-repeat: no-repeat;
   content: "";
   position: absolute;
@@ -302,7 +303,7 @@
   left: 0.5%;
   border-radius: 5px;
   background-color: white;
-}
+} */
 
 .hackathon-holder .hackathon-item h1 {
   font-size: 1.6rem;
@@ -321,7 +322,9 @@
   margin: 3rem;
   text-align: center;
 }
-
+.hackathon-content .donations-container {
+  margin-bottom: 1rem;
+}
 .hackathons__content {
   padding-bottom: 10rem;
   position: relative;
@@ -382,7 +385,8 @@
   background: white;
   width: 80%;
   overflow-y: scroll;
-  background-position: 0, 0;
+  background-position: 0,
+ 0;
 }
 
 .modal-main input {
@@ -543,16 +547,17 @@
   -webkit-transition: 0.2s;
   transition: 0.2s;
   border-radius: 4px;
-  background-image: -webkit-gradient(linear, right bottom, left top, from(#f77b61), to(yellow));
-  background-image: linear-gradient(to top left, #f77b61, yellow);
+  /* background-image: -webkit-gradient(linear, right bottom, left top, from(#f77b61), to(yellow));
+  background-image: linear-gradient(to top left, #f77b61, yellow); */
+  background-color: #eee;
   color: rgba(0, 0, 0, 0.95);
-  -webkit-box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.8);
-          box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.8);
+  -webkit-box-shadow: 0 2px 5px 1px rgba(64,60,67,.16);
+          box-shadow: 0 2px 5px 1px rgba(64,60,67,.16);
   z-index: 10;
   overflow: hidden;
 }
 
-.company-holder .company-item::after {
+/* .company-holder .company-item::after {
   background-repeat: no-repeat;
   content: "";
   position: absolute;
@@ -563,7 +568,7 @@
   left: 0.5%;
   border-radius: 5px;
   background-color: white;
-}
+} */
 
 .company-holder .company-item h1 {
   font-size: 1.6rem;
@@ -584,14 +589,15 @@
 }
 
 .company-widget-donations .donButton {
-  background-color: #41a0f2;
-  border: 1px solid #41a0f2;
+  /* background-color: #41a0f2;
+  border: 1px solid #41a0f2; */
   border-radius: 5px;
   margin: 0px 5px 0px 5px;
 }
 
 .searchingContainer {
   position: relative;
+  color: #757575;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -606,16 +612,27 @@
   margin: 10rem 2.5rem 5rem 2.5rem;
   z-index: 1;
 }
-
-.searchingContainer .searchBar {
+.favicon-holder {
+  display: flex;
+  align-items: center;
+  padding-right: 40px;
+}
+.searchingContainer .searchBarHolder {
+  display: flex;
   padding: 0px 2rem;
   -webkit-box-flex: 0;
       -ms-flex: 0 0 75%;
           flex: 0 0 75%;
   height: 5rem;
   font-size: 2.5rem;
-  border: 5px solid #566068;
+  border:none;
   border-radius: 100px;
+  box-shadow: 0 2px 5px 1px rgba(64,60,67,.16);
+}
+
+.searchBarHolder .searchBar {
+  border: none;
+
 }
 
 .searchingContainer .searchBar:hover {

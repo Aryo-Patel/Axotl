@@ -12,27 +12,21 @@ const Hackathon = ({ hackathon }) => {
     return (
         <div className="hackathon-item" onClick={e => onClick(e)}>
             <div className="hackathon-content">
-                <h1>Title: {hackathon.title}</h1>
+                <h1>{hackathon.title}</h1>
 
-                <p className="description">Description: {hackathon.description}</p>
-                {hackathon.website ? <p className="website">Website: {hackathon.website}</p> : <p>Organizer didn't link their website!</p>}
-                <p>Donations requested: </p>
-                {hackathon.donations.map(donation => (
-                    donation.received.length > 0 ?
-                        <p></p>
-                        :
-                        <p>{donation.type}</p>
-                    // donation.received.length > 0 ?
-                    //     donation.received.map(received_singular => (
-                    //         <p key={i++}>Received {received_singular.type} : {received_singular.description}</p>
-                    //     ))
-                    //     :
-                    //     <Fragment></Fragment>
-                ))}
+                <p className="description">{hackathon.description}</p>
+                {hackathon.website ? <p className="website">{hackathon.website}</p> : <p>Organizer didn't link their website!</p>}
+                <div className = "donations-container">
+                    <span>Donations requested: </span>
+                    {hackathon.donations.map(donation => (
+                        donation.received.length > 0 ?
+                            <Fragment></Fragment>
+                            :
+                            <span>{donation.type} </span>
+                    ))}
+                </div>
                 {hackathon.location ? <p>Location : {hackathon.location}</p> : <p>Organizer did not link hackathon's location</p>}
-                <p>Start Date: <Moment format='MM/DD/YYYY'>{hackathon.startDate}</Moment></p>
-
-                <p>End Date: <Moment format='MM/DD/YYYY'>{hackathon.endDate}</Moment></p>
+                <p><Moment format='MM/DD/YYYY'>{hackathon.startDate}</Moment> - <Moment format='MM/DD/YYYY'>{hackathon.endDate}</Moment></p>
                 <Link to={`/hackathon/${hackathon._id}`} className="btn btn-primary">
                     View Hackathon
                 </Link>

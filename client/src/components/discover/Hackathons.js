@@ -283,14 +283,18 @@ const Hackathons = ({
         </div>
         <div className="hackathons__content">
           <form className="searchingContainer" onSubmit={(e) => onSubmit(e)}>
-            <input
-              type="text"
-              className="searchBar"
-              placeholder="Search for a hackathon..."
-              onChange={(e) => onChange(e)}
-              value={query}
-            />
-            <input type="submit" className="search" value="Search" />
+          <div className = "searchBarHolder">
+              <div className = "favicon-holder">
+                <i id = "faviconSearch" className="fas fa-search"></i>
+              </div>
+              <input
+                type="text"
+                className="searchBar"
+                placeholder="Search for a hackathon..."
+                onChange={(e) => onChange(e)}
+                value={query}
+              />
+            </div>
           </form>
 
           <div className="hackathon-holder">
