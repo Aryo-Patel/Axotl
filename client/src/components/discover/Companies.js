@@ -71,13 +71,13 @@ const Companies = ({
   };
 
   const prizeTypes = [
-    "Merch",
-    "Prizes",
-    "Food",
-    "Drinks",
-    "Workshop Hosting",
-    "Judging",
-    "Other",
+    "merch",
+    "prizes",
+    "food",
+    "drinks",
+    "workshop Hosting",
+    "judging",
+    "other",
   ];
 
   const locationRouting = async (e) => {
@@ -190,7 +190,7 @@ const Companies = ({
                 className={`donTag ${prizeType}`}
                 onClick={(e) => addTag(e)}
               >
-                {prizeType}
+                {prizeType.charAt(0).toUpperCase() + prizeType.substring(1)}
               </div>
             ))}
           </div>

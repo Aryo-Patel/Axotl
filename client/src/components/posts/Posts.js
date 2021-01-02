@@ -49,8 +49,18 @@ const Posts = ({numPosts, getPosts, createPost, editPost, deletePost, posts, loa
         <div className = 'posts'>
             <h3 className="heading">Posts</h3>
             <form className="searchingContainer">
-                <input type="text" className="searchBar" placeholder='Search for a post...' onChange = {e => onChange(e)} value= {search}/>
-                <input type='submit' className = 'search' value='Search'/>
+            <div className = "searchBarHolder">
+              <div className = "favicon-holder">
+                <i id = "faviconSearch" className="fas fa-search"></i>
+              </div>
+              <input
+                type="text"
+                className="searchBar"
+                placeholder="Search for a post..."
+                onChange={(e) => onChange(e)}
+                value={search}
+              />
+            </div>
             </form>
             {/**modal to edit a post */}
             <EditPost postState = {post} editPost = {editPost} modal = {modal} modalToggle = {modalToggle}/>
