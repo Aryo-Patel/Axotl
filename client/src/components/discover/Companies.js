@@ -276,14 +276,18 @@ const Companies = ({
         </div>
         <div className="companies__content-wrapper">
           <form className="searchingContainer" onSubmit={(e) => onSubmit(e)}>
-            <input
-              type="text"
-              className="searchBar"
-              placeholder="Search for a sponsor..."
-              onChange={(e) => onChange(e)}
-              value={search}
-            />
-            <input type="submit" className="search" value="Search" />
+            <div className = "searchBarHolder">
+              <div className = "favicon-holder">
+                <i id = "faviconSearch" className="fas fa-search"></i>
+              </div>
+              <input
+                type="text"
+                className="searchBar"
+                placeholder="Search for a company..."
+                onChange={(e) => onChange(e)}
+                value={search}
+              />
+            </div>
           </form>
 
           <div className="company-holder">
