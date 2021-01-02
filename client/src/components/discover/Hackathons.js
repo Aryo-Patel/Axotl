@@ -159,14 +159,14 @@ const Hackathons = ({
             opacity: "1",
           });
         }
-        if (objectBottom > windowBottom || objectBottom < windowTop - 200) {
-          $(this).position().left > centerX
-            ? $(this).css({ transform: "translate(300px, 0px)", opacity: "0" })
-            : $(this).css({
-                transform: "translate(-300px, 0px)",
-                opacity: "0",
-              });
-        }
+        // if (objectBottom > windowBottom || objectBottom < windowTop - 200) {
+        //   $(this).position().left > centerX
+        //     ? $(this).css({ transform: "translate(300px, 0px)", opacity: "0" })
+        //     : $(this).css({
+        //         transform: "translate(-300px, 0px)",
+        //         opacity: "0",
+        //       });
+        // }
         // if (objectBottom < windowTop) {
         //     console.log('this ran');
         //     $(this).position().left > centerX ? $(this).css({ 'transform': 'translate(300px, 0px)', 'opacity': '0' }) : $(this).css({ 'transform': 'translate(-300px, 0px)', 'opacity': '0' });
@@ -197,7 +197,7 @@ const Hackathons = ({
             }}
             style={{ display: "inline-block" }}
           >
-            Filter by Date <span className="dropdownArrow">&#86;</span>
+            Filter by Date <i class="fas fa-long-arrow-alt-down"></i>
           </h3>
           <div style={{overflow: 'hidden'}} className="dateTags" data-status="up">
             <DatePicker
@@ -239,7 +239,7 @@ const Hackathons = ({
             }}
             style={{ display: "inline-block" }}
           >
-            Filter by Distance <span className="dropdownArrow">&#86;</span>
+            Filter by Distance <i class="fas fa-long-arrow-alt-down"></i>
           </h3>
           <div className="locationTags" style={{overflow: 'hidden'}} data-status="up">
             <div className="locTag" onClick={(e) => locationRouting(e)}>

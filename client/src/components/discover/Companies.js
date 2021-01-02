@@ -71,13 +71,13 @@ const Companies = ({
   };
 
   const prizeTypes = [
-    "merch",
-    "prizes",
-    "food",
-    "drinks",
-    "workshop Hosting",
-    "judging",
-    "other",
+    "Merch",
+    "Prizes",
+    "Food",
+    "Drinks",
+    "Workshop Hosting",
+    "Judging",
+    "Other",
   ];
 
   const locationRouting = async (e) => {
@@ -141,14 +141,14 @@ const Companies = ({
             opacity: "1",
           });
         }
-        if (objectBottom > windowBottom || objectBottom < windowTop - 200) {
-          $(this).position().left > centerX
-            ? $(this).css({ transform: "translate(300px, 0px)", opacity: "0" })
-            : $(this).css({
-                transform: "translate(-300px, 0px)",
-                opacity: "0",
-              });
-        }
+        // if (objectBottom > windowBottom || objectBottom < windowTop - 200) {
+        //   $(this).position().left > centerX
+        //     ? $(this).css({ transform: "translate(300px, 0px)", opacity: "0" })
+        //     : $(this).css({
+        //         transform: "translate(-300px, 0px)",
+        //         opacity: "0",
+        //       });
+        // }
         // if (objectBottom < windowTop) {
         //     console.log('this ran');
         //     $(this).position().left > centerX ? $(this).css({ 'transform': 'translate(300px, 0px)', 'opacity': '0' }) : $(this).css({ 'transform': 'translate(-300px, 0px)', 'opacity': '0' });
