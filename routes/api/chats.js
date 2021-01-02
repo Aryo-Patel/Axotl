@@ -50,7 +50,9 @@ router.post('/create', async (req, res) => {
             Recipient.findOne({ _id: recipients[i] })
                 .then(recipient => {
                     console.log(recipient.name);
-                    recipient.chatInvitations.push(chat)
+                    console.log(recipient);
+                    recipient.chatInvitations.push(chat);
+                    console.log("r saving....");
                     recipient.save();
                 })
         }
@@ -132,7 +134,7 @@ router.post('/accept/:id', (req, res) => {
                         .then(sponsor => {
                             for (let i = 0; i < sponsor.chatInvitations.length; i++) {
                                 if (sponsor.chatInvitations[i].toString() == req.params.id) {
-                                    sponsor.chatInvitations.splice(i, i + 1);
+                                    sponsor.chatInvitations.splice(i, 1);
                                 }
                             }
                             sponsor.save();
@@ -146,7 +148,7 @@ router.post('/accept/:id', (req, res) => {
                         .then(recipient => {
                             for (let i = 0; i < recipient.chatInvitations.length; i++) {
                                 if (recipient.chatInvitations[i].toString() == req.params.id.toString()) {
-                                    recipient.chatInvitations.splice(i, i + 1);
+                                    recipient.chatInvitations.splice(i, 1);
                                 }
                             }
                             recipient.save();
