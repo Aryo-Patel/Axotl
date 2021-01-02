@@ -1,0 +1,26 @@
+$primary-green: #87ffa7;
+$light-grey: #a5a5a5;
+$background-color: lighten(rgb(47, 114, 255), 5%);
+$primary-orange: lighten(rgb(255, 102, 71), 5%);
+$background-color-dark: #003ea3;
+$background-color-light: #2d3142;
+$background-color-lighter: #5093ff;
+$primary-white: #eee;
+.support {
+    margin-top: 10rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    display: block;
+    text-align: center;
+    font-size: 1.4rem;
+    &__faq {
+        &-list {
+            list-style-type: circle;
+        }
+        &-question {
+            color: darken($primary-orange, 10%);
+            font-weight: 400;
+        }
+    }
+}

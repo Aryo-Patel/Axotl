@@ -39,6 +39,8 @@ import MyHackathons from './components/myHackathons/MyHackathons';
 import MyHackathon from './components/singleView/MyHackathon';
 import Posts from './components/posts/Posts'
 import MyPosts from './components/myPosts/MyPosts';
+import Support from './components/support/Support';
+import Alert from './components/common/Alert';
 
 //import logo from './logo.svg';
 import './App.css';
@@ -52,7 +54,7 @@ function App() {
       <Router>
         <Fragment>
           <NavBar />
-
+          <Alert />
           <Switch>
             <Route exact path='/' component={Landing} />
             <Route exact path='/login' component={Login} />
@@ -82,6 +84,7 @@ function App() {
             <PrivateRoute exact path='/changepassword' component={ChangePassword} />
             <PrivateRoute exact path='/posts' component={Posts} />
             <PrivateRoute exact path = '/my-posts' component = {MyPosts} />
+            <Route exact path = '/support' component={Support} />
             <Route component={NotFound} />
           </Switch>
         </Fragment>

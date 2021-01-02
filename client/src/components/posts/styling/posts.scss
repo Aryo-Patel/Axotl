@@ -25,6 +25,15 @@ $bp-small: 37.5em;
     }
 }
 
+@keyframes itemAppear {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
 .createPost {
     &__modal-cover {
         color: #4983ff;
@@ -197,6 +206,7 @@ $bp-small: 37.5em;
     box-shadow: 0 2rem 4rem rgba(0, 0, 0, .3);
     z-index: 1;
     height: fit-content;
+    animation: .3s itemAppear ease;
     &::after {
         background-repeat: no-repeat;
         position: absolute;
@@ -459,15 +469,17 @@ $bp-small: 37.5em;
     .comment {
         // max-height: 15rem;
         // border: 2px solid $background-color-light;
+        animation: .5s itemAppear ease;
         border-radius: 5px;
         width: 100%;
         box-shadow: 0 1rem 1rem rgba(0, 0, 0, .2);
         background-color: lighten($background-color-lighter, 25%);
         padding: 2rem;
         margin: 1rem 0rem;
+        //styling for comment section
         &__section {
             width: 90%;
-            padding: 2rem;
+            padding: 2rem 2rem 5rem 2rem;
         }
         &__user {
             display: flex;
@@ -635,6 +647,7 @@ $bp-small: 37.5em;
     }
     .reply {
         // max-height: 15rem;
+        animation: .5s itemAppear ease;
         border: 2px solid $background-color-light;
         border-radius: 5px;
         width: 100%;
@@ -775,12 +788,20 @@ $bp-small: 37.5em;
     max-height: calc(40vh + 3*168px)!important;
 }
 
+[data-number='6'] {
+    max-height: calc(40vh + 3*168px)!important;
+}
+
+[data-number='7'] {
+    max-height: calc(40vh + 3*168px)!important;
+}
+
 //to control the read-more section
 [data-status='extended'] {
     height: fit-content;
     max-height: none!important;
     .comment__section:last-child {
-        margin-bottom: 4rem;
+        margin-bottom: 5rem;
     }
 }
 

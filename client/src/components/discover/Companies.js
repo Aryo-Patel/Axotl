@@ -18,7 +18,8 @@ const Companies = ({
   const [numFilter, setNumFilter] = useState(1);
   useEffect(() => {
     console.log(numFilter);
-    getDistances(numFilter) || getCompanies(numFilter);
+    getCompanies(numFilter);
+    getDistances(numFilter);
   }, [getDistances, numFilter]);
 
   //getting more hackathons when "show more" is clicked
@@ -186,7 +187,7 @@ const Companies = ({
               <div
                 id={prizeType}
                 key={index}
-                className="donTag"
+                className={`donTag ${prizeType}`}
                 onClick={(e) => addTag(e)}
               >
                 {prizeType}
@@ -225,28 +226,37 @@ const Companies = ({
               style={{ overflow: "hidden" }}
               data-status="up"
             >
-              <div className="locTag" onClick={(e) => locationRouting(e)}>
+              <div className="locTag 10miles" onClick={(e) => locationRouting(e)}>
                 10 miles
               </div>
-              <div className="locTag" onClick={(e) => locationRouting(e)}>
+              <div className="locTag 25miles" onClick={(e) => locationRouting(e)}>
                 25 miles
               </div>
-              <div className="locTag" onClick={(e) => locationRouting(e)}>
+              <div className="locTag fiftyMiles" onClick={(e) => locationRouting(e)}>
                 50 miles
               </div>
-              <div className="locTag" onClick={(e) => locationRouting(e)}>
+              <div className="locTag 100miles" onClick={(e) => locationRouting(e)}>
                 100 miles
               </div>
-              <div className="locTag" onClick={(e) => locationRouting(e)}>
+              <div className="locTag 250miles" onClick={(e) => locationRouting(e)}>
                 250 miles
               </div>
-              <div className="locTag" onClick={(e) => locationRouting(e)}>
+              <div className="locTag 1000miles" onClick={(e) => locationRouting(e)}>
                 1000 miles
               </div>
               <div
-                className="locTag"
+                className="locTag customDist"
                 onClick={(e) => {
-                  e.target.nextSibling.dataset.status = "custom";
+                  const div = e.target.nextSibling;
+                  if(div.dataset.status==="custom") {
+                    e.target.classList.remove('pressedTag')
+                    setDistFilterToggle(false);
+                    div.dataset.status = "nocustom";
+                    div.childNodes[0].childNodes[0].textContent="";
+                  } else {
+                  div.dataset.status = "custom";
+                  e.target.classList.add('pressedTag')
+                  }
                 }}
               >
                 Custom Distance

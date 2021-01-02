@@ -27,10 +27,10 @@ const Landing = ({ isAuthenticated }) => {
 
             <p className="lead" style={{ justifyContent: 'center' }}>
 
-              <Link to="/login" className="btn btn-lg button-c">
+              <Link to="/login" id="loginbtn" className="btn btn-lg button-c">
                 Login
               </Link>
-              <Link to="/register" className="btn btn-lg button-c">
+              <Link to="/register" id="registerbtn" className="btn btn-lg button-c">
                 Register
               </Link>
 

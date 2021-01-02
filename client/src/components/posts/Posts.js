@@ -63,7 +63,7 @@ const Posts = ({numPosts, getPosts, createPost, editPost, deletePost, posts, loa
             <EditReply editingReply = {editingReply} setEditReplyModal = {setEditReplyModal} editReplyModal = {editReplyModal} postState = {post} editReply = {editReply} editingComment = {editingComment}/>
             <div className="posts__container">
                 {loading ? <Spinner /> : posts.filter(post => {
-                    console.log(post.title.substring(0,search.length).toUpperCase() == search.toUpperCase() || post.name.substring(0,search.length).toUpperCase() == search.toUpperCase())
+                    
                     return post.title.toUpperCase().includes(search.toUpperCase()) || post.name.toUpperCase().includes(search.toUpperCase())
                 }).map((post, index) => { 
                 return (

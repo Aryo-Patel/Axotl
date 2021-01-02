@@ -26,7 +26,8 @@ const Hackathons = ({
   //calls the get hackathon page when loading
   useEffect(() => {
     console.log(numFilter);
-    getHackathonLocations(numFilter) || getHackathons();
+    getHackathons();
+    getHackathonLocations(numFilter);
   }, [getHackathons, numFilter]);
 
   //getting more hackathons when "show more" is clicked

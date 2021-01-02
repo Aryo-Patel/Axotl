@@ -360,7 +360,7 @@ router.put("/:post_id/comments/:comment_id/replies", async(req, res) => {
         const comment = await post.comments.filter(comment => req.params.comment_id.toString() == comment._id.toString())[0];
         const { text } = req.body;
         //add the reply to the comment's replies
-        await comment.replies.unshift({ text, user: req.user._id, name: user.name, avatar: user.avatar, sponsor: req.user.sponsor });
+        await comment.replies.push({ text, user: req.user._id, name: user.name, avatar: user.avatar, sponsor: req.user.sponsor });
         /** currently no "myReplies" section
         //add the reply reference to "myreplies"
         user.myReplies.unshift({ post: req.params.post_id, comment: req.params.comment_id, reply: post.comments.replies[0]._id });

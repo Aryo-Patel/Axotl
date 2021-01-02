@@ -44,7 +44,7 @@ const NavBar = ({ isAuthenticated, auth }) => {
         </Link>
       </li>
       <li className="nav-item active">
-        <Link to="/discover" className="nav-link nav__btn">
+        <Link to="/discover" className="nav-link nav__btn"  id="navbarDiscover">
           Discover
         </Link>
       </li>
@@ -58,12 +58,12 @@ const NavBar = ({ isAuthenticated, auth }) => {
         </label>
       </li>
       <li className="nav-item active mx-4 text-center">
-        <Link to="/posts" className="nav-link nav__btn">
+        <Link to="/posts" className="nav-link nav__btn"  id="navbarPosts">
           Posts
         </Link>
       </li>
       <li className="nav-item active mx-4 text-center">
-        <Link to="/chat" className="nav-link nav__btn">
+        <Link to="/chat" className="nav-link nav__btn" id="navbarChat">
           Chat
         </Link>
       </li>
@@ -77,17 +77,17 @@ const NavBar = ({ isAuthenticated, auth }) => {
         </Link>
       </li>
       <li className="nav-item active">
-        <Link to="/discover" className="nav-link">
+        <Link to="/discover" className="nav-link" id="navbarDiscoverSpons">
           Discover
         </Link>
       </li>
       <li className="nav-item active">
-        <Link to="/posts" className="nav-link">
+        <Link to="/posts" className="nav-link" id="navbarPostsSpons">
           Posts
         </Link>
       </li>
       <li className="nav-item active">
-        <Link to="/chat" className="nav-link">
+        <Link to="/chat" className="nav-link" id="navbarChatSpons">
           Chat
         </Link>
       </li>
@@ -475,7 +475,7 @@ const NavBar = ({ isAuthenticated, auth }) => {
             </div>
             {!auth.loading && auth.user && (
               <div onClick={(e) => onClick(e)} className="dropdown__toggle">
-                <div className="dropdown__top">
+                <div className="dropdown__top"  id="navbarDropdown">
                   <img
                     src={auth.user.user.avatar}
                     alt=""
@@ -500,11 +500,14 @@ const NavBar = ({ isAuthenticated, auth }) => {
                   <Link to="/my-posts" className="dropdown__item">
                     My Posts
                   </Link>
+                  <Link to='/support' className="dropdown__item">
+                    Support
+                  </Link>
                   <Link to="/settings" className="dropdown__item">
                     Settings
                   </Link>
                   {!auth.loading && auth.user && (
-                    <Link to="/logout" className="dropdown__item">
+                    <Link to="/logout" className="dropdown__item" id="navbarLogout">
                       Logout
                     </Link>
                   )}
@@ -853,7 +856,7 @@ const NavBar = ({ isAuthenticated, auth }) => {
               </h3>
               </Link>
 
-              {!auth.loading && auth.user.user && (
+              {!auth.loading && auth.user && (
                 <div onClick={(e) => onClick(e)} className="dropdown__toggle">
                   <div className="dropdown__top">
                     <img
@@ -879,6 +882,9 @@ const NavBar = ({ isAuthenticated, auth }) => {
                     )}
                     <Link to="/my-posts" className="dropdown__item">
                       My Posts
+                  </Link>
+                  <Link to='/support' className="dropdown__item">
+                    Support
                   </Link>
                     <Link to="/settings" className="dropdown__item">
                       Settings

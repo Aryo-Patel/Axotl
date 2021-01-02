@@ -70,7 +70,7 @@
     visibility: hidden;
   }
   100% {
-    height: 45rem;
+    height: 50rem;
     visibility: visible;
   }
 }
@@ -81,7 +81,7 @@
     visibility: hidden;
   }
   100% {
-    height: 45rem;
+    height: 50rem;
     visibility: visible;
   }
 }
@@ -201,6 +201,7 @@
   padding: 0rem 1rem;
   visibility: hidden;
   height: 0;
+  cursor: pointer;
 }
 
 .hackathons__filters .customLocTag .locTagForm {
@@ -813,6 +814,7 @@
   border-radius: 1rem;
   -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
 }
 
 .locationTags .locTag:hover {

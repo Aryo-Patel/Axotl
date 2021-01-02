@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-import { LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, ACCOUNT_DELETED, RES_PASSWORD, REGISTER_SUCCESS, REGISTER_FAIL, USER_FAILED, USER_LOADED, FORGOT_PASSWORD_FAIL, FORGOT_PASSWORD, CHANGE_PASSWORD, EDIT_ACCOUNT, CLEAR_CHATLOG } from './Types'
-import bcrypt from 'bcryptjs';
+import { CLEAR_ALERTS, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, ACCOUNT_DELETED, RES_PASSWORD, REGISTER_SUCCESS, REGISTER_FAIL, USER_FAILED, USER_LOADED, FORGOT_PASSWORD_FAIL, FORGOT_PASSWORD, CHANGE_PASSWORD, EDIT_ACCOUNT, CLEAR_CHATLOG } from './Types'
+import { setError, setConfirmation } from './alert'
 
 export const sendLogin = (formData) => async dispatch => {
     const config = {
@@ -21,9 +21,12 @@ export const sendLogin = (formData) => async dispatch => {
             type: LOGIN_SUCCESS,
             payload
         })
+        dispatch({
+            type: CLEAR_ALERTS
+        })
     } catch (err) {
-        console.error(err.message)
-            //DISPATCH ALERTS FOR ERRORS
+        //DISPATCH ALERTS FOR ERRORS
+        dispatch(setError(err.response.data.msg.message));
         dispatch({
             type: LOGIN_FAIL
         })
@@ -45,11 +48,18 @@ export const registerUser = (userData, history) => async(dispatch) => {
                 registered: true
             }
         })
-    } catch (error) {
+        dispatch({
+            type: CLEAR_ALERTS
+        })
+    } catch (err) {
+        err.response.data.errors.forEach(error => {
+            console.log(error.msg)
+            dispatch(setError(error.msg))
+        })
         dispatch({
             type: REGISTER_FAIL
         })
-        console.error(error.message);
+        console.error(err.message);
     }
 }
 
@@ -69,7 +79,14 @@ export const registerSponsor = (userData, history) => async(dispatch) => {
                 registered: true
             }
         })
+        dispatch({
+            type: CLEAR_ALERTS
+        })
     } catch (error) {
+        error.response.data.errors.forEach(error => {
+            console.log(error.msg)
+            dispatch(setError(error.msg))
+        })
         dispatch({
             type: REGISTER_FAIL
         })
@@ -101,6 +118,7 @@ export const deleteRecipient = () => async dispatch => {
         dispatch({
             type: ACCOUNT_DELETED
         })
+        dispatch(setError("Account Deleted"))
     } catch (err) {
         console.error(err.message);
     }
@@ -139,6 +157,7 @@ export const forPass = (email, history) => async dispatch => {
         dispatch({
             type: FORGOT_PASSWORD
         })
+        dispatch(setConfirmation("Email sent."))
     } catch (err) {
         dispatch({
             type: FORGOT_PASSWORD_FAIL
@@ -163,6 +182,7 @@ export const resPass = (formData, jwt, history) => async dispatch => {
         dispatch({
             type: RES_PASSWORD
         })
+        dispatch(setConfirmation("Password has been reset."))
     } catch (err) {
         console.log('did not work lmao')
     }
@@ -186,6 +206,7 @@ export const changePass = (formData, history) => async dispatch => {
         dispatch({
             type: CHANGE_PASSWORD
         })
+        dispatch(setConfirmation("Password updated"))
     } catch (err) {
         console.log('did not work lmao')
     }
@@ -207,6 +228,7 @@ export const editAccount = (formData) => async dispatch => {
             type: EDIT_ACCOUNT,
             payload: res.data
         })
+        dispatch(setConfirmation("Account details updated"))
     } catch (err) {
         console.error(err.message);
         //dispatch alert?
@@ -226,9 +248,10 @@ export const deleteAccount = (sponsor) => async dispatch => {
         dispatch({
             type: ACCOUNT_DELETED
         })
+        dispatch(setConfirmation("Account deleted"))
     } catch (err) {
         console.error(err.message);
-        //dispatch alert?
+        dispatch(setError(err.response.data.msg.message))
     }
 
 }
