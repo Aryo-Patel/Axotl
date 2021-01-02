@@ -32,7 +32,7 @@ export default class Education extends Component {
                         {education.degree ? <p>{education.degree}</p> : <p>No degree obtained</p>}
                         <p>{education.fieldOfStudy}</p>
                         <p>{education.description}</p>
-                        <p><Moment format="MM/DD/YYYY">{education.from}</Moment> - {education.current ? <p>Now</p> : <Moment format="MM/DD/YYYY">{education.to}></Moment>}</p>
+                        <p><Moment format="MM/DD/YYYY">{education.from}</Moment> - {education.current ? <p>Now</p> : <Moment format="MM/DD/YYYY">{education.to}</Moment>}</p>
                         <button className="btn btn-danger" onClick={this.deleteEdu.bind(this, education._id)}>Delete Education</button>
                     </dd>
                 </dl>
@@ -45,7 +45,7 @@ export default class Education extends Component {
                     <dd className="col-sm-9">
                     {experience.position ? <p>{experience.position}</p> : <br></br>}
                     <p>{experience.description}</p>
-                    <p><Moment format="MM/DD/YYYY">{experience.from}</Moment> - {experience.current ? <p>Now</p> : <Moment format="MM/DD/YYYY">{experience.to}></Moment>}</p>
+                    <p><Moment format="MM/DD/YYYY">{experience.from}</Moment> - {experience.current ? <p>Now</p> : <Moment format="MM/DD/YYYY">{experience.to}</Moment>}</p>
                     <button className="btn btn-danger" onClick={this.deleteExp.bind(this, experience._id)}>Delete Experience</button>
                     </dd>
                 </dl>

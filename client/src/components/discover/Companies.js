@@ -71,13 +71,13 @@ const Companies = ({
   };
 
   const prizeTypes = [
-    "Merch",
-    "Prizes",
-    "Food",
-    "Drinks",
-    "Workshop Hosting",
-    "Judging",
-    "Other",
+    "merch",
+    "prizes",
+    "food",
+    "drinks",
+    "workshop Hosting",
+    "judging",
+    "other",
   ];
 
   const locationRouting = async (e) => {
@@ -181,7 +181,7 @@ const Companies = ({
                     .querySelector(".donTags")
                     .classList.add("tdown");
                 }
-              }} style={{ display: "inline-block" }}>Filter By Contribution</h3>
+              }} style={{ display: "inline-block" }}>Filter By Contribution {<i class="fas fa-long-arrow-alt-down"></i>}</h3>
               <div className="donTags" style={{ overflow: "hidden" }}>
             {prizeTypes.map((prizeType, index) => (
               <div
@@ -190,7 +190,7 @@ const Companies = ({
                 className={`donTag ${prizeType}`}
                 onClick={(e) => addTag(e)}
               >
-                {prizeType}
+                {prizeType.charAt(0).toUpperCase() + prizeType.substring(1)}
               </div>
             ))}
           </div>
@@ -219,7 +219,7 @@ const Companies = ({
               }}
               style={{ display: "inline-block" }}
             >
-              Filter by Distance <span className="dropdownArrow">&#86;</span>
+              Filter by Distance <i class="fas fa-long-arrow-alt-down"></i>
             </h3>
             <div
               className="locationTags"
