@@ -732,16 +732,16 @@ const Post = ({
           className="comment__see-more"
           data-status={seeMore}
           onClick={(e) => {
-            if (extendComments == "limited") {
-              toggleExtendComments("extended");
-              e.target.innerHTML = "See Fewer Comments";
-            } else {
-              toggleExtendComments("limited");
-              e.target.innerHTML = "See More Comments";
-            }
+            // if (extendComments == "limited") {
+            //   toggleExtendComments("extended");
+            //   e.target.innerHTML = "See Fewer Comments";
+            // } else {
+            //   toggleExtendComments("limited");
+            //   e.target.innerHTML = "See More Comments";
+            // }
           }}
         >
-          See More Comments
+          
         </div>
         <div className="post__create-comments">
           <form

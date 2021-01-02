@@ -26,8 +26,8 @@
 .navContainer .navbar-brand {
   margin-left: 3rem;
   color: #2f72ff;
-  -webkit-transition: color 0.2s, background-color 0.2s;
-  transition: color 0.2s, background-color 0.2s;
+  -webkit-transition: color 0.2s, background-color 0.2s;
+  transition: color 0.2s, background-color 0.2s;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -307,8 +307,8 @@
   color: purple;
   color: #2f72ff;
   background-color: none !important;
-  -webkit-transition: color 0.2s, background-color 0.2s;
-  transition: color 0.2s, background-color 0.2s;
+  -webkit-transition: color 0.2s, background-color 0.2s;
+  transition: color 0.2s, background-color 0.2s;
   text-decoration: none;
 }
 
