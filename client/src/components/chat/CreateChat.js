@@ -239,6 +239,7 @@ class CreateChat extends Component {
                             value={this.state.chatName}
                             onChange={this.onChange}
                             className='input'
+                            maxlength='20'
                         />
                         <form onSubmit={this.searchRecipient}>
                             <h5>Add Recipients (by handle):</h5>
