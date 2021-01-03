@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import './styling/chat.css';
+import CreateChat from './CreateChat';
 import Moment from 'react-moment';
 import axios from 'axios';
 
@@ -14,10 +15,13 @@ export default class Messages extends Component {
         this.scrollToBottom();
     }
     scrollToBottom = () => {
-        this.newestMessages.scrollIntoView({ behavior: 'smooth' })
+        if(!this.props.newChat) {
+            this.newestMessages.scrollIntoView({ behavior: 'smooth' })
+        }
     }
 
     render() {
+        
         let displayMessages = this.props.messages.map(item =>
             <div>
                 <div className={item.user.toString() === this.props.yourID.toString() ? "your-message" : "they-message"}>
@@ -30,23 +34,32 @@ export default class Messages extends Component {
                 <br></br>
             </div>
         )
-        return (
-            <div>
-                <div className="message-container">
-                    <div>
-                        {displayMessages}
-                        <div ref={(el) => { this.newestMessages = el }}></div>
+        if(this.props.newChat){
+            return (
+                <div className = "message-container">
+                    <CreateChat />
+                </div>
+            )
+        }
+        else {
+            return (
+                <div>
+                    <div className="message-container">
+                        <div>
+                            {displayMessages}
+                            <div ref={(el) => { this.newestMessages = el }}></div>
+                        </div>
+                    </div>
+                    <div className="chat-div">
+                        <form onSubmit={this.props.onSubmit}>
+                            <div className="chat-form">
+                                <input className="text-field" type="text" onChange={this.props.onChange} value={this.props.newMessageValue} name="newMessage" />
+                                <button className="button-send" type="submit">Send</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
-                <div className="chat-div">
-                    <form onSubmit={this.props.onSubmit}>
-                        <div className="chat-form">
-                            <input className="text-field" type="text" onChange={this.props.onChange} value={this.props.newMessageValue} name="newMessage" />
-                            <button className="button-send" type="submit">Send</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        )
+            )
+        }    
     }
 }
