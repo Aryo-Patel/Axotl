@@ -262,6 +262,10 @@
   border-radius: 10px;
 }
 
+.posts__see-more {
+  margin-bottom: 5rem;
+}
+
 .post {
   color: black;
   width: 60%;
@@ -331,31 +335,34 @@
 
 .post__edit-icon:hover + .post__dropdown {
   visibility: visible;
-  height: 8.2rem;
+  height: 6.8rem;
 }
 
 .post__dropdown {
   z-index: 1000000;
   position: relative;
   overflow: hidden;
-  border: 1px solid #a5a5a5;
   background-color: white;
   -webkit-box-shadow: 0rem 0.5rem 0.5rem rgba(32, 33, 36, 0.28);
           box-shadow: 0rem 0.5rem 0.5rem rgba(32, 33, 36, 0.28);
   visibility: hidden;
   height: 0;
   position: absolute;
-  -webkit-transition-property: height, -webkit-box-shadow;
-  transition-property: height, -webkit-box-shadow;
-  transition-property: height, box-shadow;
-  transition-property: height, box-shadow, -webkit-box-shadow;
+  -webkit-transition-property: height, -webkit-box-shadow;
+  transition-property: height, -webkit-box-shadow;
+  transition-property: height, box-shadow;
+  transition-property: height, box-shadow, -webkit-box-shadow;
   -webkit-transition-duration: .3s;
           transition-duration: .3s;
 }
 
+.post__dropdown:not(:last-child) {
+  border-bottom: 1px solid #a5a5a5;
+}
+
 .post__dropdown:hover {
   visibility: visible;
-  height: 8.2rem;
+  height: 6.8rem;
   cursor: pointer;
 }
 
@@ -511,11 +518,6 @@
   position: relative;
 }
 
-.post__likes svg {
-  width: 3rem;
-  height: 3rem;
-}
-
 .post__like-icon {
   margin-right: .75rem;
   margin-left: .75rem;
@@ -536,33 +538,34 @@
   z-index: 1;
 }
 
+.post__comments-counter {
+  font-size: 1rem;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
 .post__comments {
   fill: #003ea3;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  margin: 1rem;
+  margin-bottom: 0;
+  margin-top: 0;
   cursor: pointer;
-}
-
-.post__comments p {
-  margin-left: 1rem;
-}
-
-.post__comments svg {
-  width: 3rem;
-  height: 3rem;
+  position: relative;
 }
 
 .post__comment-icon {
   margin: 0;
-  margin-right: .75rem;
-  margin-left: .75rem;
   cursor: pointer;
   color: #2f72ff;
 }

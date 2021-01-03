@@ -29,6 +29,7 @@ import { setConfirmation, setError } from "./alert";
 
 //action for creating a post
 export const createPost = (formData) => async(dispatch) => {
+    console.log("CREATE POST HAS BEEN CALLED")
     const config = {
         headers: {
             "Content-Type": "application/json",
@@ -55,7 +56,7 @@ export const createPost = (formData) => async(dispatch) => {
         dispatch({
             type: POST_FAIL,
         });
-        dispatch(setError(err.response.data.msg.message));
+        dispatch(setError(err));
     }
 };
 
