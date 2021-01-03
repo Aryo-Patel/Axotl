@@ -1,31 +1,29 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment, useRef } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import $ from "jquery";
-// import { getPost, addComment, editComment, likeReply } from "../../actions/post";
+import {editPost, getPost, deletePost, addComment, addLike, addReply, deleteComment, deleteReply, editComment, likeComment, likeReply, editReply} from "../../actions/post";
 import ConfirmationModal from "../common/ConfirmationModal";
-import auth from "../../reducers/auth";
+import EditPost from '../posts/EditPost'
+import EditComment from '../posts/EditComment'
+import EditReply from '../posts/EditReply'
+import {useHistory} from 'react-router-dom'
 import Moment from "react-moment";
 import {
   optimisticRenderingPost,
   optimisticRenderingComment,
   optimisticRenderingReply,
-} from "./utils/optimisticRendering";
+} from "../posts/utils/optimisticRendering";
+import dateComparison from "../posts/utils/dateComparison";
+import Spinner from '../common/Spinner'
+import './styling/main.css'
 
 const Post = ({
   loading,
   user,
-  post,
   deletePost,
   editPost,
-  confirmationModalToggle,
-  modal,
-  modalToggle,
-  setPost,
+  post,
   thisPostState,
-  confirmationModal,
-  setConfirmationPost,
-  confirmationPost,
   addComment,
   editComment,
   addReply,
@@ -33,43 +31,264 @@ const Post = ({
   removeLike,
   deleteComment,
   deleteReply,
-  setEditingComment,
-  setEditCommentModal,
   editReply,
   likeComment,
   likeReply,
-  setEditingReply,
-  setEditReplyModal,
   index,
+  getPost
 }) => {
-  // useEffect(() => {
-  //   //console.log(document.querySelectorAll('.post__comment-container')[index].scrollHeight)
-  //   //console.log(window.innerHeight/10*4)
-  //   //console.log(document.querySelectorAll('.post__comment-container')[index].clientHeight < document.querySelectorAll('.post__comment-container')[index].scrollHeight)
-  //   toggleSeeMore(
-  //     document.querySelectorAll(".post__comment-container")[index]
-  //       .scrollHeight >
-  //       0.4 * window.innerHeight || extendComments == "extended"
-  //       ? "on"
-  //       : "off"
-  //   );
-  // });
+  useEffect(() => {
+    getPost(window.location.href.split("/")[4])
+  }, [getPost, addComment, addLike, addReply]);
+  useEffect(() => {
+    if(post != null) setLiked(post.likes.filter((like) => like.user.toString() == user._id.toString())
+    .length > 0)
+  }, [post])
+  let history = useHistory();
   //state for creating comments
   const [text, updateText] = useState("");
   //state to check if a post is liked or not
-  const [liked, setLiked] = useState(
-    post.likes.filter((like) => like.user.toString() == user._id.toString())
-      .length > 0
-  );
+  const [liked, setLiked] = useState(false);
+  const topCommentRef = useRef(null)
+
+  //value for editing post modal to be open or closed
+  const [modal, modalToggle] = useState('closed');
+  //value of whether confirm deletion modal is open
+  const [confirmationModal, setConfirmationModal] = useState('closed');
+  //post for modal to confirm deletion of post
+  const [confirmationPost, setConfirmationPost] = useState({})
+  //data for editing comment modal
+  const [editingComment, setEditingComment] = useState({});
+  //value for editing comment modal
+  const [editCommentModal, setEditCommentModal] = useState('closed')
+  //data for editing reply modal
+  const [editingReply, setEditingReply] = useState({});
+  //value for editing reply modal
+  const [editReplyModal, setEditReplyModal] = useState('closed')
 
   //COMMENTS SECTION 'SEE MORE'
   const [seeMore, toggleSeeMore] = useState("on");
   const [extendComments, toggleExtendComments] = useState("limited");
   console.log("breaking up console.log");
+
+  const handleCommentLike = (e, comment) => {
+    console.log("onclick hit");
+    let div = null;
+    let svg = null;
+    let label = null;
+    console.log(Boolean(e.target.parentNode.dataset.loading))
+    if (!(e.target.parentNode.dataset.loading === "false")) {
+      if (e.target.classList.contains("comment__like")) {
+        //extracting variables
+        div = e.target.parentNode;
+        label = e.target.parentNode.childNodes[0];
+        svg = e.target;
+        console.log("first route hit");
+        //setting data values on div for front end logic
+        div.dataset.loading = "true";
+        div.dataset.loadingtemp = div.dataset.status ==="false" ? "true" : "false";
+        div.dataset.requestcounter = Number(div.dataset.requestcounter = div.dataset
+          .requestcounter)+ 1;
+        //calling action and optimistic rendering
+        likeComment(post._id, comment._id, div);
+        optimisticRenderingComment(
+          svg,
+          label,
+          e.target.parentNode.dataset.status
+        );
+      } else {
+        div = e.target.parentNode.parentNode;
+        label =
+          e.target.parentNode.parentNode.childNodes[0];
+        svg = e.target.parentNode;
+        console.log("second route hit");
+        div.dataset.loading = "true";
+        div.dataset.loadingtemp = div.dataset.status ==="false" ? "true" : "false";
+        div.dataset.requestcounter = Number(div.dataset.requestcounter = div.dataset
+          .requestcounter)+ 1;
+        likeComment(post._id, comment._id, div);
+        optimisticRenderingComment(
+          svg,
+          label,
+          div.dataset.status
+        );
+      }
+    } else {
+      if (e.target.classList.contains("comment__like")) {
+        div = e.target.parentNode;
+        label = e.target.parentNode.childNodes[0];
+        svg = e.target;
+        div.dataset.loadingtemp = div.dataset.loadingtemp ==="false" ? "true" : "false";
+        div.dataset.requestcounter = Number(div.dataset.requestcounter = div.dataset
+          .requestcounter)+ 1;
+        likeComment(
+          post._id,
+          comment._id,
+          e.target.parentNode
+        );
+        optimisticRenderingComment(
+          svg,
+          label,
+          div.dataset.loadingtemp
+        );
+      } else {
+        div = e.target.parentNode.parentNode;
+        label =
+          e.target.parentNode.parentNode.childNodes[0];
+        svg = e.target.parentNode;
+        div.dataset.loadingtemp = div.dataset.loadingtemp ==="false" ? "true" : "false";
+        div.dataset.requestcounter = Number(div.dataset.requestcounter = div.dataset
+          .requestcounter)+ 1;
+        likeComment(
+          post._id,
+          comment._id,
+          e.target.parentNode.parentNode
+        );
+        optimisticRenderingComment(
+          e.target.parentNode,
+          e.target.parentNode.parentNode.childNodes[0],
+          e.target.parentNode.parentNode.dataset.loadingtemp
+        );
+      }
+    }
+  }
+
+  const handleReplyLike = (e, comment, reply) => {
+    console.log("onclick hit");
+    let div = null;
+    let svg = null;
+    let label = null;
+    if (!(e.target.parentNode.dataset.loading === "false")) {
+      if (
+        e.target.classList.contains("reply__like")
+      ) {
+        //extracting variables
+        div = e.target.parentNode;
+        label = e.target.parentNode.childNodes[0];
+        svg = e.target;
+        console.log(div.dataset)
+        console.log("first route hit");
+        //setting data values on div for front end logic
+        div.dataset.loading = "true";
+        div.dataset.loadingtemp = div.dataset.status ==="false" ? "true" : "false";
+        div.dataset.requestcounter = Number(div.dataset
+          .requestcounter)+1;
+          console.log(div.dataset.requestcounter)
+        //calling action and optimistic rendering
+        likeReply(
+          post._id,
+          comment._id,
+          reply._id,
+          div
+        );
+        optimisticRenderingReply(
+          svg,
+          label,
+          div.dataset.status
+        );
+      } else {
+        div = e.target.parentNode.parentNode;
+        label =
+          e.target.parentNode.parentNode
+            .childNodes[0];
+        svg = e.target.parentNode;
+        console.log(div.dataset)
+        console.log("second route hit");
+        div.dataset.loading = "true";
+        div.dataset.loadingtemp = div.dataset.status ==="false" ? "true" : "false";
+        div.dataset.requestcounter = Number(div.dataset
+          .requestcounter)+1;
+          console.log(div.dataset.requestcounter)
+        likeReply(
+          post._id,
+          comment._id,
+          reply._id,
+          div
+        );
+        optimisticRenderingReply(
+          svg,
+          label,
+          div.dataset.status
+        );
+      }
+    } else {
+      if (
+        e.target.classList.contains("reply__like")
+      ) {
+        div = e.target.parentNode;
+        label = e.target.parentNode.childNodes[0];
+        svg = e.target;
+        console.log(div.dataset)
+        div.dataset.loadingtemp = div.dataset.loadingtemp ==="false" ? "true" : "false";
+        div.dataset.requestcounter = Number(div.dataset
+          .requestcounter)+1;
+          console.log(div.dataset.requestcounter)
+        likeReply(
+          post._id,
+          comment._id,
+          reply._id,
+          div
+        );
+        optimisticRenderingReply(
+          svg,
+          label,
+          div.dataset.loadingtemp
+        );
+      } else {
+        div = e.target.parentNode.parentNode;
+        label =
+          e.target.parentNode.parentNode
+            .childNodes[0];
+        svg = e.target.parentNode;
+        console.log(div.dataset)
+        div.dataset.loadingtemp = div.dataset.loadingtemp ==="false" ? "true" : "false";
+        div.dataset.requestcounter = Number(div.dataset
+          .requestcounter)+1;
+          console.log(div.dataset.requestcounter)
+        likeReply(
+          post._id,
+          comment._id,
+          reply._id,
+          div
+        );
+        optimisticRenderingReply(
+          svg,
+          label,
+          div.dataset
+            .loadingtemp
+        );
+      }
+    }
+  }
   return (
-    <div className="post">
+      <Fragment>
+          <div className="post__back-arrow">
+              <label htmlFor="#back">Back To Posts</label>
+            <i id="back" className="fas fa-long-arrow-alt-left fa-5x" style={{color: "black", cursor: "pointer"}} onClick = {e => history.push("/posts")}></i>
+          </div>
+          {loading ? <Spinner /> : (<Fragment>
+          <EditPost postState = {post} editPost = {editPost} modal = {modal} modalToggle = {modalToggle}/>
+            <ConfirmationModal setConfirmationModal = {setConfirmationModal} text = 'Are you sure you want to do this?' parentClassName='posts' confirmationModal={confirmationModal} confirmationPost = {confirmationPost} deletePost = {deletePost}/>
+            <EditComment editingComment = {editingComment} setEditCommentModal = {setEditCommentModal} editCommentModal = {editCommentModal} postState = {post} editComment = {editComment} />
+            <EditReply editingReply = {editingReply} setEditReplyModal = {setEditReplyModal} editReplyModal = {editReplyModal} postState = {post} editReply = {editReply} editingComment = {editingComment}/>
+            </Fragment>)}
+      {loading ? <Spinner /> : (<div className="singularPost__wrapper">
+      <div className="post">
       <div className="post__main">
         <div className="post__header-container">
+        <div className="post__user-fields">
+          <div className="post__fields-wrapper">
+            <img src={post.avatar} alt="" className="post__avatar" />
+            <div className="post__userTitle">
+              <h4 className="post__name">{post.name}</h4>
+              {/* <p>
+                <small>{post.sponsor ? "Sponsor" : "Organizer"}</small>
+              </p> */}
+            </div>
+            <p className="post__name-separator">&#8226;</p>
+            <p className="post__date">{dateComparison(Date.now(), post.Date)}</p>
+          </div>
+          </div>
           {!loading && user._id.toString() == post.user.toString() ? (
             <div className="post__edit">
               <div className="post__edit-icon"></div>
@@ -77,14 +296,13 @@ const Post = ({
                 <p
                   className="post__dropdown-item"
                   onClick={async (e) => {
-                    setPost(post);
                     //console.log(JSON.stringify(thisPostState));
                     //console.log("opening modal");
                     modalToggle("open");
                     //console.log(modal);
                   }}
                 >
-                  Edit Post
+                  Edit
                 </p>
                 <p
                   className="post__dropdown-item"
@@ -93,46 +311,23 @@ const Post = ({
                     //console.log("trying to delete post");
                     setConfirmationPost(post._id);
                     //console.log(confirmationPost);
-                    confirmationModalToggle("open");
+                    setConfirmationModal("open");
                     //console.log(confirmationModal);
                   }}
                 >
-                  Delete This Post
+                  Delete
                 </p>
               </div>
             </div>
           ) : (
             <div></div>
           )}
-
-          <div className="post__user-fields">
-            <div className="post__userTitle">
-              <h4 className="post__name">{post.name}</h4>
-              <p>
-                <small>{post.sponsor ? "Sponsor" : "Organizer"}</small>
-              </p>
-            </div>
-            <img src={post.avatar} alt="" className="post__avatar" />
-          </div>
         </div>
         <h4 className="subheading post__title">{post.title}</h4>
         <div className="post__content-container">
           <p className="post__content">
-            {post.content.substring(0, 980)}
-            {!(post.content.length > 980) ? null : (
-              <span
-                className="post__read-more"
-                onClick={(e) => {
-                  e.target.parentNode.innerHTML = post.content;
-                }}
-              >
-                ... Read More
-              </span>
-            )}
+            {post.content}
           </p>
-          <Moment className="post__date" format="hh:mm MM/DD/YYYY">
-            {post.Date}
-          </Moment>
         </div>
       </div>
       <div className="post__interactions">
@@ -141,89 +336,25 @@ const Post = ({
             {post.likes.length > 0 ? post.likes.length : `\u00a0`}
           </p>
 
-          <svg
-            className="post__like-icon"
-            onClick={(e) => {
+          <i className="far fa-heart fa-2x post__like-icon" style={{color: liked ? "red" : "#2f72ff"}} onClick={(e) => {
               addLike(post._id);
               optimisticRenderingPost(e, liked);
               !liked ? setLiked(true) : setLiked(false);
-            }}
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 16 16"
-          >
-            <path
-              id="likeSVG"
-              d="M 6.46875 1 A 0.50005 0.50005 0 0 0 6 1.5 L 6 2.375 C 6 3.5782168 5.6709145 4.4589043 5.4082031 5 L 1 5 L 1 5.5 L 1 14 L 5.4648438 14 L 6 14 L 11.689453 14 C 12.401791 14 13.03169 13.512224 13.185547 12.818359 A 0.50005 0.50005 0 0 0 13.193359 12.775391 L 13.994141 6.7753906 L 13.986328 6.8183594 C 14.192606 5.8871169 13.445053 5 12.490234 5 L 9 5 L 9 3.25 C 9 2.1347222 8.3117537 1.4625874 7.6875 1.2089844 C 7.0632463 0.95538128 6.46875 1 6.46875 1 z M 7 2.0800781 C 7.1318795 2.0988741 7.1621385 2.0736786 7.3125 2.1347656 C 7.6882463 2.2874131 8 2.4902778 8 3.25 L 8 5.5 A 0.50005 0.50005 0 0 0 8.5 6 L 12.490234 6 C 12.849416 6 13.079487 6.2868068 13.009766 6.6015625 A 0.50005 0.50005 0 0 0 13.001953 6.6445312 L 12.207031 12.603516 C 12.155768 12.828253 11.94803 13 11.689453 13 L 6 13 L 6 6.0195312 C 6.2254734 5.6703684 7 4.3403823 7 2.375 L 7 2.0800781 z M 2 6 L 5 6 L 5 13 L 2 13 L 2 6 z M 3.5 11 A 0.5 0.5 0 0 0 3 11.5 A 0.5 0.5 0 0 0 3.5 12 A 0.5 0.5 0 0 0 4 11.5 A 0.5 0.5 0 0 0 3.5 11 z"
-            />
-          </svg>
-          <p>Like</p>
+            }}></i>
         </div>
-        <div
-          className="post__comments"
-          onClick={(e) => {
-            if (e.target.classList.contains("post__comments")) {
-              e.target.parentNode.parentNode.childNodes[2].childNodes[2].childNodes[0].childNodes[0].focus();
-            } else if (e.target.classList.contains("post__comment-icon")) {
-              e.target.parentNode.parentNode.parentNode.childNodes[2].childNodes[2].childNodes[0].childNodes[0].focus();
-            }
-            // else if(e.target.classList.contains('post__comment-icon')) {
-            //     e.target.parentNode.parentNode)
-            // }
-            else if (e.target.classList.contains("post__comment-label")) {
-              e.target.parentNode.parentNode.parentNode.childNodes[2].childNodes[2].childNodes[0].childNodes[0].focus();
-            } else {
-              e.target.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[2].childNodes[2].childNodes[0].childNodes[0].focus();
-            }
-            // $('.post__comment-input').focus();
-          }}
-        >
-          <svg
-            className="post__comment-icon"
-            version="1.1"
-            xmlns="http://www.w3.org/2000/svg"
-            x="0px"
-            y="0px"
-            width="27.678px"
-            height="27.678px"
-            viewBox="0 0 27.678 27.678"
-            style={{ enableBackground: "new 0 0 27.678 27.678" }}
-          >
-            <g>
-              <path
-                d="M6.934,26.169c-0.771,0-1.6-0.584-1.6-1.866v-2.119H2.085C0.936,22.184,0,21.249,0,20.1V3.593
-		c0-1.149,0.936-2.085,2.085-2.085h23.508c1.149,0,2.085,0.936,2.085,2.086v16.503c0,1.15-0.936,2.087-2.085,2.087H12.892
-		L8.16,25.717C7.76,26.018,7.347,26.169,6.934,26.169z M2.085,3.508C2.038,3.508,2,3.546,2,3.593v16.505
-		c0,0.047,0.037,0.084,0.085,0.084h5.249v3.656l4.894-3.654h13.365c0.048,0,0.085-0.039,0.085-0.087V3.594
-		c0-0.048-0.037-0.086-0.085-0.086H2.085z M24.064,4.988H3.479v13.62h5.224v2.191l3.165-2.191h12.194V4.988H24.064z"
-              />
-            </g>
-            <g></g>
-            <g></g>
-            <g></g>
-            <g></g>
-            <g></g>
-            <g></g>
-            <g></g>
-            <g></g>
-            <g></g>
-            <g></g>
-            <g></g>
-            <g></g>
-            <g></g>
-            <g></g>
-            <g></g>
-          </svg>
-          <p className="post__comment-label">Comment</p>
-        </div>
+          <i className="far fa-comment fa-2x post__comment-icon" onClick={(e) => {
+            topCommentRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+          }}></i>
       </div>
-      <div className="post__comment-section">
+    </div>
+    <div className="post__comment-section">
         <div
           className="post__comment-container"
           data-status={extendComments}
           data-number={0}
         >
           {post.comments.map((comment, index) => (
-            <div key={index} className="comment__section">
+            <div ref={index == 0 ? topCommentRef : null} key={index} className="comment__section">
               <div className="comment">
                 <div className="comment__top">
                   <div className="comment__user">
@@ -232,7 +363,11 @@ const Post = ({
                       alt=""
                       className="comment__avatar"
                     />
-                    <h5 className="comment__name">{comment.name}</h5>
+                    <div className="comment__title">
+                        <h4 className="comment__name">{comment.name}</h4>
+                    </div>
+                    <p className="comment__name-separator">&#8226;</p>
+                    <p className="comment__date">{dateComparison(Date.now(), comment.Date)}</p>
                   </div>
                   {!loading &&
                   user._id.toString() == comment.user.toString() ? (
@@ -244,11 +379,10 @@ const Post = ({
                           onClick={async (e) => {
                             //makes the comment editable
                             setEditingComment(comment);
-                            setPost(post);
                             setEditCommentModal("open");
                           }}
                         >
-                          Edit Comment
+                          Edit
                         </p>
                         <p
                           className="comment__dropdown-item"
@@ -256,7 +390,7 @@ const Post = ({
                             deleteComment(post._id, comment._id);
                           }}
                         >
-                          Delete This Comment
+                          Delete
                         </p>
                       </div>
                     </div>
@@ -280,8 +414,8 @@ const Post = ({
                     }}
                   >
                     <p className="comment__text">
-                      {comment.text.substring(0, 210)}
-                      {!(comment.text.length > 210) ? null : (
+                      {comment.text.substring(0, 487)}
+                      {!(comment.text.length > 487) ? null : (
                         <span
                           className="comment__read-more"
                           onClick={(e) => {
@@ -295,9 +429,6 @@ const Post = ({
                   </form>
                 </div>
                 <div className="comment__bottom">
-                  <Moment className="post__date" format="hh:mm MM/DD/YYYY">
-                    {comment.Date}
-                  </Moment>
                   <div
                     className="comment__like-container"
                     data-status={
@@ -314,102 +445,20 @@ const Post = ({
                         ? comment.likes.length
                         : "\u00a0"}
                     </label>
-                    <svg
-                      onClick={(e) => {
-                        console.log("onclick hit");
-                        let div = null;
-                        let svg = null;
-                        let label = null;
-                        console.log(Boolean(e.target.parentNode.dataset.loading))
-                        if (!(e.target.parentNode.dataset.loading === "false")) {
-                          if (e.target.classList.contains("comment__like")) {
-                            //extracting variables
-                            div = e.target.parentNode;
-                            label = e.target.parentNode.childNodes[0];
-                            svg = e.target;
-                            console.log("first route hit");
-                            //setting data values on div for front end logic
-                            div.dataset.loading = "true";
-                            div.dataset.loadingtemp = div.dataset.status ==="false" ? "true" : "false";
-                            div.dataset.requestcounter = Number(div.dataset.requestcounter = div.dataset
-                              .requestcounter)+ 1;
-                            //calling action and optimistic rendering
-                            likeComment(post._id, comment._id, div);
-                            optimisticRenderingComment(
-                              svg,
-                              label,
-                              e.target.parentNode.dataset.status
-                            );
-                          } else {
-                            div = e.target.parentNode.parentNode;
-                            label =
-                              e.target.parentNode.parentNode.childNodes[0];
-                            svg = e.target.parentNode;
-                            console.log("second route hit");
-                            div.dataset.loading = "true";
-                            div.dataset.loadingtemp = div.dataset.status ==="false" ? "true" : "false";
-                            div.dataset.requestcounter = Number(div.dataset.requestcounter = div.dataset
-                              .requestcounter)+ 1;
-                            likeComment(post._id, comment._id, div);
-                            optimisticRenderingComment(
-                              svg,
-                              label,
-                              div.dataset.status
-                            );
-                          }
-                        } else {
-                          if (e.target.classList.contains("comment__like")) {
-                            div = e.target.parentNode;
-                            label = e.target.parentNode.childNodes[0];
-                            svg = e.target;
-                            div.dataset.loadingtemp = div.dataset.loadingtemp ==="false" ? "true" : "false";
-                            div.dataset.requestcounter = Number(div.dataset.requestcounter = div.dataset
-                              .requestcounter)+ 1;
-                            likeComment(
-                              post._id,
-                              comment._id,
-                              e.target.parentNode
-                            );
-                            optimisticRenderingComment(
-                              svg,
-                              label,
-                              div.dataset.loadingtemp
-                            );
-                          } else {
-                            div = e.target.parentNode.parentNode;
-                            label =
-                              e.target.parentNode.parentNode.childNodes[0];
-                            svg = e.target.parentNode;
-                            div.dataset.loadingtemp = div.dataset.loadingtemp ==="false" ? "true" : "false";
-                            div.dataset.requestcounter = Number(div.dataset.requestcounter = div.dataset
-                              .requestcounter)+ 1;
-                            likeComment(
-                              post._id,
-                              comment._id,
-                              e.target.parentNode.parentNode
-                            );
-                            optimisticRenderingComment(
-                              e.target.parentNode,
-                              e.target.parentNode.parentNode.childNodes[0],
-                              e.target.parentNode.parentNode.dataset.loadingtemp
-                            );
-                          }
-                        }
-                      }}
-                      className="comment__like"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 16 16"
+                    <i className="far fa-heart comment__like"
+                      onClick={(e) => {handleCommentLike(e, comment)}}
+                      
                     >
-                      <path d="M 6.46875 1 A 0.50005 0.50005 0 0 0 6 1.5 L 6 2.375 C 6 3.5782168 5.6709145 4.4589043 5.4082031 5 L 1 5 L 1 5.5 L 1 14 L 5.4648438 14 L 6 14 L 11.689453 14 C 12.401791 14 13.03169 13.512224 13.185547 12.818359 A 0.50005 0.50005 0 0 0 13.193359 12.775391 L 13.994141 6.7753906 L 13.986328 6.8183594 C 14.192606 5.8871169 13.445053 5 12.490234 5 L 9 5 L 9 3.25 C 9 2.1347222 8.3117537 1.4625874 7.6875 1.2089844 C 7.0632463 0.95538128 6.46875 1 6.46875 1 z M 7 2.0800781 C 7.1318795 2.0988741 7.1621385 2.0736786 7.3125 2.1347656 C 7.6882463 2.2874131 8 2.4902778 8 3.25 L 8 5.5 A 0.50005 0.50005 0 0 0 8.5 6 L 12.490234 6 C 12.849416 6 13.079487 6.2868068 13.009766 6.6015625 A 0.50005 0.50005 0 0 0 13.001953 6.6445312 L 12.207031 12.603516 C 12.155768 12.828253 11.94803 13 11.689453 13 L 6 13 L 6 6.0195312 C 6.2254734 5.6703684 7 4.3403823 7 2.375 L 7 2.0800781 z M 2 6 L 5 6 L 5 13 L 2 13 L 2 6 z M 3.5 11 A 0.5 0.5 0 0 0 3 11.5 A 0.5 0.5 0 0 0 3.5 12 A 0.5 0.5 0 0 0 4 11.5 A 0.5 0.5 0 0 0 3.5 11 z" />
-                    </svg>
+                      </i>
                   </div>
+                  
                   <div className="comment__replies">
                     <label className="comment__reply-counter">
                       {comment.replies.length > 0
                         ? comment.replies.length
                         : null}
                     </label>
-                    <svg
+                    <i
                       onClick={(e) => {
                         if (
                           e.target.parentNode.parentNode.parentNode.parentNode
@@ -431,53 +480,9 @@ const Post = ({
                               : comment.replies.length);
                         }
                       }}
-                      className="comment__reply"
-                      version="1.1"
-                      id="Layer_1"
-                      xmlns="http://www.w3.org/2000/svg"
-                      x="0px"
-                      y="0px"
-                      viewBox="0 0 511.971 511.971"
-                      style={{ enableBackground: "new 0 0 511.971 511.971" }}
+                      className="fas fa-reply comment__reply"
                     >
-                      <g>
-                        <g>
-                          <g>
-                            <path
-                              d="M444.771,235.493c-58.987-56.32-138.347-64-167.467-64.747V96.079c0-5.867-4.8-10.667-10.667-10.667
-				c-2.453,0-4.907,0.853-6.827,2.453L78.478,237.199c-4.587,3.733-5.227,10.453-1.493,15.04c0.427,0.533,0.96,0.96,1.493,1.493
-				l181.333,149.333c4.587,3.733,11.307,3.093,15.04-1.493c1.6-1.92,2.453-4.267,2.453-6.827v-77.44
-				c29.76-8.107,143.893-28.693,214.613,103.787c1.813,3.52,5.44,5.653,9.387,5.653c3.413,0,6.72-1.6,8.853-4.693
-				c1.28-1.813,1.813-4.053,1.813-6.293C511.865,338.639,489.251,278.053,444.771,235.493z M324.131,290.533
-				c-35.52,0-60.48,8.533-61.12,8.853c-4.267,1.493-7.04,5.547-7.04,10.027v62.72l-153.92-126.72l153.92-126.72v62.72
-				c0,2.88,1.173,5.653,3.307,7.68c2.133,2.027,4.907,3.093,7.893,2.987c0.96,0,97.813-3.52,163.093,58.987
-				c32.107,30.72,51.52,72.32,58.027,124.16C436.665,305.679,371.171,290.533,324.131,290.533z"
-                            />
-                            <path
-                              d="M199.331,387.066c-0.213-0.107-0.32-0.32-0.533-0.427L27.385,245.413l171.413-141.12
-				c4.693-3.627,5.547-10.347,1.92-14.933c-3.627-4.587-10.347-5.547-14.933-1.92c-0.213,0.107-0.32,0.32-0.533,0.427L3.918,237.199
-				c-4.587,3.733-5.227,10.453-1.493,15.04c0.427,0.533,0.96,0.96,1.493,1.493l181.333,149.333c4.48,3.84,11.2,3.413,15.04-0.96
-				C204.131,397.626,203.705,390.906,199.331,387.066z"
-                            />
-                          </g>
-                        </g>
-                      </g>
-                      <g></g>
-                      <g></g>
-                      <g></g>
-                      <g></g>
-                      <g></g>
-                      <g></g>
-                      <g></g>
-                      <g></g>
-                      <g></g>
-                      <g></g>
-                      <g></g>
-                      <g></g>
-                      <g></g>
-                      <g></g>
-                      <g></g>
-                    </svg>
+                    </i>
                   </div>
                 </div>
               </div>
@@ -493,7 +498,11 @@ const Post = ({
                               alt=""
                               className="reply__avatar"
                             />
-                            <h5 className="reply__name">{reply.name}</h5>
+                            <div className="reply__title">
+                            <h4 className="reply__name">{reply.name}</h4>
+                            </div>
+                            <p className="reply__name-separator">&#8226;</p>
+                            <p className="reply__date">{dateComparison(Date.now(), comment.Date)}</p>
                           </div>
                           {!loading &&
                           user._id.toString() == reply.user.toString() ? (
@@ -506,11 +515,10 @@ const Post = ({
                                     //makes the comment editable
                                     setEditingReply(reply);
                                     setEditingComment(comment);
-                                    setPost(post);
                                     setEditReplyModal("open");
                                   }}
                                 >
-                                  Edit Reply
+                                  Edit
                                 </p>
                                 <p
                                   className="reply__dropdown-item"
@@ -522,7 +530,7 @@ const Post = ({
                                     );
                                   }}
                                 >
-                                  Delete This Reply
+                                  Delete
                                 </p>
                               </div>
                             </div>
@@ -562,20 +570,13 @@ const Post = ({
                           </form>
                         </div>
                         <div className="reply__bottom">
-                          <Moment
-                            className="reply__date"
-                            format="hh:mm MM/DD/YYYY"
-                          >
-                            {reply.Date}
-                          </Moment>
                           <div
                             className="reply__like-container"
                             data-status={
-                              reply.likes.filter(
-                                (like) =>
-                                  like.user.toString() == user._id.toString()
-                              ).length > 0
-                            }
+                                reply.likes.filter(
+                                  (like) => like.user.toString() == user._id.toString()
+                                ).length > 0
+                              }
                             data-loading="false"
                             data-loadingtemp="false"
                             data-requestcounter={0}
@@ -585,120 +586,10 @@ const Post = ({
                                 ? reply.likes.length
                                 : "\u00a0"}
                             </label>
-                            <svg
-                              onClick={(e) => {
-                                console.log("onclick hit");
-                                let div = null;
-                                let svg = null;
-                                let label = null;
-                                if (!(e.target.parentNode.dataset.loading === "false")) {
-                                  if (
-                                    e.target.classList.contains("reply__like")
-                                  ) {
-                                    //extracting variables
-                                    div = e.target.parentNode;
-                                    label = e.target.parentNode.childNodes[0];
-                                    svg = e.target;
-                                    console.log(div.dataset)
-                                    console.log("first route hit");
-                                    //setting data values on div for front end logic
-                                    div.dataset.loading = "true";
-                                    div.dataset.loadingtemp = div.dataset.status ==="false" ? "true" : "false";
-                                    div.dataset.requestcounter = Number(div.dataset
-                                      .requestcounter)+1;
-                                      console.log(div.dataset.requestcounter)
-                                    //calling action and optimistic rendering
-                                    likeReply(
-                                      post._id,
-                                      comment._id,
-                                      reply._id,
-                                      div
-                                    );
-                                    optimisticRenderingReply(
-                                      svg,
-                                      label,
-                                      div.dataset.status
-                                    );
-                                  } else {
-                                    div = e.target.parentNode.parentNode;
-                                    label =
-                                      e.target.parentNode.parentNode
-                                        .childNodes[0];
-                                    svg = e.target.parentNode;
-                                    console.log(div.dataset)
-                                    console.log("second route hit");
-                                    div.dataset.loading = "true";
-                                    div.dataset.loadingtemp = div.dataset.status ==="false" ? "true" : "false";
-                                    div.dataset.requestcounter = Number(div.dataset
-                                      .requestcounter)+1;
-                                      console.log(div.dataset.requestcounter)
-                                    likeReply(
-                                      post._id,
-                                      comment._id,
-                                      reply._id,
-                                      div
-                                    );
-                                    optimisticRenderingReply(
-                                      svg,
-                                      label,
-                                      div.dataset.status
-                                    );
-                                  }
-                                } else {
-                                  if (
-                                    e.target.classList.contains("reply__like")
-                                  ) {
-                                    div = e.target.parentNode;
-                                    label = e.target.parentNode.childNodes[0];
-                                    svg = e.target;
-                                    console.log(div.dataset)
-                                    div.dataset.loadingtemp = div.dataset.loadingtemp ==="false" ? "true" : "false";
-                                    div.dataset.requestcounter = Number(div.dataset
-                                      .requestcounter)+1;
-                                      console.log(div.dataset.requestcounter)
-                                    likeReply(
-                                      post._id,
-                                      comment._id,
-                                      reply._id,
-                                      div
-                                    );
-                                    optimisticRenderingReply(
-                                      svg,
-                                      label,
-                                      div.dataset.loadingtemp
-                                    );
-                                  } else {
-                                    div = e.target.parentNode.parentNode;
-                                    label =
-                                      e.target.parentNode.parentNode
-                                        .childNodes[0];
-                                    svg = e.target.parentNode;
-                                    console.log(div.dataset)
-                                    div.dataset.loadingtemp = div.dataset.loadingtemp ==="false" ? "true" : "false";
-                                    div.dataset.requestcounter = Number(div.dataset
-                                      .requestcounter)+1;
-                                      console.log(div.dataset.requestcounter)
-                                    likeReply(
-                                      post._id,
-                                      comment._id,
-                                      reply._id,
-                                      div
-                                    );
-                                    optimisticRenderingReply(
-                                      svg,
-                                      label,
-                                      div.dataset
-                                        .loadingtemp
-                                    );
-                                  }
-                                }
-                              }}
-                              className="reply__like"
-                              xmlns="http://www.w3.org/2000/svg"
-                              viewBox="0 0 16 16"
+                            <i className="far fa-heart reply__like"
+                              onClick={(e) => handleReplyLike(e, comment, reply)}
                             >
-                              <path d="M 6.46875 1 A 0.50005 0.50005 0 0 0 6 1.5 L 6 2.375 C 6 3.5782168 5.6709145 4.4589043 5.4082031 5 L 1 5 L 1 5.5 L 1 14 L 5.4648438 14 L 6 14 L 11.689453 14 C 12.401791 14 13.03169 13.512224 13.185547 12.818359 A 0.50005 0.50005 0 0 0 13.193359 12.775391 L 13.994141 6.7753906 L 13.986328 6.8183594 C 14.192606 5.8871169 13.445053 5 12.490234 5 L 9 5 L 9 3.25 C 9 2.1347222 8.3117537 1.4625874 7.6875 1.2089844 C 7.0632463 0.95538128 6.46875 1 6.46875 1 z M 7 2.0800781 C 7.1318795 2.0988741 7.1621385 2.0736786 7.3125 2.1347656 C 7.6882463 2.2874131 8 2.4902778 8 3.25 L 8 5.5 A 0.50005 0.50005 0 0 0 8.5 6 L 12.490234 6 C 12.849416 6 13.079487 6.2868068 13.009766 6.6015625 A 0.50005 0.50005 0 0 0 13.001953 6.6445312 L 12.207031 12.603516 C 12.155768 12.828253 11.94803 13 11.689453 13 L 6 13 L 6 6.0195312 C 6.2254734 5.6703684 7 4.3403823 7 2.375 L 7 2.0800781 z M 2 6 L 5 6 L 5 13 L 2 13 L 2 6 z M 3.5 11 A 0.5 0.5 0 0 0 3 11.5 A 0.5 0.5 0 0 0 3.5 12 A 0.5 0.5 0 0 0 4 11.5 A 0.5 0.5 0 0 0 3.5 11 z" />
-                            </svg>
+                              </i>
                           </div>
                         </div>
                       </div>
@@ -728,21 +619,6 @@ const Post = ({
             </div>
           ))}
         </div>
-        <div
-          className="comment__see-more"
-          data-status={seeMore}
-          onClick={(e) => {
-            // if (extendComments == "limited") {
-            //   toggleExtendComments("extended");
-            //   e.target.innerHTML = "See Fewer Comments";
-            // } else {
-            //   toggleExtendComments("limited");
-            //   e.target.innerHTML = "See More Comments";
-            // }
-          }}
-        >
-          
-        </div>
         <div className="post__create-comments">
           <form
             className="post__create-comment"
@@ -751,6 +627,7 @@ const Post = ({
               addComment({ text }, post._id);
               //console.log("passed addcomment");
               updateText("");
+              getPost(post._id);
             }}
           >
             <input
@@ -760,19 +637,25 @@ const Post = ({
               placeholder="Write a comment..."
               onChange={(e) => updateText(e.target.value)}
             />
-            <button className="post__send-comment">Send</button>
+            <button className="post__send-comment">
+                <i className="fas fa-arrow-up"></i>
+            </button>
           </form>
         </div>
       </div>
-    </div>
+    </div>)}
+    </Fragment>
   );
 };
 
-Post.propTypes = {};
+Post.propTypes = {
+    getPost : PropTypes.func.isRequired
+};
 
 const mapStateToProps = (state) => ({
   user: state.auth.user.user,
-  loading: state.auth.loading,
+  post: state.post.post,
+  loading: state.post.singularLoading,
 });
 
-export default connect(mapStateToProps, {})(Post);
+export default connect(mapStateToProps, {editPost, getPost, deletePost, addComment, addLike, addReply, deleteComment, deleteReply, editComment, likeComment, likeReply, editReply})(Post);

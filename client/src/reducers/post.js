@@ -24,6 +24,7 @@ const initialState = {
     myPosts: [],
     loading: true,
     myPostsLoading: true,
+    singularLoading: true,
     numPosts: 0,
     numMyPosts: 0,
 };
@@ -32,6 +33,8 @@ export default function(state = initialState, action) {
     const { type, payload } = action;
     let posts = [];
     let newMyPosts = [];
+    let post;
+    let comment;
     switch (type) {
         case CREATE_POST:
             // console.log(payload);
@@ -72,8 +75,8 @@ export default function(state = initialState, action) {
         case GET_POST:
             return {
                 ...state,
-                post: payload,
-                loading: false,
+                post: payload.post,
+                singularLoading: false,
             };
         case DELETE_COMMENT:
         case EDIT_COMMENT:
@@ -86,6 +89,7 @@ export default function(state = initialState, action) {
                     return myPost;
                 }
             });
+            console.log(payload)
             return {
                 ...state,
                 posts: {
@@ -95,6 +99,7 @@ export default function(state = initialState, action) {
                             post;
                     }),
                 },
+                post: payload,
                 myPosts: newMyPosts,
                 loading: false,
             };
@@ -107,7 +112,7 @@ export default function(state = initialState, action) {
                 }
             });
             posts = state.posts.posts.map((post) => {
-                if (post._id.toString() == payload.post.toString()) {
+                if (post._id.toString() == payload.post._id.toString()) {
                     post.likes = payload.likes;
                     return {
                         ...post,
@@ -121,42 +126,30 @@ export default function(state = initialState, action) {
                 posts: {
                     posts: posts,
                 },
+                post: payload.post,
                 myPosts: newMyPosts,
                 loading: false,
             };
         case LIKE_COMMENT:
             newMyPosts = state.myPosts.map((myPost) => {
-                if (myPost._id.toString() == payload.res._id.toString()) {
+                if (myPost._id.toString() == payload.post._id.toString()) {
                     return payload.res;
                 } else {
                     return myPost;
                 }
             });
-            posts = state.posts.posts.map((post) => {
-                if (post._id.toString() == payload.res.post_id.toString()) {
-                    post.comments.filter(
-                        (comment) => comment._id.toString() == payload.res.comment_id.toString()
-                    )[0].likes = payload.res.likes.slice(0, payload.res.likes.length);
-                    const newPost = {
-                        ...post,
-                        comments: post.comments,
-                    };
-                    return newPost;
-                } else {
-                    return post;
-                }
-            });
+            console.log({...payload.post.post })
             if (payload.counter === "1") {
                 return {
                     ...state,
-                    posts: { posts: posts },
+                    post: {...payload.post.post },
                     myPosts: newMyPosts,
                     loading: false,
                 }
             } else {
                 return {
                     ...state,
-                    posts: state.posts,
+                    post: {...payload.post.post },
                     myPosts: state.myPosts,
                     loading: false,
                 }
@@ -172,23 +165,19 @@ export default function(state = initialState, action) {
                     return myPost;
                 }
             });
-            posts = state.posts.posts.map((post) => {
-                if (post._id.toString() == payload.post_id.toString()) {
-                    const comment = post.comments.filter(
-                        (comment) =>
-                        comment._id.toString() == payload.comment_id.toString()
-                    )[0];
-                    comment.replies = payload.replies;
-                    return {
-                        ...post,
-                        comments: [...post.comments],
-                    };
-                }
-                return post;
-            });
+            post = state.post
+            comment = post.comments.filter(
+                (comment) =>
+                comment._id.toString() == payload.comment_id.toString()
+            )[0];
+            comment.replies = payload.replies;
+            post = {
+                ...post,
+                comments: [...post.comments],
+            };
             return {
                 ...state,
-                posts: { posts: posts },
+                post: {...post },
                 myPosts: newMyPosts,
                 loading: false,
             };
@@ -202,26 +191,24 @@ export default function(state = initialState, action) {
                     return myPost;
                 }
             });
-            posts = state.posts.posts.map((post) => {
-                if (post._id.toString() == payload.res.post_id.toString()) {
-                    const comment = post.comments.filter(
-                        (comment) =>
-                        comment._id.toString() == payload.res.comment_id.toString()
-                    )[0];
-                    comment.replies = payload.res.replies;
-                    return {
-                        ...post,
-                        comments: [...post.comments],
-                    };
-                }
-                return post;
-            });
+            post = state.post
+            comment = post.comments.filter(
+                (comment) =>
+                comment._id.toString() == payload.res.comment_id.toString()
+            )[0];
+            comment.replies = payload.res.replies;
             console.log(`reducer counter = ${payload.counter}`)
+            post = {
+                ...post,
+                comments: [...post.comments],
+            };
             if (payload.counter === "1") {
                 console.log('updating the redux')
                 return {
                     ...state,
-                    posts: { posts: posts },
+                    post: {
+                        ...post
+                    },
                     myPosts: newMyPosts,
                     loading: false,
                 };
@@ -229,7 +216,9 @@ export default function(state = initialState, action) {
                 console.log('not updating the redux')
                 return {
                     ...state,
-                    posts: state.posts,
+                    post: {
+                        ...post
+                    },
                     myPosts: state.myPosts,
                     loading: false,
                 };

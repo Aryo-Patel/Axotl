@@ -6,6 +6,7 @@ import $ from "jquery";
 import ConfirmationModal from "../common/ConfirmationModal";
 import auth from "../../reducers/auth";
 import Moment from "react-moment";
+import {useHistory} from "react-router-dom"
 import {
   optimisticRenderingPost,
   optimisticRenderingComment,
@@ -57,6 +58,8 @@ const Post = ({
   // });
   //state for creating comments
   const [text, updateText] = useState("");
+
+  let history = useHistory();
   //state to check if a post is liked or not
   const [liked, setLiked] = useState(
     post.likes.filter((like) => like.user.toString() == user._id.toString())
@@ -98,7 +101,7 @@ const Post = ({
                     //console.log(modal);
                   }}
                 >
-                  Edit Post
+                  Edit
                 </p>
                 <p
                   className="post__dropdown-item"
@@ -111,7 +114,7 @@ const Post = ({
                     //console.log(confirmationModal);
                   }}
                 >
-                  Delete This Post
+                  Delete
                 </p>
               </div>
             </div>
@@ -121,7 +124,10 @@ const Post = ({
         </div>
         <h4 className="subheading post__title">{post.title}</h4>
         <div className="post__content-container">
-          <p className="post__content">
+          <p className="post__content" onClick={e => {
+            history.push(`/post/${post._id}`)
+            window.scrollTo(0,0)
+        }}>
             {post.content.substring(0, 980)}
             {!(post.content.length > 980) ? null : (
               <span
@@ -149,21 +155,9 @@ const Post = ({
             }}></i>
         </div>
           <i className="far fa-comment fa-2x post__comment-icon" onClick={(e) => {
-            if (e.target.classList.contains("post__comments")) {
-              e.target.parentNode.parentNode.childNodes[2].childNodes[2].childNodes[0].childNodes[0].focus();
-            } else if (e.target.classList.contains("post__comment-icon")) {
-              e.target.parentNode.parentNode.parentNode.childNodes[2].childNodes[2].childNodes[0].childNodes[0].focus();
-            }
-            // else if(e.target.classList.contains('post__comment-icon')) {
-            //     e.target.parentNode.parentNode)
-            // }
-            else if (e.target.classList.contains("post__comment-label")) {
-              e.target.parentNode.parentNode.parentNode.childNodes[2].childNodes[2].childNodes[0].childNodes[0].focus();
-            } else {
-              e.target.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[2].childNodes[2].childNodes[0].childNodes[0].focus();
-            }
-            // $('.post__comment-input').focus();
-          }}></i>
+            history.push(`/post/${post._id}`)
+            window.scrollTo(0,0)
+        }}></i>
       </div>
     </div>
   );

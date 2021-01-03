@@ -162,7 +162,7 @@ export const addComment = (formData, post_id) => async(dispatch) => {
             type: USER_LOADED,
             payload: {
                 user: { user: res.data.user },
-                sponsor: res.data.user.sponsor,
+                sponsor: res.data.user.sponsor
             },
         });
     } catch (err) {
@@ -181,7 +181,7 @@ export const editComment = (text, post_id, comment_id) => async(dispatch) => {
     };
     const body = JSON.stringify({ text });
     try {
-        const res = await axios.put(
+        const res = await axios.patch(
             `/api/posts/${post_id}/comments/${comment_id}`,
             body,
             config
@@ -325,7 +325,7 @@ export const likeComment = (post_id, comment_id, div) => async(dispatch) => {
 
         dispatch({
             type: LIKE_COMMENT,
-            payload: { res: res.data, counter: div.dataset.requestcounter },
+            payload: { post: res.data, counter: div.dataset.requestcounter },
         });
         div.dataset.requestcounter = Number(div.dataset.requestcounter) - 1;
     } catch (err) {
