@@ -50,6 +50,11 @@ function App() {
   useEffect(() => {
     store.dispatch(loadUser());
   }, [])
+  window.addEventListener('scroll', (e) => handleScroll(e));
+  const handleScroll = (e) => {
+    console.log(e.target.children[0].children[1]);
+      e.target.children[0].children[1].classList.add("scrollbarActive");
+  }
   return (
     <Provider store={store} >
       <Router>
