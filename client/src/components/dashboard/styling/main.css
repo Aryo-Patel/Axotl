@@ -140,6 +140,14 @@
   cursor: pointer;
 }
 
+.dashboard .center-display-wrapper .checkmark {
+  color: green;
+}
+
+.dashboard .center-display-wrapper .xsign {
+  color: red;
+}
+
 .dashboard .center-display-wrapper .notification-center {
   position: relative;
   padding: 2% 2% 2% 2%;
@@ -187,13 +195,48 @@
   text-align: center;
 }
 
-.dashboard .notifications .notification-wrapper .notification-body {
-  margin: 10px;
-  width: 100%;
+.dashboard .notifications .notification-wrapper .notification-header:hover .notification-body {
+  visibility: visible;
 }
 
-.dashboard .notifications .notification-wrapper .notification-body .item {
-  border-bottom: 1px solid white;
+.dashboard .notifications .notification-wrapper .notification-header:hover .arrow {
+  visibility: visible;
+}
+
+.dashboard .notifications .notification-wrapper .notification-body {
+  visibility: hidden;
+  width: 100%;
+  background-color: white;
+  text-align: center;
+  border-radius: 1vh;
+  border: solid;
+  border-color: orange;
+  padding: 2% 2% 2% 2%;
+  -webkit-box-shadow: 0px 1px 6px #a2a2a2;
+          box-shadow: 0px 1px 6px #a2a2a2;
+  color: rgba(233, 129, 17, 0.994);
+  position: absolute;
+  z-index: 1;
+}
+
+.dashboard .notifications .notification-wrapper .notification-body:hover {
+  display: none;
+}
+
+.dashboard .notifications .notification-wrapper .notification-body .arrow {
+  visibility: hidden;
+  content: " ";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -2vh;
+  border-width: 2vh;
+  border-style: solid;
+  border-color: transparent transparent orange transparent;
+}
+
+.dashboard .notifications .notification-wrapper .notification-body .arrow:hover .notification-body {
+  display: none;
 }
 
 .dashboard .notifications .notification-wrapper .chat {

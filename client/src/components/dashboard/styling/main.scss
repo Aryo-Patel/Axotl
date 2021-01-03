@@ -121,6 +121,14 @@ $primary-white: #eee;
       }
     }
 
+    //Use these to color the checks and X's
+    .checkmark {
+      color: green;
+    }
+    .xsign{
+      color: red;
+    }
+
     .notification-center {
       position: relative;
       padding: 2% 2% 2% 2%;
@@ -163,13 +171,64 @@ $primary-white: #eee;
         p {
           text-align: center;
         }
+        &:hover{
+          .notification-body {
+            visibility: visible;
+          }
+          .arrow{
+            visibility: visible;
+          }
+        }
       }
       .notification-body {
-        margin: 10px;
+        //Text
+        visibility: hidden;
         width: 100%;
-        .item {
-          border-bottom: 1px solid white;
+        background-color: white;
+        text-align: center;
+        border-radius: 1vh;
+        border: solid;
+        border-color: orange;
+        padding: 2% 2% 2% 2%;
+        box-shadow: 0px 1px 6px rgb(162, 162, 162);
+        color: rgba(233, 129, 17, 0.994);
+        //positioning
+        position: absolute;
+        z-index: 1;
+        &:hover{
+          display: none;
         }
+        .arrow{
+          visibility: hidden;
+          //This is going to make the little arrow
+          content: " ";
+          position: absolute;
+          bottom: 100%;
+          left: 50%;
+          margin-left: -2vh;
+          border-width: 2vh;
+          border-style: solid;
+          border-color: transparent transparent orange transparent;
+          &:hover{
+            .notification-body{
+              display: none;
+            }
+          }
+        }
+        // &:after{
+        //   content: "";
+        //   position: absolute;
+        //   width: 2vh;
+        //   height: 2vh;
+        //   background: whitesmoke;
+        //   //Center
+        //   transform: translateX(-50%) rotate(45deg);
+        //   left: 50%;
+        //   bottom: 100%;
+        //   box-shadow: 2px 2px 20px 0px rgba(0,0,0,0.6);
+        //   z-index: 0;
+        // }
+        
       }
 
       .chat{
