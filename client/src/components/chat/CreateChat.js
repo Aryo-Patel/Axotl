@@ -246,6 +246,7 @@ class CreateChat extends Component {
                             onChange={this.onChange}
                             className='input'
                             maxlength='20'
+                            required = {true}
                         />
                         <div className = "bottom-spacer">
 
