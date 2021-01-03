@@ -56,52 +56,64 @@ class AddExperience extends Component {
 
     render() {
         return (
-            <div className = 'experienceWrapper'>
+            <div className = 'educationWrapper'>
                 <form onSubmit={this.onSubmit}>
+                <h1 className= "educ-header">Update your Experiences</h1>
                 <TextField
+                parentClassName = "educ spacer"
                 name="company"
                 value={this.state.company}
                 onChange={this.handleChange}
                 placeholder="Enter the company/institution name"
+                required = {true}
                 />
                 <TextField
+                parentClassName = "educ spacer"
                 name="position"
                 value={this.state.position}
                 onChange={this.handleChange}
                 placeholder="What was your position?"
-                required
+                required = {true}
                 />
                 <TextField
+                parentClassName = "educ spacer"
                 name="description"
                 value={this.state.description}
                 onChange={this.handleChange}
                 placeholder="Describe what you did."
-                required
+                required = {true}
                 />
                 <TextField
+                parentClassName = "educ spacer"
                 name="location"
                 value={this.state.location}
                 onChange={this.handleChange}
                 placeholder="Where was this?"
+                required = {true}
                 />
                 <TextField
+                parentClassName = "educ spacer"
                 name="from"
                 value={this.state.from}
                 onChange={this.handleChange}
                 placeholder="MM/DD/YYYY"
-                required
+                required ={true}
                 />
                 <TextField
+                parentClassName = "educ spacer"
                 name="to"
                 value={this.state.to}
                 onChange={this.handleChange}
                 placeholder="MM/DD/YYYY"
                 disabled={this.state.disabled}
-                required
+                required = {true}
                 />
-                <button onClick={this.toggleCurrent}>Are you currently pursuing this experience?</button>
-                <br></br>
-                <input type="submit" value="Submit" className="btn btn-success"></input>
+                <div className = "form-actions-educ">
+                    <button className = "educ-current" onClick={this.toggleCurrent}>Are you currently pursuing this experience?</button>
+                    
+                    <input className= "educ-submit" type="submit" value="Submit" className="btn btn-success"></input>
+                </div>
+                
                 </form>
             </div>
         )

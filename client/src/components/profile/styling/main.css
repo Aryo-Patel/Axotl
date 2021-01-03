@@ -406,6 +406,13 @@
   border: 2px solid #2f72ff;
 }
 
+.educationWrapper form .form-actions-educ .hackathon-button {
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+
 .experienceWrapper {
   padding-top: 10rem;
 }

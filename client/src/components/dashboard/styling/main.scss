@@ -21,6 +21,7 @@ $primary-white: #eee;
     display: flex;
     .display-selector-wrapper {
       position: relative;
+      display: flex;
       width: 50%;
       .display-selector {
         display: flex;
@@ -44,19 +45,15 @@ $primary-white: #eee;
 
     //Random line
     .split-line {
-      position: relative;
-      margin-left: 10%;
-      width: 3px;
-      max-width: 1%;
-      svg rect {
-        position: relative;
-        width: 3px;
-        fill: $background-color;
-        stroke: $background-color;
-      }
-      svg {
-        position: relative;
-        width: 3px;
+      position: absolute;
+      right: 10%;
+      top: 0px;
+      transition: 0.3s;
+      .left-arrow{
+        transition: 0.3s;
+        font-size: 20px;
+        transform: scale(4) translateX(25%);
+        position: fixed;
       }
     }
 
