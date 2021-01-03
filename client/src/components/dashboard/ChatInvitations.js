@@ -45,7 +45,7 @@ class ChatInvitations extends Component {
         let res = await axios.post(`/api/chat/reject/${id}`)
         await this.props.loadUser();
         this.setState({
-            chatInvites: [],
+            chatInvites: []
         })
         this.loadChatInfo();
     }
@@ -59,8 +59,9 @@ class ChatInvitations extends Component {
                             <div style={{position: "relative", width: "30%", display: "inline-block", overflowX: "hidden"}}>
                                 <strong><p style={{position: "relative", verticalAlign:"center", display: "inline-block"}}>{invite["name"]}</p></strong>
                             </div>
-                            <button className="accept-chat" onClick={() => this.accept(invite._id)}>Accept Invite</button>
-                            <button className="reject-chat" onClick={() => this.reject(invite._id)}>Reject Invite</button>
+                            <i className="icons-yay fas fa-times action" onClick={() => this.accept(invite._id)}/>
+                            <i className="icons-yay fas fa-check-square action" onClick={() => this.accept(invite._id)}/>
+                            
                         </div>
                         <br></br>
                         <br></br>

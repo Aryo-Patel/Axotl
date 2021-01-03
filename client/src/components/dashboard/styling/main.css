@@ -128,6 +128,18 @@
           transform: translateY(-50%);
 }
 
+.dashboard .center-display-wrapper .icons-yay {
+  position: relative;
+  display: inline-block;
+  float: right;
+  margin-right: 5%;
+  margin-left: 5%;
+}
+
+.dashboard .center-display-wrapper .icons-yay:hover {
+  cursor: pointer;
+}
+
 .dashboard .center-display-wrapper .notification-center {
   position: relative;
   padding: 2% 2% 2% 2%;
@@ -144,61 +156,54 @@
 }
 
 .dashboard .center-display-wrapper .notification-center .donation-notifications-wrapper {
-  display: -ms-grid;
-  display: grid;
-  row-gap: 20px;
-  -webkit-column-gap: 20px;
-          column-gap: 20px;
-  -ms-grid-columns: (minmax(400px, 1fr))[auto-fit];
-      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-}
-
-.dashboard .notifications {
-  margin: auto;
-  max-width: 450px;
+  /*display: grid;
+        row-gap: 20px;
+        column-gap: 20px;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        */
 }
 
 .dashboard .notifications .notification-wrapper {
-  background-color: #2f72ff;
-  color: white;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  position: relative;
+  position: relative;
+  white-space: nowrap;
+  display: inline-block;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
   border-radius: 10%;
+  width: 100%;
 }
 
 .dashboard .notifications .notification-wrapper .notification-header {
+  position: relative;
+  display: inline-block;
   margin: 10px;
-  width: 80%;
+  width: 50%;
+  font-size: 60%;
 }
 
-.dashboard .notifications .notification-wrapper .notification-header h3 {
+.dashboard .notifications .notification-wrapper .notification-header p {
   text-align: center;
 }
 
 .dashboard .notifications .notification-wrapper .notification-body {
   margin: 10px;
-  width: 80%;
+  width: 100%;
 }
 
 .dashboard .notifications .notification-wrapper .notification-body .item {
   border-bottom: 1px solid white;
 }
 
+.dashboard .notifications .notification-wrapper .chat {
+  font-size: 70%;
+}
+
 .dashboard .notifications .notification-wrapper .user-action {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: space-evenly;
-      -ms-flex-pack: space-evenly;
-          justify-content: space-evenly;
+  position: relative;
+  display: inline-block;
+  float: right;
 }
 
 .dashboard .notifications .notification-wrapper .user-action .action {
