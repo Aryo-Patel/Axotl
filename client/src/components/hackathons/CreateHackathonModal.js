@@ -156,7 +156,7 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
                 let deleteSpan = document.createElement('span');
                 deleteSpan.classList.add('donations');
                 deleteSpan.classList.add('delete-request');
-                deleteSpan.textContent = 'X';
+                deleteSpan.innerHTML = '<i class="far fa-times-circle"></i>';
                 deleteSpan.addEventListener('click', e => deleteTableRow(e));
                 deleteButton.appendChild(deleteSpan);
                 return;
@@ -205,7 +205,7 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
                 let prizesDeleteSpan = document.createElement('span');
                 prizesDeleteSpan.classList.add('prizes');
                 prizesDeleteSpan.classList.add('delete-request');
-                prizesDeleteSpan.textContent = 'X';
+                prizesDeleteSpan.innerHTML = '<i class="far fa-times-circle"></i>';
                 prizesDeleteSpan.addEventListener('click', e => deleteTableRow(e));
                 deleteRow.appendChild(prizesDeleteSpan);
                 return;
@@ -236,7 +236,7 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
                 let requirementDeleteSpan = document.createElement('span');
                 requirementDeleteSpan.classList.add('requirements');
                 requirementDeleteSpan.classList.add('delete-request');
-                requirementDeleteSpan.textContent = 'X';
+                requirementDeleteSpan.innerHTML = '<i class="far fa-times-circle"></i>';
                 requirementDeleteSpan.addEventListener('click', e => deleteTableRow(e));
                 requirementDeleteButton.appendChild(requirementDeleteSpan);
                 return;
@@ -265,7 +265,7 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
                 let criterionDeleteSpan = document.createElement('span');
                 criterionDeleteSpan.classList.add('criteria');
                 criterionDeleteSpan.classList.add('delete-request');
-                criterionDeleteSpan.textContent = 'X';
+                criterionDeleteSpan.innerHTML = '<i class="far fa-times-circle"></i>';
                 criterionDeleteSpan.addEventListener('click', e => {
                     deleteTableRow(e);
                 });
@@ -296,7 +296,7 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
                 let judgeDeleteButtonInput = document.createElement('span');
                 judgeDeleteButtonInput.classList.add('judges');
                 judgeDeleteButtonInput.classList.add('delete-request');
-                judgeDeleteButtonInput.textContent = 'X';
+                judgeDeleteButtonInput.innerHTML = '<i class="far fa-times-circle"></i>';
                 judgeDeleteButtonInput.addEventListener('click', e => {
                     deleteTableRow(e);
                 });
@@ -342,19 +342,20 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
     }
 
     function deleteTableRow(e) {
-        let rowExtract = e.target.parentNode.parentNode.children[0].children[0].name.split('-')[1];
 
-        let rowName = e.target.parentNode.parentNode.children[0].children[0].name.split('-')[2];
+        let rowExtract = e.target.parentNode.parentNode.parentNode.children[0].children[0].name.split('-')[1];
+        console.log(rowExtract);
+        let rowName = e.target.parentNode.parentNode.parentNode.children[0].children[0].name.split('-')[2];
 
         //remove the point from the DOM
-        let parentNode = e.target.parentNode.parentNode;
-        let child = e.target.parentNode;
+        let parentNode = e.target.parentNode.parentNode.parentNode;
+        let child = e.target.parentNode.parentNode;
 
         parentNode.remove(child);
 
 
         //grabs the table name
-        let category = e.target.classList[0];
+        let category = e.target.parentNode.classList[0];
         let array = formData[`${category}`];
         array.splice(rowExtract, 1);
         setFormData({
@@ -434,7 +435,7 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
                         <h1>&#10094;</h1>
                     </div>
                     <div className="modal-text">
-                        <h2 className="text-header">Fill in the information about your hackathon!</h2>
+                        <h2 className="text-header">{<i class="fab fa-wpforms"></i>} Fill in the information about your hackathon!</h2>
                         <small>* = required field</small>
 
                         <form className="modal-form" onSubmit={e => {
@@ -483,7 +484,7 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
                                             <tbody>
                                                 <tr>
                                                     <td><input type='text' placeholder='Requirement' name='row-0-requirement' value={formData.requirements[0]} onChange={e => addText(e)} /></td>
-                                                    <td><span className="requirements delete-request" onClick={e => deleteTableRow(e)}>X</span></td>
+                                                    <td><span className="requirements delete-request" onClick={e => deleteTableRow(e)}>{<i className="far fa-times-circle"></i>}</span></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -504,7 +505,7 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
                                             <tbody>
                                                 <tr>
                                                     <td><input type='text' placeholder="Criterion" value={formData.criteria ? formData.criteria[0] : ''} name='row-0-criteria' onChange={e => addText(e)} /></td>
-                                                    <td><span className="criteria delete-request" onClick={e => deleteTableRow(e)}>X</span></td>
+                                                    <td><span className="criteria delete-request" onClick={e => deleteTableRow(e)}>{<i className="far fa-times-circle"></i>}</span></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -521,7 +522,7 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
                                             <tbody>
                                                 <tr>
                                                     <td><input type='text' placeholder="Judge's name" value={formData.judges[0]} name='row-0-judges' onChange={e => addText(e)} /></td>
-                                                    <td><span className="judges delete-request" onClick={e => deleteTableRow(e)}>X</span></td>
+                                                    <td><span className="judges delete-request" onClick={e => deleteTableRow(e)}>{<i className="far fa-times-circle"></i>}</span></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -546,7 +547,7 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
                                                     <td><input type="text" placeholder="Type" name="row-0-type" value={formData.donations[0] ? formData.donations[0].type : ''} onChange={e => addText(e)} /></td>
                                                     <td><input type="number" min="0" placeholder="Quantity" value={formData.donations[0] ? formData.donations[0].quantity : ''} name="row-0-quantity" onChange={e => addText(e)} /></td>
                                                     <td><input type="text" placeholder="Description" value={formData.donations[0] ? formData.donations[0].description : ''} name="row-0-description" onChange={e => addText(e)} /></td>
-                                                    <td><span className="donations delete-request" onClick={e => deleteTableRow(e)}>X</span></td>
+                                                    <td><span className="donations delete-request" onClick={e => deleteTableRow(e)}>{<i className="far fa-times-circle"></i>}</span></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -569,7 +570,7 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
                                                 <tr>
                                                     <td><input type="text" placeholder="Award Title" name="row-0-awardTitle" value={formData.prizes[0] ? formData.prizes[0].awardTitle : ''} onChange={e => addText(e)} /></td>
                                                     <td><input type="text" placeholder="Prize" name="row-0-prize" value={formData.prizes[0] ? formData.prizes[0].prize : ''} onChange={e => addText(e)} /></td>
-                                                    <td><span className="prizes delete-request" onClick={e => deleteTableRow(e)}>X</span></td>
+                                                    <td><span className="prizes delete-request" onClick={e => deleteTableRow(e)}>{<i className="far fa-times-circle"></i>}</span></td>
                                                 </tr>
                                             </tbody>
                                         </table>
