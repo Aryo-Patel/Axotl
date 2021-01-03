@@ -367,8 +367,6 @@ $bp-small: 37.5em;
             width: 30px;
             &:hover {
                 transition: 0.3s;
-                transform: scale(1.2);
-                box-shadow: 0 0px 5px #000;
                 cursor: pointer;
             }
         }
