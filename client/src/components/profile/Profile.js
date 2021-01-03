@@ -62,13 +62,14 @@ class Profile extends Component {
               organization={profile.organization}
               sponsor={sponsor}
             />
-            {sponsor ? (
-              <Information profile={profile} />
-            ) : (
-              <Credentials profile={profile} />
-            )}
-            <Social props={profile} />
-            
+            <div className = "more-info">
+              {sponsor ? (
+                <Information profile={profile} />
+              ) : (
+                <Credentials profile={profile} />
+              )}
+              <Social props={profile} />
+            </div>
           </div>
         </div>
       );

@@ -5,10 +5,10 @@ function Social({props}) {
     let socialDisplay;
     if (social){
     socialDisplay = Object.keys(social).map((key, index) => {
+        console.log(key);
         return(
-            <div key={index}>
+            <div key={index} name= {key}>
                 <i  className={`fab fa-${key}`}></i>
-                <a href={social[key]}>{social[key]}</a>
             </div>
             
         )
@@ -17,7 +17,8 @@ function Social({props}) {
         socialDisplay = <div></div>
     }
     return (
-        <div>
+        <div className = "socials">
+            <h3 className = "socials-header">Connect with me!</h3>
             {socialDisplay}
         </div>
     )

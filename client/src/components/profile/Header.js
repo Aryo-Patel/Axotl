@@ -13,7 +13,7 @@ export default class Header extends Component {
       <div className="compHeader">
         <div className="imgWrapper">
           <img
-            className="mr-3 avatar"
+            className="avatar"
             src={this.props.sponsor ? DefaultSponsorPfp : DefaultPfp}
             style={{
               width: "200px",
@@ -28,16 +28,16 @@ export default class Header extends Component {
           <h5 className="mt-0 handle">
             <strong>@{this.props.handle}</strong>
           </h5>
-          <p className="location">Located In: {this.props.location}</p>
+          <p className="location">{this.props.location}</p>
           <p className="bio">{this.props.bio}</p>
 
           
           {this.props.sponsor ? (
-            <Link to="/edit-sponsor-profile" className="btn btn-success">
+            <Link to="/edit-sponsor-profile" className="edit-profile btn btn-success">
               Edit Profile
             </Link>
           ) : (
-            <Link to="/edit-profile" className="btn btn-success">
+            <Link to="/edit-profile" className="edit-profile btn btn-success">
               Edit Profile
             </Link>
           )}
