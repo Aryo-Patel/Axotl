@@ -355,16 +355,16 @@ $bp-small: 37.5em;
 
 .dropdown {
     opacity: 0;
-    visibility: none;
+    visibility: hidden;
+    overflow: hidden;
     height: 0;
-    display: none;
     top: 100%;
     right: 0%;
     width: 18rem;
     position: absolute;
     border-bottom: 1px solid transparent;
     border-radius: 20px;
-    transition: visibility 0.3s ease, opacity 0.3s ease;
+    transition: visibility 0.3s ease, opacity 0.3s ease, height 0.3s ease;
     &__item {
         color: $primary-white;
         display: flex;
@@ -373,6 +373,7 @@ $bp-small: 37.5em;
         text-align: right;
         font-size: 0.9em;
         padding: 0.7rem 1rem;
+        height: 3.5rem;
         //box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.1);
         z-index: 2;
         &:hover {
@@ -430,7 +431,7 @@ $bp-small: 37.5em;
             //background-color: darken($background-color, 5%);
             .dropdown {
                 display: block;
-                height: 137px;
+                height: 18.5rem;
                 visibility: visible;
                 opacity: 1;
             }

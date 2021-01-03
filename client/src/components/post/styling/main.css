@@ -291,27 +291,30 @@
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
-  height: 7.45rem;
+  height: 7.3rem;
 }
 
 .comment__dropdown {
   z-index: 100000;
   position: relative;
   overflow: hidden;
-  border: 1px solid #a5a5a5;
   background-color: white;
-  -webkit-box-shadow: 0rem 1rem 1rem rgba(0, 0, 0, 0.2);
-          box-shadow: 0rem 1rem 1rem rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0rem 0.5rem 0.5rem rgba(32, 33, 36, 0.28);
+          box-shadow: 0rem 0.5rem 0.5rem rgba(32, 33, 36, 0.28);
   visibility: hidden;
   height: 0;
   position: absolute;
-  -webkit-transition-property: height, -webkit-box-shadow;
-  transition-property: height, -webkit-box-shadow;
-  transition-property: height, box-shadow;
-  transition-property: height, box-shadow, -webkit-box-shadow;
+  -webkit-transition-property: height, -webkit-box-shadow;
+  transition-property: height, -webkit-box-shadow;
+  transition-property: height, box-shadow;
+  transition-property: height, box-shadow, -webkit-box-shadow;
   -webkit-transition-duration: .3s;
           transition-duration: .3s;
   right: 0;
+}
+
+.comment__dropdown:not(:last-child) {
+  border-bottom: 1px solid #a5a5a5;
 }
 
 .comment__dropdown:hover {
@@ -320,7 +323,7 @@
   height: -moz-fit-content;
   height: fit-content;
   cursor: pointer;
-  height: 7.45rem;
+  height: 7.3rem;
 }
 
 .comment__dropdown-item {
@@ -521,24 +524,28 @@
 
 .reply__edit-icon:hover + .reply__dropdown {
   visibility: visible;
-  height: 7.45rem;
+  height: 7.25rem;
 }
 
 .reply__dropdown {
   z-index: 100000;
   background-color: white;
   overflow: hidden;
-  -webkit-box-shadow: 0rem 1rem 1rem rgba(0, 0, 0, 0.2);
-          box-shadow: 0rem 1rem 1rem rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0rem 0.5rem 0.5rem rgba(32, 33, 36, 0.28);
+          box-shadow: 0rem 0.5rem 0.5rem rgba(32, 33, 36, 0.28);
   visibility: hidden;
   height: 0;
   position: absolute;
-  -webkit-transition-property: height, -webkit-box-shadow;
-  transition-property: height, -webkit-box-shadow;
-  transition-property: height, box-shadow;
-  transition-property: height, box-shadow, -webkit-box-shadow;
+  -webkit-transition-property: height, -webkit-box-shadow;
+  transition-property: height, -webkit-box-shadow;
+  transition-property: height, box-shadow;
+  transition-property: height, box-shadow, -webkit-box-shadow;
   -webkit-transition-duration: .3s;
           transition-duration: .3s;
+}
+
+.reply__dropdown:not(:last-child) {
+  border-bottom: 1px solid #a5a5a5;
 }
 
 .reply__dropdown:hover {
@@ -547,7 +554,7 @@
   height: -moz-fit-content;
   height: fit-content;
   cursor: pointer;
-  height: 7.45rem;
+  height: 7.25rem;
 }
 
 .reply__dropdown-item {

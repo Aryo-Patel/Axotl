@@ -16,7 +16,7 @@ import Spinner from '../common/Spinner'
 import '../posts/styling/posts.css'
 import './styling/myPost.css'
 
-const MyPosts = ({getMyPosts, loading, myPosts, editPost, deletePost, addComment, addLike, addReply, deleteComment, deleteReply, editComment, likeComment, likeReply, editReply, user}) => {
+const MyPosts = ({getMyPosts, loading, myPosts, editPost, deletePost, addComment, addLike, addReply, deleteComment, deleteReply, editComment, likeComment, likeReply, editReply, user, numMyPosts}) => {
     useEffect(() => {
        getMyPosts(pageNumber);
     }, [])
@@ -56,8 +56,18 @@ const MyPosts = ({getMyPosts, loading, myPosts, editPost, deletePost, addComment
         (<div className = 'posts'>
             <h3 className="heading">Posts</h3>
             <form className="searchingContainer">
-                <input type="text" className="searchBar" placeholder='Search for a post...' onChange = {e => onChange(e)} value= {search}/>
-                <input type='submit' className = 'search' value='Search'/>
+            <div className = "searchBarHolder">
+              <div className = "favicon-holder">
+                <i id = "faviconSearch" className="fas fa-search"></i>
+              </div>
+              <input
+                type="text"
+                className="searchBar"
+                placeholder="Search for a post..."
+                onChange={(e) => onChange(e)}
+                value={search}
+              />
+            </div>
             </form>
             {/**modal to edit a post */}
             <EditPost postState = {post} editPost = {editPost} modal = {modal} modalToggle = {modalToggle}/>
@@ -75,9 +85,7 @@ const MyPosts = ({getMyPosts, loading, myPosts, editPost, deletePost, addComment
                 )})}
                 {!loading && !myPosts ? (<h3 className = 'heading'>You Haven't Made Any Posts Yet</h3>) : null}
             </div>
-            {!loading && 
-            <button className="posts__see-more button" onClick = {e => paginate(e)}>See More Posts</button>
-}
+            {numMyPosts > pageNumber * 10 ? (<button className="posts__see-more button" onClick = {e => paginate(e)}>See More Posts</button>) : null}
         </div>) : (<div className = 'emptyMessage'>
             <h3 className="heading">You haven't made any posts!</h3>
             <Link to="/posts">Make one here &rarr;</Link>
@@ -103,7 +111,8 @@ MyPosts.propTypes = {
 const mapStateToProps = state => ({
     loading : state.post.myPostsLoading,
     myPosts: state.post.myPosts,
-    user : state.auth.user.user
+    user : state.auth.user.user,
+    numMyPosts : state.post.numMyPosts
 })
 
 export default connect(mapStateToProps, { getMyPosts, editPost, deletePost, addComment, addLike, addReply, deleteComment, deleteReply, editComment, likeComment, likeReply, editReply})(withRouter(MyPosts))

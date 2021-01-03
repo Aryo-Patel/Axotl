@@ -84,6 +84,7 @@ router.post("/", async(req, res) => {
     if (!req.user) {
         return res.status(401).json({ msg: "Unauthorized" });
     }
+    console.log("CREATE POST ROUTE HAS BEEN CALLED")
     const { title, content, attachment } = req.body;
     try {
         const user =
@@ -102,7 +103,7 @@ router.post("/", async(req, res) => {
         }
         console.log(newPost)
         await newPost.save();
-        user.myPosts.unshift(newPost._id);
+        // await user.myPosts.unshift(newPost._id);
         await user.save();
         res.json({ newPost, user });
     } catch (err) {
@@ -265,7 +266,7 @@ router.put("/:post_id/likes", async(req, res) => {
             (await Sponsor.findById(req.user._id));
         const sponsor = user.sponsor;
         if (
-            post.likes.filter(
+            await post.likes.filter(
                 like => like.user.toString() == req.user._id.toString()
             ).length > 0
         ) {
@@ -273,7 +274,7 @@ router.put("/:post_id/likes", async(req, res) => {
                 like => like.user.toString() != req.user._id.toString()
             )
 
-            const myLiked = user.myLiked.filter(like => like.toString() != req.params.post_id.toString());
+            const myLiked = await user.myLiked.filter(like => like.toString() != req.params.post_id.toString());
             //updating myLiked for the user if filtered array
             if (sponsor) {
                 user = await Sponsor.findOneAndUpdate({ _id: req.user._id }, { $set: { myLiked } }, { new: true });
