@@ -41,6 +41,15 @@ class ChatInvitations extends Component {
         this.loadChatInfo();
     }
 
+    reject = async(id) => {
+        let res = await axios.post(`/api/chat/reject/${id}`)
+        await this.props.loadUser();
+        this.setState({
+            chatInvites: [],
+        })
+        this.loadChatInfo();
+    }
+
     loadDisplay(){
         let output = this.state.chatInvites.map((invite) => {
             if(invite){
@@ -51,6 +60,7 @@ class ChatInvitations extends Component {
                                 <strong><p style={{position: "relative", verticalAlign:"center", display: "inline-block"}}>{invite["name"]}</p></strong>
                             </div>
                             <button className="accept-chat" onClick={() => this.accept(invite._id)}>Accept Invite</button>
+                            <button className="reject-chat" onClick={() => this.reject(invite._id)}>Reject Invite</button>
                         </div>
                         <br></br>
                         <br></br>

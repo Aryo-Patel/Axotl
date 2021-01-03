@@ -85,6 +85,18 @@
   float: right;
 }
 
+.dashboard .center-display-wrapper .reject-chat {
+  position: relative;
+  padding: 1% 1% 1%;
+  width: auto;
+  background-color: #ff472f;
+  height: auto;
+  border-radius: 5%;
+  color: white;
+  display: inline-block;
+  float: right;
+}
+
 .dashboard .center-display-wrapper .side-bar-elem {
   padding-left: 2%;
   padding-right: 2%;

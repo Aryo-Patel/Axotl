@@ -73,6 +73,18 @@ $primary-white: #eee;
       float: right;
     }
 
+    .reject-chat {
+      position: relative;
+      padding: 1% 1% 1%;
+      width: auto;
+      background-color: #ff472f;
+      height: auto;
+      border-radius: 5%;
+      color:white;
+      display: inline-block;
+      float: right;
+    }
+
     //This is the styling for the sidebar elements
     .side-bar-elem {
       padding-left:2%;
