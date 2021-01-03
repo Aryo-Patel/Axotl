@@ -4,7 +4,7 @@
     TODO: Expand upon what goes into this page.
 */
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 
 class Information extends Component {
     // constructor(props){
@@ -17,7 +17,7 @@ class Information extends Component {
             if (donationTypes[key] === true) {
                 return <li>{key}</li>
             } else {
-                return <div></div>
+                return <Fragment></Fragment>
             }
         });
 

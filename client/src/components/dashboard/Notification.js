@@ -57,23 +57,24 @@ const Notification = ({ header, data, sender, id, userId, updateNotifications, t
             <div className="notification-wrapper">
                 <div className="notification-header">
                     <p>New {header} from {sender} to {title}!</p>
+                
+                    <div className="notification-body">
+                        <div className="arrow"></div>
+                        {header === 'DONATION OFFER' &&
+                            data.map(donation => (
+                                <div className={`item ${donation.type}`} key={incrementor++}>
+                                    <p key={incrementor++} className={`type ${donation.type}`}>Type: {donation.type}</p>
+                                    <p key={incrementor++} className="quantity">Quantity: {donation.quantity}</p>
+                                </div>
+                            ))}
+                        <p>{data[0].description}</p>
+                    </div>
                 </div>
-                {/*
-                <div className="notification-body">
-                    {header === 'DONATION OFFER' &&
-                        data.map(donation => (
-                            <div className={`item ${donation.type}`} key={incrementor++}>
-                                <p key={incrementor++} className={`type ${donation.type}`}>Type: {donation.type}</p>
-                                <p key={incrementor++} className="quantity">Quantity: {donation.quantity}</p>
-                            </div>
-                        ))}
-                    <p>{data[0].description}</p>
-                </div>
-                        */}
+                    
                 <div className='user-action'>
-                    <i className="fas fa-check-square action" onClick={e => addDonation(e)}></i>
+                    <i className="checkmark fas fa-check action" onClick={e => addDonation(e)}></i>
                     <strong><span className='chat action' onClick={e => chatWithSponsor(e)}>Chat with the sponsor</span></strong>
-                    <i className="fas fa-times action" onClick={e => deleteNotification(e)}></i>
+                    <i className="xsign fas fa-times action" onClick={e => deleteNotification(e)}></i>
                 </div>
             </div>
             <br></br>

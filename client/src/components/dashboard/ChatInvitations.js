@@ -59,8 +59,8 @@ class ChatInvitations extends Component {
                             <div style={{position: "relative", width: "30%", display: "inline-block", overflowX: "hidden"}}>
                                 <strong><p style={{position: "relative", verticalAlign:"center", display: "inline-block"}}>{invite["name"]}</p></strong>
                             </div>
-                            <i className="icons-yay fas fa-times action" onClick={() => this.accept(invite._id)}/>
-                            <i className="icons-yay fas fa-check-square action" onClick={() => this.accept(invite._id)}/>
+                            <i className="xsign icons-yay fas fa-times action" onClick={() => this.reject(invite._id)}/>
+                            <i className="checkmark icons-yay fas fa-check" onClick={() => this.accept(invite._id)}/>
                             
                         </div>
                         <br></br>
