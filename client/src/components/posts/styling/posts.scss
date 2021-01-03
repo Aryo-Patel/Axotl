@@ -244,7 +244,7 @@ $bp-small: 37.5em;
             }
             &:hover+.post__dropdown {
                 visibility: visible;
-                height: 6.8rem;
+                max-height: 8rem;
             }
         }
     }
@@ -259,14 +259,14 @@ $bp-small: 37.5em;
         background-color: white;
         box-shadow: 0rem .5rem .5rem rgba(32, 33, 36, .28);
         visibility: hidden;
-        height: 0;
+        max-height: 0;
         position: absolute;
-        transition-property: height,
+        transition-property: max-height,
         box-shadow;
         transition-duration: .3s;
         &:hover {
             visibility: visible;
-            height: 6.8rem;
+            max-height: 8rem;
             cursor: pointer;
         }
         &-item {

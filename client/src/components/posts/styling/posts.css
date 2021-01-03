@@ -335,7 +335,7 @@
 
 .post__edit-icon:hover + .post__dropdown {
   visibility: visible;
-  height: 6.8rem;
+  max-height: 8rem;
 }
 
 .post__dropdown {
@@ -346,12 +346,12 @@
   -webkit-box-shadow: 0rem 0.5rem 0.5rem rgba(32, 33, 36, 0.28);
           box-shadow: 0rem 0.5rem 0.5rem rgba(32, 33, 36, 0.28);
   visibility: hidden;
-  height: 0;
+  max-height: 0;
   position: absolute;
-  -webkit-transition-property: height, -webkit-box-shadow;
-  transition-property: height, -webkit-box-shadow;
-  transition-property: height, box-shadow;
-  transition-property: height, box-shadow, -webkit-box-shadow;
+  -webkit-transition-property: max-height, -webkit-box-shadow;
+  transition-property: max-height, -webkit-box-shadow;
+  transition-property: max-height, box-shadow;
+  transition-property: max-height, box-shadow, -webkit-box-shadow;
   -webkit-transition-duration: .3s;
           transition-duration: .3s;
 }
@@ -362,7 +362,7 @@
 
 .post__dropdown:hover {
   visibility: visible;
-  height: 6.8rem;
+  max-height: 8rem;
   cursor: pointer;
 }
 
