@@ -1,12 +1,20 @@
 import React, { Component, Fragment } from 'react';
 import './styling/chat.css';
 import CreateChat from './CreateChat';
+//import EditChat from './EditChat';
 import Moment from 'react-moment';
 import axios from 'axios';
 
 export default class Messages extends Component {
     constructor(props) {
         super(props)
+
+        // this.state = {
+        //     edit = this.props.edit,
+        // }
+
+        //this.goEditPage = this.goEditPage.bind(this);
+        //this.setState = this.setState.bind(this);
     }
     componentDidMount() {
         this.scrollToBottom();
@@ -19,6 +27,14 @@ export default class Messages extends Component {
             this.newestMessages.scrollIntoView({ behavior: 'smooth' })
         }
     }
+
+    // goEditPage = () => {
+    //     this.setState({
+    //         edit: 0,
+    //     })
+    //     console.log("set to true");
+    //     console.log(this.state.edit);
+    // }
 
     render() {
         
@@ -40,11 +56,21 @@ export default class Messages extends Component {
                     <CreateChat />
                 </div>
             )
-        }
+        } 
+        // else if (this.state.edit == 0){
+        //     return (
+        //         <div className="message-container">
+        //             <EditChat />
+        //         </div>
+        //     )
+        // }
         else {
             return (
                 <div>
                     <div className="message-container">
+                        {
+                        //<i onClick={this.goEditPage} className="settings-button fas fa-users-cog"></i>
+                        }
                         <div>
                             {displayMessages}
                             <div ref={(el) => { this.newestMessages = el }}></div>

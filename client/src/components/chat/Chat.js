@@ -138,7 +138,7 @@ class Chat extends Component {
                         <button onClick={this.createNewChat} className="btn button-newChat">+ Create a new chat</button>
                         <Contact onChoose={this.onChoose} onClick= {this.setChatFalse} yourID={this.props.user._id} sponsor={this.props.user.sponsor} />
                     </div>
-                    <Messages yourID={this.props.user._id} onChange={this.onChange} onSubmit={this.sendMessage} messages={this.state.messages} newMessageValue={this.state.newMessage} newChat = {this.state.createNew} />
+                    <Messages yourID={this.props.user._id} onChange={this.onChange} onSubmit={this.sendMessage} messages={this.state.messages} newMessageValue={this.state.newMessage} newChat = {this.state.createNew} currentChat = {this.state.currentChat}/>
                     <div className="clear">
 
                     </div>
