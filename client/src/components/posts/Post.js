@@ -44,27 +44,16 @@ const Post = ({
   setEditReplyModal,
   index,
 }) => {
-  // useEffect(() => {
-  //   //console.log(document.querySelectorAll('.post__comment-container')[index].scrollHeight)
-  //   //console.log(window.innerHeight/10*4)
-  //   //console.log(document.querySelectorAll('.post__comment-container')[index].clientHeight < document.querySelectorAll('.post__comment-container')[index].scrollHeight)
-  //   toggleSeeMore(
-  //     document.querySelectorAll(".post__comment-container")[index]
-  //       .scrollHeight >
-  //       0.4 * window.innerHeight || extendComments == "extended"
-  //       ? "on"
-  //       : "off"
-  //   );
-  // });
+  useEffect(() => {
+    setLiked(post.likes.filter((like) => like.user.toString() == user._id.toString())
+    .length > 0)
+  });
   //state for creating comments
   const [text, updateText] = useState("");
 
   let history = useHistory();
   //state to check if a post is liked or not
-  const [liked, setLiked] = useState(
-    post.likes.filter((like) => like.user.toString() == user._id.toString())
-      .length > 0
-  );
+  const [liked, setLiked] = useState(false);
 
   //COMMENTS SECTION 'SEE MORE'
   const [seeMore, toggleSeeMore] = useState("on");
@@ -154,10 +143,15 @@ const Post = ({
               !liked ? setLiked(true) : setLiked(false);
             }}></i>
         </div>
+        <div className="post__comments">
+        <p className="post__comments-counter">
+            {post.comments.length > 0 ? post.comments.length : `\u00a0`}
+          </p>
           <i className="far fa-comment fa-2x post__comment-icon" onClick={(e) => {
             history.push(`/post/${post._id}`)
             window.scrollTo(0,0)
         }}></i>
+        </div>
       </div>
     </div>
   );

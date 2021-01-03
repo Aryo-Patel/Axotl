@@ -211,7 +211,7 @@ $bp-small: 37.5em;
             &:hover+.comment__dropdown {
                 visibility: visible;
                 height: fit-content;
-                height: 7.45rem;
+                height: 7.3rem;
             }
         }
     }
@@ -220,20 +220,23 @@ $bp-small: 37.5em;
         z-index: 100000;
         position: relative;
         overflow: hidden;
-        border: 1px solid $light-grey;
+        &:not(:last-child) {
+            border-bottom: 1px solid $light-grey;
+        }
         background-color: white;
-        box-shadow: 0rem 1rem 1rem rgba(0, 0, 0, .2);
+        box-shadow: 0rem .5rem .5rem rgba(32, 33, 36, .28);
         visibility: hidden;
         height: 0;
         position: absolute;
-        transition-property: height, box-shadow;
+        transition-property: height,
+        box-shadow;
         transition-duration: .3s;
         right: 0;
         &:hover {
             visibility: visible;
             height: fit-content;
             cursor: pointer;
-            height: 7.45rem;
+            height: 7.3rem;
         }
         &-item {
             padding: .5rem .5rem;
@@ -362,7 +365,7 @@ $bp-small: 37.5em;
             }
             &:hover+.reply__dropdown {
                 visibility: visible;
-                height: 7.45rem;
+                height: 7.25rem;
             }
         }
     }
@@ -370,18 +373,22 @@ $bp-small: 37.5em;
     &__dropdown {
         z-index: 100000;
         background-color: white;
+        &:not(:last-child) {
+            border-bottom: 1px solid $light-grey;
+        }
         overflow: hidden;
-        box-shadow: 0rem 1rem 1rem rgba(0, 0, 0, .2);
+        box-shadow: 0rem .5rem .5rem rgba(32, 33, 36, .28);
         visibility: hidden;
         height: 0;
         position: absolute;
-        transition-property: height, box-shadow;
+        transition-property: height,
+        box-shadow;
         transition-duration: .3s;
         &:hover {
             visibility: visible;
             height: fit-content;
             cursor: pointer;
-            height: 7.45rem;
+            height: 7.25rem;
         }
         &-item {
             padding: .5rem .5rem;

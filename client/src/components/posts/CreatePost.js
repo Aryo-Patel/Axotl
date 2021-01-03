@@ -25,7 +25,7 @@ const CreatePost = ({ createPost }) => {
       console.log("CLICKED");
         e.stopPropagation();
     })
-    $("#createpostsubmit")
+    $("#createpostsubmit").unbind()
     .on("click", (e) => {
       console.log("SUBMITTING");
       if(!formData.content) {
@@ -38,7 +38,7 @@ const CreatePost = ({ createPost }) => {
         title: ""
       })
       modalToggle("closed");
-    });
+    })
   
   return (
     <div className="createPost__wrapper" data-status={modal}>
