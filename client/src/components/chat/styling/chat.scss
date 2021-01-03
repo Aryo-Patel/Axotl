@@ -292,3 +292,18 @@ $primary-white: #eee;
 .dot-none {
     display: none;
 }
+
+.settings-button {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0px;
+    //position: absolute;
+    z-index: 3;
+    right: 0;
+    float: right;
+    font-size: 5vh;
+    color: rgb(46, 46, 46);
+    &:hover{
+        cursor:pointer;
+    }
+}

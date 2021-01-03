@@ -277,4 +277,19 @@
 .dot-none {
   display: none;
 }
+
+.settings-button {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0px;
+  z-index: 3;
+  right: 0;
+  float: right;
+  font-size: 5vh;
+  color: #2e2e2e;
+}
+
+.settings-button:hover {
+  cursor: pointer;
+}
 /*# sourceMappingURL=chat.css.map */

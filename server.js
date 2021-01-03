@@ -135,7 +135,7 @@ function initServer() {
         console.log(`Server Initialized on port ${PORT}`);
     });
 
-    let io = socket(server);
+    //let io = socket(server);
 
     // io.on('connection', (socket) => {
     //     console.log("Connection to socket made...")
