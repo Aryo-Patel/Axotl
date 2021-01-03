@@ -84,7 +84,7 @@ const MyPost = ({
                     //console.log(modal);
                   }}
                 >
-                  Edit Post
+                  Edit
                 </p>
                 <p
                   className="post__dropdown-item"
@@ -97,7 +97,7 @@ const MyPost = ({
                     //console.log(confirmationModal);
                   }}
                 >
-                  Delete This Post
+                  Delete
                 </p>
               </div>
             </div>

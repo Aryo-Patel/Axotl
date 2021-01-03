@@ -263,6 +263,7 @@
 
 .chat-tab:hover {
   color: #feb544;
+  cursor: pointer;
 }
 
 .dot {

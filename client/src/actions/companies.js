@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { GET_COMPANIES, GET_COMPANY, COMPANY_ERROR } from './Types'
+import { GET_COMPANIES, GET_COMPANY, COMPANY_ERROR, CHANGE_DISPLAYED_COMPANIES} from './Types'
 
 export const getCompanies = (pageNumber) => async dispatch => {
     try {
@@ -16,7 +16,7 @@ export const getCompanies = (pageNumber) => async dispatch => {
     }
 }
 
-
+//
 
 //get one company's profile for display
 export const getCompany = (id) => async dispatch => {

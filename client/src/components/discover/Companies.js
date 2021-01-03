@@ -35,6 +35,8 @@ const Companies = ({
 
   const [distFilterToggle, setDistFilterToggle] = useState(false);
 
+  const [aryoNumCompanies, setAryoNumCompanies] = useState(1);
+
   const onSubmit = (e) => {
     e.preventDefault();
     console.log("submission");
@@ -64,10 +66,18 @@ const Companies = ({
       e.target.classList.add("pressedTag");
 
       setDonTag([...donTag, e.target.id]);
+
     } else {
       e.target.classList.remove("pressedTag");
       setDonTag(donTag.filter((tag) => tag != e.target.id));
     }
+
+    //update the number of companies that should be shown
+    let companies = Array.from(document.querySelectorAll('.company-item'));
+    console.log(companies);
+    companies = companies.filter(company => company.classList.contains('pressedTag'));
+    console.log(numCompanies);
+    console.log(companies.length);
   };
 
   const prizeTypes = [

@@ -22,6 +22,9 @@
 
 .dashboard .center-display-wrapper .display-selector-wrapper {
   position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   width: 50%;
 }
 
@@ -55,22 +58,20 @@
 }
 
 .dashboard .center-display-wrapper .split-line {
-  position: relative;
-  margin-left: 10%;
-  width: 3px;
-  max-width: 1%;
+  position: absolute;
+  right: 10%;
+  top: 0px;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
 }
 
-.dashboard .center-display-wrapper .split-line svg rect {
-  position: relative;
-  width: 3px;
-  fill: #2f72ff;
-  stroke: #2f72ff;
-}
-
-.dashboard .center-display-wrapper .split-line svg {
-  position: relative;
-  width: 3px;
+.dashboard .center-display-wrapper .split-line .left-arrow {
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  font-size: 20px;
+  -webkit-transform: scale(4) translateX(25%);
+          transform: scale(4) translateX(25%);
+  position: fixed;
 }
 
 .dashboard .center-display-wrapper .accept-chat {

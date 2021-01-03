@@ -41,36 +41,46 @@ class AddPreviousHackathon extends Component {
 
     render() {
         return (
-            <div>
+            <div className = "educationWrapper">
                 <form onSubmit={this.onSubmit}>
+                <h1 className = "educ-header">Add to your past hackathons</h1>
                 <TextField
                 name="name"
+                
                 value={this.state.name}
                 onChange={this.handleChange}
                 placeholder="Name of the hackathon."
-                required
+                parentClassName = "educ spacer"
+                required = {true}
                 />
                 <TextField
                 name="description"
                 value={this.state.description}
                 onChange={this.handleChange}
                 placeholder="Describe what you did/built."
-                required
+                parentClassName = "educ spacer"
+                required = {true}
                 />
                 <TextField
                 name="location"
                 value={this.state.location}
                 onChange={this.handleChange}
                 placeholder="Where was this?"
+                parentClassName = "educ spacer"
+                required = {true}
                 />
                 <TextField
                 name="date"
                 value={this.state.date}
                 onChange={this.handleChange}
                 placeholder="MM/DD/YYYY"
+                parentClassName = "educ spacer"
+                required = {true}
                 />
-                <br></br>
-                <input type="submit" value="Submit" className="btn btn-success"></input>
+                <div className = "form-actions-educ">
+                    <input type="submit" value="Submit" className="hackathon-button btn btn-success"></input>
+                </div>
+               
                 </form>
             </div>
         )

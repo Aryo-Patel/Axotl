@@ -20,7 +20,7 @@ const Dashboard = ({ isRegistered, id, hasProfile }) => {
   const [collapseSidebar, alterCollapseState] = useState(false);
   useEffect(() => {
     fetchData();
-
+    notifcationDisplayWrapper(0);
   }, []);
   useEffect(() => {
     //notifications are grabbed
@@ -30,6 +30,7 @@ const Dashboard = ({ isRegistered, id, hasProfile }) => {
     console.log(collapseSidebar);
   }, [collapseSidebar]);
   useEffect(() => {
+    
   }, [donationNotifications]);
 
   function donationNotificationsChanged(id) {
@@ -72,25 +73,46 @@ const Dashboard = ({ isRegistered, id, hasProfile }) => {
 
   $(document).ready(function () {
     if ($(window).width() < 900) {
-      console.log('ran')
+      //console.log('ran')
       alterCollapseState(true);
     }
     else {
-      console.log('ran big');
+      //console.log('ran big');
       alterCollapseState(false);
     }
   })
   $(window).resize(function () {
     if ($(window).width() < 900) {
-      console.log('width is small')
+      //console.log('width is small')
       alterCollapseState(true);
     }
     if ($(window).width() > 900) {
-      console.log('width is big');
+      //console.log('width is big');
       alterCollapseState(false);
     }
   });
   $('.display-selector-wrapper').css({ 'width': `${$('.display-selector').width() + $(window).width() * 0.1}` });
+
+  function notifcationDisplayWrapper(index){
+    updateNotificationDisplay(index);
+
+    let sideBars = Array.from(document.querySelectorAll('.side-bar-elem'));
+    let mainSideBar = sideBars[index];
+    let boundingRect = mainSideBar.getBoundingClientRect();
+    console.log(mainSideBar.getBoundingClientRect());
+
+    let containerTop = Array.from(document.querySelectorAll('.display-selector'))[0];
+    containerTop  = containerTop.getBoundingClientRect().top;
+
+    let offset = ((boundingRect.top-containerTop) + (boundingRect.bottom-containerTop))/2;
+
+    let splitLine = Array.from(document.querySelectorAll('.split-line'))[0];
+
+    splitLine.style.top = `${offset-10}px`;
+
+  }
+
+
   return (
     <Fragment>
       {!hasProfile ? (
@@ -105,19 +127,18 @@ const Dashboard = ({ isRegistered, id, hasProfile }) => {
                 <div className="display-selector">
                   {collapseSidebar === false ?
                     <Fragment>
-                      <div className="side-bar-elem" onClick={e => updateNotificationDisplay(0)}><h1 className="text-inside-sidebar" >Chats</h1></div>
-                      <div className="side-bar-elem" onClick={e => updateNotificationDisplay(1)}><h1 className="text-inside-sidebar" >Donation Notifications</h1></div>
-                      <div className="side-bar-elem" onClick={e => updateNotificationDisplay(2)}><h1 className="text-inside-sidebar" >General/Updates</h1></div>
+                      <div className="side-bar-elem" onClick={e => notifcationDisplayWrapper(0)}><h1 className="text-inside-sidebar" >Chats</h1></div>
+                      <div className="side-bar-elem" onClick={e => notifcationDisplayWrapper(1)}><h1 className="text-inside-sidebar" >Donation Notifications</h1></div>
+                      <div className="side-bar-elem" onClick={e => notifcationDisplayWrapper(2)}><h1 className="text-inside-sidebar" >General/Updates</h1></div>
                     </Fragment>
                     :
                     <i class="fas fa-angle-double-right"></i>}
                 </div>
+                <div className="split-line">
+                <i className="left-arrow fas fa-long-arrow-alt-left fa-10x"></i>
               </div>
-              <div className="split-line">
-                <svg>
-                  <rect height="100%"></rect>
-                </svg>
               </div>
+
               <div className="notification-center">
                 {notificationDisplay === 0 &&
                   <div style={{position:"relative"}} className='chat-notifications-wrapper'>
