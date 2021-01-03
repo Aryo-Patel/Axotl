@@ -12,24 +12,46 @@ const TextField = ({
   className,
   parentClassName,
   children,
+  maxlength,
   required
 }) => {
-  return (
+  if(maxlength){
+    return(
     <div className={`${parentClassName}__form-group`}>
-      {children}
-      <input className = {className}
-        type={type}
-        name={name}
-        value={value}
-        onChange={onChange}
-        disabled={disabled}
-        required={required}
-      />
-      {placeholder && 
-      <label className = {`${parentClassName}__label`}>{placeholder}</label>
-}
-    </div>
-  );
+        {children}
+        <input className = {className}
+          type={type}
+          name={name}
+          value={value}
+          onChange={onChange}
+          disabled={disabled}
+          required={required}
+          maxlength={maxlength}
+        />
+        {placeholder && 
+        <label className = {`${parentClassName}__label`}>{placeholder}</label>
+        }
+      </div>
+    )
+  } 
+  else {
+    return (
+      <div className={`${parentClassName}__form-group`}>
+        {children}
+        <input className = {className}
+          type={type}
+          name={name}
+          value={value}
+          onChange={onChange}
+          disabled={disabled}
+          required={required}
+        />
+        {placeholder && 
+        <label className = {`${parentClassName}__label`}>{placeholder}</label>
+        }
+      </div>
+    );
+  } 
 };
 
 TextField.propTypes = {

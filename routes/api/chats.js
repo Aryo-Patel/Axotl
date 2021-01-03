@@ -129,6 +129,7 @@ router.post('/accept/:id', (req, res) => {
         .then(chat => {
             if (req.user.sponsor) {
                 if (chat.invitedSponsors.filter(user => req.user._id.toString() == user).length > 0) {
+                    //This is adding the sponsor to the chat
                     chat.sponsors.unshift(userInfo);
                     Sponsor.findOne({ _id: req.user._id })
                         .then(sponsor => {
@@ -142,7 +143,7 @@ router.post('/accept/:id', (req, res) => {
                 }
             } else {
                 if (chat.invitedRecipients.filter(user => req.user._id.toString() == user).length > 0) {
-                    console.log("passed");
+                    //This is adding the recipient to the chat
                     chat.recipients.unshift(userInfo);
                     Recipient.findOne({ _id: req.user._id })
                         .then(recipient => {
@@ -163,6 +164,56 @@ router.post('/accept/:id', (req, res) => {
             console.log(err)
         })
 })
+
+
+//POST      api/chat/reject/:id
+//Action    This will be the route we use to confirm/accept invites.
+//Private
+router.post('/reject/:id', (req, res) => {
+    let userInfo = {
+        userID: req.user._id,
+        numUnread: 0,
+    }
+
+    console.log(req.params.id);
+
+    Chat.findOne({ _id: req.params.id })
+        .then(chat => {
+            if (req.user.sponsor) {
+                if (chat.invitedSponsors.filter(user => req.user._id.toString() == user).length > 0) {
+                    Sponsor.findOne({ _id: req.user._id })
+                        .then(sponsor => {
+                            for (let i = 0; i < sponsor.chatInvitations.length; i++) {
+                                if (sponsor.chatInvitations[i].toString() == req.params.id) {
+                                    sponsor.chatInvitations.splice(i, 1);
+                                }
+                            }
+                            sponsor.save();
+                        })
+                }
+            } else {
+                if (chat.invitedRecipients.filter(user => req.user._id.toString() == user).length > 0) {
+                    Recipient.findOne({ _id: req.user._id })
+                        .then(recipient => {
+                            for (let i = 0; i < recipient.chatInvitations.length; i++) {
+                                if (recipient.chatInvitations[i].toString() == req.params.id.toString()) {
+                                    recipient.chatInvitations.splice(i, 1);
+                                }
+                            }
+                            recipient.save();
+                        })
+                }
+            }
+            //Saving without adding the user to the chat => deleting the request.
+            chat.save()
+            res.status(200).send(chat)
+        })
+        .catch(err => {
+            res.status(500).send("Server Error")
+            console.log(err)
+        })
+})
+
 
 //POST      api/chat/messages/:id
 //Action    This will be the thing that adds messages

@@ -105,9 +105,9 @@ const Dashboard = ({ isRegistered, id, hasProfile }) => {
                 <div className="display-selector">
                   {collapseSidebar === false ?
                     <Fragment>
-                      <h1 onClick={e => updateNotificationDisplay(0)}>Chats</h1>
-                      <h1 onClick={e => updateNotificationDisplay(1)}>Donation Notifications</h1>
-                      <h1 onClick={e => updateNotificationDisplay(2)}>General/Updates</h1>
+                      <div className="side-bar-elem" onClick={e => updateNotificationDisplay(0)}><h1 className="text-inside-sidebar" >Chats</h1></div>
+                      <div className="side-bar-elem" onClick={e => updateNotificationDisplay(1)}><h1 className="text-inside-sidebar" >Donation Notifications</h1></div>
+                      <div className="side-bar-elem" onClick={e => updateNotificationDisplay(2)}><h1 className="text-inside-sidebar" >General/Updates</h1></div>
                     </Fragment>
                     :
                     <i class="fas fa-angle-double-right"></i>}
@@ -120,7 +120,7 @@ const Dashboard = ({ isRegistered, id, hasProfile }) => {
               </div>
               <div className="notification-center">
                 {notificationDisplay === 0 &&
-                  <div className='chat-notifications-wrapper'>
+                  <div style={{position:"relative"}} className='chat-notifications-wrapper'>
                     {/* {chatNotifications.length > 0 ? <p>flesh out the chats MONKE</p> : <p>You have no new chats!</p>} */}
                     <ChatInvitations />
                   </div>

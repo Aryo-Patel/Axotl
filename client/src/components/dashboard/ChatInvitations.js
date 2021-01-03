@@ -41,13 +41,29 @@ class ChatInvitations extends Component {
         this.loadChatInfo();
     }
 
+    reject = async(id) => {
+        let res = await axios.post(`/api/chat/reject/${id}`)
+        await this.props.loadUser();
+        this.setState({
+            chatInvites: [],
+        })
+        this.loadChatInfo();
+    }
+
     loadDisplay(){
         let output = this.state.chatInvites.map((invite) => {
             if(invite){
                 return(
-                    <div key={invite}>
-                        <h5>{invite["name"]}</h5>
-                        <button className="button" onClick={() => this.accept(invite._id)}>Accept Invite</button>
+                    <div style={{position:"relative"}}>
+                        <div style={{position:"absolute", whiteSpace:"nowrap", display: "inline-block", width: "100%"}} classkey={invite}>
+                            <div style={{position: "relative", width: "30%", display: "inline-block", overflowX: "hidden"}}>
+                                <strong><p style={{position: "relative", verticalAlign:"center", display: "inline-block"}}>{invite["name"]}</p></strong>
+                            </div>
+                            <button className="accept-chat" onClick={() => this.accept(invite._id)}>Accept Invite</button>
+                            <button className="reject-chat" onClick={() => this.reject(invite._id)}>Reject Invite</button>
+                        </div>
+                        <br></br>
+                        <br></br>
                     </div>
                 )
             }
@@ -66,10 +82,8 @@ class ChatInvitations extends Component {
         }
 
         return (
-            <div>
-                <br>
-                </br>
-                <h5>Your current Chat Invitations: </h5>
+            <div style={{position: "relative"}}>
+                <p>Your current Chat Invitations: </p>
                 {displayInvitations}
             </div>
         )

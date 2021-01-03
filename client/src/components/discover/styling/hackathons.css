@@ -373,8 +373,7 @@
   background: white;
   width: 80%;
   overflow-y: scroll;
-  background-position: 0,
- 0;
+  background-position: 0, 0;
 }
 
 .modal-main input {
@@ -500,10 +499,6 @@
 .modal-main .modal-text .delete-request:hover {
   -webkit-transition: 0.3s;
   transition: 0.3s;
-  -webkit-transform: scale(1.2);
-          transform: scale(1.2);
-  -webkit-box-shadow: 0 0px 5px #000;
-          box-shadow: 0 0px 5px #000;
   cursor: pointer;
 }
 

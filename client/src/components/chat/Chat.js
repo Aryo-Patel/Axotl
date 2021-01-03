@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component,  } from 'react';
 import openSocket from 'socket.io-client';
 import { connect } from 'react-redux';
 import Messages from './Messages';
@@ -17,6 +17,8 @@ class Chat extends Component {
             newMessage: '',
             currentChatId: '',
             currentChat: {},
+            createNew: false
+            
 
         }
         this.onChange = this.onChange.bind(this);
@@ -27,6 +29,8 @@ class Chat extends Component {
         this.getMessages = this.getMessages.bind(this);
         this.sendMessage = this.sendMessage.bind(this);
         this.updateEverything = this.updateEverything.bind(this);
+        this.createNewChat = this.createNewChat.bind(this);
+        this.setChatFalse = this.setChatFalse.bind(this);
 
         // this.state.socket.on('newMessage', (message) => {
         //     this.setState({
@@ -76,6 +80,7 @@ class Chat extends Component {
     onChoose(id) {
         this.setState({
             currentChatId: id,
+            createNew: false
         })
         //Retrieving the chat by its ID
         axios.get(`/api/chat/${id}`)
@@ -105,6 +110,19 @@ class Chat extends Component {
         this.forceUpdate();
     }
 
+    createNewChat(){
+        this.setState({
+            createNew: !this.state.createNew
+        })
+    }
+
+    setChatFalse(){
+        console.log('this func executing');
+        this.setState({
+            createNew: false
+        })
+    }
+
     render() {
 
         return (
@@ -115,12 +133,12 @@ class Chat extends Component {
                             Your Chat Messages
                         </h1>
                     </div>
-                    <CreateChat show={this.state.show} onHide={this.hideModal} updateEverything={this.updateEverything}/>
+                    {/* <CreateChat show={this.state.show} onHide={this.hideModal} updateEverything={this.updateEverything}/> */}
                     <div className="chatlogs">
-                        <button onClick={this.showModal} className="btn button-newChat">+ Create a new chat</button>
-                        <Contact onChoose={this.onChoose} yourID={this.props.user._id} sponsor={this.props.user.sponsor} />
+                        <button onClick={this.createNewChat} className="btn button-newChat">+ Create a new chat</button>
+                        <Contact onChoose={this.onChoose} onClick= {this.setChatFalse} yourID={this.props.user._id} sponsor={this.props.user.sponsor} />
                     </div>
-                    <Messages yourID={this.props.user._id} onChange={this.onChange} onSubmit={this.sendMessage} messages={this.state.messages} newMessageValue={this.state.newMessage} />
+                    <Messages yourID={this.props.user._id} onChange={this.onChange} onSubmit={this.sendMessage} messages={this.state.messages} newMessageValue={this.state.newMessage} newChat = {this.state.createNew} />
                     <div className="clear">
 
                     </div>

@@ -158,7 +158,7 @@ class CreateChat extends Component {
             sponsorSearch: '',
             recipientSearch: '',
         })
-        this.props.onHide()
+        //this.props.onHide()
     }
 
     render() {
@@ -229,52 +229,70 @@ class CreateChat extends Component {
 
         return (
             <div className="center">
-                <div className={showHideClassName}>
+                <div>
                     <div className='create_main'>
-                        <h5>ChatName:</h5>
+                        <div className = "side-wrappers">
+
+                        
+                        <div className = "LHS">
+
+                        
                         <TextField
                             type='text'
+                            parentClassName = 'createChat'
                             placeholder="Name your chat!"
                             name='chatName'
                             value={this.state.chatName}
                             onChange={this.onChange}
                             className='input'
+                            maxlength='20'
+                            required = {true}
                         />
+                        <div className = "bottom-spacer">
+
+                        </div>
                         <form onSubmit={this.searchRecipient}>
-                            <h5>Add Recipients (by handle):</h5>
                             <TextField
                                 type='text'
-                                placeholder="Search for a RECIPIENT by handle to add to your chat"
+                                placeholder="Search for a RECIPIENT"
                                 name='recipientSearch'
                                 value={this.state.recipientSearch}
                                 onChange={this.fullRecipientSearchFunction}
                                 className='input'
+                                required = {true}
+                                parentClassName = 'createChat'
                             />
-                            <div>
+                            <div className = "bottom-spacer">
                                 {searchOutputR}
                             </div>
                         </form>
                         <form onSubmit={this.searchSponsor}>
-                            <h5>Add Sponsors (by handle):</h5>
                             <TextField
                                 type='text'
-                                placeholder="Search for a SPONSOR by handle to add to your chat"
+                                placeholder="Search for a SPONSOR"
                                 name='sponsorSearch'
                                 value={this.state.sponsorSearch}
                                 onChange={this.fullSponsorSearchFunction}
                                 className='input'
+                                required ={true}
+                                parentClassName = 'createChat'
                             />
-                            <div>
+                            <div className = "bottom-spacer">
                                 {searchOutputS}
                             </div>
                         </form>
                         <br></br>
-                        <h5>Member List:</h5>
-                        {recipientList}
-                        {sponsorList}
+                        </div>
+                        <div className = "RHS">
+                            <h5>Member List:</h5>
+                            {recipientList}
+                            {sponsorList}
+                        </div>
+                        </div>
                         <br></br>
-                        <button type="submit" onClick={this.closeModal} className="btn btn-secondary">Close</button>
-                        <button type="submit" onClick={this.confirmFinal} className="btn btn-primary">Submit</button>
+                        <div class = "submit-chat-center">
+                            <button type="submit" onClick={this.confirmFinal} className="submit-chat btn btn-primary">Submit</button>
+                        </div>
                     </div>
                 </div>
             </div>
