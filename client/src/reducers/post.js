@@ -104,8 +104,9 @@ export default function(state = initialState, action) {
                 loading: false,
             };
         case ADD_LIKE:
+            console.log(payload)
             newMyPosts = state.myPosts.map((myPost) => {
-                if (myPost._id.toString() == payload._id.toString()) {
+                if (myPost._id.toString() == payload.post._id.toString()) {
                     return payload;
                 } else {
                     return myPost;
@@ -121,6 +122,8 @@ export default function(state = initialState, action) {
                     return post;
                 }
             });
+            console.log(posts);
+            console.log(payload.post);
             return {
                 ...state,
                 posts: {
