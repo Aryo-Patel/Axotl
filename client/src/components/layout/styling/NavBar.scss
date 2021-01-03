@@ -91,7 +91,7 @@ $bp-small: 37.5em;
             label {
                 color: $background-color;
                 transition: color 0.2s, background-color 0.2s;
-                font-size: 2rem;
+                font-size: 1em;
                 /*
                 @media (max-width: $bp-largest) {
                     //font-size: 2.5rem;
@@ -479,7 +479,8 @@ $bp-small: 37.5em;
         cursor: pointer;
     }
     margin-top: 0.5rem;
-    color: rgb(47, 114, 255);
+    font-size: 0.5rem;
+    color: green;
 }
 
 .navbar-toggler {
