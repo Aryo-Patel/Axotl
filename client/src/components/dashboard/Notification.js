@@ -53,26 +53,32 @@ const Notification = ({ header, data, sender, id, userId, updateNotifications, t
         await axios.post('api/chat/create', body, config);
     }
     return (
-        <div className="notification-wrapper">
-            <div className="notification-header">
-                <h3>New {header} from {sender} to {title}!</h3>
+        <div>
+            <div className="notification-wrapper">
+                <div className="notification-header">
+                    <p>New {header} from {sender} to {title}!</p>
+                </div>
+                {/*
+                <div className="notification-body">
+                    {header === 'DONATION OFFER' &&
+                        data.map(donation => (
+                            <div className={`item ${donation.type}`} key={incrementor++}>
+                                <p key={incrementor++} className={`type ${donation.type}`}>Type: {donation.type}</p>
+                                <p key={incrementor++} className="quantity">Quantity: {donation.quantity}</p>
+                            </div>
+                        ))}
+                    <p>{data[0].description}</p>
+                </div>
+                        */}
+                <div className='user-action'>
+                    <i className="fas fa-check-square action" onClick={e => addDonation(e)}></i>
+                    <strong><span className='chat action' onClick={e => chatWithSponsor(e)}>Chat with the sponsor</span></strong>
+                    <i className="fas fa-times action" onClick={e => deleteNotification(e)}></i>
+                </div>
             </div>
-            <div className="notification-body">
-                {header === 'DONATION OFFER' &&
-                    data.map(donation => (
-                        <div className={`item ${donation.type}`} key={incrementor++}>
-                            <p key={incrementor++} className={`type ${donation.type}`}>Type: {donation.type}</p>
-                            <p key={incrementor++} className="quantity">Quantity: {donation.quantity}</p>
-                        </div>
-                    ))}
-                <p>{data[0].description}</p>
-            </div>
-            <div className='user-action'>
-                <i className="fas fa-check-square action" onClick={e => addDonation(e)}></i>
-                <span className='chat action' onClick={e => chatWithSponsor(e)}>Chat with the sponsor</span>
-                <i className="fas fa-times action" onClick={e => deleteNotification(e)}></i>
-            </div>
+            <br></br>
         </div>
+    
     );
 }
 

@@ -292,7 +292,7 @@ router.put("/:post_id/likes", async(req, res) => {
             await post.save();
         }
         const likes = post.likes
-        res.json({ post: req.params.post_id, likes, user });
+        res.json({ post: post, likes, user });
     } catch (err) {
         console.error(err);
         res.status(500).send("Server Error");
@@ -329,12 +329,12 @@ router.put("/:post_id/comments/:comment_id/likes", async(req, res) => {
                 (like) => like.user.toString() != req.user._id.toString()
             )
             post = await Post.findOneAndUpdate({ _id: req.params.post_id }, { $set: { comments } }, { new: true });
-            return res.json({ likes: comment.likes, post_id: req.params.post_id, comment_id: req.params.comment_id })
+            return res.json({ post: post })
         } else {
             await comment.likes.unshift({ user: req.user._id });
             await post.save();
             const likes = comment.likes
-            res.json({ likes, post_id: req.params.post_id, comment_id: req.params.comment_id });
+            return res.json({ post: post })
         }
     } catch (err) {
         console.error(err);

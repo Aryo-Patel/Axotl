@@ -110,6 +110,17 @@ $primary-white: #eee;
       transform: translateY(-50%);
     }
 
+    .icons-yay {
+      position: relative;
+      display: inline-block;
+      float: right;
+      margin-right: 5%;
+      margin-left: 5%;
+      &:hover{
+        cursor: pointer;
+      }
+    }
+
     .notification-center {
       position: relative;
       padding: 2% 2% 2% 2%;
@@ -122,44 +133,54 @@ $primary-white: #eee;
       height: 100%;
 
       .donation-notifications-wrapper {
-        display: grid;
+        /*display: grid;
         row-gap: 20px;
         column-gap: 20px;
         grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        */
       }
     }
   }
 
   /*donation notification styles */
   .notifications {
-    margin: auto;
-    max-width: 450px;
+    // max-width: 450px;
     .notification-wrapper {
-      background-color: $background-color;
-      color: white;
-      display: flex;
-      flex-direction: column;
+      position: relative;
+      position: relative;
+      white-space: nowrap;
+      display: inline-block;
       align-items: center;
       border-radius: 10%;
+      width: 100%;
 
       .notification-header {
+        position: relative;
+        display: inline-block;
         margin: 10px;
-        width: 80%;
-        h3 {
+        width: 50%;
+        font-size: 60%;
+        p {
           text-align: center;
         }
       }
       .notification-body {
         margin: 10px;
-        width: 80%;
+        width: 100%;
         .item {
           border-bottom: 1px solid white;
         }
       }
 
+      .chat{
+        font-size: 70%;
+      }
+
+
       .user-action {
-        display: flex;
-        justify-content: space-evenly;
+        position: relative;
+        display: inline-block;
+        float: right;
 
         .action {
           margin: 5px;
