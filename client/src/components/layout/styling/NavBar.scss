@@ -357,14 +357,14 @@ $bp-small: 37.5em;
     opacity: 0;
     visibility: hidden;
     overflow: hidden;
-    height: 0;
+    max-height: 0;
     top: 100%;
     right: 0%;
     width: 18rem;
     position: absolute;
     border-bottom: 1px solid transparent;
     border-radius: 20px;
-    transition: visibility 0.3s ease, opacity 0.3s ease, height 0.3s ease;
+    transition: visibility 0.3s ease, opacity 0.3s ease, max-height 0.3s ease;
     &__item {
         color: $primary-white;
         display: flex;
@@ -431,7 +431,7 @@ $bp-small: 37.5em;
             //background-color: darken($background-color, 5%);
             .dropdown {
                 display: block;
-                height: 18.5rem;
+                max-height: 25rem;
                 visibility: visible;
                 opacity: 1;
             }

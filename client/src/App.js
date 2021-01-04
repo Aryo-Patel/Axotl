@@ -42,6 +42,7 @@ import MyPosts from './components/myPosts/MyPosts';
 import Support from './components/support/Support';
 import Alert from './components/common/Alert';
 import Post from './components/post/Post'
+import "testLogo.svg";
 
 //import logo from './logo.svg';
 import './App.css';
@@ -52,14 +53,18 @@ function App() {
   }, [])
   window.addEventListener('scroll', (e) => handleScroll(e));
   const handleScroll = (e) => {
-    console.log(e.target.children[0].children[1]);
-      e.target.children[0].children[1].classList.add("scrollbarActive");
+    if(window.pageYOffset + window.innerHeight == document.body.scrollHeight) return;
+    const thumb = document.querySelector(".thumb");
+    let additionalMargin = (window.pageYOffset)/(document.body.scrollHeight - window.innerHeight + 50 + 96);
+    console.log(additionalMargin)
+    thumb.style.top = (window.pageYOffset + additionalMargin * (window.innerHeight - 50 - 96) + 96) + "px";
   }
   return (
     <Provider store={store} >
       <Router>
         <Fragment>
           <NavBar />
+          <div className="thumb"></div>
           <Alert />
           <Switch>
             <Route exact path='/' component={Landing} />

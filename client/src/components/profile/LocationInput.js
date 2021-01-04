@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, {Fragment} from 'react';
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
@@ -33,7 +33,7 @@ class LocationInput extends React.Component {
 
   render() {
     return (
-      <div>
+      <Fragment>
         <PlacesAutocomplete
           value={this.state.address}
           onChange={this.handleChange}
@@ -74,7 +74,7 @@ class LocationInput extends React.Component {
           )}
         </PlacesAutocomplete>
 
-      </div>
+      </Fragment>
     );
   }
 }

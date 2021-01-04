@@ -279,9 +279,38 @@
           column-gap: 3vw;
 }
 
+.hackathon-holder .hackathon__top {
+  background-color: #fafafa;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  text-align: center;
+  font-size: 2rem;
+}
+
+.hackathon-holder .hackathon__top h1 {
+  font-size: 1.8rem !important;
+}
+
+.hackathon-holder .hackathon__top a {
+  font-size: 1.7rem !important;
+  color: #6161a5;
+}
+
 .hackathon-holder .hackathon-item {
-  -webkit-transition: 1s;
-  transition: 1s;
   opacity: 0;
   position: relative;
   -webkit-transition: 0.2s;
@@ -292,7 +321,14 @@
           box-shadow: 0 2px 5px 1px rgba(64, 60, 67, 0.16);
   z-index: 10;
   overflow: hidden;
-  background-color: #eee;
+  background-color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .hackathon-holder .hackathon-item h1 {
@@ -300,17 +336,88 @@
 }
 
 .hackathon-holder .hackathon-item:hover, .hackathon-holder .hackathon-item:hover::after {
-  -webkit-transition: 0.2s;
-  transition: 0.2s;
-  -webkit-transform: rotate3d(1, 1, 0, 10deg);
-          transform: rotate3d(1, 1, 0, 10deg);
+  -webkit-box-shadow: 0rem 0.25rem 0.25rem rgba(32, 33, 36, 0.28);
+          box-shadow: 0rem 0.25rem 0.25rem rgba(32, 33, 36, 0.28);
   cursor: pointer;
 }
 
 .hackathon-holder .hackathon-item .hackathon-content {
-  width: 85%;
-  margin: 3rem;
+  padding: 1rem 3rem 1rem 3rem;
   text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 100%;
+}
+
+.hackathon-holder .hackathon-item .bottom {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: left;
+  border-top: 1px solid lightgray;
+  margin-top: 1rem;
+  padding: .5rem;
+  padding-top: 1rem;
+  justify-self: flex-end;
+}
+
+.hackathon-holder .hackathon-item .bottom p {
+  margin-bottom: 0;
+}
+
+.hackathon-holder .hackathon-item .bottom i {
+  color: #2f72ff;
+  margin-right: 1rem;
+}
+
+.hackathon-holder .hackathon-item .bottom .hackathon__date {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.hackathon-holder .hackathon-item .bottom .hackathon__location {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+.hackathon-holder .hackathon-item .bottom .hackathon__location i {
+  margin-top: .5rem;
 }
 
 .hackathons__content {
@@ -374,7 +481,6 @@
 
 .modal-main input {
   border: none;
-  margin-top: 10px;
   border-bottom: 1px solid grey;
 }
 
@@ -429,6 +535,79 @@
 
 .modal-main .modal-text .modal-form {
   margin-bottom: 70px;
+}
+
+.modal-main .modal-text .modal-form .date-encapsulator {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.modal-main .modal-text .modal-form .form-group {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border: 2px solid #CCD8DF;
+  border-radius: 3px;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.modal-main .modal-text .modal-form .form-group .favicon-holder {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 4px 10px;
+  color: #CCD8DF;
+  margin: 3px;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  border-right: 2px solid #CCD8DF;
+}
+
+.modal-main .modal-text .modal-form .form-group .favicon-holder .fab {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.modal-main .modal-text .modal-form .form-group .form-group-input {
+  padding-left: 8px;
+  width: 100%;
+  display: block;
+  border: none;
+}
+
+.modal-main .modal-text .modal-form .form-group .spacer__form-group {
+  border: none;
+}
+
+.modal-main .modal-text .modal-form .form-group .spacer__form-group input {
+  margin-top: 3.5px;
+  width: 100%;
+  display: block;
+  height: 100%;
+  border: none;
+  background-color: transparent;
 }
 
 .modal-main .modal-text .dots-holder {
