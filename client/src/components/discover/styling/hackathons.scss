@@ -320,7 +320,6 @@ $bp-small: 37.5em;
     transform: translate(-50%, -50%);
     input {
         border: none;
-        margin-top: 10px;
         border-bottom: 1px solid grey;
     }
     table:not(#donations-table):not(#prizes-table)>tbody {
@@ -363,6 +362,52 @@ $bp-small: 37.5em;
         font-size: 1.6em;
         .modal-form {
             margin-bottom: 70px;
+            .date-encapsulator {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+            }
+            .form-group {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border: 2px solid #CCD8DF;
+                border-radius: 3px;
+                transition: 0.3s;
+                .favicon-holder {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 4px 10px;
+                    color: #CCD8DF;
+                    margin: 3px;
+                    transition: 0.3s;
+                    border-right: 2px solid #CCD8DF;
+                    .fab {
+                        display: flex;
+                        justify-content: center;
+                    }
+                }
+                .form-group-input {
+                    padding-left: 8px;
+                    width: 100%;
+                    display: block;
+                    border: none;
+                }
+                .spacer__form-group {
+                    border: none;
+                    // display: flex;
+                    // align-items: center;
+                    input {
+                        margin-top: 3.5px;
+                        width: 100%;
+                        display: block;
+                        height: 100%;
+                        border: none;
+                        background-color: transparent;
+                    }
+                }
+            }
         }
         .dots-holder {
             position: fixed;

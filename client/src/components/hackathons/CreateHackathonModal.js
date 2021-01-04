@@ -427,6 +427,44 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
     function choosePage(n) {
         changePageNumber(n);
     }
+
+    function addFocusEffect(){
+        let inputs = Array.from(document.querySelectorAll('.form-group input'));
+        
+
+        inputs.forEach(input => {
+            input.addEventListener('focus', e => {
+
+                if(input.parentNode.classList.contains('spacer__form-group')) {
+                    e.target.parentNode.parentNode.style.border = '2px solid #4983FF';
+
+                    e.target.parentNode.parentNode.children[0].style.borderRight = '2px solid #4983FF';
+                    e.target.parentNode.parentNode.children[0].style.color = '#4983FF';
+                }
+                else{
+                    e.target.parentNode.style.border = '2px solid #4983FF';
+
+                    e.target.parentNode.children[0].style.borderRight = '2px solid #4983FF';
+                    e.target.parentNode.children[0].style.color = '#4983FF';
+                }
+            });
+            input.addEventListener('blur', e => {
+
+                if(input.parentNode.classList.contains('spacer__form-group')){
+                    e.target.parentNode.parentNode.style.border = '2px solid #CCD8DF';
+                    e.target.parentNode.parentNode.children[0].style.borderRight = '2px solid #CCD8DF';
+                    e.target.parentNode.parentNode.children[0].style.color = '#CCD8DF';
+                }
+                else{
+                    e.target.parentNode.style.border = '2px solid #CCD8DF';
+                    e.target.parentNode.children[0].style.borderRight = '2px solid #CCD8DF';
+                    e.target.parentNode.children[0].style.color = '#CCD8DF';
+                }
+
+            })
+        })
+    }
+    addFocusEffect();
     return (
         <div onClick={e => close(e)} className={showHideClassName}>
             <div className="animation-wrapper">
@@ -446,24 +484,29 @@ const CreateHackathonModal = ({ handleClose, show, createHackathon }) => {
                             {pageNumber === 1 && (
                                 <Fragment>
                                     <div className='form-group'>
-                                        <input type="text" placeholder="* Hackathon name" name="title" value={formData.title} onChange={e => onInput(e)} required />
+                                        <div className = "favicon-holder"><i className="fab fa-black-tie"></i></div>
+                                        <input type="text" placeholder="* Hackathon name" className = "form-group-input" name="title" value={formData.title} onChange={e => onInput(e)} required />
                                     </div>
 
                                     <div className="form-group">
-                                        <LocationInput realPlaceholder="Where will your hackathon be held?" onChange={(e) => locationSelect(e)} required />
+                                        <div className = "favicon-holder"><i className="fas fa-globe-americas"></i></div>
+                                        <LocationInput parentClassName = "form-group-input spacer" realPlaceholder="Where will your hackathon be held?" onChange={(e) => locationSelect(e)} required />
                                     </div>
 
                                     <div className="form-group">
-                                        <input type="text" placeholder="Give us a link to your hackathon's website" name="website" value={formData.website} onChange={e => onInput(e)} />
+                                        <div className = "favicon-holder"><i className="fas fa-globe"></i></div>
+                                        <input type="text" className = "form-group-input" placeholder="Give us a link to your hackathon's website" name="website" value={formData.website} onChange={e => onInput(e)} />
+                                    </div>
+                                    <div className = "date-encapsulator">
+                                    <div className="form-group">
+                                        <div className = "favicon-holder"><i className="fas fa-calendar-alt"></i></div>
+                                        <input type="text" onFocus = {e => e.target.type = 'date'} placeholder = "Start Date" className = 'form-group-input' onBlur = {e => e.target.type = 'blur'} name="startDate" value={formData.startDate} onChange={e => onInput(e)} />
                                     </div>
 
-                                    <div className="form-group"><h2>What days will your hackathon be run?</h2></div>
                                     <div className="form-group">
-                                        <span>*Start Date: </span><input type="date" name="startDate" value={formData.startDate} onChange={e => onInput(e)} />
+                                        <div className ="favicon-holder"><i className="fas fa-calendar-alt"></i></div>
+                                        <input type="text" placeholder = "End Date" className = "form-group-input" onFocus = {e => e.target.type = 'date'} onBlur = {e => e.target.type = 'text'} name="endDate" value={formData.endDate} onChange={e => onInput(e)} />
                                     </div>
-
-                                    <div className="form-group">
-                                        <span>*End Date: </span><input type="date" name="endDate" value={formData.endDate} onChange={e => onInput(e)} />
                                     </div>
                                 </Fragment>
                             )}
