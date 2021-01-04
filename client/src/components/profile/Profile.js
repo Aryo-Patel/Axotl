@@ -95,7 +95,7 @@ class Profile extends Component {
     }
 
     return (
-      <div>
+      <div className="big-wrap">
         {profileContent}
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChLzU35-UEy2scOcEffcDgG4ubtBxDA0s&libraries=places"></script>
       </div>

@@ -293,14 +293,15 @@ $primary-white: #eee;
     display: none;
 }
 
-.settings-button {
+.chat-banner {
     position: -webkit-sticky;
     position: sticky;
     top: 0px;
     //position: absolute;
     z-index: 3;
-    right: 0;
-    float: right;
+    width: 100%;
+    text-align: center;
+    background-color:rgba(118, 138, 252, 0.412);
     font-size: 5vh;
     color: rgb(46, 46, 46);
     &:hover{
