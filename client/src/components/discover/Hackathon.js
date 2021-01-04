@@ -1,21 +1,25 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import Moment from 'react-moment';
-import { Redirect, Link } from 'react-router-dom'
+import getDateRange from "./util/getRange"
+import { Redirect, useHistory} from 'react-router-dom'
 
 
 const Hackathon = ({ hackathon }) => {
+    const history = useHistory();
     let i = 0;
     const onClick = (e) => {
-        return <Redirect to={`/hackathon/${hackathon._id}`} />
+        history.push(`/hackathon/${hackathon._id}`);
     }
     return (
         <div className="hackathon-item" onClick={e => onClick(e)}>
+            <div className="hackathon__top">
+                    <h1>{hackathon.title}</h1>
+                    {hackathon.website ? <a href={`http://${hackathon.website}`} className="website">{hackathon.website}</a> : null}
+                </div>
             <div className="hackathon-content">
-                <h1>{hackathon.title}</h1>
 
                 <p className="description">{hackathon.description}</p>
-                {hackathon.website ? <p className="website">{hackathon.website}</p> : <p>Organizer didn't link their website!</p>}
                 <div className = "donations-container">
                     <span>Donations requested: </span>
                     {hackathon.donations.map(donation => (
@@ -25,11 +29,16 @@ const Hackathon = ({ hackathon }) => {
                             <span>{donation.type} </span>
                     ))}
                 </div>
-                {hackathon.location ? <p>Location : {hackathon.location}</p> : <p>Organizer did not link hackathon's location</p>}
-                <p><Moment format='MM/DD/YYYY'>{hackathon.startDate}</Moment> - <Moment format='MM/DD/YYYY'>{hackathon.endDate}</Moment></p>
-                <Link to={`/hackathon/${hackathon._id}`} className="btn btn-primary">
-                    View Hackathon
-                </Link>
+                <div className="bottom">
+                    <div className="hackathon__date">
+                        <i class="far fa-calendar-alt"></i>
+                        <p>{getDateRange(hackathon.startDate, hackathon.endDate)}</p>
+                    </div>
+                    <div className="hackathon__location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        {hackathon.location ? <p>{hackathon.location}</p> : <p>TBD</p>}
+                    </div>
+                </div>
             </div>
 
         </div>

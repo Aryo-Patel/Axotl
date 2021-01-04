@@ -94,4 +94,5 @@ code {
     z-index: 1;
     right: 0;
     top: 0;
+    transition: top .05s ease;
 }
