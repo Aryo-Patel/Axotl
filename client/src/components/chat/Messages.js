@@ -71,6 +71,7 @@ export default class Messages extends Component {
                         {
                         //<i onClick={this.goEditPage} className="settings-button fas fa-users-cog"></i>
                         }
+                        <h1 className="chat-banner">{this.props.currentChat.name}</h1>
                         <div>
                             {displayMessages}
                             <div ref={(el) => { this.newestMessages = el }}></div>

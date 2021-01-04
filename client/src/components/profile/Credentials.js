@@ -26,42 +26,51 @@ export default class Education extends Component {
 
         let educationContent = education.map(education => {
             return (
-                <dl className="row" style={{backgroundColor:"#85e085"}}>
-                    <dt className="col-sm-3">{education.school}</dt>
-                    <dd className="col-sm-9">
-                        {education.degree ? <p>{education.degree}</p> : <p>No degree obtained</p>}
-                        <p>{education.fieldOfStudy}</p>
-                        <p>{education.description}</p>
-                        <p><Moment format="MM/DD/YYYY">{education.from}</Moment> - {education.current ? <p>Now</p> : <Moment format="MM/DD/YYYY">{education.to}</Moment>}</p>
-                        <button className="btn btn-danger" onClick={this.deleteEdu.bind(this, education._id)}>Delete Education</button>
-                    </dd>
-                </dl>
+                <div className="cred-row">
+                    <strong><p className="head-cred">{education.school}</p></strong>
+                    <span className="cred-dates"><Moment format="MM/DD/YYYY">{education.from}</Moment> - {education.current ? "Now" : <Moment format="MM/DD/YYYY">{education.to}</Moment>}</span>
+                    <br></br>
+                    {education.degree ? <p className="sub-cred">{education.degree}</p> : <p>No degree obtained</p>}
+                    <br/>
+                    <p className="sub-cred">{education.fieldOfStudy}</p>
+                    <br/>
+                    <p className="cred-descr">{education.description}</p>
+                    <br />
+                    
+                    <br></br>
+                    {/*<button className="btn btn-danger" onClick={this.deleteEdu.bind(this, education._id)}>Delete Education</button>*/}
+                </div>
             )
         })
         let experienceContent = experience.map(experience => {
             return (
-                <dl className="row" style={{backgroundColor:"#71da71"}}>
-                    {experience.company ? <dt className="col-sm-3">{experience.company}</dt> : <dt className="col-sm-3">Unaffiliated</dt>}
-                    <dd className="col-sm-9">
-                    {experience.position ? <p>{experience.position}</p> : <br></br>}
-                    <p>{experience.description}</p>
-                    <p><Moment format="MM/DD/YYYY">{experience.from}</Moment> - {experience.current ? <p>Now</p> : <Moment format="MM/DD/YYYY">{experience.to}</Moment>}</p>
-                    <button className="btn btn-danger" onClick={this.deleteExp.bind(this, experience._id)}>Delete Experience</button>
-                    </dd>
-                </dl>
+                <div className="cred-row">
+                    {experience.company? <strong><p className="head-cred">{experience.company}</p></strong> : <strong><p className="head-cred">Unaffiliated</p></strong>}
+                    <span className="cred-dates"><Moment format="MM/DD/YYYY">{experience.from}</Moment> - {experience.current ? "Now" : <Moment format="MM/DD/YYYY">{experience.to}</Moment>}</span>
+                    <br></br>
+                    {experience.position ? <p className="sub-cred">{experience.position}</p> : <p>No specified position</p>}
+                    <br/>
+                    <p className="cred-descr">{experience.description}</p>
+                    <br />
+                    <br/>
+                    {/*<button className="delete-btn btn btn-danger" onClick={this.deleteExp.bind(this, experience._id)}>Delete Experience</button>*/}
+                </div>
             )
         })
         let hackathonContent = previousHackathons.map(hackathon => {
             return (
-                <dl className="row" style={{backgroundColor:"#32cd32"}}>
-                    <dt className="col-sm-3">{hackathon.name}</dt>
-                    <dd className="col-sm-9">
-                        <p>{hackathon.description}</p>
-                        <p>{hackathon.location ? <p>{hackathon.location}</p> : <p>No location specified.</p>}</p>
-                        <p>{hackathon.date ? <Moment format="MM/DD/YYYY">{hackathon.date}</Moment> : <p>No date specified.</p>}</p>
-                        <button className="btn btn-danger" onClick={this.deletePH.bind(this, hackathon._id)}>Delete Hackathon</button>
-                    </dd>
-                </dl>
+                <div className="cred-row">
+                    <strong><p className="head-cred">{hackathon.name}</p></strong>
+                    {hackathon.date ?  <span className="cred-dates"><Moment format="MM/DD/YYYY">{hackathon.date}</Moment></span> : <span>No date specified.</span>}
+                    <br></br>
+                    {hackathon.location ? <p className="sub-cred">{hackathon.location}</p> : <p>No specified location</p>}
+                    <br/>
+                    <p className="cred-descr">{hackathon.description}</p>
+                    <br />
+                    <br/>
+                    {/*<button className="btn btn-danger" onClick={this.deletePH.bind(this, hackathon._id)}>Delete Hackathon</button>*/}
+                </div>
+                
             )
         })
 

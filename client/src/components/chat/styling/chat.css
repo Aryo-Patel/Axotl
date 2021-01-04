@@ -278,18 +278,19 @@
   display: none;
 }
 
-.settings-button {
+.chat-banner {
   position: -webkit-sticky;
   position: sticky;
   top: 0px;
   z-index: 3;
-  right: 0;
-  float: right;
+  width: 100%;
+  text-align: center;
+  background-color: rgba(118, 138, 252, 0.412);
   font-size: 5vh;
   color: #2e2e2e;
 }
 
-.settings-button:hover {
+.chat-banner:hover {
   cursor: pointer;
 }
 /*# sourceMappingURL=chat.css.map */

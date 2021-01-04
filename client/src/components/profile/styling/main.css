@@ -52,9 +52,13 @@
   border-bottom: 1px solid #eee;
 }
 
+.big-wrap {
+  position: relative;
+  margin-top: 20rem;
+}
+
 .myProfileWrapper {
-  margin-top: 0;
-  height: 100vh;
+  position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -67,7 +71,7 @@
 }
 
 .myProfileWrapper .profileWrapper {
-  margin-top: 10rem;
+  position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -85,8 +89,8 @@
   height: -moz-fit-content;
   height: fit-content;
   width: 70%;
-  -webkit-box-shadow: 0 2px 5px 1px rgba(64, 60, 67, 0.16);
-          box-shadow: 0 2px 5px 1px rgba(64, 60, 67, 0.16);
+  -webkit-box-shadow: 0 2px 5px 6px rgba(64, 60, 67, 0.16);
+          box-shadow: 0 2px 5px 6px rgba(64, 60, 67, 0.16);
 }
 
 .myProfileWrapper .compHeader {
@@ -158,6 +162,8 @@
 .myProfileWrapper .imgWrapper .avatar {
   display: block;
   border-radius: 50%;
+  -webkit-box-shadow: 0 2px 5px 6px rgba(64, 60, 67, 0.16);
+          box-shadow: 0 2px 5px 6px rgba(64, 60, 67, 0.16);
 }
 
 .myProfileWrapper .handle {
@@ -291,7 +297,7 @@
 }
 
 .profileWrapper .more-info div {
-  width: 70%;
+  width: 100%;
   text-align: center;
   padding: 15px;
 }
@@ -1368,5 +1374,51 @@
 .goAway {
   opacity: 0;
   visibility: none;
+}
+
+.cred-row {
+  margin-bottom: 5%;
+  position: relative;
+  background-color: #f3f3f3;
+  -webkit-box-shadow: 0 2px 5px 6px rgba(64, 60, 67, 0.16);
+          box-shadow: 0 2px 5px 6px rgba(64, 60, 67, 0.16);
+  width: 100%;
+  height: auto;
+  height: 15vh;
+  float: left;
+  overflow-y: hidden;
+}
+
+.cred-row:hover {
+  -webkit-box-shadow: 0 2px 5px 8px rgba(64, 60, 67, 0.16);
+          box-shadow: 0 2px 5px 8px rgba(64, 60, 67, 0.16);
+}
+
+.cred-row .head-cred {
+  position: relative;
+  float: left;
+  line-height: 120%;
+}
+
+.cred-row .sub-cred {
+  text-align: left;
+  position: absolute;
+  font-size: calc(.6vw + .6vh);
+  line-height: 150%;
+}
+
+.cred-row .cred-descr {
+  margin-top: 1%;
+  text-align: left;
+  position: absolute;
+  font-size: calc(.5vw + .5vh);
+  line-height: 120%;
+}
+
+.cred-row .cred-dates {
+  position: absolute;
+  font-size: 150%;
+  display: inline;
+  right: 5%;
 }
 /*# sourceMappingURL=main.css.map */

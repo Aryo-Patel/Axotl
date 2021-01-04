@@ -40,22 +40,28 @@ $translateAmount: 100px;
     border-bottom: 1px solid $primary-white;
 }
 
+.big-wrap{
+    position: relative;
+    margin-top: 20rem;
+}
+
 //Styles for a user's profile that has been created
 .myProfileWrapper {
-    margin-top: 0;
-    height: 100vh;
+    position: relative;
+    // height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     .profileWrapper {
-        margin-top: 10rem;
+        position: relative;
+        //margin-top: 10rem;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: stretch;
         height: fit-content;
         width: 70%;
-        box-shadow: 0 2px 5px 1px rgba(64,60,67,.16);
+        box-shadow: 0 2px 5px 6px rgba(64,60,67,.16);
     }
     .compHeader {
         display: flex;
@@ -98,6 +104,7 @@ $translateAmount: 100px;
         .avatar {
             display: block;
             border-radius: 50%;
+            box-shadow: 0 2px 5px 6px rgba(64,60,67,.16);
         }
     }
     .handle {
@@ -179,7 +186,7 @@ $translateAmount: 100px;
         display: flex;
         justify-content: space-evenly;
         div{
-            width: 70%;
+            width: 100%;
             text-align: center;
             padding: 15px;
         }
@@ -985,4 +992,49 @@ $translateAmount: 100px;
 .goAway {
     opacity: 0;
     visibility: none;
+}
+
+//This will be what you see when you're a recipient and hit "Your Profile"
+.cred-row{
+    margin-bottom: 5%;
+    position: relative;
+    //display: inline-block;
+    background-color: rgb(243, 243, 243);
+    box-shadow: 0 2px 5px 6px rgba(64,60,67,.16);
+    //white-space: nowrap;
+    width: 100%;
+    height: auto;
+    height: 15vh;
+    float: left;
+    overflow-y: hidden;
+    &:hover{
+        box-shadow:  0 2px 5px 8px rgba(64,60,67,.16);
+    }
+    .head-cred{
+        position: relative;
+        float: left;
+        line-height: 120%;
+    }
+    .sub-cred{
+        text-align: left;
+        position: absolute;
+        font-size: calc(.6vw + .6vh);
+        line-height: 150%;
+    }
+    .cred-descr{
+        margin-top:1%;
+        text-align: left;
+        position: absolute;
+        font-size: calc(.5vw + .5vh);
+        line-height: 120%;
+    }
+    .cred-dates{
+        position: absolute;
+        font-size: 150%;
+        display: inline;
+        right: 5%;
+        // white-space: nowrap;
+        // position: relative;
+        // float: right;
+    }
 }
