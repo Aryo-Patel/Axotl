@@ -280,7 +280,7 @@
 }
 
 .hackathon-holder .hackathon__top {
-  background-color: #fafafa;
+  background-color: rgba(246, 246, 246, 0.5);
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -303,6 +303,8 @@
 
 .hackathon-holder .hackathon__top h1 {
   font-size: 1.8rem !important;
+  color: rgba(25, 25, 40, 0.9);
+  font-weight: 700;
 }
 
 .hackathon-holder .hackathon__top a {
@@ -379,6 +381,7 @@
   padding: .5rem;
   padding-top: 1rem;
   justify-self: flex-end;
+  width: 100%;
 }
 
 .hackathon-holder .hackathon-item .bottom p {
@@ -698,13 +701,17 @@
 }
 
 .company-holder .company-item {
-  -webkit-transition: 1s;
-  transition: 1s;
   opacity: 0;
   position: relative;
   -webkit-transition: 0.2s;
   transition: 0.2s;
   border-radius: 4px;
+  color: rgba(0, 0, 0, 0.95);
+  -webkit-box-shadow: 0 2px 5px 1px rgba(64, 60, 67, 0.16);
+          box-shadow: 0 2px 5px 1px rgba(64, 60, 67, 0.16);
+  z-index: 10;
+  overflow: hidden;
+  background-color: white;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -712,12 +719,42 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  color: rgba(0, 0, 0, 0.95);
-  -webkit-box-shadow: 0 2px 5px 1px rgba(64, 60, 67, 0.16);
-          box-shadow: 0 2px 5px 1px rgba(64, 60, 67, 0.16);
-  background-color: #eee;
-  z-index: 10;
-  overflow: hidden;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.company-holder .company-item .company__top {
+  background-color: rgba(246, 246, 246, 0.5);
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  text-align: center;
+  font-size: 2rem;
+}
+
+.company-holder .company-item .company__top h1 {
+  font-size: 1.8rem !important;
+  color: rgba(25, 25, 40, 0.9);
+  font-weight: 700;
+}
+
+.company-holder .company-item .company__top a {
+  font-size: 1.7rem !important;
+  color: #6161a5;
 }
 
 .company-holder .company-item h1 {
@@ -755,11 +792,47 @@
   padding-bottom: 10px;
 }
 
+.company-holder .company-item .company-content .company__location {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+.company-holder .company-item .company-content .company__location i {
+  margin-top: .5rem;
+  margin-right: 1rem;
+}
+
+.company-widget-donations {
+  width: 90%;
+  padding-top: 1rem;
+  border-top: 1px solid lightgray;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
 .company-widget-donations .donButton {
   padding: 0 4px;
   background-color: rgba(255, 165, 0, 0.6);
   border-radius: 5px;
-  margin: 0px 5px 0px 5px;
+  margin: 5px 5px 5px 5px;
 }
 
 .searchingContainer {

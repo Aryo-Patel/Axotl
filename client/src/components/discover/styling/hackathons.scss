@@ -182,7 +182,7 @@ $bp-small: 37.5em;
     row-gap: 5vh;
     column-gap: 3vw;
     .hackathon__top {
-        background-color: rgb(250, 250, 250);
+        background-color: rgba(246, 246, 246, .5);
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -194,6 +194,8 @@ $bp-small: 37.5em;
         font-size: 2rem;
         h1 {
             font-size: 1.8rem!important;
+            color: rgba(25, 25, 40, .9);
+            font-weight: 700;
         }
         a {
             font-size: 1.7rem!important;
@@ -242,6 +244,7 @@ $bp-small: 37.5em;
             padding: .5rem;
             padding-top: 1rem;
             justify-self: flex-end;
+            width: 100%;
             p {
                 margin-bottom: 0;
             }
@@ -481,31 +484,39 @@ $bp-small: 37.5em;
     row-gap: 5vh;
     column-gap: 3vw;
     .company-item {
-        transition: 1s;
         opacity: 0;
         position: relative;
         transition: 0.2s;
         border-radius: 4px;
-        display: flex;
-        flex-direction: column;
-        // background-image: linear-gradient(to top left, #f77b61, yellow);
         color: rgba(0, 0, 0, 0.95);
         box-shadow: 0 2px 5px 1px rgba(64, 60, 67, .16);
-        background-color: #eee;
         z-index: 10;
         overflow: hidden;
-        // &::after {
-        //     background-repeat: no-repeat;
-        //     content: "";
-        //     position: absolute;
-        //     z-index: -100;
-        //     width: 99%;
-        //     height: 98%;
-        //     top: 1%;
-        //     left: 0.5%;
-        //     border-radius: 5px;
-        //     background-color: white;
-        // }
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .company__top {
+            background-color: rgba(246, 246, 246, .5);
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            text-align: center;
+            font-size: 2rem;
+            h1 {
+                font-size: 1.8rem!important;
+                color: rgba(25, 25, 40, .9);
+                font-weight: 700;
+            }
+            a {
+                font-size: 1.7rem!important;
+                color: rgb(97, 97, 165);
+            }
+        }
         h1 {
             font-size: $font-size;
         }
@@ -527,16 +538,33 @@ $bp-small: 37.5em;
             text-align: center;
             position: relative;
             padding-bottom: 10px;
+            .company__location {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: flex-start;
+                i {
+                    margin-top: .5rem;
+                    margin-right: 1rem;
+                }
+            }
         }
     }
 }
 
 .company-widget-donations {
+    width: 90%;
+    padding-top: 1rem;
+    border-top: 1px solid rgb(211, 211, 211);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
     .donButton {
         padding: 0 4px;
         background-color: rgba(255, 165, 0, 0.6);
         border-radius: 5px;
-        margin: 0px 5px 0px 5px;
+        margin: 5px 5px 5px 5px;
     }
 }
 

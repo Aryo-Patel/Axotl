@@ -21,13 +21,15 @@ const Hackathon = ({ hackathon }) => {
 
                 <p className="description">{hackathon.description}</p>
                 <div className = "donations-container">
-                    <span>Donations requested: </span>
-                    {hackathon.donations.map(donation => (
-                        donation.received.length > 0 ?
-                            <Fragment></Fragment>
-                            :
-                            <span>{donation.type} </span>
-                    ))}
+                    {hackathon.donations.length > 0 ? (
+                    <span>Goals: </span>) : (<span>Goals: TBD</span>)}
+                    {hackathon.donations.map((donation, index) => {
+                        // return donation.received.length > 0 ?
+                        //     <Fragment></Fragment>
+                        //     : 
+                        return index != 0 ?
+                            <span>&#8226; {donation.type} </span> : <span>{donation.type} </span>
+                    })}
                 </div>
                 <div className="bottom">
                     <div className="hackathon__date">
