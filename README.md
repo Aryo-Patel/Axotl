@@ -54,7 +54,7 @@ The project is unfortunately not hosted at the moment (usually at <a href='https
 
 
 ## Support
-Reach out to us at support@axotl.com
+Reach out to us at alexander.nagel21@gmail.com
 
 ## License
 - [MIT License](https://opensource.org/licenses/mit-license.php)
